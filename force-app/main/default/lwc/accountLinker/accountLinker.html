@@ -1,0 +1,521 @@
+<template>
+    <div class="account-manager-container">
+        
+        <!-- Screen 1: Account Selection -->
+        <template if:true={isScreen1}>
+            <div class="screen screen-1">
+                <div class="header-section">
+                    <h1 class="screen-title">
+                        <lightning-icon icon-name="standard:account" size="medium" class="title-icon"></lightning-icon>
+                        Select Account
+                    </h1>
+                    <p class="screen-subtitle">Choose an account to continue with the process</p>
+                </div>
+
+                <div class="search-section">
+                    <div class="search-container">
+                        <div class="search-wrapper" style="justify-self: anchor-center;">
+                            <lightning-icon icon-name="utility:search" size="small" class="search-icon"></lightning-icon>
+                            <input 
+                                type="text" 
+                                class="search-input"
+                                placeholder="Select account to continue..."
+                                value={searchTerm}
+                                oninput={handleSearchInput}
+                                onfocus={handleSearchFocus}
+                                onblur={handleSearchBlur}
+                            />
+                            <template if:true={selectedAccount}>
+                                <button class="clear-button" onclick={handleClearSelection} title="Clear selection">
+                                    <lightning-icon icon-name="utility:close" size="x-small"></lightning-icon>
+                                </button>
+                            </template>
+                            <template if:true={isLoading}>
+                                <lightning-spinner alternative-text="Searching..." size="small" class="search-spinner"></lightning-spinner>
+                            </template>
+                        </div>
+                        
+                        <!-- Dropdown for search results -->
+                        <template if:true={showDropdown}>
+                            <div class="dropdown-container">
+                                <ul class="account-list">
+                                    <template for:each={accountOptions} for:item="account">
+                                        <li key={account.id} 
+                                            class="account-item" 
+                                            data-id={account.id}
+                                            onclick={handleAccountSelect}
+                                            onmousedown={handleAccountSelect}>
+                                            <div class="account-info">
+                                                <lightning-icon icon-name="standard:account" size="small" class="account-icon"></lightning-icon>
+                                                <div class="account-details">
+                                                    <div class="account-name">{account.name}</div>
+                                                    <div class="account-type">{account.type}</div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </ul>
+                                <template if:false={accountOptions}>
+                                    <div class="no-results">
+                                        <p>No accounts found</p>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+
+                    <template if:true={selectedAccount}>
+                        <div class="selected-account-info" style="justify-self: anchor-center;">
+                            <lightning-icon icon-name="utility:success" size="small" class="success-icon"></lightning-icon>
+                            <span>Selected: <strong>{selectedAccount.name}</strong></span>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="button-section">
+                    <lightning-button 
+                        label="Cancel" 
+                        variant="neutral" 
+                        onclick={handleCancel}>
+                    </lightning-button>
+                    <lightning-button 
+                        label="Continue" 
+                        variant="brand" 
+                        onclick={handleContinue}
+                        disabled={isContinueDisabled}>
+                    </lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- Screen 2: Link/Unlink Options -->
+        <template if:true={isScreen2}>
+            <div class="screen screen-2">
+                <div class="header-section">
+                    <h1 class="screen-title">
+                        <lightning-icon icon-name="standard:link" size="medium" class="title-icon"></lightning-icon>
+                        Account Actions
+                    </h1>
+                    <p class="screen-subtitle">Choose an action for <strong>{selectedAccount.name}</strong></p>
+                </div>
+
+                <div class="selected-account-display">
+                    <div class="account-card">
+                        <lightning-icon icon-name="standard:account" size="medium" class="card-icon"></lightning-icon>
+                        <div class="account-info">
+                            <h3 class="account-name">{selectedAccount.name}</h3>
+                            <p class="account-type">{selectedAccount.type}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-cards">
+                    <div class="action-card link-card" onclick={handleLinkAccounts}>
+                        <lightning-icon icon-name="utility:link" size="large" class="action-icon link-icon"></lightning-icon>
+                        <h3>Link Accounts</h3>
+                        <p>Create account mappings for unlinked trace sales</p>
+                        <lightning-icon icon-name="utility:chevronright" size="small" class="chevron-icon"></lightning-icon>
+                    </div>
+
+                    <div class="action-card unlink-card" onclick={handleUnlinkAccounts}>
+                        <lightning-icon icon-name="utility:unlinked" size="large" class="action-icon unlink-icon"></lightning-icon>
+                        <h3>Unlink Accounts</h3>
+                        <p>Remove existing account mappings and unlink trace sales</p>
+                        <lightning-icon icon-name="utility:chevronright" size="small" class="chevron-icon"></lightning-icon>
+                    </div>
+                </div>
+
+                <div class="button-section">
+                    <lightning-button 
+                        label="Back" 
+                        variant="neutral" 
+                        onclick={handleBackToAccountSelect}
+                        class="action-button back-button">
+                    </lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- Screen 3: Link Accounts -->
+        <template if:true={isScreen3}>
+            <div class="screen screen-3">
+                <div class="header-section">
+                    <div class="header-content">
+                        <h1 class="screen-title">
+                            <lightning-icon icon-name="utility:link" size="medium" class="title-icon"></lightning-icon>
+                            Link Accounts
+                        </h1>
+                        <p class="screen-subtitle">Select aggregated records to link with <strong>{selectedAccount.name}</strong></p>
+                    </div>
+                    <div class="header-actions">
+                        <lightning-button 
+                            label="Back to Actions" 
+                            variant="neutral" 
+                            onclick={handleBackToScreen2}
+                            icon-name="utility:back">
+                        </lightning-button>
+                        <lightning-button 
+                            label="Link Selected Records" 
+                            variant="brand" 
+                            onclick={handleLinkSelectedAccounts}
+                            disabled={hasNoSelection}
+                            icon-name="utility:link">
+                        </lightning-button>
+                    </div>
+                </div>
+                
+                <div class="content-with-filters">
+                    <!-- Filter Toggle Button -->
+                    <button class="filter-toggle-btn" onclick={toggleFilterPanel}>
+                        <lightning-icon icon-name="utility:filterList" size="small"></lightning-icon>
+                        <span class="filter-toggle-text">FILTERS</span>
+                    </button>
+
+                    <!-- Filter Panel Overlay -->
+                    <div class={filterOverlayClass} onclick={closeFilterPanel}></div>
+                    
+                    <!-- Filter Panel Sidebar -->
+                    <div class={filterPanelClass}>
+                        <div class="filter-panel-header">
+                            <h3 class="filter-panel-title">
+                                <lightning-icon icon-name="utility:filterList" size="small"></lightning-icon>
+                                Filters
+                            </h3>
+                            <button class="close-filter-btn" onclick={closeFilterPanel}>
+                                <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                            </button>
+                        </div>
+                        
+                        <div class="filter-panel-content">
+                            <div class="filter-item">
+                                <label>Distributor</label>
+                                <input type="text" class="filter-input" data-field="distributor" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>Ship-to Name</label>
+                                <input type="text" class="filter-input" data-field="shipToName" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>Time Period (Year)</label>
+                                <input type="text" class="filter-input" data-field="timePeriod" oninput={handleFilterChange} placeholder="e.g., 2024, 2025" />
+                            </div>
+                            <div class="filter-item">
+                                <label>Contract Name/Number</label>
+                                <input type="text" class="filter-input" data-field="contractName" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>Country</label>
+                                <input type="text" class="filter-input" data-field="country" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>State</label>
+                                <input type="text" class="filter-input" data-field="state" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>City</label>
+                                <input type="text" class="filter-input" data-field="city" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>Zip Code</label>
+                                <input type="text" class="filter-input" data-field="zipCode" oninput={handleFilterChange} />
+                            </div>
+                        </div>
+                        
+                        <div class="filter-panel-footer">
+                            <lightning-button label="Clear" variant="neutral" onclick={handleClearFilters}></lightning-button>
+                            <lightning-button label="Apply" variant="brand" onclick={handleApplyFilters}></lightning-button>
+                        </div>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class={tableContainerClass}>
+                        <template if:true={isTableLoading}>
+                            <div class="table-loading">
+                                <lightning-spinner alternative-text="Loading data..." size="medium"></lightning-spinner>
+                            </div>
+                        </template>
+                        
+                        <template if:false={isTableLoading}>
+                            <template if:true={hasRecords}>
+                                <div class="table-header-actions">
+                                    <div class="table-header-left">
+                                        <span class="record-count">{recordCountText}</span>
+                                        <span class="selected-count">{selectedCountText}</span>
+                                    </div>
+                                    <div class="table-header-right">
+                                        <div class="records-per-page">
+                                            <label>Rows per page:</label>
+                                            <select onchange={handlePageSizeChange} value={pageSize}>
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="table-wrapper">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="checkbox-column">
+                                                    <input type="checkbox" onchange={handleSelectAll} checked={allSelected} />
+                                                </th>
+                                                <th>Distributor</th>
+                                                <th>Ship-to Name</th>
+                                                <th>Total Revenue</th>
+                                                <th>Contract Name/Number</th>
+                                                <th>Country</th>
+                                                <th>State</th>
+                                                <th>City</th>
+                                                <th>Zip Code</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={paginatedRecords} for:item="record">
+                                                <tr key={record.groupKey}>
+                                                    <td class="checkbox-column">
+                                                        <input type="checkbox" data-id={record.groupKey} checked={record.selected} onchange={handleRowSelect} />
+                                                    </td>
+                                                    <td>{record.distributor}</td>
+                                                    <td>{record.shipToName}</td>
+                                                    <td>{record.totalRevenue}</td>
+                                                    <td>{record.contractName}</td>
+                                                    <td>{record.country}</td>
+                                                    <td>{record.state}</td>
+                                                    <td>{record.city}</td>
+                                                    <td>{record.zipCode}</td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Pagination -->
+                                <div class="pagination">
+                                    <div class="pagination-info">
+                                        Showing {paginationStart} to {paginationEnd} of {totalRecords} records
+                                    </div>
+                                    <div class="pagination-controls">
+                                        <lightning-button 
+                                            icon-name="utility:chevronleft" 
+                                            variant="neutral" 
+                                            onclick={handlePreviousPage}
+                                            disabled={isFirstPage}>
+                                        </lightning-button>
+                                        <span class="page-number">Page {currentPage} of {totalPages}</span>
+                                        <lightning-button 
+                                            icon-name="utility:chevronright" 
+                                            variant="neutral" 
+                                            onclick={handleNextPage}
+                                            disabled={isLastPage}>
+                                        </lightning-button>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template if:false={hasRecords}>
+                                <div class="no-data">
+                                    <lightning-icon icon-name="utility:info" size="medium"></lightning-icon>
+                                    <p>No records found matching the criteria</p>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Screen 4: Unlink Accounts -->
+        <template if:true={isScreen4}>
+            <div class="screen screen-4">
+                <div class="header-section">
+                    <div class="header-content">
+                        <h1 class="screen-title">
+                            <lightning-icon icon-name="utility:unlinked" size="medium" class="title-icon"></lightning-icon>
+                            Unlink Accounts
+                        </h1>
+                        <p class="screen-subtitle">Select aggregated records to unlink from <strong>{selectedAccount.name}</strong></p>
+                    </div>
+                    <div class="header-actions">
+                        <lightning-button 
+                            label="Back to Actions" 
+                            variant="neutral" 
+                            onclick={handleBackToScreen2}
+                            icon-name="utility:back">
+                        </lightning-button>
+                        <lightning-button 
+                            label="Unlink Selected Records" 
+                            variant="destructive" 
+                            onclick={handleUnlinkSelectedAccounts}
+                            disabled={hasNoSelection}
+                            icon-name="utility:unlinked">
+                        </lightning-button>
+                    </div>
+                </div>
+                
+                <div class="content-with-filters">
+                    <!-- Filter Toggle Button -->
+                    <button class="filter-toggle-btn" onclick={toggleFilterPanel}>
+                        <lightning-icon icon-name="utility:filterList" size="small"></lightning-icon>
+                        <span class="filter-toggle-text">FILTERS</span>
+                    </button>
+
+                    <!-- Filter Panel Overlay -->
+                    <div class={filterOverlayClass} onclick={closeFilterPanel}></div>
+                    
+                    <!-- Filter Panel Sidebar -->
+                    <div class={filterPanelClass}>
+                        <div class="filter-panel-header">
+                            <h3 class="filter-panel-title">
+                                <lightning-icon icon-name="utility:filterList" size="small"></lightning-icon>
+                                Filters
+                            </h3>
+                            <button class="close-filter-btn" onclick={closeFilterPanel}>
+                                <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                            </button>
+                        </div>
+                        
+                        <div class="filter-panel-content">
+                            <div class="filter-item">
+                                <label>Distributor</label>
+                                <input type="text" class="filter-input" data-field="distributor" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>Ship-to Name</label>
+                                <input type="text" class="filter-input" data-field="shipToName" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>Time Period (Year)</label>
+                                <input type="text" class="filter-input" data-field="timePeriod" oninput={handleFilterChange} placeholder="e.g., 2024, 2025" />
+                            </div>
+                            <div class="filter-item">
+                                <label>Contract Name/Number</label>
+                                <input type="text" class="filter-input" data-field="contractName" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>Country</label>
+                                <input type="text" class="filter-input" data-field="country" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>State</label>
+                                <input type="text" class="filter-input" data-field="state" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>City</label>
+                                <input type="text" class="filter-input" data-field="city" oninput={handleFilterChange} />
+                            </div>
+                            <div class="filter-item">
+                                <label>Zip Code</label>
+                                <input type="text" class="filter-input" data-field="zipCode" oninput={handleFilterChange} />
+                            </div>
+                        </div>
+                        
+                        <div class="filter-panel-footer">
+                            <lightning-button label="Clear" variant="neutral" onclick={handleClearFilters}></lightning-button>
+                            <lightning-button label="Apply" variant="brand" onclick={handleApplyFilters}></lightning-button>
+                        </div>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class={tableContainerClass}>
+                        <template if:true={isTableLoading}>
+                            <div class="table-loading">
+                                <lightning-spinner alternative-text="Loading data..." size="medium"></lightning-spinner>
+                            </div>
+                        </template>
+                        
+                        <template if:false={isTableLoading}>
+                            <template if:true={hasRecords}>
+                                <div class="table-header-actions">
+                                    <div class="table-header-left">
+                                        <span class="record-count">{recordCountText}</span>
+                                        <span class="selected-count">{selectedCountText}</span>
+                                    </div>
+                                    <div class="table-header-right">
+                                        <div class="records-per-page">
+                                            <label>Rows per page:</label>
+                                            <select onchange={handlePageSizeChange} value={pageSize}>
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="table-wrapper">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="checkbox-column">
+                                                    <input type="checkbox" onchange={handleSelectAll} checked={allSelected} />
+                                                </th>
+                                                <th>Distributor</th>
+                                                <th>Ship-to Name</th>
+                                                <th>Total Revenue</th>
+                                                <th>Contract Name/Number</th>
+                                                <th>Country</th>
+                                                <th>State</th>
+                                                <th>City</th>
+                                                <th>Zip Code</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={paginatedRecords} for:item="record">
+                                                <tr key={record.groupKey}>
+                                                    <td class="checkbox-column">
+                                                        <input type="checkbox" data-id={record.groupKey} checked={record.selected} onchange={handleRowSelect} />
+                                                    </td>
+                                                    <td>{record.distributor}</td>
+                                                    <td>{record.shipToName}</td>
+                                                    <td>{record.totalRevenue}</td>
+                                                    <td>{record.contractName}</td>
+                                                    <td>{record.country}</td>
+                                                    <td>{record.state}</td>
+                                                    <td>{record.city}</td>
+                                                    <td>{record.zipCode}</td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Pagination -->
+                                <div class="pagination">
+                                    <div class="pagination-info">
+                                        Showing {paginationStart} to {paginationEnd} of {totalRecords} records
+                                    </div>
+                                    <div class="pagination-controls">
+                                        <lightning-button 
+                                            icon-name="utility:chevronleft" 
+                                            variant="neutral" 
+                                            onclick={handlePreviousPage}
+                                            disabled={isFirstPage}>
+                                        </lightning-button>
+                                        <span class="page-number">Page {currentPage} of {totalPages}</span>
+                                        <lightning-button 
+                                            icon-name="utility:chevronright" 
+                                            variant="neutral" 
+                                            onclick={handleNextPage}
+                                            disabled={isLastPage}>
+                                        </lightning-button>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template if:false={hasRecords}>
+                                <div class="no-data">
+                                    <lightning-icon icon-name="utility:info" size="medium"></lightning-icon>
+                                    <p>No records found matching the criteria</p>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

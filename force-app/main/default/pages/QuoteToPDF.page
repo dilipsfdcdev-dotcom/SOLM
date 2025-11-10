@@ -1,0 +1,170 @@
+<apex:page standardController="Quote" extensions="QuoteToPDFController"
+           renderAs="pdf" showHeader="false" applyBodyTag="false" applyHtmlTag="false">
+  <html>
+    <head>
+      <meta charset="utf-8"/>
+      <style>
+        @page { size: A4; margin: 1.0cm 1.5cm; }
+        html, body { margin:0; padding:0; font-family: 'Calibri', 'Arial', sans-serif; font-size:11pt; color:#000; }
+        .container { width:100%; }
+
+        /* Header */
+        .header {
+          width:100%;
+          overflow:auto;
+          padding-bottom:8px;
+          border-bottom: 3px solid #002D72;
+          margin-bottom:14px;
+        }
+        .logo {
+          float:left;
+          width:150px; /* ~4cm */
+          height:auto;
+          margin-right:10px;
+        }
+        .header-meta {
+          float:right;
+          text-align:right;
+          font-size:10pt;
+          line-height:1.25;
+        }
+        .header-meta strong { color:#002D72; }
+
+        /* Title / Offer bar */
+        .offer-title {
+          clear:both;
+          margin-top:12px;
+          background-color:#002D72;
+          color:#ffffff;
+          text-align:center;
+          font-size:18pt;
+          font-weight:700;
+          padding:8px 6px;
+          margin-bottom:10px;
+        }
+
+        /* Parties */
+        .parties { margin-top:6px; margin-bottom:10px; font-size:10.5pt; }
+        .parties .left, .parties .right { vertical-align:top; display:inline-block; width:48%; }
+        .parties .right { text-align:right; }
+
+        /* Table */
+        table.product-table { width:100%; border-collapse:collapse; margin-top:10px; font-size:10pt; }
+        table.product-table thead th {
+          background:#EDEDED;
+          padding:6px 8px;
+          border:1px solid #CFCFCF;
+          text-align:left;
+          font-weight:700;
+        }
+        table.product-table tbody td {
+          border:1px solid #CFCFCF;
+          padding:6px 8px;
+        }
+        table.product-table tbody tr:nth-child(even) td {
+          background: #FFFFFF;
+        }
+
+        /* Footer */
+        .footer {
+          margin-top:14px;
+          font-size:9pt;
+          color:#555;
+          text-align:center;
+          border-top:1px solid #EEE;
+          padding-top:8px;
+        }
+
+        .muted { color:#666; font-size:9.5pt; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+
+        <!-- Header -->
+        <div class="header">
+          <div style="float:left;">
+            <img src="{!URLFOR($Resource.SolMillenniumLogo)}" class="logo" alt="Sol-Millennium Logo"/>
+          </div>
+
+          <div class="header-meta">
+            <div><strong>Offer created:</strong> {!createdDateStr}</div>
+            <div><strong>Offer validity:</strong> {!expirationDateStr}</div>
+            <div style="margin-top:6px;"><strong>Quote:</strong> {!quote.Name} &nbsp;|&nbsp; <strong>Quote Number:</strong> {!quote.QuoteNumber}</div>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div class="offer-title">PRICE OFFER</div>
+
+        <!-- Parties -->
+        <div class="parties">
+          <div class="left">
+            <strong>1. Parties</strong><br/>
+            Sol-Millennium Europe Sp. z o.o.<br/>
+            Ul. Twarda 18<br/>
+            00-105 Warszawa<br/>
+            Poland
+          </div>
+
+          <div class="right">
+            <strong>To:</strong><br/>
+            {!IF(NOT(ISBLANK(quote.Account.Name)), quote.Account.Name, '---')}<br/>
+            {!IF(NOT(ISBLANK(quote.BillingStreet)), quote.BillingStreet, '')}<br/>
+            {!IF(NOT(ISBLANK(quote.BillingCity)), quote.BillingCity, '')} {!IF(NOT(ISBLANK(quote.BillingPostalCode)), quote.BillingPostalCode, '')}<br/>
+            {!IF(NOT(ISBLANK(quote.BillingCountry)), quote.BillingCountry, '')}
+          </div>
+        </div>
+
+        <!-- Comments / Conditions (sample from doc) -->
+        <div style="margin-top:10px; font-size:10pt;">
+          <strong>Payment terms:</strong> 14 days credit (Net14-C) &nbsp;&nbsp; <strong>Offer currency:</strong> EUR<br/>
+          <span class="muted">Prices are exclusive of VAT and other applicable taxes. This offer supersedes all previous agreements with respect to the subject matter of this offer.</span>
+        </div>
+
+        <!-- Product Table -->
+        <table class="product-table" cellpadding="0" cellspacing="0" role="presentation">
+          <thead>
+            <tr>
+              <th style="width:10%;">REF</th>
+              <th style="width:44%;">Product description</th>
+              <th style="width:15%;">Qty box / case</th>
+              <th style="width:10%;">Price per pcs</th>
+              <th style="width:11%;">Price per box</th>
+              <th style="width:10%;">Qty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <apex:repeat value="{!lines}" var="l">
+              <tr>
+                <td>{!l.productCode}</td>
+                <td>{!l.productName}</td>
+
+                <!-- Static sample columns requested -->
+                <td style="text-align:right;">{!l.qtyBoxCase}</td>
+                <td style="text-align:right;">{!l.pricePerPcsStatic}</td>
+                <td style="text-align:right;">{!l.pricePerBoxStatic}</td>
+
+                <!-- Real Quote values (Qty) -->
+                <td style="text-align:right;">{!IF(NOT(ISBLANK(l.quantity)), TEXT(l.quantity), '-')}</td>
+              </tr>
+            </apex:repeat>
+
+            <apex:outputPanel rendered="{!IF(ISNULL(lines) || lines.size==0, true, false)}">
+              <tr>
+                <td colspan="6" style="text-align:center; padding:12px;">No products found for this quote.</td>
+              </tr>
+            </apex:outputPanel>
+          </tbody>
+        </table>
+
+        <!-- Footer / Confidential -->
+        <div class="footer">
+          The information in this offer is confidential and may be legally privileged. It is intended solely for the addressee.<br/>
+          &copy; {!YEAR(TODAY())} Sol-Millennium. All rights reserved.
+        </div>
+
+      </div>
+    </body>
+  </html>
+</apex:page>

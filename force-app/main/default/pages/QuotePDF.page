@@ -1,0 +1,179 @@
+<apex:page standardController="Quote" extensions="QuotePdfExactController"
+           renderAs="pdf" showHeader="false" applyBodyTag="false" standardStylesheets="false">
+<html>
+<head>
+<meta charset="utf-8"/>
+<style>
+  body { font-family: Arial, sans-serif; font-size:10pt; color:#000; margin:0; padding:12mm; }
+  table { border-collapse: collapse; width:100%; }
+</style>
+</head>
+<body>
+
+<!-- HEADER: logo left, OFFER below it, dates right -->
+<table style="width:100%; margin-bottom:10px;">
+  <tr>
+    <td style="vertical-align:top; width:60%; text-align:center;">
+      <img src="{!URLFOR($Resource.SolMillenniumLogo)}" alt="Sol-Millennium Logo"
+           style="width:265px; height:auto; margin-top:5px; display:block; margin-left:auto; margin-right:auto;"/>
+      <div style="font-size:12pt; margin-top:10px; color:#000;">OFFER</div>
+    </td>
+
+    <td style="vertical-align:top; text-align:right; font-size:10pt;">
+      <table style="border-collapse:collapse; margin-bottom:8px; float:right;">
+        <tr>
+          <td style="font-weight:bold; padding:3px 10px; text-align:left;">Offer created:</td>
+          <td style="background-color:#f8d5c4; -webkit-print-color-adjust:exact; color-adjust:exact;
+                     padding:3px 12px; text-align:right; min-width:90px;">{!todayFormatted}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold; padding:3px 10px; text-align:left;">Offer validity:</td>
+          <td style="background-color:#f8d5c4; -webkit-print-color-adjust:exact; color-adjust:exact;
+                     padding:3px 12px; text-align:right; min-width:90px;">{!offerValidityFormatted}</td>
+        </tr>
+      </table>
+
+      <div style="clear:both; font-size:9pt; color:#555; line-height:1.4; max-width:280px; text-align:justify; margin-left:auto;">
+        Please reach out to Sol-Millennium before the expiration of the offer.
+        Without official renewal notice, the offer is not valid and cannot be
+        applied for orders placed after that date.
+      </div>
+    </td>
+  </tr>
+</table>
+
+<!-- 1. Parties -->
+<div style="background-color:#ff6b35; -webkit-print-color-adjust:exact; color-adjust:exact;
+            color:#ffffff; font-weight:bold; padding:6px 10px; font-size:13px; margin-bottom:0;">
+  1. Parties
+</div>
+
+<table style="width:100%; font-size:10pt; border-collapse:collapse; margin-bottom:10px;">
+  <tr style="background-color:#f8d5c4; -webkit-print-color-adjust:exact; color-adjust:exact;">
+    <td style="padding:6px; width:45%; font-weight:bold;">Sol-Millennium Europe Sp. z o.o.</td>
+    <td style="width:10%; text-align:center; vertical-align:middle; font-weight:bold; color:#000;">to:</td>
+    <td style="padding:6px; width:45%; font-weight:bold;">
+      {!IF(NOT(ISNULL(quoteRec.AccountId)), quoteRec.Account.Name, ' ')}
+    </td>
+  </tr>
+  <tr style="background-color:#f8d5c4; -webkit-print-color-adjust:exact; color-adjust:exact;">
+    <td style="padding:6px;">Ul. Twarda 18</td>
+    <td></td>
+    <td style="padding:6px;">{!IF(NOT(ISNULL(quoteRec.AccountId)), quoteRec.Account.BillingStreet, ' ')}</td>
+  </tr>
+  <tr style="background-color:#f8d5c4; -webkit-print-color-adjust:exact; color-adjust:exact;">
+    <td style="padding:6px;">00-105 Warszawa</td>
+    <td></td>
+    <td style="padding:6px;">{!IF(NOT(ISNULL(quoteRec.AccountId)), quoteRec.Account.BillingPostalCode + ' ' + quoteRec.Account.BillingCity, ' ')}</td>
+  </tr>
+  <tr style="background-color:#f8d5c4; -webkit-print-color-adjust:exact; color-adjust:exact;">
+    <td style="padding:6px;">Poland</td>
+    <td></td>
+    <td style="padding:6px;">{!IF(NOT(ISNULL(quoteRec.AccountId)), quoteRec.Account.BillingCountry, ' ')}</td>
+  </tr>
+</table>
+
+<div style="font-size:9pt; color:#666; font-style:italic; margin-bottom:14px;">
+  The information in this offer is confidential and may be legally privileged. It is intended solely for the addressee.
+</div>
+
+<!-- 2. Contact details -->
+<div style="background-color:#ff6b35; -webkit-print-color-adjust:exact; color-adjust:exact;
+            color:#ffffff; font-weight:bold; padding:6px 10px; font-size:13px; margin-bottom:10px;">
+  2. Contact details
+</div>
+<div style="font-size:10pt; margin-bottom:10px;">
+  <div style="font-weight:bold; margin-bottom:6px;">{!IF(NOT(ISNULL(quoteRec.Contact.Name)), quoteRec.Contact.Name, ' ')}</div>
+  <div><strong>mobile:</strong> {!IF(NOT(ISNULL(quoteRec.Phone)), quoteRec.Phone, ' ')} ; <strong>email:</strong> {!IF(NOT(ISNULL(quoteRec.Email)), quoteRec.Email, ' ' )}</div>
+  <div><strong>Order processing:</strong> orders-EU@sol-m.com</div>
+  <div><strong>Regulatory documentation, complaints processing:</strong> complaints@sol-m.com</div>
+  <div><strong>Payments; accounting:</strong> Office-EU@sol-m.com</div>
+</div>
+
+<!-- 3. Offer conditions -->
+<div style="background-color:#ff6b35; -webkit-print-color-adjust:exact; color-adjust:exact;
+            color:#ffffff; font-weight:bold; padding:6px 10px; font-size:13px; margin-bottom:10px;">
+  3. Offer conditions
+</div>
+<table style="margin-bottom:12px; font-size:10pt;">
+  <tr><td style="width:35%; font-weight:bold;">Payment terms:</td><td>14 days credit (Net14-C)</td></tr>
+  <tr><td style="font-weight:bold;">Offer currency:</td><td>{!quoteRec.CurrencyIsoCode}</td></tr>
+  <tr><td style="font-weight:bold;">Incoterms 2024:</td><td>{!quoteRec.Incoterm__c}</td></tr>
+  <tr><td style="font-weight:bold;">Shipment origin:</td><td>Poland</td></tr>
+  <tr><td style="font-weight:bold;">Comments:</td><td>Full cases only</td></tr>
+</table>
+
+<div style="font-size:9pt; color:#555; margin-bottom:14px; line-height:1.3;">
+  <div>Prices are exclusive of VAT and other applicable taxes.</div>
+  <div>All costs and expenses, including bank charges, associated with the bank transfer will be solely borne by the Customer.</div>
+  <div>Parties hereto agree to renegotiate the prices upon written notice in case Sol-Millennium is able to prove a significant increase of its own costs for the products, components or materials.</div>
+  <div>This offer supersedes and replaces all previous agreements, whether written or oral, or correspondence between the Parties with respect to the subject matter of this Offer.</div>
+</div>
+
+<!-- 4. Products (boxed grid) -->
+<div style="background-color:#ff6b35; -webkit-print-color-adjust:exact; color-adjust:exact; color:#ffffff; font-weight:bold; padding:6px 10px; font-size:13px; margin-bottom:10px;">
+  4. Products
+</div>
+
+<table style="font-size:10pt; border-collapse:collapse; width:100%; border:1px solid #000;">
+  <thead>
+    <tr>
+      <th style="background-color:#ff6b35; -webkit-print-color-adjust:exact; color-adjust:exact; color:white;
+                 padding:8px; text-align:left; border:1px solid #000;">REF</th>
+      <th style="background-color:#ff6b35; -webkit-print-color-adjust:exact; color-adjust:exact; color:white;
+                 padding:8px; text-align:left; border:1px solid #000;">Product description</th>
+      <th style="background-color:#ff6b35; -webkit-print-color-adjust:exact; color-adjust:exact; color:white;
+                 padding:8px; text-align:center; border:1px solid #000;">Qty box / case</th>
+      <th style="background-color:#ff6b35; -webkit-print-color-adjust:exact; color-adjust:exact; color:white;
+                 padding:8px; text-align:right; border:1px solid #000;">Price per pcs</th>
+      <th style="background-color:#ff6b35; -webkit-print-color-adjust:exact; color-adjust:exact; color:white;
+                 padding:8px; text-align:right; border:1px solid #000;">Price per box</th>
+    </tr>
+  </thead>
+  <tbody>
+    <apex:repeat value="{!lineItemWrappers}" var="li">
+      <tr style="background-color:{!li.rowBg}; -webkit-print-color-adjust:exact; color-adjust:exact;">
+        <td style="padding:8px; border:1px solid #000;">{!li.refVal}</td>
+        <td style="padding:8px; border:1px solid #000;">{!li.description}</td>
+        <td style="padding:8px; border:1px solid #000; text-align:center;">{!li.qty}</td>
+        <td style="padding:8px; border:1px solid #000; text-align:right; white-space:nowrap; word-wrap:normal; line-height:1;">
+  {!li.unitPrice}
+</td>
+<td style="padding:8px; border:1px solid #000; text-align:right; white-space:nowrap; word-wrap:normal; line-height:1;">
+  {!li.totalPrice}
+</td>
+
+      </tr>
+    </apex:repeat>
+
+    <apex:outputPanel rendered="{!IF(lineItemWrappers.size==0,true,false)}">
+      <tr>
+        <td style="padding:8px; border:1px solid #000;">MSK003X</td>
+        <td style="padding:8px; border:1px solid #000;">IQ-M Procedure Mask - ASTM 1</td>
+        <td style="padding:8px; border:1px solid #000; text-align:center;">50 / 2000</td>
+        <td style="padding:8px; border:1px solid #000; text-align:right;">0.0250</td>
+        <td style="padding:8px; border:1px solid #000; text-align:right;">1.25</td>
+      </tr>
+    </apex:outputPanel>
+  </tbody>
+</table>
+    
+<!-- TOTAL ONLY (aligned right, no VAT / Subtotal) 
+<table style="width:100%; margin-top:10px;">
+  <tr>
+    <td style="width:62%;"></td>
+    <td style="width:38%; vertical-align:top;">
+      <table style="width:100%; border-collapse:collapse; border:1px solid #000; font-size:10pt;">
+        <tr>
+          <td style="padding:6px; font-weight:700;">Total</td>
+          <td style="padding:6px; font-weight:700; text-align:right;">{!totalPriceFormatted}</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table> -->
+
+
+</body>
+</html>
+</apex:page>

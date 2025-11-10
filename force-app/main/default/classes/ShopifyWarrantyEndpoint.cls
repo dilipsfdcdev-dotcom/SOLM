@@ -7,6 +7,8 @@ global with sharing class ShopifyWarrantyEndpoint {
         public String phone;
         public String purchasedDate;
         public String serialNumber;
+        public String source;
+        public String country;
     }
 
     @HttpPost
@@ -258,6 +260,8 @@ for (WarrantyPayload p : payloads) {
     w.Email__c = p.email;
     w.Phone__c = p.phone;
     w.Serial_Number__c = p.serialNumber;
+    w.Source__c = p.source;
+    w.Country__c = p.country;
 
     if (String.isNotBlank(p.purchasedDate)) {
         try {

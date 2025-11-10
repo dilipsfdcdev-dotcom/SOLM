@@ -1,0 +1,158 @@
+<apex:page standardController="Quote" renderAs="pdf" showHeader="false" applyBodyTag="false" standardStylesheets="false">
+    <style>
+        @page { size: A4; margin: 1.2cm; }
+        body { font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #222; background: #fff; }
+        .container { width: 100%; }
+
+        /* Header */
+        .header-row { display: block; margin-bottom: 8px; }
+        .logo { float: left; width: 220px; }
+        .offer-meta { float: right; width: 260px; font-size: 10pt; text-align: right; }
+        .meta-label { color: #666; margin-right: 6px; }
+        .meta-value-box { display:inline-block; background:#F6DED0; padding:4px 8px; border-radius:2px; font-weight:bold; margin-left:6px; }
+
+        /* Title */
+        .offer-title { clear: both; text-align: center; font-weight:700; margin: 10px 0 14px 0; letter-spacing:1px; }
+
+        /* Orange section title */
+        .section-title {
+            background: #E87722;
+            color: white;
+            padding: 6px 8px;
+            font-weight: bold;
+            font-size: 11pt;
+            margin-top: 8px;
+        }
+
+        /* Parties table */
+        .parties {
+            border: 1px solid #d0c6c0;
+            margin-top: 6px;
+            display: table;
+            width: 100%;
+        }
+        .parties-row { display: table-row; }
+        .parties-cell {
+            display: table-cell;
+            vertical-align: top;
+            width: 50%;
+            padding: 8px;
+            background: #FCEEE6;
+            border-right: 1px solid #d0c6c0;
+        }
+        .parties-cell.right { border-right: none; }
+        .parties-label { font-weight: bold; margin-bottom: 6px; display:block; }
+
+        /* Disclaimer footer */
+        .disclaimer { font-size: 8.5pt; color: #555; margin-top: 8px; }
+
+        /* Products table */
+        .items-table { width:100%; border-collapse: collapse; margin-top:14px; font-size:9.5pt; }
+        .items-table th { background:#F2F2F2; padding:6px; border:1px solid #ddd; text-align:left; font-weight:bold; }
+        .items-table td { padding:6px; border:1px solid #ddd; vertical-align:top; }
+        .items-table tbody tr:nth-child(even) { background:#fffaf8; }
+
+        .footer { margin-top:14px; font-size:8.5pt; color:#444; }
+
+        .clear { clear: both; display:block; }
+    </style>
+
+    <div class="container">
+        <!-- Header: logo left, offer dates right -->
+        <div class="header-row">
+            <div class="logo">
+                <img src="{!$Resource.CompanyLogo}" alt="Company Logo" style="max-width:220px; height:auto;"/>
+            </div>
+
+            <div class="offer-meta">
+                <div style="margin-bottom:6px;">
+                    <span class="meta-label">Offer created:</span>
+                    <span class="meta-value-box">{!TEXT(TODAY())}</span>
+                </div>
+                <div>
+                    <span class="meta-label">Offer validity:</span>
+                    <span class="meta-value-box">{!TEXT(Quote.Offer_Validity__c)}</span>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <!-- Small notice -->
+        <div style="font-size:9pt; color:#555; margin-bottom:8px;">
+            Please reach out to Sol-Millennium before the expiration date to receive a new or prolonged offer. Without official renewal made in writing, offer is not valid and cannot be applied for the orders placed after the expiration date.
+        </div>
+
+        <!-- Title -->
+        <div class="offer-title">OFFER</div>
+
+        <!-- Section 1: Parties -->
+        <div class="section-title">1. Parties</div>
+
+        <div class="parties">
+            <div class="parties-row">
+                <!-- Left column -->
+                <div class="parties-cell">
+                    <span class="parties-label">Sol-Millennium Europe Sp. z o.o.</span>
+                    <div>Ul. Twarda 18</div>
+                    <div>00-105 Warszawa</div>
+                    <div>Poland</div>
+                </div>
+
+                <!-- Right column -->
+                <div class="parties-cell right">
+                    <span class="parties-label">{!Quote.Account.Name}</span>
+                    <div><b>Contact:</b> {!Quote.Contact.Name}</div>
+                    <div><b>Email:</b> {!Quote.Contact.Email}</div>
+                    <div><b>Phone:</b> {!Quote.Contact.Phone}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confidential line -->
+        <div style="font-size:9pt; color:#666; margin-top:6px;">
+            The information in this offer is confidential and may be legally privileged. It is intended solely for the addressee.
+        </div>
+
+        <!-- Offer Conditions -->
+        <div class="section-title" style="margin-top:12px;">3. Offer Conditions</div>
+
+        <!-- Products table -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th style="width:12%;">REF</th>
+                    <th style="width:48%;">Product description</th>
+                    <th style="width:12%;">Qty</th>
+                    <th style="width:12%;">Price per pcs</th>
+                    <th style="width:12%;">Price per box</th>
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!Quote.QuoteLineItems}" var="li">
+                    <tr>
+                        <td>MLS-REF</td>
+                        <td>{!li.Product2.Name}</td>
+                        <td>{!li.Quantity}</td>
+                        <td>{!li.UnitPrice}</td>
+                        <td>{!li.TotalPrice}</td>
+                    </tr>
+                </apex:repeat>
+
+                <!-- fallback message if no line items -->
+                <apex:outputPanel rendered="{!ISNULL(Quote.QuoteLineItems)}">
+                    <tr>
+                        <td colspan="5" style="text-align:center; color:#888;">
+                            No line items on this quote
+                        </td>
+                    </tr>
+                </apex:outputPanel>
+            </tbody>
+        </table>
+
+        <!-- Footer -->
+        <div class="footer">
+            <b>Total Price:</b> USD {!Quote.TotalPrice}<br/>
+            Prices are exclusive of VAT and other applicable taxes. All costs and expenses, including bank charges, associated with the bank transfer will be solely borne by Customer.
+        </div>
+    </div>
+</apex:page>

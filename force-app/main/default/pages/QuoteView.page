@@ -1,0 +1,15 @@
+<apex:page standardController="Quote" extensions="QuotePdfExactController">
+    <apex:form >
+        <apex:pageBlock title="Quote Preview">
+            <apex:pageBlockSection >
+                <p><b>Quote Name:</b> {!Quote.Name}</p>
+                <p><b>Account:</b> {!Quote.Account.Name}</p>
+                <p><b>Total:</b> {!totalPriceFormatted}</p>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Generate PDF" action="{!redirectToPDF}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

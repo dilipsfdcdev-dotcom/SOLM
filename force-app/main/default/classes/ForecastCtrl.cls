@@ -10,255 +10,205 @@ public with sharing class ForecastCtrl {
 		public String Warehouse;
 	}
 
-@auraEnabled
-public static string insertProduct (String prodJson,String accountId)
-{
-   // try{
-        if (String.isNotBlank(ProdJson))
-        {
-            List<productWrapper> pdList = new List<productWrapper>();
+	@auraEnabled
+	public static string insertProduct (String prodJson,String accountId)
+	{
+	   // try{
+			if (String.isNotBlank(ProdJson))
+			{
+				List<productWrapper> pdList = new List<productWrapper>();
 
-            Map<Id,List<Forecast_Product__c>> productId = new Map<Id,List<Forecast_Product__c>>();
-            Map<String,Id> mapOfWarehouse = new Map<String,Id>();
-            Map<String,Boolean> mapOfForecastProduct = new Map<String,Boolean>();
-            Map<String,Forecast_Product__c> fpList = new Map<String,Forecast_Product__c>();
-            Map<String,List<Date>> mapOfProductToMonth = new Map<String,List<Date>>();
-            Map<String,Map<Integer,List<Integer>>> mapOfProductToQuantity = new Map<String,Map<Integer,List<Integer>>>();
+				Map<Id,List<Forecast_Product__c>> productId = new Map<Id,List<Forecast_Product__c>>();
+				Map<String,Id> mapOfWarehouse = new Map<String,Id>();
+				Map<String,Boolean> mapOfForecastProduct = new Map<String,Boolean>();
+				Map<String,Forecast_Product__c> fpList = new Map<String,Forecast_Product__c>();
+				Map<String,List<Date>> mapOfProductToMonth = new Map<String,List<Date>>();
+				Map<String,Map<Integer,List<Integer>>> mapOfProductToQuantity = new Map<String,Map<Integer,List<Integer>>>();
 
-            set<Id> duplicateProductId = new Set<Id>();
-            
-            //desearlise the json to list of product wrappers
-            pdList = (List<productWrapper>) JSON.deserialize(prodJson,list<productWrapper>.class);
+				set<Id> duplicateProductId = new Set<Id>();
+				
+				//desearlise the json to list of product wrappers
+				pdList = (List<productWrapper>) JSON.deserialize(prodJson,list<productWrapper>.class);
 
-            for (productWrapper p : pdList)
-            {
-                productId.put(p.PRODUCT2ID, new List<Forecast_Product__c>());
+				for (productWrapper p : pdList)
+				{
+					productId.put(p.PRODUCT2ID, new List<Forecast_Product__c>());
 
-                if (String.isNotBlank(p.Warehouse))
-                {
-                    mapOfWarehouse.put(p.Warehouse,null);
-                }
-            }
+					if (String.isNotBlank(p.Warehouse))
+					{
+						mapOfWarehouse.put(p.Warehouse,null);
+					}
+				}
 
-            for(Warehouse__c wp : [Select Id,Name from Warehouse__c where Name in: mapOfWarehouse.keySet()])
-            {
-                mapOfWarehouse.put(wp.Name,wp.Id);
-            }
+				for(Warehouse__c wp : [Select Id,Name from Warehouse__c where Name in: mapOfWarehouse.keySet()])
+				{
+					mapOfWarehouse.put(wp.Name,wp.Id);
+				}
 
-            for (Forecast_Product__c fp : [Select Id,Local_Enabled__c,Direct_Enabled__c,Product__c,Price__c from Forecast_Product__c where Product__c in: productId.keySet() and Account__c =: accountId ])
-            {
-                productId.get(fp.Product__c).add(fp);
-            }
+				for (Forecast_Product__c fp : [Select Id,Local_Enabled__c,Direct_Enabled__c,Product__c,Price__c from Forecast_Product__c where Product__c in: productId.keySet() and Account__c =: accountId ])
+				{
+					productId.get(fp.Product__c).add(fp);
+				}
 
-            for (productWrapper p : pdList)
-            {
-                id fpId;
+				for (productWrapper p : pdList)
+				{
+					id fpId;
 
-                if (String.isBlank(p.Local))
-                {
-                    p.local = 'false';
-                } else {
-                    p.local = p.local.toLowerCase();
-                }
-                    
-                if(String.isBlank(p.Direct)) 
-                {
-                    p.Direct = 'false';
-                } else {
-                    p.Direct = p.Direct.toLowerCase();
-                }
-                    
-                for (Forecast_Product__c fp : productId.get(p.PRODUCT2ID))
-                {
-                    if(boolean.valueof(p.Local) && fp.Local_Enabled__c ){
-                        fpId = fp.Id;
-                    }
+					if (String.isBlank(p.Local))
+					{
+						p.local = 'false';
+					} else {
+						p.local = p.local.toLowerCase();
+					}
+						
+					if(String.isBlank(p.Direct)) 
+					{
+						p.Direct = 'false';
+					} else {
+						p.Direct = p.Direct.toLowerCase();
+					}
+						
+					for (Forecast_Product__c fp : productId.get(p.PRODUCT2ID))
+					{
+						if(boolean.valueof(p.Local) && fp.Local_Enabled__c ){
+							fpId = fp.Id;
+						}
 
-                    if(boolean.valueof(p.Direct) && fp.Direct_Enabled__c ){
-                        fpId = fp.Id;
-                    }
-                }
+						if(boolean.valueof(p.Direct) && fp.Direct_Enabled__c ){
+							fpId = fp.Id;
+						}
+					}
 
-                // Construct the key for the map
-                String productKey = p.PRODUCT2ID + ';' + p.Local + ';' + p.Direct;
+					// Construct the key for the map
+					String productKey = p.PRODUCT2ID + ';' + p.Local + ';' + p.Direct;
 
-                fpList.put(fpId+';'+productKey,new Forecast_Product__c(
-                    Id=fpId,
-                    Local_Warehouse__c=mapOfWarehouse.get(p.Warehouse),
-                    Local_Enabled__c = boolean.valueof(p.Local),
-                    Direct_Enabled__c=boolean.valueof(p.Direct),
-                    Price__c = (p.UNITPRICE != null?  Decimal.valueof(p.UNITPRICE): 0),
-                    Account__c = accountId,
-                    Product__c = p.PRODUCT2ID,
-                    external_id__c = accountId +'-'+p.PRODUCT2ID+'-'+(boolean.valueof(p.Direct) ? '0':'1')
-                ));
-                
-                if (mapOfProductToMonth.containsKey(productKey))
-                {
-                    mapOfProductToMonth.get(productKey).add(
-                        String.isNotBlank(p.month) ? date.newInstance(
-                            Integer.valueOf(p.month.split('/')[2]),
-                            Integer.valueof(p.month.split('/')[0]),
-                            Integer.valueOf(p.month.split('/')[1])
-                        ) : null 
-                    );
-                }
-                else
-                {
-                    mapOfProductToMonth.put(
-                        productKey, 
-                        new List<Date>{
-                            String.isNotBlank(p.month) ? date.newInstance(
-                                Integer.valueOf(p.month.split('/')[2]),
-                                Integer.valueof(p.month.split('/')[0]),
-                                Integer.valueOf(p.month.split('/')[1])
-                            ) : null 
-                        }
-                    );
-                }
-                
-                system.debug('mapOfProductToQuantity.containsKey(p.PRODUCT2ID'+mapOfProductToQuantity.containsKey(productKey));
-                // Check if the map contains the product key
-                
+					fpList.put(fpId+';'+productKey,new Forecast_Product__c(Id=fpId,Local_Warehouse__c=mapOfWarehouse.get(p.Warehouse),Local_Enabled__c = boolean.valueof(p.Local),Direct_Enabled__c=boolean.valueof(p.Direct),Price__c = (p.UNITPRICE != null?  Decimal.valueof(p.UNITPRICE): 0),Account__c = accountId,Product__c = p.PRODUCT2ID,
+																									  external_id__c =accountId +'-'+p.PRODUCT2ID+'-'+(boolean.valueof(p.Direct) ? '0':'1')  ));
+					
+					if (mapOfProductToMonth.containsKey(productKey))
+					{
+						mapOfProductToMonth.get(productKey).add(String.isNotBlank(p.month) ? date.newInstance(Integer.valueOf(p.month.split('/')[2]),Integer.valueof(p.month.split('/')[0]),Integer.valueOf(p.month.split('/')[1])) : null );
+						
+					}
+					else
+					{
+						mapOfProductToMonth.put(productKey, new List<Date>{String.isNotBlank(p.month) ? date.newInstance(Integer.valueOf(p.month.split('/')[2]),Integer.valueof(p.month.split('/')[0]),Integer.valueOf(p.month.split('/')[1])) : null });
+					}
+					
+					system.debug('mapOfProductToQuantity.containsKey(p.PRODUCT2ID'+mapOfProductToQuantity.containsKey(productKey));
+					// Check if the map contains the product key
+					
 
-                if (mapOfProductToQuantity.containsKey(productKey)) {
-                    // Debug statement for tracing
-                    System.debug('p.Quantity --> ' + p.Quantity);
-                    
-                    // Extract the month value
-                    Integer monthValue = Integer.valueOf(p.month.split('/')[0]);
+					if (mapOfProductToQuantity.containsKey(productKey)) {
+						// Debug statement for tracing
+						System.debug('p.Quantity --> ' + p.Quantity);
+						
+						// Extract the month value
+						Integer monthValue = Integer.valueOf(p.month.split('/')[0]);
 
-                    if (mapOfProductToQuantity.get(productKey).containsKey(monthValue)) {
-                        // Add the quantity to the existing list
-                        mapOfProductToQuantity.get(productKey).get(monthValue).add(Integer.valueOf(p.Quantity));
-                    } else {
-                        // Initialize a new list and add it to the inner map for the month
-                        mapOfProductToQuantity.get(productKey).put(monthValue, new List<Integer>{Integer.valueOf(p.Quantity)});
-                    }
-                } else {
-                    // Initialize the outer map with an empty inner map
-                    mapOfProductToQuantity.put(productKey, new Map<Integer, List<Integer>>{
-                        Integer.valueOf(p.month.split('/')[0]) => new List<Integer>{Integer.valueOf(p.Quantity)}
-                    });
-                }
-                
-                mapOfForecastProduct.put(productKey,boolean.valueof(p.Direct));
-            }
+						if (mapOfProductToQuantity.get(productKey).containsKey(monthValue)) {
+							// Add the quantity to the existing list
+							mapOfProductToQuantity.get(productKey).get(monthValue).add(Integer.valueOf(p.Quantity));
+						} else {
+							// Initialize a new list and add it to the inner map for the month
+							mapOfProductToQuantity.get(productKey).put(monthValue, new List<Integer>{Integer.valueOf(p.Quantity)});
+						}
+					} else {
+						// Initialize the outer map with an empty inner map
+						mapOfProductToQuantity.put(productKey, new Map<Integer, List<Integer>>{
+							Integer.valueOf(p.month.split('/')[0]) => new List<Integer>{Integer.valueOf(p.Quantity)}
+						});
+					}
+					
+					mapOfForecastProduct.put(productKey,boolean.valueof(p.Direct));
+				}
 
-            system.debug('mapOfProductToQuantity'+mapOfProductToQuantity);
+				system.debug('mapOfProductToQuantity'+mapOfProductToQuantity);
 
-            if (!fpList.values().isEmpty())
-            {
-                upsert fpList.values();
-            }
-            
+				if (!fpList.values().isEmpty())
+				{
+					upsert fpList.values();
+				}
+				
 
-            Map<Id,MaP<Integer,Id>> mapOfForecastProductToMonth = new Map<Id,MaP<Integer,Id>>();
-            for(Forecast_Month__c fm : [Select Id,Forecast_Product__c,Forecast_Product__r.Local_Enabled__c,Forecast_Product__r.Direct_Enabled__c,Month__c from Forecast_Month__c where Forecast_Product__c in: fpList.values()]){
-                if(!mapOfForecastProductToMonth.containsKey(fm.Forecast_Product__c)){
-                    mapOfForecastProductToMonth.put(fm.Forecast_Product__c,new Map<Integer,Id>());
-                }
-                mapOfForecastProductToMonth.get(fm.Forecast_Product__c).put(fm.Month__c.Month(),fm.Id);
-            }
-            List<Forecast_Month__c> fmList = new List<Forecast_Month__c>();
-            List<ForeCast_month__c> fmList2 = new List<Forecast_Month__c>();
-            for(Forecast_Product__c fp : fpList.values()){
-                Set<Integer> forecastMonth = new Set<Integer>();
-                system.debug(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c);
-                for(date d : mapOfProductToMonth.get(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c)){
-                    Integer fmonth = d.month();
-                    if(!forecastMonth.contains(fmonth)){
-                        fmList.add(new Forecast_Month__c(Id = mapOfForecastProductToMonth.containsKey(fp.Id) && mapOfForecastProductToMonth.get(fp.Id).containsKey( d.month()) ? mapOfForecastProductToMonth.get(fp.Id).get( d.month()) : null ,Forecast_Product__c = fp.Id,month__c = d));
-                        forecastMonth.add(fmonth);
-                    }
-                }
-                mapOfForecastProduct.put(fp.Id,mapOfForecastProduct.get(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c));
-                mapOfProductToQuantity.put(fp.Id,mapOfProductToQuantity.get(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c));
+				Map<Id,MaP<Integer,Id>> mapOfForecastProductToMonth = new Map<Id,MaP<Integer,Id>>();
+				for(Forecast_Month__c fm : [Select Id,Forecast_Product__c,Forecast_Product__r.Local_Enabled__c,Forecast_Product__r.Direct_Enabled__c,Month__c from Forecast_Month__c where Forecast_Product__c in: fpList.values()]){
+					if(!mapOfForecastProductToMonth.containsKey(fm.Forecast_Product__c)){
+						mapOfForecastProductToMonth.put(fm.Forecast_Product__c,new Map<Integer,Id>());
+					}
+					mapOfForecastProductToMonth.get(fm.Forecast_Product__c).put(fm.Month__c.Month(),fm.Id);
+				}
+				List<Forecast_Month__c> fmList = new List<Forecast_Month__c>();
+				List<ForeCast_month__c> fmList2 = new List<Forecast_Month__c>();
+				for(Forecast_Product__c fp : fpList.values()){
+					Set<Integer> forecastMonth = new Set<Integer>();
+					system.debug(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c);
+					for(date d : mapOfProductToMonth.get(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c)){
+						Integer fmonth = d.month();
+						if(!forecastMonth.contains(fmonth)){
+							fmList.add(new Forecast_Month__c(Id = mapOfForecastProductToMonth.containsKey(fp.Id) && mapOfForecastProductToMonth.get(fp.Id).containsKey( d.month()) ? mapOfForecastProductToMonth.get(fp.Id).get( d.month()) : null ,Forecast_Product__c = fp.Id,month__c = d));
+							forecastMonth.add(fmonth);
+						}
+					}
+					mapOfForecastProduct.put(fp.Id,mapOfForecastProduct.get(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c));
+					mapOfProductToQuantity.put(fp.Id,mapOfProductToQuantity.get(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c));
 
-                Date startDate = Date.today().toStartOfMonth();
-                Date endDate = date.today().addYears(1).addMonths(-1).toStartOfMonth();
-                Date tempDate = startDate;
+					Date startDate = Date.today().toStartOfMonth();
+					Date endDate = date.today().addYears(1).addMonths(-1).toStartOfMonth();
+					Date tempDate = startDate;
 
-                while(tempDate <= endDate){
-                    if(!forecastMonth.contains(tempDate.month())){
-                        fmList2.add(
-                            new Forecast_Month__c(
-                                Forecast_Product__c = fp.Id,
-                                Month__c = tempDate,
-                                External_Id__c = fp.account__c + '-' + fp.Product__c + '-' + ForecastUtil.getMonthUniqueId(tempDate) +'-'+ (fp.Direct_Enabled__c ? '0':'1')
-                            )
-                        );
-                    }
-                    tempDate = tempDate.addMonths(1);
-                }
-            }
-            upsert fmList;
-            upsert fmList2 external_Id__c;
+					while(tempDate <= endDate){
+						if(!forecastMonth.contains(tempDate.month())){
+							fmList2.add(
+								new Forecast_Month__c(
+									Forecast_Product__c = fp.Id,
+									Month__c = tempDate,
+									External_Id__c = fp.account__c + '-' + fp.Product__c + '-' + ForecastUtil.getMonthUniqueId(tempDate) +'-'+ (fp.Direct_Enabled__c ? '0':'1')
+								)
+							);
+						}
+						tempDate = tempDate.addMonths(1);
+					}
+				}
+				upsert fmList;
+				upsert fmList2 external_Id__c;
 
-            system.debug(fmList.size());
-            set<Id> monthIds = new Set<Id>();
-            for(Forecast_Month__c fm : fmList){
-                monthIds.add(fm.Id);
-            }
+				system.debug(fmList.size());
+				set<Id> monthIds = new Set<Id>();
+				for(Forecast_Month__c fm : fmList){
+					monthIds.add(fm.Id);
+				}
 
-            List<Forecast_Month__c> forecastMonthList = [select id, Month__c, Forecast_Product__c, Forecast_Product__r.Account__c, Forecast_Product__r.Product__c from Forecast_Month__c where Id IN:monthIds];
+				List<Forecast_Month__c> forecastMonthList = [select id, Month__c, Forecast_Product__c, Forecast_Product__r.Account__c, Forecast_Product__r.Product__c from Forecast_Month__c where Id IN:monthIds];
 
-            // ========================= CHANGED BLOCK: aggregate per External_Id__c =========================
-            Map<String, Forecast_Item__c> fiByExternalId = new Map<String, Forecast_Item__c>();
+				List<Forecast_Item__c> fiList = new List<Forecast_Item__c>();
+				system.debug('fmList-->'+fmList);
+				system.debug('fmList-->'+fmList.size());
+				system.debug('forecastMonthList-->'+forecastMonthList);
+				system.debug('forecastMonthList-->'+forecastMonthList.size());
+				for(Forecast_Month__c fm : forecastMonthList){
+					for(Integer i : mapOfProductToQuantity.get(fm.Forecast_Product__c).get(fm.Month__c.month())){
+						String fullFillmentType = mapOfForecastProduct.get(fm.Forecast_Product__c) ?'-base-direct-' :'-base-local-';
+						system.debug('fullFillmentType-->'+fullFillmentType);
+						string externalId = fm.Forecast_Product__r.Account__c + '-' + fm.Forecast_Product__r.Product__c + fullFillmentType +ForecastUtil.getMonthUniqueId(fm.Month__c);
+						system.debug('externalId-->'+externalId);
+						fiList.add(new Forecast_Item__c(
+							Fulfillment__c = mapOfForecastProduct.get(fm.Forecast_Product__c) ?'Direct Shipment' :'Local Warehouse',
+							Quantity__c = i ,
+							Forecast__c=fm.Id,
+							Item_Type__c='Base',
+							External_Id__c = externalId));
+					}
+				}
 
-            for (Forecast_Month__c fm : forecastMonthList) {
-                Integer monthVal = fm.Month__c.month();
-                Map<Integer, List<Integer>> byMonth = mapOfProductToQuantity.get(fm.Forecast_Product__c);
-                if (byMonth == null || !byMonth.containsKey(monthVal)) continue;
+				if (!fiList.isEmpty())
+				{
+					upsert fiList External_Id__c;
+				}
 
-                // Sum quantities for this month for this forecast product
-                Integer totalQty = 0;
-                for (Integer q : byMonth.get(monthVal)) {
-                    totalQty += (q == null ? 0 : q);
-                }
-
-                String fullFillmentType = mapOfForecastProduct.get(fm.Forecast_Product__c) ? '-base-direct-' : '-base-local-';
-                String extId =
-                    fm.Forecast_Product__r.Account__c + '-' +
-                    fm.Forecast_Product__r.Product__c +
-                    fullFillmentType +
-                    ForecastUtil.getMonthUniqueId(fm.Month__c);
-
-                if (!fiByExternalId.containsKey(extId)) {
-                    fiByExternalId.put(extId, new Forecast_Item__c(
-                        Fulfillment__c = mapOfForecastProduct.get(fm.Forecast_Product__c) ? 'Direct Shipment' : 'Local Warehouse',
-                        Quantity__c    = totalQty,
-                        Forecast__c    = fm.Id,
-                        Item_Type__c   = 'Base',
-                        External_Id__c = extId
-                    ));
-                } else {
-                    // Defensive merge if we somehow encounter the same key again
-                    Forecast_Item__c existing = fiByExternalId.get(extId);
-                    existing.Quantity__c = (existing.Quantity__c == null ? 0 : existing.Quantity__c) + totalQty;
-                }
-            }
-
-            List<Forecast_Item__c> fiList = new List<Forecast_Item__c>(fiByExternalId.values());
-
-            // Optional guardrail: detect accidental dup keys before DML
-            // Set<String> seen = new Set<String>();
-            // for (Forecast_Item__c fi : fiList) {
-            //     if (!seen.add(fi.External_Id__c)) {
-            //         // Decide: merge, skip, or throw a descriptive error
-            //     }
-            // }
-
-            if (!fiList.isEmpty())
-            {
-                upsert fiList External_Id__c;
-            }
-            // ========================= END CHANGED BLOCK =========================
-
-        }
-        return 'Success';
-}
-
+			}
+			return 'Success';
+	}
 
 	@AuraEnabled
 	public static List<String> getDateRange() {
@@ -976,368 +926,6 @@ public static string insertProduct (String prodJson,String accountId)
 		i++;
 		i++;
 		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;        i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;        i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;        i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-				i++;
-		i++;
-		i++;
-		i++;
-		i++;
-		i++;
-			i++;
 		i++;
 		i++;
 		i++;

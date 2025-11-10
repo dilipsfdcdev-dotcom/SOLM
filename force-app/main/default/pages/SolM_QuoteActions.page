@@ -1,0 +1,21 @@
+<apex:page standardController="Quote" extensions="SolM_QuoteController" showHeader="true" sidebar="false">
+    <apex:form >
+        <apex:pageBlock title="Quote PDF Actions">
+            <apex:pageBlockSection columns="1">
+                <apex:outputText value="Preview PDF:" />
+                <apex:outputLink value="/apex/SolM_Quote_PDF?id={!Quote.Id}" target="_blank">
+                    Open Quote PDF
+                </apex:outputLink>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save to Quote (Attach PDF)" action="{!saveToQuote}" />
+                <apex:commandButton value="Save & Email Quote" action="{!saveAndOpenEmail}" />
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection >
+                <apex:messages />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

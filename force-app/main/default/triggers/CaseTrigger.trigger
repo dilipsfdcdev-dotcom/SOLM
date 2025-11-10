@@ -9,5 +9,9 @@ trigger CaseTrigger on Case (before insert, after insert, after update) {
         if (Trigger.isInsert || Trigger.isUpdate) {
             CaseTriggerHandler.handleExecutiveFlagUpdate(Trigger.new, Trigger.oldMap, Trigger.isInsert, Trigger.isUpdate);
         }
+        
+        if (Trigger.isUpdate) {
+            CaseTriggerHandler.handleFormSubmissionCloseOnCaseClose(Trigger.new, Trigger.oldMap);
+        }
     }
 }

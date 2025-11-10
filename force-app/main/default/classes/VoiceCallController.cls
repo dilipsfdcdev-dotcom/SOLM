@@ -9,7 +9,7 @@ public with sharing class VoiceCallController {
         // Query related VoiceCall records
         return [
             SELECT Id, Name, Case__c, Contact__c, Call_Category__c, IVR_Selection__c, 
-                   CallOrigin, QueueName, CallType, CallDurationInSeconds, CreatedDate
+                   CallOrigin, QueueName, CallType, CallDurationInSeconds, CreatedDate, FromPhoneNumber
             FROM VoiceCall
             WHERE FromPhoneNumber = :currentCall.FromPhoneNumber
             ORDER BY CreatedDate DESC

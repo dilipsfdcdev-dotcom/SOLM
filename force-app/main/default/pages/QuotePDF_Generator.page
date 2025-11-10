@@ -1,0 +1,12 @@
+<apex:page standardController="Quote" extensions="QuotePdfExactController">
+    <apex:form >
+        <apex:pageMessages id="msgs"/>
+        
+        <h2>Generate Quote PDF</h2>
+        <p>This will create and attach a fresh PDF to the Quote's "Quote PDFs" related list.</p>
+        
+        <apex:commandButton value="Generate & Attach PDF" 
+            action="{!generateAndAttachPDF}" 
+            rerender="msgs"/>
+    </apex:form>
+</apex:page>
