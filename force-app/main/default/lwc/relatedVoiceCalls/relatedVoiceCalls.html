@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title="Related Voice Calls">
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+
+        <template if:true={hasData}>
+            <lightning-datatable
+                key-field="Id"
+                data={voiceCalls}
+                columns={columns}
+                onrowaction={handleRowAction}
+                hide-checkbox-column
+            ></lightning-datatable>
+        </template>
+
+        <template if:true={error}>
+            <p class="slds-text-color_error slds-p-around_medium">
+                An error occurred while loading voice calls.
+            </p>
+        </template>
+
+        <template if:false={hasData}>
+            <template if:false={isLoading}>
+                <p class="slds-p-around_medium">No voice calls found.</p>
+            </template>
+        </template>
+    </lightning-card>
+</template>

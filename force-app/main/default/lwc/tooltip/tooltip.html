@@ -1,0 +1,33 @@
+<template>
+	<div class={mainClasses}>
+		<template if:true={withoutIcon}>
+			<slot aria-describedby="help" onmouseover={handleMouseOver} onmouseout={handleMouseOut}></slot>
+		</template>
+		<template if:false={withoutIcon}>
+			<template if:false={hasLink}>
+				<span aria-describedby="help" onmouseover={handleMouseOver} onmouseout={handleMouseOut}>
+					<lightning-button-icon icon-name={iconName} 
+						class="slds-m-left_xx-small" variant={iconVariant}></lightning-button-icon>
+				</span>
+			</template>
+			<template if:true={hasLink}>
+				<a href={link} aria-describedby="help" onmouseover={handleMouseOver} onmouseout={handleMouseOut}
+				   target="_blank">
+					<lightning-button-icon icon-name={iconName}
+						class="slds-m-left_xx-small" variant={iconVariant}></lightning-button-icon>
+				</a>
+			</template>
+		</template>
+		<div class={classes} role="tooltip" id="help">
+			<div id="tooltip-text" class="slds-popover__body tooltip__popover-body">
+				<template if:false={custom}>
+					<lightning-formatted-rich-text value={text}></lightning-formatted-rich-text>
+				</template>
+				<template if:true={custom}>
+					<slot name="custom_popover"
+					></slot>
+				</template>
+			</div>
+		</div>
+	</div>
+</template>

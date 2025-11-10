@@ -1,0 +1,175 @@
+<template>
+    <lightning-spinner alternative-text="Loading" if:true={isLoading}></lightning-spinner>
+
+
+    <template if:true={searchNoData}>
+        <div class="center">
+            <h1 class="font--big">{labels.searchNoData}</h1>
+        </div>
+    </template>
+
+    <template if:true={dataSet}>
+
+        <div class="forecast__table slds-scrollable_x">
+            <table>
+                <thead>
+                    <tr>
+                        <td class="sticky--first forecast__table__header">
+                            <lightning-icon icon-name="standard:product" alternative-text={labels.product}
+                                title={labels.product} size="small" style="margin-right: 5px;">
+
+                            </lightning-icon>
+                            {labels.product}
+                        </td>
+                        <td class="sticky--second">
+                            <b>{labels.data}</b>
+                        </td>
+
+                        <template for:each={dateRange} for:item="dateEntry">
+                            <th class="quantity__column" key={dateEntry}>
+                                <p>
+                                    <span>{dateEntry}</span>
+                                </p>
+                            </th>
+                        </template>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={products} for:item="product">
+                        <tr key={product.productInfo.productId}>
+                            <td rowspan="7" class="sticky--first">
+                                <template lwc:if={searchByProduct}>
+                                    <p>
+                                        <b>Account Name: </b><b>{product.productInfo.AccountName}</b>
+                                       
+                                    </p>
+                                    <p>
+                                        <br>
+                                    </p>
+                                </template>
+
+                                <p>
+                                    <b>{product.productInfo.name}</b>
+                                </p>
+                                <p>
+                                    {product.productInfo.productCode}
+                                </p>
+                                <p>
+                                    {product.productInfo.productLine}
+                                </p>
+                                <p>
+                                    Case: {product.productInfo.uom}
+                                </p>
+                                <p>
+                                    {product.methodsInfo}
+                                </p>
+                                <p>
+                                    {product.warehouseName}
+                                </p>      
+                                <p>
+                                    Price: {product.productInfo.UnitPrice} {currencyCode}
+                                </p>
+                                <p>
+                                    <br>
+                                </p>
+                                <p>
+                                    <lightning-button label={detailsBtnLabel} title={detailsBtnLabel} data-account-id={product.productInfo.AccountId}
+                                        onclick={displayDetails} value={product.productInfo.productId} data-id={product.directEnabled} name={product.productInfo.UnitPrice}>
+                                    </lightning-button>
+                                </p>
+                            </td>
+                            <td class="sticky--second">
+                                {labels.previousOrders}
+                            </td>
+                            <template for:each={product.previousYearOrders} for:item="previousOrder">
+                                <td key={previousOrder.month}>
+                                    {previousOrder.value}
+                                </td>
+                            </template>
+
+                        </tr>
+                        <tr key={product.currentYearOrders}>
+                            <td class="sticky--second">
+                                {labels.currentOrders}
+                            </td>
+                            <template for:each={product.currentYearOrders} for:item="currentOrder">
+                                <td key={currentOrder.month}>
+                                    {currentOrder.value}
+                                </td>
+                            </template>
+                        </tr>
+                        <tr key={product.baseTotal}>
+                            <td class="sticky--second">
+                                {labels.baseTotal}
+                            </td>
+                            <template for:each={product.baseTotal} for:item="base">
+                                <td key={base.month}>
+                                    {base.value}
+                                </td>
+                            </template>
+                        </tr>
+                        <tr key={product.opportunitiesTotal}>
+                            <td class="sticky--second">
+                                {labels.oppTotal}
+                            </td>
+                            <template for:each={product.opportunitiesTotal} for:item="opp">
+                                <td key={opp.month}>
+                                    {opp.value}
+                                </td>
+                            </template>
+                        </tr>
+                        <tr key={product.adjustmentsTotal}>
+                            <td class="sticky--second">
+                                {labels.adjTotal}
+                            </td>
+                            <template for:each={product.adjustmentsTotal} for:item="adjustment">
+                                <td key={adjustment.month}>
+                                    {adjustment.value}
+                                </td>
+                            </template>
+                        </tr>
+                        <tr key={product.forecastTotal}>
+                            <td class="sticky--second">
+                                <b>{labels.forecastTotal}</b>
+                            </td>
+                            <template for:each={product.forecastTotal} for:item="total">
+                                <td key={total.month}>
+                                    {total.value}
+                                </td>
+                            </template>
+                        </tr>
+                        <tr key={product.forecastRevenue} style="border-bottom-color: black;">
+                            <td class="sticky--second">
+                                <b>{labels.forecastRevenue}</b>
+                            </td>
+                            <template for:each={product.forecastRevenue} for:item="revenue">
+                                <td key={revenue.month}>
+                                    {revenue.value}
+                                </td>
+                            </template>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <br>
+
+        <div class="slds-align_absolute-center">
+            <div class="slds-p-right_xx-small">
+
+                <lightning-button label="Prev" disabled={isPrev} onclick={handlePagePrevAction} variant="brand"
+                    icon-name="utility:back" name="prev"></lightning-button>
+            </div>
+            <span class="slds-badge slds-badge_lightest">
+                {recordStart}-{recordEnd} of {totalRecords} | Page {pageNumber} of {totalPages}
+            </span>
+            <div class="slds-p-left_xx-small">
+                <lightning-button label="Next" disabled={isNext} onclick={handlePageNextAction} variant="brand"
+                    icon-name="utility:forward" icon-position="right" name="next"></lightning-button>
+            </div>
+        </div>
+
+    </template>
+
+</template>

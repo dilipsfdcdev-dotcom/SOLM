@@ -1,0 +1,28 @@
+.sticky--first--row{
+    left: 0;
+    z-index: 2;
+    position: sticky;
+    background: white;
+    word-wrap: break-word;
+}
+
+.sticky--first--header{
+    left: 0;
+    z-index: 2;
+    position: sticky;
+    word-wrap: break-word;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    padding:20px 0;
+}
+
+.full_width {
+    width: 100%;
+}
+
+.font--big{
+    font-size: 25px;
+}

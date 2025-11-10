@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title="">
+        <lightning-spinner alternative-text="Loading" if:true={isLoading}></lightning-spinner>
+        <div class="slds-grid slds-wrap forecasting">
+            <div class="slds-col slds-size_3-of-12 forecasting__controls">
+                <div class="control__panel--margin">
+                    <c-lookup errors={errors} 
+                    onsearch={handleLookupSearch} 
+                    onselectionchange={handleLookupSelectionChange}
+                    label={labels.lookupInputLabel} 
+                    placeholder={labels.lookupInputPlaceholder}>
+                </c-lookup>
+                </div>
+            </div>
+            <div class="slds-col slds-size_9-of-12 forecasting__data">
+                <template if:true={displayNoProductSelection}>
+                    <div class="center font--big">
+                        <h1>{labels.productSelect}</h1>
+                    </div>
+                </template>
+                <template lwc:if={showList}>
+                    <c-forecast-product-list disabled={isReadOnlyPermission} product-id={productId}
+                    search-by-product={handleSearchByProduct}
+                    onproductselect={handleProductSelect} oncurrentpage={handlePageSelect} page-number={pageNumber}
+                    volume={selectedVolume}>
+                </c-forecast-product-list>
+                </template>
+                <template lwc:if={showProductDetails}>
+                    <c-forecast-product-details product-id={selectedProduct} disabled={isReadOnlyPermission} price={price} direct={direct}
+                        account-id={AccountId} onback={handleBack} volume={selectedVolume}
+                        local-warehouse-codes={localWarehouseCodes}
+                        ondisabled={handleDisabled}>
+                    </c-forecast-product-details>
+                </template>
+            </div>
+        </div>
+    </lightning-card>
+</template>

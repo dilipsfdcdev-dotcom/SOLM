@@ -1,0 +1,173 @@
+<template>
+
+    <lightning-button label={labels.enableProducts} icon-name="utility:add" onclick={showModal}
+        style="width: 100%;box-sizing: border-box;" disabled={disabled}></lightning-button>
+
+    <c-modal header={labels.modalHeader}>
+        <lightning-spinner alternative-text="Loading" if:true={isLoading} style="z-index: 101;"></lightning-spinner>
+
+        <span>
+            <c-lookup errors={errors} onsearch={handleLookupSearch} onselectionchange={handleLookupSelectionChange}
+                label={labels.lookupInputLabel} placeholder={labels.lookupInputPlaceholder} is-multi-entry>
+            </c-lookup>
+
+            <template if:false={displayTable}>
+                <div style="margin-top: 150px;">
+                </div>
+            </template>
+
+            <template if:true={displayTable}>
+                <br>
+                <div class="slds-scrollable_x">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="sticky--first ">
+                                    <b>{labels.productColumn}</b>
+                                </td>
+                                <td class="sticky--second">
+                                    <b>Enabled</b>
+                                </td>
+                                <td class="sticky--third">
+                                    <b>{labels.fulfillmentColumn}</b>
+                                </td>
+                                <td class="sticky--fourth">
+                                    <b>Price</b>
+                                </td>
+                                <td class="sticky--five">
+                                    <b>Warehouse</b>
+                                </td>
+                                <template for:each={dateRange} for:item="month">
+                                    <th key={month} class="quantity__column">
+                                        {month}
+                                    </th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={products} for:item="product">
+                                <tr key={product.productId}>
+                                    <td rowspan="3" class="sticky--first ">
+                                        <p>
+                                            <b>{product.name}</b>
+                                        </p>
+                                        <p>
+                                            {product.productCode}
+                                        </p>
+                                        <p>
+                                            {product.productLine}
+                                        </p>
+                                        <p>
+                                            {product.uom}
+                                        </p>
+                                    </td>
+                                    <td class="sticky--second">
+                                        <lightning-input type="checkbox" variant="label-hidden" checked
+                                            onchange={handleSelectionChange} data-product={product.productId}
+                                            data-method="direct" data-type="checkbox">
+                                        </lightning-input>
+                                    </td>
+                                    <td class="sticky--third">
+                                        {labels.direct} {currencyCode}
+                                    </td>
+                                    <td class="sticky--fourth">
+                                        <lightning-input type="number" variant="label-hidden"
+                                        data-type="priceDirect" onchange={handlepriceChange} 
+                                        data-product={product.productId} data-method="direct" 
+                                        step="0.0001" required="true"></lightning-input> 
+                                    </td>
+                                    <td class="sticky--five">
+                                        <select class="slds-select" id={product.productId} onchange={handleWarehouseSelect} 
+                                        data-product={product.productId} data-type="directwarehouse"  data-method="direct" 
+                                        required>
+                                            <template for:each = {localWarehouseCodes} for:item="listViewItem">
+                                               <option key={listViewItem.value} value={listViewItem.value}
+                                               
+                                            aria-required="true"
+                                            >{listViewItem.label}</option>
+                                            </template>
+                                       </select>
+                                    </td>
+                                    <template for:each={dateRange} for:item="month">
+                                        <td key={month}>
+                                            <lightning-input type="number" variant="label-hidden" data-month={month}
+                                                data-product={product.productId} data-method="direct" data-type="number"
+                                                onchange={handleInputChange} class="quantity__column" step={step}></lightning-input>
+                                        </td>
+                                    </template>
+                                </tr>
+                                <tr key={product.productId}>
+                                    <td class="sticky--second" rowspan="2">
+                                        <lightning-input type="checkbox" variant="label-hidden" checked
+                                            onchange={handleSelectionChange} data-product={product.productId}
+                                            data-method="local" data-type="checkbox">
+                                        </lightning-input>
+                                    </td>
+                                    <td class="sticky--third" rowspan="2">
+                                        {labels.local} {currencyCode}
+                                    </td>
+                                    <td class="sticky--fourth"  rowspan="2">
+                                        <lightning-input type="number" variant="label-hidden" 
+                                        data-type="priceLocal" 
+                                        data-product={product.productId} data-method="local"
+                                        onchange={handlepriceChange} step="0.0001" required="true"></lightning-input> 
+                                    </td>
+                                    <td class="sticky--five"  rowspan="2">
+                                        <select class="slds-select" id={product.productId} onchange={handleWarehouseSelect} 
+                                            data-type="localwarehouse" data-product={product.productId} data-method="local" required>
+                                            <template for:each = {localWarehouseCodes} for:item="listViewItem">
+                                               <option key={listViewItem.value} value={listViewItem.value}
+                                                aria-required="true"
+                                            >{listViewItem.label}</option>
+                                            </template>
+                                       </select>
+                                    </td>
+                                    <template for:each={dateRange} for:item="month">
+                                        <td key={month}>
+                                            <lightning-input type="number" variant="label-hidden" data-month={month}
+                                                data-product={product.productId} data-method="local" data-type="number"
+                                                onchange={handleInputChange} class="quantity__column" step={step}></lightning-input>
+                                        </td>
+                                    </template>
+                                </tr>
+
+                                <tr key={product.productId} class="row__end">
+                                    <td colspan="2">
+                                        <!--
+                                        <lightning-combobox  
+                                            options={localWarehouseCodes} dropdown-alignment="bottom-left" 
+                                            placeholder="Select Warehouse" variant="label-hidden"
+                                            onchange={handleWarehouseSelect}
+                                            data-product={product.productId}
+                                            data-type="warehouse"
+                                            required="true">
+                                        </lightning-combobox>
+                                        -->
+                                    </td>
+                                </tr>
+
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+        </span>
+
+        <span slot="footer">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_2-of-12">
+                    <lightning-combobox name="volumes" variant="label-hidden" options={volumeOptions}
+                        value={volume} onchange={handleVolumeChange} dropdown-alignment="auto">
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_10-of-12">
+                    <lightning-button label="Cancel" onclick={hideModal}></lightning-button>
+                    <lightning-button label="Save" class="slds-m-left_x-small" onclick={handleSave} variant="brand"
+                        disabled={saveDisabled}>
+                    </lightning-button>
+                </div>
+            </div>
+        </span>
+
+    </c-modal>
+</template>

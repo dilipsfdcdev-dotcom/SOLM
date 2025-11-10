@@ -1,0 +1,104 @@
+<template>
+    <hr>
+    <template lwc:if={showTable}>
+        <div class="font--big" style="padding-left: 13%;margin-bottom: 10px;">
+            <h1>Historical Forecast</h1>
+        </div>
+        <div class="forecast__table slds-scrollable" style="width: 58%;height: 200px;">
+            <table  class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="sticky--first--header" scope="col">
+                            <div class="slds-truncate" title="Product SKU">Product SKU</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Total Quantity">Quantity (Monthly)</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Warehouse">Warehouse</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Total Revenue">Revenue (Monthly)</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="ASP">ASP in USD</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={data} for:item="row">
+                        <template lwc:if={row.IsAvailable}>
+                            <tr class="slds-hint-parent" key={row.id} style="color:green;">
+                                <td data-label="Product SKU" class="sticky--first--row">
+                                    <template lwc:if={row.Product__c}>
+                                        <div class="slds-truncate" title={row.Product__r.Name} style="color:green;">{row.Product__r.ProductCode} 
+                                           <!--<lightning-helptext content={row.Product__r.Name}></lightning-helptext>--> 
+                                        </div>
+                                    </template>
+                                    
+                                </td>
+                                <td data-label="Total Quantity">
+                                    <div class="slds-truncate" title="Total Quantity" style="color:green;">
+                                        <lightning-formatted-number value={row.Value__c} maximum-fraction-digits="2"></lightning-formatted-number> 
+                                        </div>
+                                </td>
+                                <td data-label="Warehouse">
+                                    <template lwc:if={row.Warehouse__c}>
+                                        <div class="slds-truncate" title="Warehouse" style="color:green;">{row.Warehouse__r.Name}</div>
+                                    </template>
+                                    
+                                </td>
+                                <td data-label="Total Revenue">
+                                    <div class="slds-truncate" title="Total Revenue" style="color:green;">
+                                        <lightning-formatted-number value={row.Total_Revenue__c} maximum-fraction-digits="4" format-style="decimal"></lightning-formatted-number> 
+                                        </div>
+                                </td>
+
+                                <td data-label="ASP">
+                                    <div class="slds-truncate" title="ASP" style="color:green;"><lightning-formatted-number value={row.ASP__c} maximum-fraction-digits="4" format-style="decimal"></lightning-formatted-number> 
+                                        </div>
+                                </td>
+                            </tr>
+                        </template>
+                        <template lwc:else>
+                            <tr class="slds-hint-parent" key={row.id} style="color:red;">
+                                <td data-label="Product SKU" class="sticky--first--row">
+                                    <template lwc:if={row.Product__c}>
+                                        <div class="slds-truncate" title={row.Product__r.Name} style="color:red;">{row.Product__r.ProductCode} 
+                                           <!--<lightning-helptext content={row.Product__r.Name}></lightning-helptext>--> 
+                                        </div>
+                                    </template>
+                                    
+                                </td>
+                                <td data-label="Total Quantity">
+                                    <div class="slds-truncate" title="Total Quantity" style="color:red;">
+                                        <lightning-formatted-number value={row.Value__c} maximum-fraction-digits="2"></lightning-formatted-number> 
+                                        </div>
+                                </td>
+                                <td data-label="Warehouse">
+                                    <template lwc:if={row.Warehouse__c} >
+                                        <div class="slds-truncate" title="Warehouse" style="color:red;">{row.Warehouse__r.Name}</div>
+                                    </template>
+                                    
+                                </td>
+                                <td data-label="Total Revenue">
+                                    <div class="slds-truncate" title="Total Revenue" style="color:red;">
+                                        <lightning-formatted-number value={row.Total_Revenue__c} maximum-fraction-digits="4" format-style="decimal"></lightning-formatted-number> 
+                                        </div>
+                                </td>
+
+                                <td data-label="ASP">
+                                    <div class="slds-truncate" title="ASP" style="color:red;"><lightning-formatted-number value={row.ASP__c} maximum-fraction-digits="4" format-style="decimal"></lightning-formatted-number> 
+                                        </div>
+                                </td>
+                            </tr>
+                        </template>
+
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </template>
+  
+
+</template>

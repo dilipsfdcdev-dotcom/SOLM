@@ -1,0 +1,8 @@
+.modal-hidden {
+    display: none;
+}
+
+.slds-modal__container {
+    max-width: var(--modalMaxWidth, 50rem);
+    width: var(--modalWidth, 50%);
+}

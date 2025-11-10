@@ -1,0 +1,74 @@
+.THIS .contactField label {
+    visibility: hidden;
+}
+
+.THIS .contactField label:before {
+    visibility: visible;
+    content: 'Contact Name';
+}
+
+.THIS .opptyResultOptions {
+    margin-top: 7px;
+}
+
+.THIS .opptyResultOptions > fieldset > div {
+    background-color: white;
+    padding-left: 10px;
+    overflow : auto;
+    height:170px;
+}
+
+.THIS .opptyResultOptions span.slds-form-element__label {
+    white-space: pre-wrap;
+}
+
+.THIS .opptyResultOptions span.slds-form-element__label:first-line {
+    font-weight: bold;
+}
+
+.THIS .opptyResultOptions .slds-radio .slds-form-element__label {
+    display: inline-block;
+}
+
+.THIS .selectedOpportunity input {
+    background-color: white;
+    padding-left: 10px;
+    border-style: solid;
+    border-color: lightgrey;
+}
+
+.THIS .slds-form-element_stacked:not(.slds-is-editing) {
+    padding: 0;
+}
+
+.THIS .validationErrors {
+    background-color: rgb(194, 57, 52);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: 0.75rem;
+}
+
+.THIS .prepErrors {
+    background-color: rgb(254, 147, 57);
+    color: black;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: 0.75rem;
+}
+
+.THIS .slds-form-element__icon {
+    display: none;
+}
+
+.THIS .button-container {
+    border-top: 2px solid rgb(221, 219, 218);
+}
+
+.THIS .sectionRadioGroup {
+    margin-top: 9px;
+}

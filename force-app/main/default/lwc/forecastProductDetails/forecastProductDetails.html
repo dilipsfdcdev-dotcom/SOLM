@@ -1,0 +1,766 @@
+<template>
+
+    <lightning-spinner alternative-text="Loading" if:true={isLoading} style="z-index: 101;"></lightning-spinner>
+
+    <lightning-button variant="base" label={labels.backButtonLabel} title="back" onclick={backToList}>
+    </lightning-button>
+
+    <template if:true={dataSet}>
+
+        <div class="slds-grid slds-wrap ">
+            <div class="slds-col slds-size_1-of-2">
+                <p style="margin-bottom: 5px;">
+                    <lightning-icon icon-name="standard:product" alternative-text={labels.product}
+                        title={labels.product} size="small" style="margin-right: 5px;">
+                    </lightning-icon>
+                    <b>{productWrapper.productInfo.name}</b>
+                </p>
+                <p>
+                    {productWrapper.productInfo.productLine}, {productWrapper.productInfo.productCode}, UoM:
+                    {productWrapper.productInfo.uom}
+                </p>
+            </div>
+
+            <div class="slds-col slds-size_1-of-2">
+     
+                <lightning-button label={labels.disableProduct} title={labels.disableProduct} disabled={disabled}
+                    onclick={disableProduct} variant="destructive-text"></lightning-button>
+         
+                <!--template if:false={displayDirect}>
+                    <lightning-button label={labels.enableDirect} title={labels.enableDirect} disabled={disabled}
+                        onclick={enableFulfillment} data-method={labels.direct} class="slds-m-left_x-small"></lightning-button>
+                </template>
+
+                <template if:true={displayDirect}>
+                    <lightning-button label={labels.disableDirect} title={labels.disableDirect} disabled={disabled}
+                        onclick={disableFulfillment} data-method={labels.direct} variant="destructive-text" class="slds-m-left_x-small"></lightning-button>
+                </template>
+
+                <template if:false={displayLocal}>
+                    <lightning-button label={labels.enableLocal} title={labels.enableLocal} onclick={enableFulfillment}
+                        data-method={labels.local} disabled={disabled} class="slds-m-left_x-small"></lightning-button>
+                </template>
+
+                <template if:true={displayLocal}>
+                    <lightning-button label={labels.disableLocal} title={labels.disableLocal} onclick={disableFulfillment}
+                        data-method={labels.local} disabled={disabled} variant="destructive-text" class="slds-m-left_x-small"></lightning-button>
+                </template-->
+            </div>
+        </div>
+
+        <br>
+
+        <div class="slds-scrollable_y">
+            <div class="slds-scrollable_x">
+                <table>
+                    <thead>
+                        <tr>
+                            <td class="fulfillment__column">
+                                <b>{labels.fulfillment}</b>
+                            </td>
+                            <td class="data__column">
+                                <b>{labels.data}</b>
+                            </td>
+                            <td class="action__column">
+                                <b>{labels.action}</b>
+                            </td>
+                            <template for:each={productWrapper.dateRange} for:item="dateEntry">
+                                <th key={dateEntry} class="quantity__column">
+                                    <p>
+                                        <span>{dateEntry}</span>
+                                    </p>
+                                </th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2" class="fulfillment__column"></td>
+                            <td class="data__column">
+                                <b>{labels.previousOrders}</b>
+                            </td>
+                            <td class="action__column"></td>
+                            <template for:each={productWrapper.previousYearOrders} for:item="previousOrder">
+                                <td key={previousOrder.month} class="quantity__column">
+                                    {previousOrder.value}
+                                </td>
+                            </template>
+                        </tr>
+                        <tr class="row__bottom--black">
+                            <td class="data__column">
+                                <b>{labels.currentOrders}</b>
+                            </td>
+                            <td class="action__column"></td>
+                            <template for:each={productWrapper.currentYearOrders} for:item="currentOrder">
+                                <td key={currentOrder.month} class="quantity__column">
+                                    {currentOrder.value}
+                                </td>
+                            </template>
+                        </tr>
+                        <template if:true={displayDirect}>
+                            <tr>
+                                <td rowspan={methods.direct.rowSpan} class="fulfillment__column">
+                                    <p>Price:
+                                        <lightning-input type="number" onchange={handlePriceChange} value={price}  step=".0001">
+                                        </lightning-input> 
+                                        {currencyCode}
+                                    </p>
+                                    <p><br></p>
+                                    <p>
+                                        <lightning-button-icon icon-name="utility:save" alternative-text="Save"
+                                            class="slds-m-left_xx-small" onclick={updatePrice} title="Save"
+                                            data-method={labels.local}>
+                                        </lightning-button-icon>
+                                    </p>
+                                    <p><br></p>
+                                    {labels.directShipment}
+                                    <p><br></p>
+                                    <p>
+                                        <select class="slds-select" id={productId} onchange={handleWarehouseSelect} 
+                                         disabled={disabled}>
+                                         <template if:true={selectedWarehouse}> 
+                                            <option value={selectedWarehouse}>{selectedWarehouselabel}</option>
+                                        </template>
+                                        <template for:each = {localWarehouseCodes} for:item="listViewItem">
+                                           <option key={listViewItem.value} value={listViewItem.value}
+                                            aria-required="true"
+                                        >{listViewItem.label}</option>
+                                        </template>
+                                   </select>
+
+                                       <!--
+                                        <lightning-combobox  
+                                            options={localWarehouseCodes} dropdown-alignment="bottom-left"  
+                                            placeholder="Select Warehouse 1" variant="label-hidden"
+                                            value={selectedWarehouse}
+                                            onchange={handleWarehouseSelect} disabled={disabled}>
+                                        </lightning-combobox>
+                                       --> 
+                                    </p>
+                                </td>
+                                
+                                <td class="data__column">
+                                    <b>{labels.base}</b>
+                                </td>
+                                <td class="action__column">
+                                    <template if:false={methods.direct.baseEditDisabled}>
+                                        <lightning-button-icon icon-name="utility:edit" alternative-text="edit"
+                                            class="slds-m-left_xx-small" title="Clear" onclick={baseClearHandle}
+                                            data-method={labels.direct}>
+                                        </lightning-button-icon>
+                                        <lightning-button-icon icon-name="utility:save" alternative-text="Save"
+                                            class="slds-m-left_xx-small" onclick={baseSave} title="Save"
+                                            data-method={labels.direct}>
+                                        </lightning-button-icon>
+                                    </template>
+                                    <template if:true={methods.direct.baseEditDisabled}>
+                                        <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                                            class="slds-m-left_xx-small" title="Edit" data-method={labels.direct}
+                                            onclick={baseEdit} disabled={disabled}>
+                                        </lightning-button-icon>
+                                    </template>
+                                </td>
+
+                                <template for:each={methods.direct.base} for:item="base">
+                                    <td key={base.month}>
+                                        <lightning-input type="number" data-method={labels.direct} data-type="base"
+                                            data-month={base.month} disabled={methods.direct.baseEditDisabled}
+                                            value={base.value} variant="label-hidden" onchange={baseChange} step={step}>
+                                        </lightning-input>
+                                    </td>
+                                </template>
+                            </tr>
+                            <template for:each={methods.direct.opportunities} for:item="opp">
+                                <template if:true={opp.display}>
+                                    <tr key={opp.recordId} class={opp.rowColor}>
+                                        <td class="data__column">
+                                            <lightning-formatted-url value={opp.link} label={opp.name} target="_blank">
+                                            </lightning-formatted-url>
+
+                                            <c-tooltip text={opp.tooltipComment} wide tooltip-icon="utility:info">
+                                            </c-tooltip>
+                                        </td>
+                                        <td class="action__column">
+                                            <template if:true={opp.displayApproveButton}>
+                                                <lightning-button-icon icon-name="action:approval"
+                                                    alternative-text={labels.approveOpp} class="slds-m-left_xx-small"
+                                                    title={labels.approveOpp} tooltip={labels.approveOpp}
+                                                    data-id={opp.recordId} data-method={labels.direct}
+                                                    data-approval={labels.approved} onclick={opportunityApproval}
+                                                    disabled={disabled}>
+                                                </lightning-button-icon>
+                                            </template>
+                                            <template if:true={opp.displayRejectButton}>
+                                                <lightning-button-icon icon-name="action:reject"
+                                                    alternative-text={labels.rejectOpp} class="slds-m-left_xx-small"
+                                                    title={labels.rejectOpp} tooltip={labels.rejectOpp}
+                                                    data-id={opp.recordId} data-method={labels.direct}
+                                                    data-approval={labels.rejected} onclick={opportunityApproval}
+                                                    disabled={disabled}>
+                                                </lightning-button-icon>
+                                            </template>
+                                        </td>
+                                        <template for:each={opp.entries} for:item="entry">
+                                            <td key={entry.month}>
+                                                {entry.value}
+                                            </td>
+                                        </template>
+                                    </tr>
+                                </template>
+                            </template>
+                            <tr>
+                                <td class="data__column">
+                                    <b>{labels.oppTotal}</b>
+                                </td>
+                                <td class="action__column">
+                                    <template if:true={methods.direct.hasRejectedOpps}>
+                                        <template if:false={methods.direct.displayRejected}>
+                                            <lightning-button-icon icon-name="action:more"
+                                                alternative-text={labels.showRejected} class="slds-m-left_xx-small"
+                                                title={labels.showRejected} tooltip={labels.showRejected}
+                                                data-method={labels.direct} onclick={oppShowRejected}>
+                                            </lightning-button-icon>
+                                        </template>
+                                        <template if:true={methods.direct.displayRejected}>
+                                            <lightning-button-icon icon-name="utility:hide"
+                                                alternative-text={labels.hideRejected} class="slds-m-left_xx-small"
+                                                title={labels.hideRejected} tooltip={labels.hideRejected}
+                                                data-method={labels.direct} onclick={oppHideRejected}>
+                                            </lightning-button-icon>
+                                        </template>
+                                    </template>
+                                </td>
+                                <template for:each={productWrapper.opportunitiesTotalDirect}
+                                    for:item="opportunitiesTotalDirectItem">
+                                    <td key={opportunitiesTotalDirectItem.month}>
+                                        {opportunitiesTotalDirectItem.value}
+                                    </td>
+                                </template>
+                            </tr>
+
+                            <template for:each={methods.direct.adjustments} for:item="adjustment">
+                                <tr key={adjustment.recordId}>
+                                    <td rowspan={adjustment.rowSpan} class="data__column">
+                                        {adjustment.name}
+                                        <c-tooltip text={adjustment.tooltipComment} wide tooltip-icon="utility:info">
+                                        </c-tooltip>
+                                    </td>
+                                    <td class="action__column">
+                                        <template if:true={adjustment.editDisabled}>
+                                            <lightning-button-icon icon-name="utility:delete" alternative-text="Delete"
+                                                class="slds-m-left_xx-small" title="Delete" onclick={adjustmentDeactivate}
+                                                data-id={adjustment.recordId} disabled={disabled}>
+                                            </lightning-button-icon>
+                                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                                                class="slds-m-left_xx-small" title="Edit" data-method={labels.direct}
+                                                data-id={adjustment.recordId} onclick={adjustmentEdit} disabled={disabled}>
+                                            </lightning-button-icon>
+                                        </template>
+                                        <template if:false={adjustment.editDisabled}>
+                                            <lightning-button-icon icon-name="utility:clear" alternative-text="Clear"
+                                                class="slds-m-left_xx-small" title="Clear" data-method={labels.direct}
+                                                onclick={adjustmentClearHandle} data-id={adjustment.recordId}>
+                                            </lightning-button-icon>
+                                            <lightning-button-icon icon-name="utility:save" alternative-text="Save"
+                                                class="slds-m-left_xx-small" onclick={adjustmentSave} title="Save"
+                                                data-method={labels.direct} data-id={adjustment.recordId}>
+                                            </lightning-button-icon>
+                                        </template>
+                                    </td>
+
+                                    <template for:each={adjustment.entries} for:item="entry">
+                                        <td key={entry.month}>
+                                            <lightning-input type="number" value={entry.value} variant="label-hidden"
+                                                data-month={entry.month} disabled={adjustment.editDisabled}
+                                                data-method={labels.direct} data-id={adjustment.recordId}
+                                                data-type="number" onchange={adjustmentQuantityChange} step={step}>
+                                            </lightning-input>
+                                        </td>
+                                    </template>
+                                </tr>
+
+                                <template if:false={adjustment.editDisabled}>
+                                    <tr key={adjustment.recordId}>
+                                        <td class="action__column"></td>
+                                        <td colspan=2>
+                                            <lightning-input type="text" variant="label-hidden" placeholder="Name..."
+                                                data-method={labels.direct} onchange={adjustmentNameChange}
+                                                data-id={adjustment.recordId} value={adjustment.name} data-type="name">
+                                            </lightning-input>
+                                        </td>
+                                        <td colspan=2>
+                                            <lightning-combobox options={methods.direct.oppOptions}
+                                                dropdown-alignment="auto" placeholder="Select Opportunity"
+                                                variant="label-hidden" data-method={labels.direct}
+                                                value={adjustment.opportunity} data-id={adjustment.recordId}
+                                                data-type="opportunity" onchange={adjustmentOpportunityChange}>
+                                            </lightning-combobox>
+                                        </td>
+                                        <td colspan=5>
+                                            <lightning-input type="text" variant="label-hidden" placeholder="Comment..."
+                                                data-method={labels.direct} onchange={adjustmentCommentChange}
+                                                data-id={adjustment.recordId} data-type="comment"
+                                                value={adjustment.comment}>
+                                            </lightning-input>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </template>
+
+                            <template if:true={methods.direct.displayNewForm}>
+                                <tr>
+                                    <td rowspan="2" class="data__column">
+                                        <em>{labels.newAdj}</em>
+                                    </td>
+                                    <td class="action__column">
+                                        <lightning-button-icon icon-name="utility:clear" alternative-text="Clear"
+                                            class="slds-m-left_xx-small" title="Clear" data-id="new"
+                                            data-method={labels.direct} onclick={adjustmentClearHandle}>
+                                        </lightning-button-icon>
+                                        <lightning-button-icon icon-name="utility:save" alternative-text="Save"
+                                            class="slds-m-left_xx-small" onclick={adjustmentSave} data-id="new"
+                                            data-method={labels.direct} title="Save">
+                                        </lightning-button-icon>
+                                    </td>
+
+                                    <template for:each={productWrapper.dateRange} for:item="dateEntry">
+                                        <td key={dateEntry}>
+                                            <lightning-input type="number" value="" variant="label-hidden"
+                                                data-month={dateEntry} data-method={labels.direct} data-type="number"
+                                                onchange={adjustmentQuantityChange} data-id="new" step={step}>
+                                            </lightning-input>
+                                        </td>
+                                    </template>
+                                </tr>
+                                <tr>
+                                    <td class="action__column"></td>
+                                    <td colspan=2>
+                                        <lightning-input type="text" variant="label-hidden" placeholder="Name..."
+                                            data-method={labels.direct} data-type="name" data-id="new"
+                                            onchange={adjustmentNameChange}>
+                                        </lightning-input>
+                                    </td>
+                                    <td colspan=2>
+                                        <lightning-combobox options={methods.direct.oppOptions}
+                                            dropdown-alignment="auto" placeholder="Select Opportunity"
+                                            variant="label-hidden" data-id="new" data-type="opportunity"
+                                            data-method={labels.direct} onchange={adjustmentOpportunityChange}>
+                                        </lightning-combobox>
+                                    </td>
+                                    <td colspan=5>
+                                        <lightning-input type="text" variant="label-hidden" placeholder="Comment..."
+                                            data-method={labels.direct} data-id="new" data-type="comment"
+                                            onchange={adjustmentCommentChange}>
+                                        </lightning-input>
+                                    </td>
+                                </tr>
+                            </template>
+                            <tr>
+                                <td class="data__column">
+                                    <b>{labels.adjTotal}</b>
+                                </td>
+                                <td class="action__column">
+                                    <template if:false={methods.direct.displayNewForm}>
+                                        <lightning-button-icon icon-name="utility:new" class="slds-m-left_xx-small"
+                                            title="New Direct Adjustment" onclick={adjustmentNewForm}
+                                            data-method={labels.direct} data-id="new" tooltip="New Adjustment"
+                                            disabled={disabled}>
+                                        </lightning-button-icon>
+                                    </template>
+                                </td>
+                                <template for:each={productWrapper.adjustmentsTotalDirect}
+                                    for:item="adjustmentsTotalDirectItem">
+                                    <td key={adjustmentsTotalDirectItem.month}>
+                                        {adjustmentsTotalDirectItem.value}
+                                    </td>
+                                </template>
+                            </tr>
+                            <tr >
+                                <td class="data__column">
+                                    <b>{labels.forecastTotal}</b>
+                                </td>
+                                <td class="action__column"></td>
+                                <template for:each={productWrapper.forecastTotalDirect}
+                                    for:item="forecastTotalDirectItem">
+                                    <td key={forecastTotalDirectItem.month}>
+                                        {forecastTotalDirectItem.value}
+                                    </td>
+                                </template>
+                            </tr>
+                            <tr class="row__bottom--black">
+                                <td class="data__column">
+                                    <b>{labels.forecastRevenue}</b>
+                                </td>
+                                <td class="action__column"></td>
+                                <template for:each={productWrapper.forecastRevenueDirect} for:item="forecastRevenueDirectItem">
+                                    <td key={forecastRevenueDirectItem.month}>
+                                        {forecastRevenueDirectItem.value}
+                                    </td>
+                                </template>
+                            </tr>
+                        </template>
+                        <template if:true={displayLocal}>
+                            <tr>
+                                <td rowspan={methods.local.rowSpan} class="fulfillment__column">
+                                    <p>Price: <lightning-input type="number" onchange={handlePriceChange} value={price}  step=".0001">
+                                        </lightning-input> {currencyCode}
+                                        <span>
+                                        <lightning-button-icon icon-name="utility:save" alternative-text="Save"
+                                            class="slds-m-left_xx-small" onclick={updatePrice} title="Save"
+                                            data-method={labels.local}>
+                                        </lightning-button-icon></span>
+                                    </p>
+                                    <p><br></p>
+                                    <p>{labels.localWarehouse}</p>
+                                    <p><br></p>
+                                    <p>
+                                        <select class="slds-select" id={productId} onchange={handleWarehouseSelect} 
+                                         disabled={disabled}>
+                                         <template if:true={selectedWarehouse}> 
+                                            <option value={selectedWarehouse}>{selectedWarehouselabel}</option>
+                                        </template>
+                                        <template for:each = {localWarehouseCodes} for:item="listViewItem">
+                                           <option key={listViewItem.value} value={listViewItem.value}
+                                            aria-required="true"
+                                        >{listViewItem.label}</option>
+                                        </template>
+                                   </select>
+
+                                       <!--
+                                        <lightning-combobox  
+                                            options={localWarehouseCodes} dropdown-alignment="bottom-left"  
+                                            placeholder="Select Warehouse 1" variant="label-hidden"
+                                            value={selectedWarehouse}
+                                            onchange={handleWarehouseSelect} disabled={disabled}>
+                                        </lightning-combobox>
+                                       --> 
+                                    </p>
+                                </td>
+                                <td class="data__column">
+                                    <b>{labels.base}</b>
+                                </td>
+                                <td class="action__column">
+                                    <template if:false={methods.local.baseEditDisabled}>
+                                        <lightning-button-icon icon-name="utility:clear" alternative-text="Clear"
+                                            class="slds-m-left_xx-small" title="Clear" onclick={baseClearHandle}
+                                            data-method={labels.local}>
+                                        </lightning-button-icon>
+                                        <lightning-button-icon icon-name="utility:save" alternative-text="Save"
+                                            class="slds-m-left_xx-small" onclick={baseSave} title="Save"
+                                            data-method={labels.local}>
+                                        </lightning-button-icon>
+                                    </template>
+                                    <template if:true={methods.local.baseEditDisabled}>
+                                        <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                                            class="slds-m-left_xx-small" title="Edit" data-method={labels.local}
+                                            onclick={baseEdit} disabled={disabled}>
+                                        </lightning-button-icon>
+                                    </template>
+                                </td>
+
+                                <template for:each={methods.local.base} for:item="base">
+                                    <td key={base.month}>
+                                        <lightning-input type="number" data-method={labels.local} data-type="base"
+                                            data-month={base.month} disabled={methods.local.baseEditDisabled}
+                                            value={base.value} variant="label-hidden" onchange={baseChange} step={step}>
+                                        </lightning-input>
+                                    </td>
+                                </template>
+                            </tr>
+                            <template for:each={methods.local.opportunities} for:item="opp">
+                                <template if:true={opp.display}>
+                                    <tr key={opp.recordId} class={opp.rowColor}>
+                                        <td class="data__column">
+                                            <lightning-formatted-url value={opp.link} label={opp.name} target="_blank">
+                                            </lightning-formatted-url>
+
+                                            <c-tooltip text={opp.tooltipComment} wide tooltip-icon="utility:info">
+                                            </c-tooltip>
+                                        </td>
+                                        <td class="action__column">
+                                            <template if:true={opp.displayApproveButton}>
+                                                <lightning-button-icon icon-name="action:approval"
+                                                    alternative-text={labels.approveOpp} class="slds-m-left_xx-small"
+                                                    title={labels.approveOpp} tooltip={labels.approveOpp}
+                                                    data-id={opp.recordId} data-method={labels.local}
+                                                    data-approval={labels.approved} onclick={opportunityApproval}
+                                                    disabled={disabled}>
+                                                </lightning-button-icon>
+                                            </template>
+                                            <template if:true={opp.displayRejectButton}>
+                                                <lightning-button-icon icon-name="action:reject"
+                                                    alternative-text={labels.rejectOpp} class="slds-m-left_xx-small"
+                                                    title={labels.rejectOpp} tooltip={labels.rejectOpp}
+                                                    data-id={opp.recordId} data-method={labels.local}
+                                                    data-approval={labels.rejected} onclick={opportunityApproval}
+                                                    disabled={disabled}>
+                                                </lightning-button-icon>
+                                            </template>
+                                        </td>
+                                        <template for:each={opp.entries} for:item="entry">
+                                            <td key={entry.month}>
+                                                {entry.value}
+                                            </td>
+                                        </template>
+                                    </tr>
+                                </template>
+                            </template>
+                            <tr>
+                                <td class="data__column">
+                                    <b>{labels.oppTotal}</b>
+                                </td>
+                                <td class="action__column">
+                                    <template if:true={methods.local.hasRejectedOpps}>
+                                        <template if:false={methods.local.displayRejected}>
+                                            <lightning-button-icon icon-name="action:more"
+                                                alternative-text={labels.showRejected} class="slds-m-left_xx-small"
+                                                title={labels.showRejected} tooltip={labels.showRejected}
+                                                data-method={labels.local} onclick={oppShowRejected}>
+                                            </lightning-button-icon>
+                                        </template>
+                                        <template if:true={methods.local.displayRejected}>
+                                            <lightning-button-icon icon-name="utility:hide"
+                                                alternative-text={labels.hideRejected} class="slds-m-left_xx-small"
+                                                title={labels.hideRejected} tooltip={labels.hideRejected}
+                                                data-method={labels.local} onclick={oppHideRejected}>
+                                            </lightning-button-icon>
+                                        </template>
+                                    </template>
+                                </td>
+                                <template for:each={productWrapper.opportunitiesTotalLocal}
+                                    for:item="opportunitiesTotalLocalItem">
+                                    <td key={opportunitiesTotalLocalItem.month}>
+                                        {opportunitiesTotalLocalItem.value}
+                                    </td>
+                                </template>
+                            </tr>
+                            <template for:each={methods.local.adjustments} for:item="adjustment">
+                                <tr key={adjustment.recordId}>
+                                    <td rowspan={adjustment.rowSpan} class="data__column">
+                                        {adjustment.name}
+                                        <c-tooltip text={adjustment.tooltipComment} wide tooltip-icon="utility:info">
+                                        </c-tooltip>
+                                    </td>
+                                    <td class="action__column">
+                                        <template if:true={adjustment.editDisabled}>
+                                            <lightning-button-icon icon-name="utility:delete" alternative-text="Delete"
+                                                class="slds-m-left_xx-small" title="Delete" onclick={adjustmentDeactivate}
+                                                data-id={adjustment.recordId}
+                                                disabled={disabled}>
+                                            </lightning-button-icon>
+                                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                                                class="slds-m-left_xx-small" title="Edit" data-method={labels.local}
+                                                data-id={adjustment.recordId} onclick={adjustmentEdit}
+                                                disabled={disabled}>
+                                            </lightning-button-icon>
+                                        </template>
+                                        <template if:false={adjustment.editDisabled}>
+                                            <lightning-button-icon icon-name="utility:clear" alternative-text="Clear"
+                                                class="slds-m-left_xx-small" title="Clear" data-method={labels.local}
+                                                onclick={adjustmentClearHandle} data-id={adjustment.recordId}>
+                                            </lightning-button-icon>
+                                            <lightning-button-icon icon-name="utility:save" alternative-text="Save"
+                                                class="slds-m-left_xx-small" onclick={adjustmentSave} title="Save"
+                                                data-method={labels.local} data-id={adjustment.recordId}>
+                                            </lightning-button-icon>
+                                        </template>
+                                    </td>
+
+                                    <template for:each={adjustment.entries} for:item="entry">
+                                        <td key={entry.month}>
+                                            <lightning-input type="number" value={entry.value} variant="label-hidden"
+                                                data-month={entry.month} disabled={adjustment.editDisabled}
+                                                data-method={labels.local} data-id={adjustment.recordId}
+                                                data-type="number" onchange={adjustmentQuantityChange} step={step}>
+                                            </lightning-input>
+                                        </td>
+                                    </template>
+                                </tr>
+
+                                <template if:false={adjustment.editDisabled}>
+                                    <tr key={adjustment.recordId}>
+                                        <td class="action__column"></td>
+                                        <td colspan=2>
+                                            <lightning-input type="text" variant="label-hidden" placeholder="Name..."
+                                                data-method={labels.local} onchange={adjustmentNameChange}
+                                                data-id={adjustment.recordId} value={adjustment.name} data-type="name">
+                                            </lightning-input>
+                                        </td>
+                                        <td colspan=2>
+                                            <lightning-combobox options={methods.local.oppOptions} dropdown-alignment="auto"
+                                                placeholder="Select Opportunity" variant="label-hidden"
+                                                data-method={labels.local} data-id={adjustment.recordId}
+                                                value={adjustment.opportunity} data-type="opportunity"
+                                                onchange={adjustmentOpportunityChange}>
+                                            </lightning-combobox>
+                                        </td>
+                                        <td colspan=5>
+                                            <lightning-input type="text" variant="label-hidden" placeholder="Comment..."
+                                                data-method={labels.local} onchange={adjustmentCommentChange}
+                                                data-id={adjustment.recordId} data-type="comment"
+                                                value={adjustment.comment}>
+                                            </lightning-input>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </template>
+
+                            <template if:true={methods.local.displayNewForm}>
+                                <tr>
+                                    <td rowspan="2" class="data__column">
+                                        <em>{labels.newAdj}</em>
+                                    </td>
+                                    <td class="action__column">
+                                        <lightning-button-icon icon-name="utility:clear" alternative-text="Clear"
+                                            class="slds-m-left_xx-small" title="Clear" data-id="new"
+                                            data-method={labels.local} onclick={adjustmentClearHandle}>
+                                        </lightning-button-icon>
+                                        <lightning-button-icon icon-name="utility:save" alternative-text="Save"
+                                            class="slds-m-left_xx-small" onclick={adjustmentSave} data-id="new"
+                                            data-method={labels.local} title="Save">
+                                        </lightning-button-icon>
+                                    </td>
+
+                                    <template for:each={productWrapper.dateRange} for:item="dateEntry">
+                                        <td key={dateEntry}>
+
+                                            <lightning-input type="number" value="" variant="label-hidden"
+                                                data-month={dateEntry} data-method={labels.local}
+                                                onchange={adjustmentQuantityChange} data-id="new" data-type="number" step={step}>
+                                            </lightning-input>
+                                        </td>
+                                    </template>
+                                </tr>
+                                <tr>
+                                    <td class="action__column"></td>
+                                    <td colspan=2>
+                                        <lightning-input type="text" variant="label-hidden" placeholder="Name..."
+                                            data-method={labels.local} data-id="new" onchange={adjustmentNameChange}
+                                            data-type="name">
+                                        </lightning-input>
+                                    </td>
+                                    <td colspan=2>
+                                        <lightning-combobox options={methods.local.oppOptions} dropdown-alignment="auto"
+                                            placeholder="Select Opportunity" variant="label-hidden" data-id="new"
+                                            data-method={labels.local} onchange={adjustmentOpportunityChange}
+                                            data-type="opportunity">
+                                        </lightning-combobox>
+                                    </td>
+                                    <td colspan=5>
+                                        <lightning-input type="text" variant="label-hidden" placeholder="Comment..."
+                                            data-method={labels.local} data-id="new" data-type="comment"
+                                            onchange={adjustmentCommentChange}>
+                                        </lightning-input>
+                                    </td>
+                                </tr>
+                            </template>
+                            <tr>
+                                <td class="data__column">
+                                    <b>{labels.adjTotal}</b>
+                                </td>
+                                <td class="action__column">
+                                    <template if:false={methods.local.displayNewForm}>
+                                        <lightning-button-icon icon-name="utility:new" class="slds-m-left_xx-small"
+                                            title="New Local Adjustment" onclick={adjustmentNewForm}
+                                            data-method={labels.local} data-id="new" tooltip="New Adjustment"
+                                            disabled={disabled}>
+                                        </lightning-button-icon>
+                                    </template>
+                                </td>
+                                <template for:each={productWrapper.adjustmentsTotalLocal}
+                                    for:item="adjustmentsTotalLocalItem">
+                                    <td key={adjustmentsTotalLocalItem.month}>
+                                        {adjustmentsTotalLocalItem.value}
+                                    </td>
+                                </template>
+                            </tr>
+                            <tr >
+                                <td class="data__column">
+                                    <b>{labels.forecastTotal}</b>
+                                </td>
+                                <td class="action__column"></td>
+                                <template for:each={productWrapper.forecastTotalLocal}
+                                    for:item="forecastTotalLocalItem">
+                                    <td key={forecastTotalLocalItem.month}>
+                                        {forecastTotalLocalItem.value}
+                                    </td>
+                                </template>
+                            </tr>
+                            <tr class="row__bottom--black">
+                                <td class="data__column">
+                                    <b>{labels.forecastRevenue}</b>
+                                </td>
+                                <td class="action__column"></td>
+                                <template for:each={productWrapper.forecastRevenueLocal} for:item="forecastRevenueLocalItem">
+                                    <td key={forecastRevenueLocalItem.month}>
+                                        {forecastRevenueLocalItem.value}
+                                    </td>
+                                </template>
+                            </tr>
+                        </template>
+                        <template if:true={displaySummary}>
+                            <tr>
+                                <td rowspan="4" class="fulfillment__column">
+                                    <b>{labels.summary}</b>
+                                </td>
+                                <td class="data__column">
+                                    <b>{labels.baseTotal}</b>
+                                </td>
+                                <td class="action__column"></td>
+                                <template for:each={productWrapper.baseSummary} for:item="baseSum">
+                                    <td key={baseSum.month}>
+                                        {baseSum.value}
+                                    </td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td class="data__column">
+                                    <b>{labels.oppTotal}</b>
+                                </td>
+                                <td class="action__column"></td>
+                                <template for:each={productWrapper.opportunitiesSummary} for:item="oppSum">
+                                    <td key={oppSum.month}>
+                                        {oppSum.value}
+                                    </td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td class="data__column">
+                                    <b>{labels.adjTotal}</b>
+                                </td>
+                                <td class="action__column"></td>
+                                <template for:each={productWrapper.adjustmentsSummary} for:item="adjustmentsSum">
+                                    <td key={adjustmentsSum.month}>
+                                        {adjustmentsSum.value}
+                                    </td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td class="data__column">
+                                    <b>{labels.forecastTotal}</b>
+                                </td>
+                                <td class="action__column"></td>
+                                <template for:each={productWrapper.forecastSummary} for:item="forecastSum">
+                                    <td key={forecastSum.month}>
+                                        {forecastSum.value}
+                                    </td>
+                                </template>
+                            </tr>
+                            <tr>
+                                <td class="data__column">
+                                    <b>{labels.forecastRevenue}</b>
+                                </td>
+                                <td class="action__column"></td>
+                                <template for:each={productWrapper.forecastRevenueSummary} for:item="forecastRevenueSummaryItem">
+                                    <td key={forecastRevenueSummaryItem.month}>
+                                        {forecastRevenueSummaryItem.value}
+                                    </td>
+                                </template>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+</template>

@@ -1,0 +1,9 @@
+.THIS .prepUnlinkErrors {
+    background-color: rgb(254, 147, 57);
+    color: black;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: 0.75rem;
+}

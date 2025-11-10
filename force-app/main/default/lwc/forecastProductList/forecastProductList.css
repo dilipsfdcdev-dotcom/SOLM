@@ -1,0 +1,53 @@
+table {
+    border-collapse: collapse;
+    /* white-space:nowrap; */
+}
+
+tr { 
+    border: solid;
+    border-color: #DDDBDA;
+    border-width: 1px 0;
+    border-spacing: 5em;
+}
+
+th, td {
+    padding: 0.5em;
+    padding-right: 2em;
+}
+
+table tbody th,td {
+    background: white;
+}
+
+.sticky--first{
+    left: 0;
+    z-index: 2;
+    position: sticky;
+
+    min-width: 300px; 
+    max-width: 300px; 
+    word-wrap: break-word;
+}
+
+.sticky--second{
+    left: 300px;
+    z-index: 2;
+    position: sticky;
+
+    min-width: 125px; 
+    max-width: 125px; 
+}
+
+.quantity__column{
+    min-width: 100px; 
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    padding:20px 0;
+}
+
+.font--big{
+    font-size: 25px;
+}
