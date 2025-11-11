@@ -40,9 +40,12 @@ export default class Forecast2MassUpload extends LightningElement {
      * Handle select file button click
      */
     handleSelectFile() {
-        const fileInput = this.template.querySelector('#fileInput');
+        const fileInput = this.template.querySelector('[data-id="fileInput"]');
         if (fileInput) {
             fileInput.click();
+        } else {
+            console.error('File input not found');
+            this.showToast('Error', 'File input not found. Please refresh the page.', 'error');
         }
     }
 
@@ -96,7 +99,7 @@ export default class Forecast2MassUpload extends LightningElement {
         this.resetValidation();
         this.resetResults();
 
-        const fileInput = this.template.querySelector('#fileInput');
+        const fileInput = this.template.querySelector('[data-id="fileInput"]');
         if (fileInput) {
             fileInput.value = '';
         }
@@ -201,18 +204,34 @@ export default class Forecast2MassUpload extends LightningElement {
      * Handle download template
      */
     handleDownloadTemplate() {
+        console.log('Download template clicked');
+        this.showToast('Generating Template', 'Please wait...', 'info');
+
         getCSVTemplate()
             .then(template => {
-                const blob = new Blob([template], { type: 'text/csv' });
+                console.log('Template received:', template);
+
+                if (!template) {
+                    this.showToast('Error', 'Empty template received', 'error');
+                    return;
+                }
+
+                // Create blob and download
+                const blob = new Blob([template], { type: 'text/csv;charset=utf-8;' });
                 const url = window.URL.createObjectURL(blob);
                 const link = document.createElement('a');
-                link.href = url;
-                link.download = 'forecast_upload_template.csv';
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'forecast_upload_template.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
                 link.click();
+                document.body.removeChild(link);
                 window.URL.revokeObjectURL(url);
-                this.showToast('Download Started', 'Template CSV is being downloaded', 'success');
+
+                this.showToast('Download Complete', 'Template CSV has been downloaded', 'success');
             })
             .catch(error => {
+                console.error('Download error:', error);
                 this.showToast('Download Error', extractErrorMessage(error), 'error');
             });
     }

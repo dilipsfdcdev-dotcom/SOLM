@@ -1,51 +1,146 @@
 <template>
-    <div class="forecast2-container">
-        <!-- Enhanced Header -->
-        <div class="slds-box slds-theme_default slds-m-bottom_medium">
-            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
-                <div class="slds-col">
-                    <h2 class="slds-text-heading_medium">
-                        <lightning-icon
-                            icon-name="standard:product"
-                            size="small"
-                            class="slds-m-right_small">
-                        </lightning-icon>
-                        Forecast by Product
-                    </h2>
-                    <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">
-                        View all accounts forecasting a specific product
-                    </p>
+    <div class="forecast2-product-container">
+        <!-- Enhanced Header Card -->
+        <div class="header-card slds-box slds-theme_default slds-m-bottom_medium">
+            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-product icon-container">
+                                <lightning-icon
+                                    icon-name="standard:product"
+                                    size="medium"
+                                    alternative-text="Product">
+                                </lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-text-heading_medium slds-m-bottom_x-small">
+                                Forecast by Product
+                            </h2>
+                            <p class="slds-text-body_small slds-text-color_weak">
+                                View all accounts forecasting a specific product. Compare demand across accounts and analyze total forecasted quantities.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="slds-col slds-no-flex">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-text-align_right badge-container">
                     <lightning-badge
                         label="Enhanced UI"
-                        class="slds-m-right_small">
+                        class="slds-m-right_x-small enhanced-badge">
                     </lightning-badge>
                     <lightning-badge
-                        label="v2.0">
+                        label="v2.0"
+                        class="version-badge">
                     </lightning-badge>
                 </div>
             </div>
         </div>
 
-        <!-- Existing Forecast App For Product Component (Wrapped) -->
-        <div class="enhanced-wrapper">
+        <!-- Feature Highlights -->
+        <div class="features-section slds-grid slds-gutters slds-wrap slds-m-bottom_medium">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                <div class="feature-card slds-box">
+                    <lightning-icon
+                        icon-name="utility:layers"
+                        size="small"
+                        class="feature-icon">
+                    </lightning-icon>
+                    <div class="feature-title">Cross-Account View</div>
+                    <div class="feature-desc">See which accounts are forecasting each product</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                <div class="feature-card slds-box">
+                    <lightning-icon
+                        icon-name="utility:chart"
+                        size="small"
+                        class="feature-icon">
+                    </lightning-icon>
+                    <div class="feature-title">Demand Analysis</div>
+                    <div class="feature-desc">Total demand calculation across all accounts</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                <div class="feature-card slds-box">
+                    <lightning-icon
+                        icon-name="utility:compare"
+                        size="small"
+                        class="feature-icon">
+                    </lightning-icon>
+                    <div class="feature-title">Quick Compare</div>
+                    <div class="feature-desc">Compare forecast quantities across multiple accounts</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Forecast App For Product (Original Component with Better Wrapper) -->
+        <div class="enhanced-wrapper slds-box">
             <c-forecast-app-for-product></c-forecast-app-for-product>
         </div>
 
-        <!-- Quick Help Section -->
-        <div class="slds-box slds-theme_shade slds-m-top_medium">
-            <lightning-accordion>
-                <lightning-accordion-section name="help" label="Quick Help">
-                    <div class="slds-text-body_small">
-                        <h4 class="slds-text-heading_small slds-m-bottom_small">How to use:</h4>
-                        <ol class="slds-list_ordered">
-                            <li>Search and select a product</li>
-                            <li>View all accounts forecasting this product</li>
-                            <li>Compare forecast quantities across accounts</li>
-                            <li>Click on an account to view detailed forecasts</li>
-                            <li>Review total demand for the product</li>
-                        </ol>
+        <!-- Quick Actions Panel -->
+        <div class="quick-actions slds-box slds-theme_shade slds-m-top_medium">
+            <lightning-accordion allow-multiple-sections-open>
+                <lightning-accordion-section name="help" label="Quick Help & Tips">
+                    <div class="help-content">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <h4 class="slds-text-heading_small slds-m-bottom_small">
+                                    <lightning-icon icon-name="utility:info" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                    Getting Started
+                                </h4>
+                                <ol class="slds-list_ordered help-list">
+                                    <li>Search and select a product using the lookup</li>
+                                    <li>View all accounts forecasting this product</li>
+                                    <li>Compare forecast quantities across accounts</li>
+                                    <li>Click on an account to view detailed forecasts</li>
+                                    <li>Review total demand for production planning</li>
+                                </ol>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <h4 class="slds-text-heading_small slds-m-bottom_small">
+                                    <lightning-icon icon-name="utility:light_bulb" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                    Pro Tips
+                                </h4>
+                                <ul class="slds-list_dotted help-list">
+                                    <li><strong>Filter Accounts:</strong> Use search to find specific accounts</li>
+                                    <li><strong>Volume Toggle:</strong> Switch between Pieces and Cases view</li>
+                                    <li><strong>Sort Options:</strong> Click column headers to sort data</li>
+                                    <li><strong>Total Demand:</strong> Check footer for aggregated totals</li>
+                                    <li><strong>Export Data:</strong> Use browser print for quick reports</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </lightning-accordion-section>
+
+                <lightning-accordion-section name="usecases" label="Common Use Cases">
+                    <div class="usecases-content">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div class="usecase-item">
+                                    <div class="usecase-icon">
+                                        <lightning-icon icon-name="utility:strategy" size="small"></lightning-icon>
+                                    </div>
+                                    <div class="usecase-content">
+                                        <h5 class="usecase-title">Production Planning</h5>
+                                        <p class="usecase-desc">Analyze total product demand across all accounts to optimize production schedules</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <div class="usecase-item">
+                                    <div class="usecase-icon">
+                                        <lightning-icon icon-name="utility:inventory" size="small"></lightning-icon>
+                                    </div>
+                                    <div class="usecase-content">
+                                        <h5 class="usecase-title">Inventory Management</h5>
+                                        <p class="usecase-desc">Ensure adequate stock levels based on aggregated forecast data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </lightning-accordion-section>
             </lightning-accordion>

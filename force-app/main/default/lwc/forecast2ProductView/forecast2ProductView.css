@@ -1,16 +1,207 @@
-.forecast2-container {
+.forecast2-product-container {
+    padding: 1rem;
+    background: #f3f3f3;
+    min-height: 100vh;
+}
+
+/* Header Card Styling - Product themed gradient */
+.header-card {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.header-card .slds-text-heading_medium,
+.header-card .slds-text-body_small {
+    color: white;
+}
+
+.icon-container {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    padding: 0.5rem;
+}
+
+.enhanced-badge {
+    background: #2e844a;
+}
+
+.version-badge {
+    background: #0176d3;
+}
+
+.badge-container {
+    margin-top: 0.5rem;
+}
+
+/* Feature Cards */
+.features-section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 1.5rem;
+    background: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    color: #e3165b;
+    margin-bottom: 0.75rem;
+}
+
+.feature-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #080707;
+    margin-bottom: 0.5rem;
+}
+
+.feature-desc {
+    font-size: 0.875rem;
+    color: #706e6b;
+    line-height: 1.4;
+}
+
+/* Enhanced Wrapper */
+.enhanced-wrapper {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Quick Actions Panel */
+.quick-actions {
+    border-radius: 8px;
     padding: 1rem;
 }
 
-.enhanced-wrapper {
-    background: white;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.help-content {
+    padding: 1rem 0;
 }
 
-/* Responsive design */
+.help-list li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+/* Use Cases Section */
+.usecases-content {
+    padding: 1rem 0;
+}
+
+.usecase-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.usecase-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transform: translateX(4px);
+}
+
+.usecase-icon {
+    flex-shrink: 0;
+    color: #e3165b;
+}
+
+.usecase-content {
+    flex-grow: 1;
+}
+
+.usecase-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #080707;
+    margin-bottom: 0.25rem;
+}
+
+.usecase-desc {
+    font-size: 0.85rem;
+    color: #706e6b;
+    line-height: 1.4;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .forecast2-container {
+    .forecast2-product-container {
         padding: 0.5rem;
+    }
+
+    .header-card {
+        padding: 1rem;
+    }
+
+    .feature-card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .enhanced-wrapper {
+        padding: 1rem;
+    }
+
+    .badge-container {
+        text-align: left !important;
+        margin-top: 1rem;
+    }
+
+    .usecase-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .features-section,
+    .quick-actions {
+        display: none;
+    }
+
+    .header-card {
+        background: white;
+        color: black;
+        box-shadow: none;
     }
 }
