@@ -1,0 +1,103 @@
+<template>
+    <div class="fc2-container">
+        <!-- Header Section -->
+        <div class="fc2-header">
+            <div class="fc2-header__content">
+                <lightning-icon icon-name="custom:custom85" size="large" class="fc2-header__icon"></lightning-icon>
+                <div class="fc2-header__text">
+                    <h1 class="fc2-header__title">Forecasting 2.0</h1>
+                    <p class="fc2-header__subtitle">Advanced Forecast Management System</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <lightning-card class="fc2-main-card">
+            <!-- Selection View -->
+            <template lwc:if={showSelection}>
+                <div class="fc2-selection-container">
+                    <h2 class="fc2-selection__title">Choose Your Forecasting View</h2>
+                    <p class="fc2-selection__description">Select how you want to manage your forecasts</p>
+
+                    <div class="fc2-cards-grid">
+                        <!-- Account Search Card -->
+                        <div class="fc2-option-card" onclick={handleSearchByAccount}>
+                            <div class="fc2-option-card__icon-wrapper fc2-option-card__icon-wrapper--primary">
+                                <lightning-icon icon-name="standard:account" size="large" alternative-text="Account"></lightning-icon>
+                            </div>
+                            <h3 class="fc2-option-card__title">Search by Account</h3>
+                            <p class="fc2-option-card__description">
+                                View and manage forecasts for a specific account.
+                                Perfect for account-based planning and analysis.
+                            </p>
+                            <div class="fc2-option-card__features">
+                                <div class="fc2-feature-item">
+                                    <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                    <span>Account-specific forecasts</span>
+                                </div>
+                                <div class="fc2-feature-item">
+                                    <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                    <span>Product-level details</span>
+                                </div>
+                                <div class="fc2-feature-item">
+                                    <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                    <span>Mass upload support</span>
+                                </div>
+                            </div>
+                            <div class="fc2-option-card__button">
+                                <lightning-button
+                                    label="Open Account View"
+                                    variant="brand"
+                                    class="fc2-btn-full">
+                                </lightning-button>
+                            </div>
+                        </div>
+
+                        <!-- Product Search Card -->
+                        <div class="fc2-option-card" onclick={handleSearchByProduct}>
+                            <div class="fc2-option-card__icon-wrapper fc2-option-card__icon-wrapper--secondary">
+                                <lightning-icon icon-name="standard:product" size="large" alternative-text="Product"></lightning-icon>
+                            </div>
+                            <h3 class="fc2-option-card__title">Search by Product</h3>
+                            <p class="fc2-option-card__description">
+                                View forecasts across all accounts for a specific product.
+                                Ideal for product managers and inventory planning.
+                            </p>
+                            <div class="fc2-option-card__features">
+                                <div class="fc2-feature-item">
+                                    <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                    <span>Product-centric view</span>
+                                </div>
+                                <div class="fc2-feature-item">
+                                    <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                    <span>Cross-account analysis</span>
+                                </div>
+                                <div class="fc2-feature-item">
+                                    <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                    <span>Demand aggregation</span>
+                                </div>
+                            </div>
+                            <div class="fc2-option-card__button">
+                                <lightning-button
+                                    label="Open Product View"
+                                    variant="brand"
+                                    class="fc2-btn-full">
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Account Search View -->
+            <template lwc:if={searchByAccount}>
+                <c-forecast-app-v2></c-forecast-app-v2>
+            </template>
+
+            <!-- Product Search View -->
+            <template lwc:if={searchByProduct}>
+                <c-forecast-app-for-product-v2></c-forecast-app-for-product-v2>
+            </template>
+        </lightning-card>
+    </div>
+</template>

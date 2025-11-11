@@ -1,0 +1,13 @@
+<template>
+    <!-- Enable Product V2 - uses existing component for now -->
+    <div class="fc2-enable-wrapper">
+        <c-forecast-enable-product
+            onrefresh={handleRefresh}
+            disabled={disabled}
+            account-id={accountId}
+            volume={volume}
+            local-warehouse-codes={localWarehouseCodes}
+            currency-code={currencyCode}>
+        </c-forecast-enable-product>
+    </div>
+</template>

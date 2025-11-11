@@ -1,0 +1,302 @@
+<template>
+    <!-- Loading Spinner -->
+    <lightning-spinner alternative-text="Loading" if:true={isLoading} variant="brand"></lightning-spinner>
+
+    <!-- Disable Confirmation Modal -->
+    <template lwc:if={openModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open fc2-modal">
+            <div class="slds-modal__container">
+                <lightning-modal-header label="Disable Forecasting"></lightning-modal-header>
+                <lightning-modal-body>
+                    <p class="fc2-modal-text">{labels.disableForecast}</p>
+                </lightning-modal-body>
+                <lightning-modal-footer>
+                    <lightning-button class="fc2-btn-secondary" label="Cancel" onclick={handleCloseModal}></lightning-button>
+                    <lightning-button label="Disable" variant="destructive" onclick={handleDisableForecasting}></lightning-button>
+                </lightning-modal-footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Main Layout -->
+    <div class="fc2-app-container">
+        <!-- Sidebar -->
+        <aside class="fc2-sidebar">
+            <!-- Account Selection Card -->
+            <div class="fc2-control-card">
+                <div class="fc2-control-card__header">
+                    <lightning-icon icon-name="standard:account" size="small"></lightning-icon>
+                    <h3 class="fc2-control-card__title">Account Selection</h3>
+                </div>
+                <div class="fc2-control-card__body">
+                    <c-lookup
+                        errors={errors}
+                        onsearch={handleLookupSearch}
+                        selection={initialSelection}
+                        onselectionchange={handleLookupSelectionChange}
+                        label={labels.accountSelectLabel}
+                        placeholder="Search for account...">
+                    </c-lookup>
+                </div>
+            </div>
+
+            <!-- Actions Card -->
+            <template lwc:if={displayDisableForecasting}>
+                <div class="fc2-control-card fc2-control-card--actions">
+                    <div class="fc2-control-card__header">
+                        <lightning-icon icon-name="utility:settings" size="small"></lightning-icon>
+                        <h3 class="fc2-control-card__title">Actions</h3>
+                    </div>
+                    <div class="fc2-control-card__body">
+                        <lightning-button
+                            variant="destructive-text"
+                            label="Disable Forecasting"
+                            onclick={disableForecasting}
+                            disabled={isReadOnlyPermission}
+                            class="fc2-btn-action">
+                        </lightning-button>
+                        <template lwc:if={displayProductList}>
+                            <lightning-button
+                                variant="destructive-text"
+                                label="Delete All Forecasts"
+                                onclick={deleteAllProducts}
+                                disabled={isReadOnlyPermission}
+                                class="fc2-btn-action">
+                            </lightning-button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Add Product Card -->
+            <template lwc:if={displayAddProduct}>
+                <div class="fc2-control-card">
+                    <div class="fc2-control-card__header">
+                        <lightning-icon icon-name="utility:add" size="small"></lightning-icon>
+                        <h3 class="fc2-control-card__title">Add Products</h3>
+                    </div>
+                    <div class="fc2-control-card__body">
+                        <c-forecast-enable-product-v2
+                            onrefresh={handleRefresh}
+                            disabled={isReadOnlyPermission}
+                            account-id={recordId}
+                            volume={selectedVolume}
+                            local-warehouse-codes={localWarehouseCodes}
+                            currency-code={currencyCODE}>
+                        </c-forecast-enable-product-v2>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Volume Filter Card -->
+            <template lwc:if={displayVolumeFilter}>
+                <div class="fc2-control-card">
+                    <div class="fc2-control-card__header">
+                        <lightning-icon icon-name="utility:filter" size="small"></lightning-icon>
+                        <h3 class="fc2-control-card__title">Display Settings</h3>
+                    </div>
+                    <div class="fc2-control-card__body">
+                        <lightning-combobox
+                            name="volumes"
+                            label={labels.volumeSelectLabel}
+                            options={volumeOptions}
+                            value={selectedVolume}
+                            onchange={handleVolumeChange}
+                            class="fc2-combobox">
+                        </lightning-combobox>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Product Search Card -->
+            <template lwc:if={displayProductSearch}>
+                <div class="fc2-control-card">
+                    <div class="fc2-control-card__header">
+                        <lightning-icon icon-name="utility:search" size="small"></lightning-icon>
+                        <h3 class="fc2-control-card__title">Product Search</h3>
+                    </div>
+                    <div class="fc2-control-card__body">
+                        <lightning-input
+                            name="productSearch"
+                            label={labels.searchProductLabel}
+                            value={searchTerm}
+                            type="search"
+                            placeholder={labels.searchProductPlaceHolder}
+                            onchange={handleProductSearch}
+                            class="fc2-input">
+                        </lightning-input>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Mass Upload Card -->
+            <template lwc:if={recordId}>
+                <div class="fc2-control-card fc2-control-card--upload">
+                    <div class="fc2-control-card__header">
+                        <lightning-icon icon-name="utility:upload" size="small"></lightning-icon>
+                        <h3 class="fc2-control-card__title">Mass Upload</h3>
+                    </div>
+                    <div class="fc2-control-card__body">
+                        <!-- Upload Toggle -->
+                        <div class="fc2-upload-toggle">
+                            <lightning-button-group>
+                                <lightning-button
+                                    label="Single Account"
+                                    variant={singleAccountVariant}
+                                    onclick={handleSingleAccountMode}>
+                                </lightning-button>
+                                <lightning-button
+                                    label="Multiple Accounts"
+                                    variant={multipleAccountsVariant}
+                                    onclick={handleMultipleAccountsMode}>
+                                </lightning-button>
+                            </lightning-button-group>
+                        </div>
+
+                        <!-- Upload Instructions -->
+                        <div class="fc2-upload-info">
+                            <template lwc:if={massUploadMode}>
+                                <lightning-icon icon-name="utility:info" size="xx-small" class="fc2-info-icon"></lightning-icon>
+                                <span class="fc2-info-text">CSV must include AccountId column for mass upload</span>
+                            </template>
+                            <template lwc:else>
+                                <lightning-icon icon-name="utility:info" size="xx-small" class="fc2-info-icon"></lightning-icon>
+                                <span class="fc2-info-text">Upload forecast data for current account</span>
+                            </template>
+                        </div>
+
+                        <!-- File Upload Area -->
+                        <div class="fc2-upload-area" ondragover={handleDragOver} ondrop={handleDrop} ondragleave={handleDragLeave}>
+                            <lightning-input
+                                type="file"
+                                label="Choose CSV File"
+                                accept=".csv"
+                                onchange={importcsv}
+                                class="fc2-file-input">
+                            </lightning-input>
+
+                            <template lwc:if={filename}>
+                                <div class="fc2-file-selected">
+                                    <lightning-icon icon-name="doctype:csv" size="small"></lightning-icon>
+                                    <span class="fc2-filename">{filename}</span>
+                                </div>
+                            </template>
+
+                            <template lwc:if={showLoadingSpinner}>
+                                <div class="fc2-upload-spinner">
+                                    <lightning-spinner alternative-text="Uploading" size="small"></lightning-spinner>
+                                    <span class="fc2-upload-status">Processing file...</span>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Upload Button -->
+                        <template lwc:if={filename}>
+                            <lightning-button
+                                label={uploadButtonLabel}
+                                variant="brand"
+                                onclick={handleFileImport}
+                                disabled={showLoadingSpinner}
+                                class="fc2-btn-upload">
+                            </lightning-button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Historical Forecast Card -->
+                <template lwc:if={displayHistoricalForecast}>
+                    <div class="fc2-control-card">
+                        <div class="fc2-control-card__header">
+                            <lightning-icon icon-name="utility:clock" size="small"></lightning-icon>
+                            <h3 class="fc2-control-card__title">Historical Data</h3>
+                        </div>
+                        <div class="fc2-control-card__body">
+                            <template lwc:if={displayProductDetails}>
+                                <c-forecast-historical-table account-id={recordId} product-id={productId}></c-forecast-historical-table>
+                            </template>
+                            <template lwc:else>
+                                <c-forecast-historical-table account-id={recordId}></c-forecast-historical-table>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="fc2-main-content">
+            <!-- No Account Selected -->
+            <template lwc:if={displayNoAccountSelection}>
+                <div class="fc2-empty-state">
+                    <lightning-icon icon-name="standard:account" size="large" class="fc2-empty-state__icon"></lightning-icon>
+                    <h2 class="fc2-empty-state__title">{labels.accountSelect}</h2>
+                    <p class="fc2-empty-state__description">Select an account from the sidebar to start managing forecasts</p>
+                </div>
+            </template>
+
+            <!-- Forecasting Not Enabled -->
+            <template lwc:if={displayNoForecastEnabled}>
+                <div class="fc2-empty-state">
+                    <lightning-icon icon-name="utility:warning" size="large" class="fc2-empty-state__icon"></lightning-icon>
+                    <h2 class="fc2-empty-state__title">{labels.forecastEnable}</h2>
+                    <p class="fc2-empty-state__description">Enable forecasting to start managing product forecasts for this account</p>
+                    <lightning-button
+                        class="fc2-btn-enable"
+                        variant="brand"
+                        label="Enable Forecasting"
+                        onclick={enableForecasting}
+                        disabled={isReadOnlyPermission}>
+                    </lightning-button>
+                </div>
+            </template>
+
+            <!-- No Forecast Data -->
+            <template lwc:if={displayNoForecastData}>
+                <div class="fc2-empty-state">
+                    <lightning-icon icon-name="utility:add" size="large" class="fc2-empty-state__icon"></lightning-icon>
+                    <h2 class="fc2-empty-state__title">{labels.forecastNoData}</h2>
+                    <p class="fc2-empty-state__description">Add products to start creating forecasts</p>
+                    <c-forecast-enable-product-v2
+                        disabled={isReadOnlyPermission}
+                        onrefresh={handleRefresh}
+                        account-id={recordId}
+                        volume={selectedVolume}
+                        local-warehouse-codes={localWarehouseCodes}
+                        currency-code={currencyCODE}>
+                    </c-forecast-enable-product-v2>
+                </div>
+            </template>
+
+            <!-- Product List -->
+            <template lwc:if={displayProductList}>
+                <c-forecast-product-list-v2
+                    disabled={isReadOnlyPermission}
+                    account-id={recordId}
+                    onproductselect={handleProductSelect}
+                    oncurrentpage={handlePageSelect}
+                    page-number={pageNumber}
+                    search-term={searchTerm}
+                    volume={selectedVolume}
+                    currency-code={currencyCODE}>
+                </c-forecast-product-list-v2>
+            </template>
+
+            <!-- Product Details -->
+            <template lwc:if={displayProductDetails}>
+                <c-forecast-product-details-v2
+                    product-id={productId}
+                    disabled={isReadOnlyPermission}
+                    price={price}
+                    direct={direct}
+                    account-id={recordId}
+                    onback={handleBack}
+                    volume={selectedVolume}
+                    local-warehouse-codes={localWarehouseCodes}
+                    ondisabled={handleDisabled}
+                    currency-code={currencyCODE}>
+                </c-forecast-product-details-v2>
+            </template>
+        </main>
+    </div>
+</template>

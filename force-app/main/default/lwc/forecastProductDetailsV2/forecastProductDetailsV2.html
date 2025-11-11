@@ -1,0 +1,17 @@
+<template>
+    <!-- Product Details V2 - uses existing component for now -->
+    <div class="fc2-details-wrapper">
+        <c-forecast-product-details
+            product-id={productId}
+            disabled={disabled}
+            price={price}
+            direct={direct}
+            account-id={accountId}
+            onback={handleBack}
+            volume={volume}
+            local-warehouse-codes={localWarehouseCodes}
+            ondisabled={handleDisabled}
+            currency-code={currencyCode}>
+        </c-forecast-product-details>
+    </div>
+</template>

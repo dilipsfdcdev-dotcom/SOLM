@@ -1,0 +1,344 @@
+/* Product List V2 - Custom Card-Based Design */
+
+/* No Data State */
+.fc2-no-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.fc2-no-data__icon {
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.fc2-no-data__title {
+    font-size: 1.25rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Product Grid */
+.fc2-product-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Product Card */
+.fc2-product-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.fc2-product-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-color: #667eea;
+}
+
+/* Product Header */
+.fc2-product-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.fc2-product-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 0.75rem;
+    flex-shrink: 0;
+}
+
+.fc2-product-icon lightning-icon {
+    color: white;
+}
+
+.fc2-product-info {
+    flex-grow: 1;
+    color: white;
+}
+
+.fc2-product-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: white;
+}
+
+.fc2-product-code {
+    font-size: 0.875rem;
+    margin: 0.25rem 0;
+    opacity: 0.9;
+}
+
+.fc2-product-line {
+    font-size: 0.875rem;
+    margin: 0.25rem 0;
+    opacity: 0.9;
+}
+
+/* Product Details */
+.fc2-product-details {
+    padding: 1.5rem;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.fc2-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.fc2-detail-row:not(:last-child) {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.fc2-detail-row--price {
+    background: #eef2ff;
+    padding: 0.75rem;
+    margin: 0.5rem -1.5rem -1.5rem -1.5rem;
+    border-bottom: none;
+}
+
+.fc2-detail-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.fc2-detail-value {
+    font-size: 0.875rem;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.fc2-badge {
+    background: #667eea;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+}
+
+.fc2-price {
+    font-size: 1.125rem;
+    color: #667eea;
+}
+
+/* Forecast Section */
+.fc2-forecast-section {
+    padding: 1.5rem;
+}
+
+.fc2-table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+/* Forecast Table */
+.fc2-forecast-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.fc2-forecast-table thead {
+    background: #f9fafb;
+}
+
+.fc2-forecast-table th {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 2px solid #e5e7eb;
+    font-weight: 600;
+    color: #374151;
+    white-space: nowrap;
+}
+
+.fc2-th-metric {
+    position: sticky;
+    left: 0;
+    background: #f9fafb;
+    z-index: 1;
+    min-width: 150px;
+}
+
+.fc2-th-month {
+    min-width: 80px;
+    text-align: center;
+}
+
+.fc2-forecast-table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.2s ease;
+}
+
+.fc2-forecast-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.fc2-forecast-table td {
+    padding: 0.75rem;
+}
+
+.fc2-td-metric {
+    position: sticky;
+    left: 0;
+    background: white;
+    font-weight: 500;
+    color: #374151;
+    z-index: 1;
+}
+
+.fc2-forecast-table tbody tr:hover .fc2-td-metric {
+    background: #f9fafb;
+}
+
+.fc2-td-metric--bold {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.fc2-td-value {
+    text-align: center;
+    color: #6b7280;
+}
+
+.fc2-td-value--bold {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+/* Row Styles */
+.fc2-row-total {
+    background: #eef2ff;
+}
+
+.fc2-row-total:hover {
+    background: #e0e7ff !important;
+}
+
+.fc2-row-total .fc2-td-metric {
+    background: #eef2ff;
+}
+
+.fc2-row-total:hover .fc2-td-metric {
+    background: #e0e7ff !important;
+}
+
+.fc2-row-revenue {
+    background: #f0fdf4;
+}
+
+.fc2-row-revenue:hover {
+    background: #dcfce7 !important;
+}
+
+.fc2-row-revenue .fc2-td-metric {
+    background: #f0fdf4;
+}
+
+.fc2-row-revenue:hover .fc2-td-metric {
+    background: #dcfce7 !important;
+}
+
+/* Product Actions */
+.fc2-product-actions {
+    padding: 1.5rem;
+    background: #f9fafb;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fc2-btn-details {
+    min-width: 150px;
+}
+
+/* Pagination */
+.fc2-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.fc2-pagination__info {
+    display: flex;
+    align-items: center;
+}
+
+.fc2-pagination__badge {
+    background: #eef2ff;
+    color: #667eea;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.fc2-pagination__controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.fc2-pagination__btn {
+    min-width: 100px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .fc2-product-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .fc2-product-icon {
+        margin: 0 auto;
+    }
+
+    .fc2-pagination {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .fc2-pagination__controls {
+        width: 100%;
+    }
+
+    .fc2-pagination__btn {
+        flex: 1;
+    }
+
+    .fc2-forecast-section {
+        padding: 1rem;
+    }
+
+    .fc2-product-details {
+        padding: 1rem;
+    }
+
+    .fc2-product-actions {
+        padding: 1rem;
+    }
+
+    .fc2-btn-details {
+        width: 100%;
+    }
+}
