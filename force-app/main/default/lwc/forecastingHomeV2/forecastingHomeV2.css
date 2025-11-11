@@ -1,0 +1,192 @@
+/* Forecasting 2.0 - Modern Custom Styles */
+
+/* Container */
+.fc2-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+/* Header */
+.fc2-header {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.fc2-header__content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.fc2-header__icon {
+    flex-shrink: 0;
+}
+
+.fc2-header__text {
+    flex-grow: 1;
+}
+
+.fc2-header__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.fc2-header__subtitle {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin: 0.5rem 0 0 0;
+}
+
+/* Main Card */
+.fc2-main-card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Selection Container */
+.fc2-selection-container {
+    padding: 3rem;
+    text-align: center;
+}
+
+.fc2-selection__title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 1rem 0;
+}
+
+.fc2-selection__description {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin: 0 0 3rem 0;
+}
+
+/* Cards Grid */
+.fc2-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Option Card */
+.fc2-option-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    border: 2px solid #e5e7eb;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.fc2-option-card:hover {
+    border-color: #667eea;
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.2);
+}
+
+.fc2-option-card__icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    transition: all 0.3s ease;
+}
+
+.fc2-option-card__icon-wrapper--primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.fc2-option-card__icon-wrapper--secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.fc2-option-card:hover .fc2-option-card__icon-wrapper {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.fc2-option-card__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 1rem 0;
+}
+
+.fc2-option-card__description {
+    font-size: 1rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0 0 1.5rem 0;
+}
+
+/* Features List */
+.fc2-option-card__features {
+    margin: 1.5rem 0;
+    flex-grow: 1;
+}
+
+.fc2-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.fc2-feature-item lightning-icon {
+    color: #10b981;
+}
+
+/* Button */
+.fc2-option-card__button {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.fc2-btn-full {
+    width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .fc2-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fc2-header__title {
+        font-size: 2rem;
+    }
+
+    .fc2-selection__title {
+        font-size: 1.5rem;
+    }
+
+    .fc2-container {
+        padding: 1rem;
+    }
+
+    .fc2-selection-container {
+        padding: 2rem 1rem;
+    }
+}

@@ -1,0 +1,168 @@
+<template>
+    <lightning-spinner alternative-text="Loading" if:true={isLoading} variant="brand"></lightning-spinner>
+
+    <!-- No Data State -->
+    <template lwc:if={searchNoData}>
+        <div class="fc2-no-data">
+            <lightning-icon icon-name="utility:search" size="large" class="fc2-no-data__icon"></lightning-icon>
+            <h3 class="fc2-no-data__title">{labels.searchNoData}</h3>
+        </div>
+    </template>
+
+    <!-- Product Cards -->
+    <template lwc:if={dataSet}>
+        <div class="fc2-product-grid">
+            <!-- Product Cards -->
+            <template for:each={products} for:item="product">
+                <div key={product.productInfo.productId} class="fc2-product-card">
+                    <!-- Product Header -->
+                    <div class="fc2-product-header">
+                        <div class="fc2-product-icon">
+                            <lightning-icon icon-name="standard:product" size="small"></lightning-icon>
+                        </div>
+                        <div class="fc2-product-info">
+                            <h3 class="fc2-product-name">{product.productInfo.name}</h3>
+                            <p class="fc2-product-code">{product.productInfo.productCode}</p>
+                            <p class="fc2-product-line">{product.productInfo.productLine}</p>
+                        </div>
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="fc2-product-details">
+                        <div class="fc2-detail-row">
+                            <span class="fc2-detail-label">Case Qty:</span>
+                            <span class="fc2-detail-value">{product.productInfo.uom}</span>
+                        </div>
+                        <div class="fc2-detail-row">
+                            <span class="fc2-detail-label">Methods:</span>
+                            <span class="fc2-detail-value fc2-badge">{product.methodsInfo}</span>
+                        </div>
+                        <div class="fc2-detail-row">
+                            <span class="fc2-detail-label">Warehouse:</span>
+                            <span class="fc2-detail-value">{product.warehouseName}</span>
+                        </div>
+                        <div class="fc2-detail-row fc2-detail-row--price">
+                            <span class="fc2-detail-label">Price:</span>
+                            <span class="fc2-detail-value fc2-price">{product.productInfo.UnitPrice} {currencyCode}</span>
+                        </div>
+                    </div>
+
+                    <!-- Forecast Table -->
+                    <div class="fc2-forecast-section">
+                        <div class="fc2-table-wrapper">
+                            <table class="fc2-forecast-table">
+                                <thead>
+                                    <tr>
+                                        <th class="fc2-th-metric">Metric</th>
+                                        <template for:each={dateRange} for:item="dateEntry">
+                                            <th key={dateEntry} class="fc2-th-month">{dateEntry}</th>
+                                        </template>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Previous Orders -->
+                                    <tr class="fc2-row-data">
+                                        <td class="fc2-td-metric">{labels.previousOrders}</td>
+                                        <template for:each={product.previousYearOrders} for:item="previousOrder">
+                                            <td key={previousOrder.month} class="fc2-td-value">{previousOrder.value}</td>
+                                        </template>
+                                    </tr>
+
+                                    <!-- Current Orders -->
+                                    <tr class="fc2-row-data">
+                                        <td class="fc2-td-metric">{labels.currentOrders}</td>
+                                        <template for:each={product.currentYearOrders} for:item="currentOrder">
+                                            <td key={currentOrder.month} class="fc2-td-value">{currentOrder.value}</td>
+                                        </template>
+                                    </tr>
+
+                                    <!-- Base Total -->
+                                    <tr class="fc2-row-data">
+                                        <td class="fc2-td-metric">{labels.baseTotal}</td>
+                                        <template for:each={product.baseTotal} for:item="base">
+                                            <td key={base.month} class="fc2-td-value">{base.value}</td>
+                                        </template>
+                                    </tr>
+
+                                    <!-- Opportunities Total -->
+                                    <tr class="fc2-row-data">
+                                        <td class="fc2-td-metric">{labels.oppTotal}</td>
+                                        <template for:each={product.opportunitiesTotal} for:item="opp">
+                                            <td key={opp.month} class="fc2-td-value">{opp.value}</td>
+                                        </template>
+                                    </tr>
+
+                                    <!-- Adjustments Total -->
+                                    <tr class="fc2-row-data">
+                                        <td class="fc2-td-metric">{labels.adjTotal}</td>
+                                        <template for:each={product.adjustmentsTotal} for:item="adjustment">
+                                            <td key={adjustment.month} class="fc2-td-value">{adjustment.value}</td>
+                                        </template>
+                                    </tr>
+
+                                    <!-- Forecast Total -->
+                                    <tr class="fc2-row-total">
+                                        <td class="fc2-td-metric fc2-td-metric--bold">{labels.forecastTotal}</td>
+                                        <template for:each={product.forecastTotal} for:item="total">
+                                            <td key={total.month} class="fc2-td-value fc2-td-value--bold">{total.value}</td>
+                                        </template>
+                                    </tr>
+
+                                    <!-- Forecast Revenue -->
+                                    <tr class="fc2-row-revenue">
+                                        <td class="fc2-td-metric fc2-td-metric--bold">{labels.forecastRevenue}</td>
+                                        <template for:each={product.forecastRevenue} for:item="revenue">
+                                            <td key={revenue.month} class="fc2-td-value fc2-td-value--bold">{revenue.value}</td>
+                                        </template>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="fc2-product-actions">
+                        <lightning-button
+                            label={detailsBtnLabel}
+                            variant="brand"
+                            onclick={displayDetails}
+                            value={product.productInfo.productId}
+                            data-id={product.directEnabled}
+                            name={product.productInfo.UnitPrice}
+                            data-account-id={product.productInfo.AccountId}
+                            class="fc2-btn-details">
+                        </lightning-button>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Pagination -->
+        <div class="fc2-pagination">
+            <div class="fc2-pagination__info">
+                <span class="fc2-pagination__badge">
+                    {recordStart}-{recordEnd} of {totalRecords} | Page {pageNumber} of {totalPages}
+                </span>
+            </div>
+            <div class="fc2-pagination__controls">
+                <lightning-button
+                    label="Previous"
+                    disabled={isPrev}
+                    onclick={handlePagePrevAction}
+                    variant="neutral"
+                    icon-name="utility:chevronleft"
+                    class="fc2-pagination__btn">
+                </lightning-button>
+                <lightning-button
+                    label="Next"
+                    disabled={isNext}
+                    onclick={handlePageNextAction}
+                    variant="neutral"
+                    icon-name="utility:chevronright"
+                    icon-position="right"
+                    class="fc2-pagination__btn">
+                </lightning-button>
+            </div>
+        </div>
+    </template>
+</template>
