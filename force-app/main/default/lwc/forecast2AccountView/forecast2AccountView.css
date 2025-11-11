@@ -1,0 +1,16 @@
+.forecast2-container {
+    padding: 1rem;
+}
+
+.enhanced-wrapper {
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .forecast2-container {
+        padding: 0.5rem;
+    }
+}
