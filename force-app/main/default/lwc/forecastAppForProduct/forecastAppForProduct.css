@@ -1,34 +1,288 @@
+/* Enhanced Button Styling */
 .btn-margin {
-    margin-right: 4px;
+    margin-right: 0.5rem;
 }
 
+/* Center Content */
 .center {
     display: flex;
     justify-content: center;
-    padding:20px 0;
+    align-items: center;
+    padding: 3rem 0;
+    background: #fff5f8;
+    border-radius: 8px;
+    margin: 1rem 0;
 }
 
+/* Full Width */
 .full_width {
     width: 100%;
 }
 
-.font--big{
-    font-size: 25px;
+/* Large Font */
+.font--big {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #3e3e3c;
+    text-align: center;
 }
 
-.forecast__enable__btn{
-    padding: 10px 15px 10px 15px !important;
+/* Enable Forecast Button */
+.forecast__enable__btn {
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease !important;
 }
 
-.forecasting__controls{
-    padding-left: 20px;
-    padding-right: 20px;
+.forecast__enable__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
 }
 
-.forecasting__data{
-    padding-right: 20px;
+/* Enhanced Left Sidebar Controls - Product Theme */
+.forecasting__controls {
+    padding: 1.5rem;
+    background: #fff5f8;
+    border-radius: 8px 0 0 8px;
+    border-right: 2px solid #f9d7e5;
+    box-shadow: 2px 0 8px rgba(227, 22, 91, 0.05);
 }
 
-.control__panel--margin{
-    margin-bottom: 0.5em;
+/* Right Side Data Area */
+.forecasting__data {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Control Panel Spacing */
+.control__panel--margin {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f9d7e5;
+}
+
+.control__panel--margin:last-child {
+    border-bottom: none;
+}
+
+/* ===== DEEP STYLING FOR CHILD COMPONENTS ===== */
+
+/* Enhance Lightning Input Fields - Product Theme */
+.forecasting__controls lightning-input {
+    margin-bottom: 0.5rem;
+}
+
+.forecasting__controls lightning-input input {
+    border: 2px solid #f9d7e5 !important;
+    border-radius: 6px !important;
+    padding: 0.75rem !important;
+    font-size: 0.95rem !important;
+    transition: all 0.3s ease !important;
+    background: white !important;
+}
+
+.forecasting__controls lightning-input input:focus {
+    border-color: #e3165b !important;
+    box-shadow: 0 0 0 3px rgba(227, 22, 91, 0.1) !important;
+    outline: none !important;
+}
+
+/* Enhance Lightning Combobox */
+.forecasting__controls lightning-combobox {
+    margin-bottom: 0.5rem;
+}
+
+.forecasting__controls lightning-combobox input,
+.forecasting__controls lightning-combobox .slds-combobox__input {
+    border: 2px solid #f9d7e5 !important;
+    border-radius: 6px !important;
+    padding: 0.75rem !important;
+    font-size: 0.95rem !important;
+    transition: all 0.3s ease !important;
+    background: white !important;
+}
+
+.forecasting__controls lightning-combobox input:focus,
+.forecasting__controls lightning-combobox .slds-combobox__input:focus {
+    border-color: #e3165b !important;
+    box-shadow: 0 0 0 3px rgba(227, 22, 91, 0.1) !important;
+    outline: none !important;
+}
+
+/* Enhance c-lookup Component */
+.forecasting__controls c-lookup {
+    display: block;
+}
+
+/* Labels Enhancement */
+.forecasting__controls label,
+.forecasting__controls .slds-form-element__label {
+    font-weight: 600 !important;
+    color: #3e3e3c !important;
+    font-size: 0.875rem !important;
+    margin-bottom: 0.5rem !important;
+    display: block;
+}
+
+/* All Buttons Enhancement - Product Theme */
+.forecasting__controls lightning-button button,
+.forecasting__controls button {
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    padding: 0.625rem 1.25rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.forecasting__controls lightning-button button:hover,
+.forecasting__controls button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Destructive Buttons (Delete, Disable) */
+.forecasting__controls lightning-button[variant="destructive-text"] button {
+    color: #e3165b !important;
+    border: 2px solid #e3165b !important;
+    background: white !important;
+}
+
+.forecasting__controls lightning-button[variant="destructive-text"] button:hover {
+    background: #fff0f5 !important;
+    border-color: #c71455 !important;
+}
+
+/* File Upload Styling */
+.forecasting__controls input[type="file"] {
+    border: 2px dashed #f9d7e5 !important;
+    border-radius: 8px !important;
+    padding: 1rem !important;
+    background: white !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.forecasting__controls input[type="file"]:hover {
+    border-color: #e3165b !important;
+    background: #fff5f8 !important;
+}
+
+/* Form Inline Styling */
+.slds-form--inline {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #f9d7e5;
+    margin-top: 1rem;
+}
+
+.slds-form-element {
+    margin-bottom: 0.75rem;
+}
+
+/* Error Text Styling */
+.slds-text-color_error {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+/* Modal Enhancements - Product Theme */
+.slds-modal__container {
+    border-radius: 12px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.slds-modal-header,
+lightning-modal-header {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+    color: white !important;
+    border-radius: 12px 12px 0 0 !important;
+    padding: 1.5rem !important;
+}
+
+.slds-modal-header h2,
+lightning-modal-header h2 {
+    color: white !important;
+    font-weight: 700 !important;
+}
+
+lightning-modal-body {
+    padding: 1.5rem !important;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #3e3e3c;
+}
+
+lightning-modal-footer {
+    padding: 1rem 1.5rem !important;
+    background: #fff5f8;
+    border-top: 1px solid #f9d7e5;
+}
+
+/* Spinner Enhancement */
+lightning-spinner {
+    z-index: 9999;
+}
+
+/* Card Styling */
+lightning-card {
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden;
+}
+
+/* Forecasting Container */
+.forecasting {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbar Styling */
+.forecasting__controls ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.forecasting__controls ::-webkit-scrollbar-track {
+    background: #fff5f8;
+    border-radius: 4px;
+}
+
+.forecasting__controls ::-webkit-scrollbar-thumb {
+    background: #f9d7e5;
+    border-radius: 4px;
+}
+
+.forecasting__controls ::-webkit-scrollbar-thumb:hover {
+    background: #e3165b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .forecasting__controls {
+        padding: 1rem;
+        border-radius: 8px 8px 0 0;
+        border-right: none;
+        border-bottom: 2px solid #f9d7e5;
+    }
+
+    .forecasting__data {
+        padding: 1rem;
+        border-radius: 0 0 8px 8px;
+    }
+
+    .control__panel--margin {
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .font--big {
+        font-size: 1.25rem;
+    }
 }

@@ -2,7 +2,12 @@
 
 ## 🎨 What's Been Enhanced
 
-All enhancements are **pure CSS** - no functionality changes. The existing forecast components now have modern, professional styling applied through deep CSS selectors.
+All enhancements are **pure CSS** - no functionality changes. The existing forecast components now have modern, professional styling applied directly to the component CSS files.
+
+**Components Enhanced:**
+- `forecastProductList` - Data tables with gradient headers and enhanced styling
+- `forecastApp` - Account search view with modern control panel (purple theme)
+- `forecastAppForProduct` - Product search view with modern control panel (pink theme)
 
 ---
 
@@ -285,25 +290,42 @@ Print-friendly styling:
 
 ## 🚀 How It Works
 
-The styling uses **CSS selector specificity** to target child components:
+The styling is applied **directly to component CSS files**:
 
+**forecastProductList.css:**
 ```css
-/* Target all tables inside enhanced-wrapper */
-.enhanced-wrapper table { ... }
+/* Direct table styling */
+table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
 
-/* Target all inputs inside enhanced-wrapper */
-.enhanced-wrapper lightning-input input { ... }
+table tbody tr:hover {
+    background: #f8f9fa !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+```
 
-/* Target all buttons inside enhanced-wrapper */
-.enhanced-wrapper lightning-button button { ... }
+**forecastApp.css & forecastAppForProduct.css:**
+```css
+/* Sidebar controls with deep selectors */
+.forecasting__controls lightning-input input {
+    border: 2px solid #e5e5e5 !important;
+    border-radius: 6px !important;
+}
+
+.forecasting__controls lightning-button button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+}
 ```
 
 This means:
 - ✅ **No JavaScript changes**
-- ✅ **No component modifications**
+- ✅ **No HTML modifications**
 - ✅ **Pure CSS enhancement**
 - ✅ **Completely safe**
 - ✅ **Easy to customize further**
+- ✅ **Direct component styling for maximum effect**
 
 ---
 
@@ -353,7 +375,12 @@ This means:
 
 Simply deploy the updated CSS files:
 ```bash
-sfdx force:source:deploy -m LightningComponentBundle:forecast2AccountView,forecast2ProductView
+sfdx force:source:deploy -m LightningComponentBundle:forecastProductList,forecastApp,forecastAppForProduct
+```
+
+**Or deploy all Forecast 2.0 components together:**
+```bash
+sfdx force:source:deploy -m LightningComponentBundle:forecast2Home,forecast2MassUpload,forecast2AccountView,forecast2ProductView,forecast2Utils,forecastProductList,forecastApp,forecastAppForProduct
 ```
 
 No other changes needed!
@@ -362,24 +389,47 @@ No other changes needed!
 
 ## 📝 Customization
 
-To change colors, update the CSS variables:
+To change colors, update the CSS in the respective component files:
 
-**Account View** (`forecast2AccountView.css`):
+**Table Styling** (`forecastProductList.css`):
 ```css
-/* Line 149: Table header gradient */
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+/* Line 14: Table header gradient */
+table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
 
-/* Line 117: Focus color */
-border-color: #0176d3;
+/* Line 105: Number cell colors */
+table tbody td:not(.sticky--first):not(.sticky--second) {
+    color: #0176d3; /* Blue for regular numbers */
+}
 ```
 
-**Product View** (`forecast2ProductView.css`):
+**Account Search View** (`forecastApp.css`):
 ```css
-/* Line 149: Table header gradient */
-background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+/* Line 45: Sidebar background - Purple theme */
+.forecasting__controls {
+    background: #fafafa;
+    border-right: 2px solid #e5e5e5;
+}
 
-/* Line 117: Focus color */
-border-color: #e3165b;
+/* Line 87: Input focus color */
+.forecasting__controls lightning-input input:focus {
+    border-color: #667eea !important;
+}
+```
+
+**Product Search View** (`forecastAppForProduct.css`):
+```css
+/* Line 45: Sidebar background - Pink theme */
+.forecasting__controls {
+    background: #fff5f8;
+    border-right: 2px solid #f9d7e5;
+}
+
+/* Line 87: Input focus color */
+.forecasting__controls lightning-input input:focus {
+    border-color: #e3165b !important;
+}
 ```
 
 ---
