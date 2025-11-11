@@ -75,13 +75,223 @@
     line-height: 1.4;
 }
 
-/* Enhanced Wrapper */
+/* Enhanced Wrapper with Deep Child Styling */
 .enhanced-wrapper {
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
     animation: fadeIn 0.8s ease-out;
+}
+
+/* ===== DEEP STYLING FOR CHILD COMPONENTS ===== */
+
+/* Style all lightning-card titles */
+.enhanced-wrapper lightning-card {
+    border: none;
+    box-shadow: none;
+}
+
+/* Enhance all input fields */
+.enhanced-wrapper lightning-input,
+.enhanced-wrapper lightning-combobox,
+.enhanced-wrapper c-lookup {
+    margin-bottom: 0.5rem;
+}
+
+.enhanced-wrapper lightning-input input,
+.enhanced-wrapper lightning-combobox input,
+.enhanced-wrapper input[type="search"],
+.enhanced-wrapper input[type="text"] {
+    border: 2px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.enhanced-wrapper lightning-input input:focus,
+.enhanced-wrapper lightning-combobox input:focus,
+.enhanced-wrapper input[type="search"]:focus,
+.enhanced-wrapper input[type="text"]:focus {
+    border-color: #0176d3;
+    box-shadow: 0 0 0 3px rgba(1, 118, 211, 0.1);
+    outline: none;
+}
+
+/* Enhance all buttons */
+.enhanced-wrapper lightning-button button,
+.enhanced-wrapper button {
+    border-radius: 6px;
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.enhanced-wrapper lightning-button button:hover,
+.enhanced-wrapper button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Style tables */
+.enhanced-wrapper table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.enhanced-wrapper table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.enhanced-wrapper table thead th {
+    color: white;
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border: none;
+}
+
+.enhanced-wrapper table tbody tr {
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.enhanced-wrapper table tbody tr:hover {
+    background: #f8f9fa;
+    transform: scale(1.01);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.enhanced-wrapper table tbody td {
+    padding: 0.875rem 1rem;
+    font-size: 0.9rem;
+    color: #3e3e3c;
+    vertical-align: middle;
+}
+
+/* Alternate row colors */
+.enhanced-wrapper table tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.enhanced-wrapper table tbody tr:nth-child(even):hover {
+    background: #f0f0f0;
+}
+
+/* Style data cells with numbers */
+.enhanced-wrapper table tbody td[data-label*="Total"],
+.enhanced-wrapper table tbody td[data-label*="Quantity"],
+.enhanced-wrapper table tbody td[data-label*="Revenue"] {
+    font-weight: 600;
+    color: #0176d3;
+    font-family: 'Courier New', monospace;
+}
+
+/* Left sidebar controls */
+.enhanced-wrapper .forecasting__controls {
+    background: #fafafa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+}
+
+.enhanced-wrapper .control__panel--margin {
+    margin-bottom: 1.25rem;
+}
+
+/* Labels */
+.enhanced-wrapper label,
+.enhanced-wrapper .slds-form-element__label {
+    font-weight: 600;
+    color: #3e3e3c;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Cards within the component */
+.enhanced-wrapper .slds-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e5e5;
+}
+
+/* Pagination */
+.enhanced-wrapper .slds-pagination {
+    margin-top: 1rem;
+}
+
+.enhanced-wrapper .slds-pagination button {
+    border-radius: 6px;
+    margin: 0 0.25rem;
+}
+
+/* Data grid enhancements */
+.enhanced-wrapper lightning-datatable {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Badges and tags */
+.enhanced-wrapper lightning-badge {
+    border-radius: 12px;
+    padding: 0.25rem 0.75rem;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+/* Combobox dropdown */
+.enhanced-wrapper .slds-combobox__input {
+    border: 2px solid #e5e5e5;
+    border-radius: 6px;
+}
+
+/* File input styling */
+.enhanced-wrapper input[type="file"] {
+    border: 2px dashed #d8dde6;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #fafafa;
+    transition: all 0.3s ease;
+}
+
+.enhanced-wrapper input[type="file"]:hover {
+    border-color: #0176d3;
+    background: #f0f7ff;
+}
+
+/* Modal enhancements */
+.enhanced-wrapper .slds-modal__container {
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.enhanced-wrapper .slds-modal__header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+/* Action buttons in tables */
+.enhanced-wrapper table tbody td lightning-button-icon button,
+.enhanced-wrapper table tbody td button.slds-button_icon {
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.enhanced-wrapper table tbody td lightning-button-icon button:hover,
+.enhanced-wrapper table tbody td button.slds-button_icon:hover {
+    background: #0176d3;
+    color: white;
+    transform: scale(1.1);
 }
 
 /* Quick Actions Panel */
@@ -130,6 +340,31 @@
     color: #706e6b;
 }
 
+/* Loading spinner enhancement */
+.enhanced-wrapper lightning-spinner {
+    z-index: 1000;
+}
+
+/* Scrollbar styling */
+.enhanced-wrapper ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.enhanced-wrapper ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.enhanced-wrapper ::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.enhanced-wrapper ::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from {
@@ -174,6 +409,15 @@
         text-align: left !important;
         margin-top: 1rem;
     }
+
+    .enhanced-wrapper table {
+        font-size: 0.8rem;
+    }
+
+    .enhanced-wrapper table thead th,
+    .enhanced-wrapper table tbody td {
+        padding: 0.5rem;
+    }
 }
 
 /* Print Styles */
@@ -186,6 +430,11 @@
     .header-card {
         background: white;
         color: black;
+        box-shadow: none;
+    }
+
+    .enhanced-wrapper table tbody tr:hover {
+        transform: none;
         box-shadow: none;
     }
 }
