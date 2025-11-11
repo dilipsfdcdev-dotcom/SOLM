@@ -1,74 +1,517 @@
+/* ================================================
+   FORECAST ENABLE PRODUCT - MODERN MODAL DESIGN
+   Amber/Orange theme with horizontal scrolling
+   ================================================ */
+
+/* === TABLE CONTAINER & HORIZONTAL SCROLLING === */
+.slds-scrollable_x {
+    overflow-x: auto;
+    overflow-y: visible;
+    width: 100%;
+    position: relative;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 1.5rem;
+}
+
+/* Custom Scrollbar - Amber Theme */
+.slds-scrollable_x::-webkit-scrollbar {
+    height: 12px;
+    background: #fffbeb;
+}
+
+.slds-scrollbar_x::-webkit-scrollbar-track {
+    background: linear-gradient(to right, #fef3c7 0%, #fffbeb 50%, #fef3c7 100%);
+    border-radius: 6px;
+    margin: 0 10px;
+}
+
+.slds-scrollable_x::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    border-radius: 6px;
+    border: 2px solid #fffbeb;
+    transition: background 0.3s ease;
+}
+
+.slds-scrollable_x::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+}
+
+/* === TABLE BASE === */
 table {
-    border-collapse: collapse;
-    /* white-space:nowrap; */
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    min-width: 1600px;
+    background: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
 }
 
-tr { 
-    border: solid;
-    border-color: #DDDBDA;
-    border-width: 1px 0;
-    border-spacing: 5em;
+/* === TABLE HEADER === */
+thead {
+    position: relative;
+    z-index: 16;
 }
 
-th, td {
-    padding: 0.5em;
-    padding-right: 1em;
+thead tr {
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #dc2626 100%);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
 }
 
-table tbody th,td {
+thead th,
+thead td {
+    padding: 1.25rem 1rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: white !important;
+    border: none;
+    white-space: nowrap;
+    background: transparent;
+}
+
+thead th b,
+thead td b {
+    color: white;
+    font-weight: 700;
+}
+
+/* === TABLE BODY === */
+tbody {
     background: white;
 }
 
-.sticky--first{
+tbody tr {
+    border: solid;
+    border-color: #fed7aa;
+    border-width: 1px 0;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+tbody tr:hover {
+    background: linear-gradient(90deg, #fffbeb 0%, #fef3c7 50%, #fffbeb 100%);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+    transform: scale(1.001);
+}
+
+tbody th,
+tbody td {
+    padding: 1rem;
+    background: white;
+    vertical-align: middle;
+    transition: all 0.25s ease;
+    border-right: 1px solid #fef3c7;
+    font-size: 0.9375rem;
+}
+
+tbody tr:hover th,
+tbody tr:hover td {
+    background: transparent;
+}
+
+/* === 5 STICKY COLUMNS === */
+.sticky--first {
+    min-width: 300px;
+    max-width: 300px;
     left: 0;
-    z-index: 10;
+    z-index: 15;
     position: sticky;
-
-    min-width: 300px; 
-    max-width: 300px; 
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-right: 3px solid #f59e0b !important;
+    box-shadow: 4px 0 12px rgba(245, 158, 11, 0.2);
     word-wrap: break-word;
+    font-weight: 600;
+    color: #92400e;
 }
 
-.sticky--second{
+.sticky--second {
+    min-width: 75px;
+    max-width: 75px;
     left: 300px;
-    z-index: 10;
+    z-index: 14;
     position: sticky;
-
-    min-width: 75px; 
-    max-width: 75px; 
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-right: 2px solid #fbbf24 !important;
+    box-shadow: 4px 0 10px rgba(251, 191, 36, 0.15);
+    text-align: center;
 }
 
-.sticky--third{
+.sticky--third {
+    min-width: 75px;
+    max-width: 75px;
     left: 375px;
-    z-index: 10;
+    z-index: 13;
     position: sticky;
-
-    min-width: 75px; 
-    max-width: 75px; 
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-right: 2px solid #fbbf24 !important;
+    box-shadow: 4px 0 8px rgba(251, 191, 36, 0.12);
+    text-align: center;
+    font-weight: 500;
+    color: #92400e;
 }
 
-.sticky--fourth{
+.sticky--fourth {
+    min-width: 100px;
+    max-width: 100px;
     left: 450px;
-    z-index: 10;
+    z-index: 12;
     position: sticky;
-
-    min-width: 100px; 
-    max-width: 100px; 
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-right: 2px solid #fbbf24 !important;
+    box-shadow: 4px 0 6px rgba(251, 191, 36, 0.1);
 }
 
-.sticky--five{
+.sticky--five {
+    min-width: 150px;
+    max-width: 150px;
     left: 550px;
-    z-index: 10;
+    z-index: 11;
     position: sticky;
-
-    min-width: 150px; 
-    max-width: 150px; 
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-right: 2px solid #fbbf24 !important;
+    box-shadow: 4px 0 4px rgba(251, 191, 36, 0.08);
 }
 
-.quantity__column{
-    min-width: 100px; 
+/* Keep sticky backgrounds on hover */
+tbody tr:hover .sticky--first,
+tbody tr:hover .sticky--second,
+tbody tr:hover .sticky--third,
+tbody tr:hover .sticky--fourth,
+tbody tr:hover .sticky--five {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
 }
 
-.row__end{
-    border-bottom-color: black;
+/* === QUANTITY COLUMNS === */
+.quantity__column {
+    min-width: 100px;
+    text-align: center;
+}
+
+tbody .quantity__column {
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    font-weight: 600;
+    color: #b45309;
+}
+
+/* === ROW END BORDER === */
+.row__end {
+    border-bottom: 3px solid #ea580c !important;
+    background: linear-gradient(90deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%);
+}
+
+.row__end td {
+    padding: 1.5rem 1rem;
+    font-weight: 600;
+}
+
+/* === LIGHTNING INPUT STYLING === */
+tbody lightning-input input {
+    border: 2px solid #fde68a !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 0.875rem !important;
+    font-size: 0.9375rem !important;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace !important;
+    font-weight: 600 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    background: white !important;
+    text-align: center;
+    color: #92400e !important;
+}
+
+tbody lightning-input input:hover {
+    border-color: #fbbf24 !important;
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15) !important;
+}
+
+tbody lightning-input input:focus {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.25) !important;
+    outline: none !important;
+    transform: scale(1.02);
+}
+
+tbody lightning-input input:disabled {
+    background: #f8f9fa !important;
+    border-color: #dee2e6 !important;
+    color: #6c757d !important;
+    opacity: 0.7;
+}
+
+/* Price inputs */
+.sticky--fourth lightning-input input {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    text-align: right !important;
+    padding-right: 1.25rem !important;
+}
+
+/* === CHECKBOX STYLING === */
+tbody lightning-input[type="checkbox"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+tbody lightning-input[type="checkbox"] input[type="checkbox"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid #fbbf24 !important;
+    border-radius: 6px !important;
+    cursor: pointer;
+    transition: all 0.25s ease !important;
+    accent-color: #f59e0b;
+}
+
+tbody lightning-input[type="checkbox"] input[type="checkbox"]:checked {
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+    border-color: #dc2626 !important;
+}
+
+tbody lightning-input[type="checkbox"] input[type="checkbox"]:hover {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2) !important;
+}
+
+/* === SELECT/DROPDOWN STYLING === */
+.slds-select,
+select.slds-select {
+    border: 2px solid #fde68a !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 2rem 0.75rem 0.875rem !important;
+    font-size: 0.9375rem !important;
+    font-weight: 500 !important;
+    background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23f59e0b' d='M6 9L1 4h10z'/%3E%3C/svg%3E") no-repeat right 0.75rem center !important;
+    background-size: 12px !important;
+    color: #92400e !important;
+    transition: all 0.3s ease !important;
+    appearance: none;
+    cursor: pointer;
+}
+
+.slds-select:hover,
+select.slds-select:hover {
+    border-color: #fbbf24 !important;
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15) !important;
+}
+
+.slds-select:focus,
+select.slds-select:focus {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.25) !important;
+    outline: none !important;
+}
+
+/* === LIGHTNING COMBOBOX === */
+lightning-combobox {
+    display: block;
+}
+
+lightning-combobox input,
+lightning-combobox .slds-combobox__input {
+    border: 2px solid #fde68a !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 0.875rem !important;
+    font-size: 0.9375rem !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    background: white !important;
+    color: #92400e !important;
+}
+
+lightning-combobox input:focus {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.25) !important;
+    outline: none !important;
+}
+
+/* === ENABLE BUTTON (FULL WIDTH) === */
+lightning-button[label*="Enable"] button,
+lightning-button[label*="enable"] button {
+    width: 100% !important;
+    padding: 1rem 1.5rem !important;
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%) !important;
+    color: white !important;
+    border: 2px solid #dc2626 !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    font-size: 1.0625rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+lightning-button[label*="Enable"] button:hover,
+lightning-button[label*="enable"] button:hover {
+    background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4) !important;
+}
+
+lightning-button[label*="Enable"] button:disabled {
+    background: #e5e7eb !important;
+    color: #9ca3af !important;
+    border-color: #d1d5db !important;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* === FOOTER BUTTONS === */
+.slds-grid lightning-button button {
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Cancel Button */
+.slds-grid lightning-button:not([variant="brand"]) button {
+    background: white !important;
+    color: #92400e !important;
+    border: 2px solid #fbbf24 !important;
+}
+
+.slds-grid lightning-button:not([variant="brand"]) button:hover {
+    background: #fffbeb !important;
+    border-color: #f59e0b !important;
+}
+
+/* Save Button */
+.slds-grid lightning-button[variant="brand"] button {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: white !important;
+    border: 2px solid #047857 !important;
+}
+
+.slds-grid lightning-button[variant="brand"] button:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3) !important;
+}
+
+.slds-grid lightning-button[variant="brand"] button:disabled {
+    background: #e5e7eb !important;
+    color: #9ca3af !important;
+    border-color: #d1d5db !important;
+}
+
+/* === C-LOOKUP COMPONENT === */
+c-lookup {
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+/* === SPINNER === */
+lightning-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+/* === MODAL CONTENT SPACING === */
+c-modal span {
+    display: block;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 1200px) {
+    table {
+        min-width: 1400px;
+    }
+
+    thead th,
+    thead td {
+        padding: 1rem 0.75rem;
+        font-size: 0.8125rem;
+    }
+
+    tbody th,
+    tbody td {
+        padding: 0.875rem 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .slds-scrollable_x {
+        margin-top: 1rem;
+    }
+
+    table {
+        min-width: 1200px;
+    }
+
+    thead th,
+    thead td {
+        padding: 0.875rem 0.625rem;
+        font-size: 0.75rem;
+    }
+
+    tbody th,
+    tbody td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .sticky--first {
+        min-width: 250px;
+        max-width: 250px;
+    }
+
+    .sticky--second {
+        left: 250px;
+    }
+
+    .sticky--third {
+        left: 325px;
+    }
+
+    .sticky--fourth {
+        left: 400px;
+    }
+
+    .sticky--five {
+        left: 500px;
+    }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* Focus states for keyboard navigation */
+lightning-button button:focus,
+lightning-input input:focus,
+.slds-select:focus {
+    outline: 3px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* === PRINT STYLES === */
+@media print {
+    .slds-scrollable_x {
+        overflow: visible;
+    }
+
+    table {
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+
+    tbody tr:hover {
+        background: white;
+        box-shadow: none;
+    }
+
+    lightning-button {
+        display: none;
+    }
 }
