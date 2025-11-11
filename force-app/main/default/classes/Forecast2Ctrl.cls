@@ -183,7 +183,7 @@ public with sharing class Forecast2Ctrl {
                 return result;
             }
 
-            ForecastCtrl.ForecastProductDetailsWrapper response =
+            ForecastProductDetailsWrapper response =
                 ForecastCtrl.getForecastDetailsForProduct(accountId, productId, volume, direct);
             result.data = response;
             result.success = true;
@@ -263,18 +263,20 @@ public with sharing class Forecast2Ctrl {
 
     /**
      * Upsert forecast adjustments
-     * Note: upsertForecastAdjustments requires many parameters
+     * Note: upsertForecastAdjustments parameters: accountId, productId, adjustmentId,
+     *       opportunityId, name, comment, forecastDataMap, volume, uom
      */
     @AuraEnabled
     public static EnhancedForecastWrapper upsertForecastAdjustments(
         String accountId,
         String productId,
         String adjustmentId,
-        String adjustmentName,
+        String opportunityId,
+        String name,
+        String comment,
         String forecastDataMap,
         String volume,
-        Integer uom,
-        String comment
+        Integer uom
     ) {
         EnhancedForecastWrapper result = new EnhancedForecastWrapper();
         try {
@@ -288,11 +290,12 @@ public with sharing class Forecast2Ctrl {
                 accountId,
                 productId,
                 adjustmentId,
-                adjustmentName,
+                opportunityId,
+                name,
+                comment,
                 forecastDataMap,
                 volume,
-                uom,
-                comment
+                uom
             );
             result.data = 'Success';
             result.success = true;
