@@ -1,7 +1,7 @@
 /**
  * Forecast 2.0 Main Controller
  * Enhanced wrapper with better error handling and additional features
- * Delegates to existing ForecastCtrl for core functionality
+ * Note: This is a lightweight wrapper - most functionality delegates to existing ForecastCtrl
  */
 public with sharing class Forecast2Ctrl {
 
@@ -28,8 +28,8 @@ public with sharing class Forecast2Ctrl {
                 return result;
             }
 
-            String response = ForecastCtrl.enableForecast(accountId);
-            result.data = response;
+            ForecastCtrl.enableForecast(accountId);
+            result.data = 'Success';
             result.success = true;
             result.message = 'Forecast enabled successfully';
 
@@ -54,8 +54,8 @@ public with sharing class Forecast2Ctrl {
                 return result;
             }
 
-            String response = ForecastCtrl.disableForecast(accountId);
-            result.data = response;
+            ForecastCtrl.disableForecast(accountId);
+            result.data = 'Success';
             result.success = true;
             result.message = 'Forecast disabled successfully';
 
@@ -80,7 +80,7 @@ public with sharing class Forecast2Ctrl {
                 return result;
             }
 
-            String response = ForecastCtrl.checkForecast(accountId);
+            ForecastCtrl.ForecastAccountInfo response = ForecastCtrl.checkForecast(accountId);
             result.data = response;
             result.success = true;
 
@@ -93,9 +93,16 @@ public with sharing class Forecast2Ctrl {
 
     /**
      * Get forecast data for account
+     * Note: getForecast in ForecastCtrl requires searchTerm, pageSize, pageNumber
      */
     @AuraEnabled(cacheable=true)
-    public static EnhancedForecastWrapper getForecast(String accountId, String volume) {
+    public static EnhancedForecastWrapper getForecast(
+        String accountId,
+        String volume,
+        String searchTerm,
+        Integer pageSize,
+        Integer pageNumber
+    ) {
         EnhancedForecastWrapper result = new EnhancedForecastWrapper();
         try {
             if (String.isBlank(accountId)) {
@@ -104,7 +111,13 @@ public with sharing class Forecast2Ctrl {
                 return result;
             }
 
-            List<ForecastCtrl.ForecastProductWrapper> response = ForecastCtrl.getForecast(accountId, volume);
+            ForecastCtrl.ForecastWrapper response = ForecastCtrl.getForecast(
+                accountId,
+                volume,
+                searchTerm,
+                pageSize,
+                pageNumber
+            );
             result.data = response;
             result.success = true;
 
@@ -119,7 +132,13 @@ public with sharing class Forecast2Ctrl {
      * Get forecast by product
      */
     @AuraEnabled(cacheable=true)
-    public static EnhancedForecastWrapper getForecastByProduct(String productId, String volume) {
+    public static EnhancedForecastWrapper getForecastByProduct(
+        String productId,
+        String volume,
+        String searchTerm,
+        Integer pageSize,
+        Integer pageNumber
+    ) {
         EnhancedForecastWrapper result = new EnhancedForecastWrapper();
         try {
             if (String.isBlank(productId)) {
@@ -128,7 +147,13 @@ public with sharing class Forecast2Ctrl {
                 return result;
             }
 
-            List<ForecastCtrl.ForecastProductWrapper> response = ForecastCtrl.getForecastByProduct(productId, volume);
+            ForecastCtrl.ForecastWrapper response = ForecastCtrl.getForecastByProduct(
+                productId,
+                volume,
+                searchTerm,
+                pageSize,
+                pageNumber
+            );
             result.data = response;
             result.success = true;
 
@@ -141,19 +166,25 @@ public with sharing class Forecast2Ctrl {
 
     /**
      * Get forecast details for product
+     * Note: getForecastDetailsForProduct requires accountId, productId, volume, direct
      */
     @AuraEnabled(cacheable=true)
-    public static EnhancedForecastWrapper getForecastDetailsForProduct(String forecastProductId, String volume) {
+    public static EnhancedForecastWrapper getForecastDetailsForProduct(
+        String accountId,
+        String productId,
+        String volume,
+        Boolean direct
+    ) {
         EnhancedForecastWrapper result = new EnhancedForecastWrapper();
         try {
-            if (String.isBlank(forecastProductId)) {
+            if (String.isBlank(accountId) || String.isBlank(productId)) {
                 result.success = false;
-                result.error = 'Forecast Product ID is required';
+                result.error = 'Account ID and Product ID are required';
                 return result;
             }
 
             ForecastCtrl.ForecastProductDetailsWrapper response =
-                ForecastCtrl.getForecastDetailsForProduct(forecastProductId, volume);
+                ForecastCtrl.getForecastDetailsForProduct(accountId, productId, volume, direct);
             result.data = response;
             result.success = true;
 
@@ -198,19 +229,27 @@ public with sharing class Forecast2Ctrl {
 
     /**
      * Upsert base forecast
+     * Note: upsertBaseForecast requires accountId, productId, baseForecastMap, volume, uom, direct
      */
     @AuraEnabled
-    public static EnhancedForecastWrapper upsertBaseForecast(String jsonData) {
+    public static EnhancedForecastWrapper upsertBaseForecast(
+        String accountId,
+        String productId,
+        String baseForecastMap,
+        String volume,
+        Integer uom,
+        Boolean direct
+    ) {
         EnhancedForecastWrapper result = new EnhancedForecastWrapper();
         try {
-            if (String.isBlank(jsonData)) {
+            if (String.isBlank(accountId) || String.isBlank(productId)) {
                 result.success = false;
-                result.error = 'Forecast data is required';
+                result.error = 'Account ID and Product ID are required';
                 return result;
             }
 
-            String response = ForecastCtrl.upsertBaseForecast(jsonData);
-            result.data = response;
+            ForecastCtrl.upsertBaseForecast(accountId, productId, baseForecastMap, volume, uom, direct);
+            result.data = 'Success';
             result.success = true;
             result.message = 'Base forecast updated successfully';
 
@@ -224,19 +263,38 @@ public with sharing class Forecast2Ctrl {
 
     /**
      * Upsert forecast adjustments
+     * Note: upsertForecastAdjustments requires many parameters
      */
     @AuraEnabled
-    public static EnhancedForecastWrapper upsertForecastAdjustments(String jsonData) {
+    public static EnhancedForecastWrapper upsertForecastAdjustments(
+        String accountId,
+        String productId,
+        String adjustmentId,
+        String adjustmentName,
+        String forecastDataMap,
+        String volume,
+        Integer uom,
+        String comment
+    ) {
         EnhancedForecastWrapper result = new EnhancedForecastWrapper();
         try {
-            if (String.isBlank(jsonData)) {
+            if (String.isBlank(accountId) || String.isBlank(productId)) {
                 result.success = false;
-                result.error = 'Adjustment data is required';
+                result.error = 'Account ID and Product ID are required';
                 return result;
             }
 
-            String response = ForecastCtrl.upsertForecastAdjustments(jsonData);
-            result.data = response;
+            ForecastCtrl.upsertForecastAdjustments(
+                accountId,
+                productId,
+                adjustmentId,
+                adjustmentName,
+                forecastDataMap,
+                volume,
+                uom,
+                comment
+            );
+            result.data = 'Success';
             result.success = true;
             result.message = 'Adjustments saved successfully';
 
@@ -250,19 +308,25 @@ public with sharing class Forecast2Ctrl {
 
     /**
      * Set fulfillment method
+     * Note: setFulfillmentMethod requires accountId, productId, method, value
      */
     @AuraEnabled
-    public static EnhancedForecastWrapper setFulfillmentMethod(String forecastProductId, String method) {
+    public static EnhancedForecastWrapper setFulfillmentMethod(
+        String accountId,
+        String productId,
+        String method,
+        Boolean value
+    ) {
         EnhancedForecastWrapper result = new EnhancedForecastWrapper();
         try {
-            if (String.isBlank(forecastProductId)) {
+            if (String.isBlank(accountId) || String.isBlank(productId)) {
                 result.success = false;
-                result.error = 'Forecast Product ID is required';
+                result.error = 'Account ID and Product ID are required';
                 return result;
             }
 
-            String response = ForecastCtrl.setFulfillmentMethod(forecastProductId, method);
-            result.data = response;
+            ForecastCtrl.setFulfillmentMethod(accountId, productId, method, value);
+            result.data = 'Success';
             result.success = true;
             result.message = 'Fulfillment method updated';
 
@@ -276,19 +340,24 @@ public with sharing class Forecast2Ctrl {
 
     /**
      * Disable product
+     * Note: disableProduct requires accountId, productId, direct
      */
     @AuraEnabled
-    public static EnhancedForecastWrapper disableProduct(String forecastProductId) {
+    public static EnhancedForecastWrapper disableProduct(
+        String accountId,
+        String productId,
+        Boolean direct
+    ) {
         EnhancedForecastWrapper result = new EnhancedForecastWrapper();
         try {
-            if (String.isBlank(forecastProductId)) {
+            if (String.isBlank(accountId) || String.isBlank(productId)) {
                 result.success = false;
-                result.error = 'Forecast Product ID is required';
+                result.error = 'Account ID and Product ID are required';
                 return result;
             }
 
-            String response = ForecastCtrl.disableProduct(forecastProductId);
-            result.data = response;
+            ForecastCtrl.disableProduct(accountId, productId, direct);
+            result.data = 'Success';
             result.success = true;
             result.message = 'Product disabled successfully';
 
@@ -302,19 +371,25 @@ public with sharing class Forecast2Ctrl {
 
     /**
      * Update warehouse
+     * Note: updateWarehouse requires accountId, productId, warehouseId, direct
      */
     @AuraEnabled
-    public static EnhancedForecastWrapper updateWarehouse(String forecastProductId, String warehouseId) {
+    public static EnhancedForecastWrapper updateWarehouse(
+        String accountId,
+        String productId,
+        String warehouseId,
+        Boolean direct
+    ) {
         EnhancedForecastWrapper result = new EnhancedForecastWrapper();
         try {
-            if (String.isBlank(forecastProductId)) {
+            if (String.isBlank(accountId) || String.isBlank(productId)) {
                 result.success = false;
-                result.error = 'Forecast Product ID is required';
+                result.error = 'Account ID and Product ID are required';
                 return result;
             }
 
-            String response = ForecastCtrl.updateWarehouse(forecastProductId, warehouseId);
-            result.data = response;
+            ForecastCtrl.updateWarehouse(accountId, productId, warehouseId, direct);
+            result.data = 'Success';
             result.success = true;
             result.message = 'Warehouse updated successfully';
 
@@ -328,19 +403,24 @@ public with sharing class Forecast2Ctrl {
 
     /**
      * Update price
+     * Note: updatePriceFP requires accountId, productId, price
      */
     @AuraEnabled
-    public static EnhancedForecastWrapper updatePriceFP(String forecastProductId, Decimal price) {
+    public static EnhancedForecastWrapper updatePriceFP(
+        String accountId,
+        String productId,
+        Decimal price
+    ) {
         EnhancedForecastWrapper result = new EnhancedForecastWrapper();
         try {
-            if (String.isBlank(forecastProductId)) {
+            if (String.isBlank(accountId) || String.isBlank(productId)) {
                 result.success = false;
-                result.error = 'Forecast Product ID is required';
+                result.error = 'Account ID and Product ID are required';
                 return result;
             }
 
-            String response = ForecastCtrl.updatePriceFP(forecastProductId, price);
-            result.data = response;
+            ForecastCtrl.updatePriceFP(accountId, productId, price);
+            result.data = 'Success';
             result.success = true;
             result.message = 'Price updated successfully';
 

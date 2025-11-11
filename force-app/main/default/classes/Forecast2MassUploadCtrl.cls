@@ -413,8 +413,8 @@ public with sharing class Forecast2MassUploadCtrl {
                     Forecast_Month__c fm = monthMap.get(fullKey);
 
                     Forecast_Item__c item = new Forecast_Item__c();
-                    item.Forecast_Month__c = fm.Id;
-                    item.Type__c = 'Base';
+                    item.Forecast__c = fm.Id;
+                    item.Item_Type__c = 'Base';
                     item.Quantity__c = Decimal.valueOf(row.Quantity);
                     item.External_Id__c = fm.External_Id__c + '-Base';
 
