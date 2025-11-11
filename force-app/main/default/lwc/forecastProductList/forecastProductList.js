@@ -129,6 +129,7 @@ export default class ForecastProductList extends LightningElement {
                 this.totalPages = Math.ceil(result.totalRecords / this.pageSize);
                 this.isNext = (this.pageNumber == this.totalPages || this.totalPages == 0);
                 this.isPrev = (this.pageNumber == 1 || this.totalRecords < this.pageSize);
+                console.log('products--->'+JSON.stringify(products))
             })
             .catch((error) => {
                 showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
@@ -156,13 +157,39 @@ export default class ForecastProductList extends LightningElement {
                 methodsInfo += '-';
             }
 
+          // Step A: Convert forecastTotalMap into an array
             const forecastTotalArr = mapToArray(product.forecastTotalMap);
-            const unitPrice = product.productInfo.UnitPrice || 0;
-            // Compute forecastRevenue as forecastTotal * UnitPrice for each month
+            console.log('forecastTotalArr --->', forecastTotalArr);
+
+            // Step B: Parse the unitPrice as a number
+            const rawUnitPrice = product.productInfo?.UnitPrice ?? 0;
+            const unitPrice = Number(rawUnitPrice);
+            console.log('unitPrice --->', unitPrice);
+
+            // Step C: Map forecastTotalArr to forecastRevenueArr
             const forecastRevenueArr = forecastTotalArr.map(item => {
-                return { month: item.month, value: (item.value * unitPrice) };
+            console.log('\n-- Item in map:', item);
+
+            // Remove commas (and potentially other characters) to ensure proper numeric parsing
+            let numericValue = parseFloat(String(item.value).replace(/,/g, ''));
+            if (isNaN(numericValue)) {
+                numericValue = 0;
+            }
+
+            const finalValue = numericValue * unitPrice;
+            console.log('-- numericValue:', numericValue, '| unitPrice:', unitPrice, '| finalValue:', finalValue);
+            const finalValueRounded = Number(finalValue.toFixed(2));
+            return {
+                month: item.month,
+                value: finalValueRounded
+            };
             });
 
+            console.log('\nforecastRevenueArr --->', forecastRevenueArr);
+
+            console.log('\nforecastRevenueArr --->', JSON.stringify(forecastRevenueArr));
+            
+            console.log('forecastRevenueArr --->', forecastRevenueArr);
             return {
                 productInfo: product.productInfo,
                 localEnabled: product.localEnabled,

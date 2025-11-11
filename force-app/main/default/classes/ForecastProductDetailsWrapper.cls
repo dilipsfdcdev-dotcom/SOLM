@@ -185,18 +185,44 @@ public class ForecastProductDetailsWrapper {
         }
     }
 
-    public Forecast_Product__c getForecastInfo(){
-        return [
-            SELECT Id, Direct_Enabled__c, Local_Enabled__c,price__c,
-                Product__c, Product__r.Id, Product__r.ProductCode, Product__r.Name, 
-                Product__r.NACA_Case_Qty__c, Product__r.EMEA_Case_Qty__c, Product__r.Product_Line__c,
-                Local_Warehouse__r.Name, Local_Warehouse__r.Active__c, Local_Warehouse__c
-            FROM Forecast_Product__c
-            WHERE Account__c = :accountId 
-            AND Product__c = :productId
-            AND Direct_Enabled__c =: direct
-        ];
+    public Forecast_Product__c getForecastInfo() {
+        if (direct) {
+            // If `direct` is true, fetch products that have Direct_Enabled__c = true
+            return [
+                SELECT Id, Direct_Enabled__c, Local_Enabled__c, Price__c,
+                       Product_Enabled__c,
+                       Product__c, Product__r.Id, Product__r.ProductCode, 
+                       Product__r.Name, Product__r.NACA_Case_Qty__c, 
+                       Product__r.EMEA_Case_Qty__c, Product__r.Product_Line__c,
+                       Local_Warehouse__r.Name, Local_Warehouse__r.Active__c, 
+                       Local_Warehouse__c
+                FROM Forecast_Product__c
+                WHERE Account__c = :accountId
+                  AND Product__c = :productId
+                  AND Product_Enabled__c = true
+                  AND Direct_Enabled__c = true
+                LIMIT 1
+            ];
+        } else {
+            // If `direct` is false, fetch products that have Local_Enabled__c = true
+            return [
+                SELECT Id, Direct_Enabled__c, Local_Enabled__c, Price__c,
+                       Product_Enabled__c,
+                       Product__c, Product__r.Id, Product__r.ProductCode, 
+                       Product__r.Name, Product__r.NACA_Case_Qty__c, 
+                       Product__r.EMEA_Case_Qty__c, Product__r.Product_Line__c,
+                       Local_Warehouse__r.Name, Local_Warehouse__r.Active__c, 
+                       Local_Warehouse__c
+                FROM Forecast_Product__c
+                WHERE Account__c = :accountId
+                  AND Product__c = :productId
+                  AND Product_Enabled__c = true
+                  AND Local_Enabled__c = true
+                LIMIT 1
+            ];
+        }
     }
+    
 
     private List<Forecast_Month__c> getForecastMonths(){
         return [
@@ -226,6 +252,7 @@ public class ForecastProductDetailsWrapper {
                 AND Forecast__r.Forecast_Product__r.Account__c = :accountId 
                 AND Forecast__r.Forecast_Product__r.Product__c  = :productId
                 AND Forecast__r.Month__c >= :startDate
+                AND External_Id__c != null
                 ORDER BY Forecast_Adjustment__c
         ];
     }
@@ -242,6 +269,7 @@ public class ForecastProductDetailsWrapper {
             AND Forecast__r.Forecast_Product__r.Account__c = :accountId 
             AND Forecast__r.Forecast_Product__r.Product__c  = :productId
             AND Forecast__r.Month__c >= :startDate
+            AND External_Id__c != null
             ORDER BY Forecast_Adjustment__c
         ];
     }

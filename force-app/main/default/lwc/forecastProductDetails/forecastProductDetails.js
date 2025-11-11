@@ -101,8 +101,6 @@ export default class ForecastProductDetails extends LightningElement {
         hideRejected: "Hide Rejected Opportunities",
         approved: "Approved",
         rejected: "Rejected",
-        // New label added:
-        forecastRevenue: 'Forecast Revenue'
     }
 
     editClass = 'input--edited';
@@ -148,6 +146,7 @@ export default class ForecastProductDetails extends LightningElement {
     
     selectedWarehouse;
     selectedWarehouselabel;
+    /* Getters */
 
     get dataSet(){
         return this.productWrapper
@@ -175,17 +174,6 @@ export default class ForecastProductDetails extends LightningElement {
         .then((result) => {
             this.productWrapper = this.setProductData(result);
 
-            // Compute forecast revenues
-            this.productWrapper.forecastRevenueDirect = this.productWrapper.forecastTotalDirect.map(item => {
-                return { month: item.month, value: (item.value * this.price).toFixed(2)};
-            });
-            this.productWrapper.forecastRevenueLocal = this.productWrapper.forecastTotalLocal.map(item => {
-                return { month: item.month, value: (item.value * this.price).toFixed(2)};
-            });
-            this.productWrapper.forecastRevenueSummary = this.productWrapper.forecastSummary.map(item => {
-                return { month: item.month, value: (item.value * this.price).toFixed(2)};
-            });
-
             if(!this.productWrapper.directEnabled && !this.productWrapper.localEnabled){
                 this.dispatchEvent(new CustomEvent('disabled'));
                 showNotification('Success','Product has been disabled','success');
@@ -205,8 +193,9 @@ export default class ForecastProductDetails extends LightningElement {
             }
         })
         .catch((error) => {
-            showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-            console.log('error-->'+error);
+                        // showError(error);
+                        showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
+                        console.log('error-->'+error);
         })
         .finally(() => {
             this.isLoading = false;
@@ -259,14 +248,25 @@ export default class ForecastProductDetails extends LightningElement {
             return;
         }
 
+       /* if(!warehouse.active){
+            this.localWarehouseCodes = [...this.localWarehouseCodes, {
+                label: warehouse.label,
+                value: warehouse.value
+            }];
+        }*/
+
         this.selectedWarehouse = warehouse.value;
         this.selectedWarehouselabel = warehouse.label;
         console.log('this.selectedWarehouse-->'+this.selectedWarehouse)
     }
 
+    /* Event Handlers */
+
     backToList(){
         this.dispatchEvent(new CustomEvent('back'));
     }
+
+    /* Input Handlers */
 
     handlePriceChange(event){
         this.price = event.detail.value;
@@ -283,8 +283,9 @@ export default class ForecastProductDetails extends LightningElement {
             showNotification('Success','Price has been updated','success');
         })
         .catch((error) => {
-            showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-            console.log('error-->'+error);
+                        // showError(error);
+                        showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
+                        console.log('error-->'+error);
         })
         .finally(() => {
             this.isLoading = false;
@@ -293,8 +294,9 @@ export default class ForecastProductDetails extends LightningElement {
 
     handleWarehouseSelect(event){
         this.selectedWarehouse = event.target.value;
+        console.log('this.selectedWarehouse '+this.selectedWarehouse );
         this.isLoading = true;
-
+        console.log('productId-->'+this.productId)
         updateWarehouse({
             accountId: this.accountId,
             productId: this.productId,
@@ -305,13 +307,16 @@ export default class ForecastProductDetails extends LightningElement {
             showNotification('Success','Local Warehouse has been updated','success');
         })
         .catch((error) => {
-            showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-            console.log('error-->'+error);
+                        // showError(error);
+                        showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
+                        console.log('error-->'+error);
         })
         .finally(() => {
             this.isLoading = false;
         });
     }
+
+    /* Button Methods */
 
     enableFulfillment(event){
         this.isLoading = true;
@@ -328,8 +333,9 @@ export default class ForecastProductDetails extends LightningElement {
             showNotification('Success','Fulfillment method has been enabled','success');
         })
         .catch((error) => {
-            showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-            console.log('error-->'+error);
+                        // showError(error);
+                        showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
+                        console.log('error-->'+error);
         })
         .finally(() => {
             this.isLoading = false;
@@ -351,8 +357,9 @@ export default class ForecastProductDetails extends LightningElement {
             showNotification('Success','Fulfillment method has been disabled','success');
         })
         .catch((error) => {
-            showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-            console.log('error-->'+error);
+                        // showError(error);
+                        showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
+                        console.log('error-->'+error);
         })
         .finally(() => {
             this.isLoading = false;
@@ -372,13 +379,16 @@ export default class ForecastProductDetails extends LightningElement {
             showNotification('Success','Product has been disabled','success');
         })
         .catch((error) => {
-            showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-            console.log('error-->'+error);
+                        // showError(error);
+                        showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
+                        console.log('error-->'+error);
         })
         .finally(() => {
             this.isLoading = false;
         });
     }
+
+    /* Adjustments */
 
     setAdjustments(adjustments, method){
         return adjustments.map(wrapper => {
@@ -460,8 +470,9 @@ export default class ForecastProductDetails extends LightningElement {
             this.getForecast();
         })
         .catch((error) => {
-            showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-            console.log('error-->'+error);
+                        // showError(error);
+                        showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
+                        console.log('error-->'+error);
         })
         .finally(() => {
             this.isLoading = false;
@@ -488,6 +499,7 @@ export default class ForecastProductDetails extends LightningElement {
         this.adjustmentClear(method, adjustmentId, true);
     }
 
+    /* refreshOriginalValues - to avoid showing init values before data is saved to database */
     adjustmentClear(method, adjustmentId, refreshOriginalValues){
         if(adjustmentId !== this.newAdjustmentId){
             this.methods[method].adjustments.forEach(function(item, index) {
@@ -570,7 +582,9 @@ export default class ForecastProductDetails extends LightningElement {
         let adjustmentId = event.currentTarget.dataset.id;
         let method = event.currentTarget.dataset.method;
         let adjustment = this.methods[method].draftAdjustments.get(adjustmentId);
-
+        console.log('adjustmentId-->'+adjustmentId)
+        console.log('method-->'+method)
+        console.log('adjustment-->'+adjustment)
         let array = Array.from(adjustment.quantities, ([key, value]) => {
             return {
                 externalId: key,
@@ -596,8 +610,9 @@ export default class ForecastProductDetails extends LightningElement {
             showNotification('Success','Adjustment has been added','success');
         })
         .catch((error) => {
-            showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-            console.log('error-->'+error);
+                        // showError(error);
+                        showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
+                        console.log('error-->'+error);
         })
         .finally(() => {
             this.isLoading = false;
@@ -629,6 +644,8 @@ export default class ForecastProductDetails extends LightningElement {
             quantities: new Map(),
         })
     }
+
+    /* Base */
 
     setBase(base, method){
         this.methods[method].base = [];
@@ -682,6 +699,7 @@ export default class ForecastProductDetails extends LightningElement {
         this.baseClear(event.currentTarget.dataset.method, true)
     }
 
+    /* refreshOriginalValues - to avoid showing init values before data is saved to database */
     baseClear(method, refreshOriginalValues){
         this.methods[method].baseDraft.clear();
         this.methods[method].baseEditDisabled = true;
@@ -721,13 +739,16 @@ export default class ForecastProductDetails extends LightningElement {
             showNotification('Success',"Base forecast has been updated",'success');
         })
         .catch((error) => {
-            showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-            console.log('error-->'+error);
+                        // showError(error);
+                        showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
+                        console.log('error-->'+error);
         })
         .finally(() => {
             this.isLoading = false;
         });
     }
+
+    /* Opportunities */
 
     setOpportunities(opportunities, method){
         this.methods[method].oppOptions = [];
@@ -804,8 +825,9 @@ export default class ForecastProductDetails extends LightningElement {
             showNotification('Success',`Opportunity has been ${approval}`,'success');
         })
         .catch((error) => {
-            showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-            console.log('error-->'+error);
+                        // showError(error);
+                        showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
+                        console.log('error-->'+error);
         })
         .finally(() => {
             this.isLoading = false;
@@ -837,4 +859,7 @@ export default class ForecastProductDetails extends LightningElement {
 
         this.setRowSpan(method);
     }
+
+
+ 
 }

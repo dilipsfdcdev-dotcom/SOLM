@@ -375,7 +375,7 @@
                                     </td>
                                 </template>
                             </tr>
-                            <tr >
+                            <tr class="row__bottom--black">
                                 <td class="data__column">
                                     <b>{labels.forecastTotal}</b>
                                 </td>
@@ -384,17 +384,6 @@
                                     for:item="forecastTotalDirectItem">
                                     <td key={forecastTotalDirectItem.month}>
                                         {forecastTotalDirectItem.value}
-                                    </td>
-                                </template>
-                            </tr>
-                            <tr class="row__bottom--black">
-                                <td class="data__column">
-                                    <b>{labels.forecastRevenue}</b>
-                                </td>
-                                <td class="action__column"></td>
-                                <template for:each={productWrapper.forecastRevenueDirect} for:item="forecastRevenueDirectItem">
-                                    <td key={forecastRevenueDirectItem.month}>
-                                        {forecastRevenueDirectItem.value}
                                     </td>
                                 </template>
                             </tr>
@@ -674,7 +663,7 @@
                                     </td>
                                 </template>
                             </tr>
-                            <tr >
+                            <tr class="row__bottom--black">
                                 <td class="data__column">
                                     <b>{labels.forecastTotal}</b>
                                 </td>
@@ -683,17 +672,6 @@
                                     for:item="forecastTotalLocalItem">
                                     <td key={forecastTotalLocalItem.month}>
                                         {forecastTotalLocalItem.value}
-                                    </td>
-                                </template>
-                            </tr>
-                            <tr class="row__bottom--black">
-                                <td class="data__column">
-                                    <b>{labels.forecastRevenue}</b>
-                                </td>
-                                <td class="action__column"></td>
-                                <template for:each={productWrapper.forecastRevenueLocal} for:item="forecastRevenueLocalItem">
-                                    <td key={forecastRevenueLocalItem.month}>
-                                        {forecastRevenueLocalItem.value}
                                     </td>
                                 </template>
                             </tr>
@@ -743,17 +721,6 @@
                                 <template for:each={productWrapper.forecastSummary} for:item="forecastSum">
                                     <td key={forecastSum.month}>
                                         {forecastSum.value}
-                                    </td>
-                                </template>
-                            </tr>
-                            <tr>
-                                <td class="data__column">
-                                    <b>{labels.forecastRevenue}</b>
-                                </td>
-                                <td class="action__column"></td>
-                                <template for:each={productWrapper.forecastRevenueSummary} for:item="forecastRevenueSummaryItem">
-                                    <td key={forecastRevenueSummaryItem.month}>
-                                        {forecastRevenueSummaryItem.value}
                                     </td>
                                 </template>
                             </tr>
