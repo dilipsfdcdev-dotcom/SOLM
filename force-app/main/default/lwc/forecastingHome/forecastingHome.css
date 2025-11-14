@@ -1,13 +1,303 @@
+/* ========================================
+   FORECASTING HOME - MODERN LANDING PAGE
+   Elegant card-based navigation design
+   ======================================== */
+
+/* === MAIN CONTAINER === */
 .center {
     display: flex;
     justify-content: center;
-    padding:20px 0;
+    align-items: center;
+    min-height: 60vh;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 75%, #f5576c 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Animated background gradient */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Decorative background elements */
+.center::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    top: -250px;
+    right: -250px;
+    animation: float 20s ease-in-out infinite;
+}
+
+.center::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    bottom: -200px;
+    left: -200px;
+    animation: float 25s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+        transform: translate(30px, -30px) rotate(120deg);
+    }
+    66% {
+        transform: translate(-30px, 30px) rotate(240deg);
+    }
+}
+
+/* === LARGE FONT/TITLE === */
+.font--big {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: white;
+    text-align: center;
+    margin-bottom: 3rem;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
+}
+
+/* === FULL WIDTH === */
 .full_width {
     width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
-.font--big{
-    font-size: 25px;
+/* === LIGHTNING BUTTON GROUP === */
+lightning-button-group {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 80px rgba(255, 255, 255, 0.1) inset;
+    backdrop-filter: blur(10px);
+    position: relative;
+}
+
+/* Glass morphism border effect */
+lightning-button-group::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+/* === NAVIGATION BUTTONS === */
+lightning-button-group lightning-button button {
+    min-width: 280px;
+    min-height: 160px;
+    padding: 2rem 2.5rem !important;
+    border-radius: 20px !important;
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    letter-spacing: 0.3px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15),
+                0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* First button - Account Search (Blue/Purple theme) */
+lightning-button-group lightning-button:first-child button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+}
+
+/* Second button - Product Search (Pink/Orange theme) */
+lightning-button-group lightning-button:last-child button {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+    color: white !important;
+}
+
+/* Shine effect on hover */
+lightning-button-group lightning-button button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+lightning-button-group lightning-button button:hover::before {
+    left: 100%;
+}
+
+/* Hover state */
+lightning-button-group lightning-button button:hover {
+    transform: translateY(-8px) scale(1.05) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25),
+                0 8px 20px rgba(0, 0, 0, 0.15),
+                0 0 40px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Active/Pressed state */
+lightning-button-group lightning-button button:active {
+    transform: translateY(-4px) scale(1.02) !important;
+}
+
+/* Icon styling (if icons are added) */
+lightning-button-group lightning-button button svg {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.75rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* === LIGHTNING CARD === */
+lightning-card {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 1024px) {
+    .center {
+        padding: 3rem 1.5rem;
+    }
+
+    .font--big {
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    lightning-button-group {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    lightning-button-group lightning-button button {
+        min-width: 240px;
+        min-height: 140px;
+        padding: 1.75rem 2rem !important;
+        font-size: 1.125rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .center {
+        min-height: 50vh;
+        padding: 2rem 1rem;
+    }
+
+    .font--big {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+    }
+
+    lightning-button-group {
+        flex-direction: column;
+        padding: 1.25rem;
+        gap: 1.25rem;
+        border-radius: 20px;
+    }
+
+    lightning-button-group lightning-button button {
+        min-width: 100%;
+        min-height: 120px;
+        padding: 1.5rem !important;
+        font-size: 1.125rem !important;
+    }
+
+    /* Simplify animations on mobile */
+    .center::before,
+    .center::after {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .font--big {
+        font-size: 1.5rem;
+    }
+
+    lightning-button-group {
+        padding: 1rem;
+        border-radius: 16px;
+    }
+
+    lightning-button-group lightning-button button {
+        min-height: 100px;
+        padding: 1.25rem !important;
+        font-size: 1rem !important;
+    }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+    .center {
+        animation: none;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .center::before,
+    .center::after {
+        animation: none;
+    }
+
+    lightning-button-group lightning-button button {
+        transition: none !important;
+    }
+
+    lightning-button-group lightning-button button::before {
+        display: none;
+    }
+}
+
+/* Focus states for keyboard navigation */
+lightning-button-group lightning-button button:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 4px;
+}
+
+/* === DARK MODE SUPPORT === */
+@media (prefers-color-scheme: dark) {
+    lightning-button-group {
+        background: rgba(30, 30, 30, 0.95);
+    }
+
+    .font--big {
+        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
 }

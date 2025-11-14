@@ -1,0 +1,151 @@
+<template>
+    <div class="forecast2-account-container">
+        <!-- Enhanced Header Card -->
+        <div class="header-card slds-box slds-theme_default slds-m-bottom_medium">
+            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-account icon-container">
+                                <lightning-icon
+                                    icon-name="standard:account"
+                                    size="medium"
+                                    alternative-text="Account">
+                                </lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-text-heading_medium slds-m-bottom_x-small">
+                                Forecast by Account
+                            </h2>
+                            <p class="slds-text-body_small slds-text-color_weak">
+                                View and manage forecasts for a specific account. Add products, import CSV data, and track forecast performance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-text-align_right badge-container">
+                    <lightning-badge
+                        label="Enhanced UI"
+                        class="slds-m-right_x-small enhanced-badge">
+                    </lightning-badge>
+                    <lightning-badge
+                        label="v2.0"
+                        class="version-badge">
+                    </lightning-badge>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Highlights -->
+        <div class="features-section slds-grid slds-gutters slds-wrap slds-m-bottom_medium">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                <div class="feature-card slds-box">
+                    <lightning-icon
+                        icon-name="utility:search"
+                        size="small"
+                        class="feature-icon">
+                    </lightning-icon>
+                    <div class="feature-title">Smart Search</div>
+                    <div class="feature-desc">Find accounts and products quickly with advanced search</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                <div class="feature-card slds-box">
+                    <lightning-icon
+                        icon-name="utility:upload"
+                        size="small"
+                        class="feature-icon">
+                    </lightning-icon>
+                    <div class="feature-title">CSV Import</div>
+                    <div class="feature-desc">Bulk upload forecast data via CSV for single account</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                <div class="feature-card slds-box">
+                    <lightning-icon
+                        icon-name="utility:chart"
+                        size="small"
+                        class="feature-icon">
+                    </lightning-icon>
+                    <div class="feature-title">Real-time Insights</div>
+                    <div class="feature-desc">View forecast totals and revenue calculations instantly</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Forecast App (Original Component with Better Wrapper) -->
+        <div class="enhanced-wrapper slds-box">
+            <c-forecast-app></c-forecast-app>
+        </div>
+
+        <!-- Quick Actions Panel -->
+        <div class="quick-actions slds-box slds-theme_shade slds-m-top_medium">
+            <lightning-accordion allow-multiple-sections-open>
+                <lightning-accordion-section name="help" label="Quick Help & Tips">
+                    <div class="help-content">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <h4 class="slds-text-heading_small slds-m-bottom_small">
+                                    <lightning-icon icon-name="utility:info" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                    Getting Started
+                                </h4>
+                                <ol class="slds-list_ordered help-list">
+                                    <li>Search and select an account using the lookup</li>
+                                    <li>Enable forecasting if not already enabled</li>
+                                    <li>Add products individually or via CSV upload</li>
+                                    <li>Set fulfillment methods (Direct/Local)</li>
+                                    <li>Enter forecast quantities by month</li>
+                                </ol>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <h4 class="slds-text-heading_small slds-m-bottom_small">
+                                    <lightning-icon icon-name="utility:light_bulb" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                    Pro Tips
+                                </h4>
+                                <ul class="slds-list_dotted help-list">
+                                    <li><strong>Search Products:</strong> Use the search bar to filter products</li>
+                                    <li><strong>Toggle Views:</strong> Switch between Pieces and Cases volume</li>
+                                    <li><strong>Quick Edit:</strong> Click any product to edit details</li>
+                                    <li><strong>Bulk Import:</strong> Use CSV for multiple products at once</li>
+                                    <li><strong>Adjustments:</strong> Add forecast adjustments with comments</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </lightning-accordion-section>
+
+                <lightning-accordion-section name="shortcuts" label="Keyboard Shortcuts">
+                    <div class="shortcuts-content">
+                        <div class="slds-grid slds-wrap slds-gutters_small">
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                <div class="shortcut-item">
+                                    <span class="shortcut-key">Ctrl + F</span>
+                                    <span class="shortcut-label">Search</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                <div class="shortcut-item">
+                                    <span class="shortcut-key">Esc</span>
+                                    <span class="shortcut-label">Close Modal</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                <div class="shortcut-item">
+                                    <span class="shortcut-key">Tab</span>
+                                    <span class="shortcut-label">Navigate Fields</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                <div class="shortcut-item">
+                                    <span class="shortcut-key">Enter</span>
+                                    <span class="shortcut-label">Submit</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </div>
+    </div>
+</template>

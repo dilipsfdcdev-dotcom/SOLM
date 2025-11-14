@@ -1,0 +1,224 @@
+<template>
+    <lightning-card title="Mass Upload Forecasts" icon-name="utility:upload">
+        <div class="slds-card__body slds-card__body_inner">
+
+            <!-- Instructions -->
+            <lightning-accordion active-section-name="instructions" class="slds-m-bottom_medium">
+                <lightning-accordion-section name="instructions" label="Upload Instructions">
+                    <div class="slds-text-body_small">
+                        <h3 class="slds-text-heading_small slds-m-bottom_small">CSV Format Requirements:</h3>
+                        <ul class="slds-list_dotted">
+                            <li><strong>Required Columns:</strong> AccountId, ProductId, Month, Quantity</li>
+                            <li><strong>Optional Columns:</strong> UnitPrice, Direct, Local, Warehouse</li>
+                            <li><strong>Date Format:</strong> MM/DD/YYYY (e.g., 01/15/2025)</li>
+                            <li><strong>Boolean Values:</strong> true/false (for Direct and Local columns)</li>
+                            <li><strong>File Size:</strong> Maximum 5MB recommended for optimal performance</li>
+                            <li><strong>Encoding:</strong> UTF-8</li>
+                        </ul>
+                        <div class="slds-m-top_small">
+                            <lightning-button
+                                label="Download Template"
+                                icon-name="utility:download"
+                                onclick={handleDownloadTemplate}
+                                class="slds-m-right_small">
+                            </lightning-button>
+                            <lightning-button
+                                label="View Sample CSV"
+                                onclick={handleViewSample}>
+                            </lightning-button>
+                        </div>
+                    </div>
+                </lightning-accordion-section>
+            </lightning-accordion>
+
+            <!-- File Upload Section -->
+            <div class="upload-section slds-box slds-theme_shade slds-p-around_medium slds-m-bottom_medium">
+                <div class="slds-text-align_center">
+                    <lightning-icon
+                        icon-name="utility:upload"
+                        size="large"
+                        class="upload-icon slds-m-bottom_small">
+                    </lightning-icon>
+
+                    <template if:false={fileName}>
+                        <div class="slds-text-heading_small slds-m-bottom_x-small">
+                            Choose CSV File to Upload
+                        </div>
+                        <div class="slds-text-body_small slds-text-color_weak slds-m-bottom_medium">
+                            Drag and drop or click to browse
+                        </div>
+                    </template>
+
+                    <template if:true={fileName}>
+                        <div class="slds-text-heading_small slds-m-bottom_x-small">
+                            Selected File
+                        </div>
+                        <div class="slds-text-body_regular slds-m-bottom_x-small">
+                            {fileName}
+                        </div>
+                        <div class="slds-text-body_small slds-text-color_weak slds-m-bottom_medium">
+                            {fileSize}
+                        </div>
+                    </template>
+
+                    <input
+                        type="file"
+                        accept=".csv"
+                        onchange={handleFileChange}
+                        class="slds-hide"
+                        data-id="fileInput">
+
+                    <lightning-button
+                        label={fileSelectLabel}
+                        variant="brand"
+                        onclick={handleSelectFile}
+                        disabled={isProcessing}>
+                    </lightning-button>
+
+                    <template if:true={fileName}>
+                        <lightning-button
+                            label="Clear Selection"
+                            onclick={handleClearFile}
+                            class="slds-m-left_small"
+                            disabled={isProcessing}>
+                        </lightning-button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Validation Results -->
+            <template if:true={showValidation}>
+                <div class="slds-box slds-theme_default slds-m-bottom_medium">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                        <div class="slds-col">
+                            <h3 class="slds-text-heading_small">Validation Results</h3>
+                        </div>
+                        <template if:true={validationSuccess}>
+                            <lightning-icon
+                                icon-name="utility:success"
+                                size="small"
+                                alternative-text="Valid"
+                                variant="success">
+                            </lightning-icon>
+                        </template>
+                    </div>
+
+                    <template if:true={validationSuccess}>
+                        <div class="slds-text-color_success">
+                            <lightning-icon
+                                icon-name="utility:check"
+                                size="x-small"
+                                class="slds-m-right_x-small">
+                            </lightning-icon>
+                            CSV format is valid
+                        </div>
+                        <div class="slds-m-top_x-small">
+                            <strong>Total Rows:</strong> {rowCount}
+                        </div>
+                    </template>
+
+                    <template if:false={validationSuccess}>
+                        <lightning-message-service variant="error" title="Validation Failed">
+                            {validationError}
+                        </lightning-message-service>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Progress Indicator -->
+            <template if:true={isProcessing}>
+                <div class="slds-box slds-theme_default slds-m-bottom_medium">
+                    <div class="slds-text-align_center">
+                        <lightning-spinner
+                            alternative-text="Processing upload"
+                            size="medium"
+                            class="slds-m-bottom_small">
+                        </lightning-spinner>
+                        <div class="slds-text-heading_small slds-m-bottom_x-small">
+                            Processing Upload
+                        </div>
+                        <div class="slds-text-body_small slds-text-color_weak">
+                            Please wait while we process your forecast data...
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Upload Results -->
+            <template if:true={showResults}>
+                <div class="slds-box slds-theme_default slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_medium">Upload Results</h3>
+
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-label">Total Rows</div>
+                            <div class="result-value">{uploadResult.totalRows}</div>
+                        </div>
+                        <div class="result-item success">
+                            <div class="result-label">Success</div>
+                            <div class="result-value">{uploadResult.successRows}</div>
+                        </div>
+                        <div class="result-item error">
+                            <div class="result-label">Errors</div>
+                            <div class="result-value">{uploadResult.errorRows}</div>
+                        </div>
+                    </div>
+
+                    <template if:true={uploadResult.message}>
+                        <div class="slds-m-top_medium">
+                            <lightning-formatted-text value={uploadResult.message}></lightning-formatted-text>
+                        </div>
+                    </template>
+
+                    <template if:true={hasErrors}>
+                        <div class="slds-m-top_medium">
+                            <lightning-accordion>
+                                <lightning-accordion-section name="errors" label="View Errors">
+                                    <div class="error-list">
+                                        <template for:each={uploadResult.errors} for:item="error">
+                                            <div key={error} class="slds-text-color_error slds-m-bottom_x-small">
+                                                <lightning-icon
+                                                    icon-name="utility:error"
+                                                    size="xx-small"
+                                                    variant="error"
+                                                    class="slds-m-right_x-small">
+                                                </lightning-icon>
+                                                {error}
+                                            </div>
+                                        </template>
+                                    </div>
+                                </lightning-accordion-section>
+                            </lightning-accordion>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Action Buttons -->
+            <div class="slds-grid slds-grid_align-center slds-m-top_medium">
+                <lightning-button
+                    label="Validate CSV"
+                    variant="neutral"
+                    onclick={handleValidate}
+                    disabled={disableValidate}
+                    class="slds-m-right_small">
+                </lightning-button>
+
+                <lightning-button
+                    label="Upload Forecasts"
+                    variant="brand"
+                    onclick={handleUpload}
+                    disabled={disableUpload}
+                    class="slds-m-right_small">
+                </lightning-button>
+
+                <lightning-button
+                    label="Reset"
+                    onclick={handleReset}
+                    disabled={isProcessing}>
+                </lightning-button>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>

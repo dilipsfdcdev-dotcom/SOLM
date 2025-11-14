@@ -1,0 +1,61 @@
+.option-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.option-card {
+    background: white;
+    border: 2px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.option-card:hover {
+    border-color: #0176d3;
+    box-shadow: 0 4px 12px rgba(1, 118, 211, 0.2);
+    transform: translateY(-4px);
+}
+
+.option-icon {
+    margin-bottom: 1rem;
+    color: #0176d3;
+}
+
+.option-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #080707;
+    margin-bottom: 0.75rem;
+}
+
+.option-description {
+    font-size: 0.95rem;
+    color: #706e6b;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    min-height: 3rem;
+}
+
+.option-badge {
+    margin-top: 1rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .option-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .option-card {
+        padding: 1.5rem;
+    }
+}

@@ -1,0 +1,107 @@
+<template>
+    <lightning-card title="Forecast Management 2.0" icon-name="custom:custom85">
+        <div class="slds-card__body slds-card__body_inner">
+
+            <!-- Navigation Options -->
+            <template if:true={showNavigation}>
+                <div class="slds-text-align_center slds-m-around_large">
+                    <div class="slds-text-heading_large slds-m-bottom_medium">
+                        Welcome to Forecast Management 2.0
+                    </div>
+                    <div class="slds-text-body_regular slds-m-bottom_x-large slds-text-color_weak">
+                        Choose how you want to manage forecasts
+                    </div>
+
+                    <div class="option-container">
+                        <!-- Mass Upload Option -->
+                        <div class="option-card" onclick={handleMassUpload}>
+                            <lightning-icon
+                                icon-name="utility:upload"
+                                size="large"
+                                class="option-icon">
+                            </lightning-icon>
+                            <div class="option-title">Mass Upload</div>
+                            <div class="option-description">
+                                Upload forecasts for multiple accounts at once via CSV file
+                            </div>
+                            <div class="option-badge">
+                                <lightning-badge label="Bulk Import"></lightning-badge>
+                            </div>
+                        </div>
+
+                        <!-- By Account Option -->
+                        <div class="option-card" onclick={handleSearchByAccount}>
+                            <lightning-icon
+                                icon-name="standard:account"
+                                size="large"
+                                class="option-icon">
+                            </lightning-icon>
+                            <div class="option-title">Search by Account</div>
+                            <div class="option-description">
+                                View and manage forecasts for a specific account
+                            </div>
+                            <div class="option-badge">
+                                <lightning-badge label="Single Account"></lightning-badge>
+                            </div>
+                        </div>
+
+                        <!-- By Product Option -->
+                        <div class="option-card" onclick={handleSearchByProduct}>
+                            <lightning-icon
+                                icon-name="standard:product"
+                                size="large"
+                                class="option-icon">
+                            </lightning-icon>
+                            <div class="option-title">Search by Product</div>
+                            <div class="option-description">
+                                View all accounts forecasting a specific product
+                            </div>
+                            <div class="option-badge">
+                                <lightning-badge label="Product View"></lightning-badge>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Mass Upload View -->
+            <template if:true={showMassUpload}>
+                <div class="slds-m-bottom_small">
+                    <lightning-button
+                        icon-name="utility:back"
+                        label="Back to Options"
+                        onclick={handleBackToNav}>
+                    </lightning-button>
+                </div>
+                <c-forecast2-mass-upload
+                    onback={handleBackToNav}>
+                </c-forecast2-mass-upload>
+            </template>
+
+            <!-- Account View -->
+            <template if:true={showAccountView}>
+                <div class="slds-m-bottom_small">
+                    <lightning-button
+                        icon-name="utility:back"
+                        label="Back to Options"
+                        onclick={handleBackToNav}>
+                    </lightning-button>
+                </div>
+                <c-forecast2-account-view></c-forecast2-account-view>
+            </template>
+
+            <!-- Product View -->
+            <template if:true={showProductView}>
+                <div class="slds-m-bottom_small">
+                    <lightning-button
+                        icon-name="utility:back"
+                        label="Back to Options"
+                        onclick={handleBackToNav}>
+                    </lightning-button>
+                </div>
+                <c-forecast2-product-view></c-forecast2-product-view>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>
