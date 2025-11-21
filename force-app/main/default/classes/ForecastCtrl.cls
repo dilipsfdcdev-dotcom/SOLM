@@ -242,23 +242,41 @@ public static string insertProduct (String prodJson,String accountId)
             }
             
 
-            Map<Id,MaP<Integer,Id>> mapOfForecastProductToMonth = new Map<Id,MaP<Integer,Id>>();
+            // Use year-month key (e.g., 202601 for Jan 2026) instead of just month number to handle multiple years
+            Map<Id,Map<Integer,Id>> mapOfForecastProductToMonth = new Map<Id,Map<Integer,Id>>();
             for(Forecast_Month__c fm : [Select Id,Forecast_Product__c,Forecast_Product__r.Local_Enabled__c,Forecast_Product__r.Direct_Enabled__c,Month__c from Forecast_Month__c where Forecast_Product__c in: fpList.values()]){
                 if(!mapOfForecastProductToMonth.containsKey(fm.Forecast_Product__c)){
                     mapOfForecastProductToMonth.put(fm.Forecast_Product__c,new Map<Integer,Id>());
                 }
-                mapOfForecastProductToMonth.get(fm.Forecast_Product__c).put(fm.Month__c.Month(),fm.Id);
+                // Key is year*100 + month (e.g., 202601 for Jan 2026) to uniquely identify each month across years
+                Integer yearMonthKey = fm.Month__c.year() * 100 + fm.Month__c.month();
+                mapOfForecastProductToMonth.get(fm.Forecast_Product__c).put(yearMonthKey, fm.Id);
             }
             List<Forecast_Month__c> fmList = new List<Forecast_Month__c>();
             List<ForeCast_month__c> fmList2 = new List<Forecast_Month__c>();
             for(Forecast_Product__c fp : fpList.values()){
+                // Use year*100+month (e.g., 202601 for Jan 2026) to track processed months across years
                 Set<Integer> forecastMonth = new Set<Integer>();
                 system.debug(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c);
                 for(date d : mapOfProductToMonth.get(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c)){
-                    Integer fmonth = d.month();
-                    if(!forecastMonth.contains(fmonth)){
-                        fmList.add(new Forecast_Month__c(Id = mapOfForecastProductToMonth.containsKey(fp.Id) && mapOfForecastProductToMonth.get(fp.Id).containsKey( d.month()) ? mapOfForecastProductToMonth.get(fp.Id).get( d.month()) : null ,Forecast_Product__c = fp.Id,month__c = d));
-                        forecastMonth.add(fmonth);
+                    // Use year*100+month as key to handle multiple years correctly
+                    Integer yearMonthKey = d.year() * 100 + d.month();
+                    if(!forecastMonth.contains(yearMonthKey)){
+                        // Look up existing Forecast_Month__c using year*100+month key
+                        Id existingFmId = mapOfForecastProductToMonth.containsKey(fp.Id) && mapOfForecastProductToMonth.get(fp.Id).containsKey(yearMonthKey)
+                            ? mapOfForecastProductToMonth.get(fp.Id).get(yearMonthKey)
+                            : null;
+
+                        // Create External_Id__c for proper upsert to avoid duplicate month creation
+                        String fmExtId = fp.Account__c + '-' + fp.Product__c + '-' + ForecastUtil.getMonthUniqueId(d) + '-' + (fp.Direct_Enabled__c ? '0' : '1');
+
+                        fmList.add(new Forecast_Month__c(
+                            Id = existingFmId,
+                            Forecast_Product__c = fp.Id,
+                            Month__c = d,
+                            External_Id__c = fmExtId
+                        ));
+                        forecastMonth.add(yearMonthKey);
                     }
                 }
                 mapOfForecastProduct.put(fp.Id,mapOfForecastProduct.get(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c));
@@ -269,7 +287,9 @@ public static string insertProduct (String prodJson,String accountId)
                 Date tempDate = startDate;
 
                 while(tempDate <= endDate){
-                    if(!forecastMonth.contains(tempDate.month())){
+                    // Use year*100+month to check if month already processed
+                    Integer tempYearMonthKey = tempDate.year() * 100 + tempDate.month();
+                    if(!forecastMonth.contains(tempYearMonthKey)){
                         fmList2.add(
                             new Forecast_Month__c(
                                 Forecast_Product__c = fp.Id,
@@ -281,8 +301,9 @@ public static string insertProduct (String prodJson,String accountId)
                     tempDate = tempDate.addMonths(1);
                 }
             }
-            upsert fmList;
-            upsert fmList2 external_Id__c;
+            // Use upsert with External_Id__c to update existing records instead of creating duplicates
+            upsert fmList External_Id__c;
+            upsert fmList2 External_Id__c;
 
             system.debug(fmList.size());
             set<Id> monthIds = new Set<Id>();
