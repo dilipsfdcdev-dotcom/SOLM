@@ -319,15 +319,30 @@ export default class ForecastApp extends LightningElement {
         }, this.doneTypingInterval);
     }
  
+    downloadTemplate() {
+        const template = 'PRODUCT2ID,Direct,Local,Month,UNITPRICE,Quantity,Warehouse\n' +
+            '01tXXXXXXXXXXXX,true,false,01/01/2025,100.00,50,';
+
+        const blob = new Blob([template], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'forecast_upload_template.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }
+
     importcsv(event){
         if (event.target.files.length > 0) {
             this.filesUploaded = event.target.files;
             this.filename = event.target.files[0].name;
             console.log(this.filename);
             console.log(this.filesUploaded);
-            if (this.filesUploaded.size > this.MAX_FILE_SIZE) {
-                this.filename = 'File Size is to long to process';
-            } 
+            if (this.filesUploaded[0].size > this.MAX_FILE_SIZE) {
+                this.filename = 'File Size is too large to process (max 2MB)';
+            }
     }
     }
 

@@ -5,7 +5,7 @@ public with sharing class ForecastUtil {
     public static List<String> prepareDateRange(Date startDate){
         List<String> dateRange = new List<String>();
 
-        Date endDate = startDate.addYears(1).addMonths(-1).toStartOfMonth();
+        Date endDate = startDate.addYears(2).addMonths(-1).toStartOfMonth();
         Date tempDate = startDate;
 
         while(tempDate <= endDate){

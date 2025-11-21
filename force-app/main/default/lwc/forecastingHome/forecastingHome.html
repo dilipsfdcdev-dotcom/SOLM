@@ -1,5 +1,10 @@
 <template>
-    <lightning-card title="">
+    <lightning-card title="Forecasting Management" icon-name="standard:forecasts">
+        <div slot="actions">
+            <template lwc:if={showBackButton}>
+                <lightning-button variant="neutral" label="Back to Menu" icon-name="utility:chevronleft" onclick={handleBackToMenu}></lightning-button>
+            </template>
+        </div>
 
         <template lwc:if={searchByAccount}>
             <c-forecast-app></c-forecast-app>
@@ -7,12 +12,110 @@
         <template lwc:elseif={searchByProduct}>
             <c-forecast-app-for-product></c-forecast-app-for-product>
         </template>
+        <template lwc:elseif={showMassUpload}>
+            <div class="slds-p-around_medium">
+                <div class="slds-text-heading_medium slds-m-bottom_medium">Mass Upload Forecasts</div>
+                <div class="slds-box slds-theme_default slds-m-bottom_medium">
+                    <div class="slds-text-title_bold slds-m-bottom_small">Upload Instructions</div>
+                    <p class="slds-m-bottom_x-small">Upload forecast data for multiple accounts at once using a CSV file.</p>
+                    <p class="slds-m-bottom_x-small"><strong>Required columns:</strong></p>
+                    <ul class="slds-list_dotted slds-m-bottom_small">
+                        <li><strong>AccountId</strong> - Salesforce Account ID (18 characters)</li>
+                        <li><strong>PRODUCT2ID</strong> - Salesforce Product ID</li>
+                        <li><strong>Direct</strong> - true/false for Direct Shipment</li>
+                        <li><strong>Local</strong> - true/false for Local Warehouse</li>
+                        <li><strong>Month</strong> - Date in MM/DD/YYYY format (e.g., 01/01/2025)</li>
+                        <li><strong>UNITPRICE</strong> - Unit price for the product</li>
+                        <li><strong>Quantity</strong> - Forecast quantity</li>
+                        <li><strong>Warehouse</strong> - Warehouse name (optional)</li>
+                    </ul>
+                    <lightning-button variant="brand-outline" label="Download Template" icon-name="utility:download" onclick={downloadMassTemplate} class="slds-m-right_small"></lightning-button>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                        <lightning-input
+                            type="file"
+                            label="Select CSV File"
+                            accept=".csv"
+                            onchange={handleMassFileSelect}>
+                        </lightning-input>
+                        <template lwc:if={massFileName}>
+                            <p class="slds-text-body_small slds-m-top_x-small">Selected: {massFileName}</p>
+                        </template>
+                        <template lwc:if={massFileError}>
+                            <p class="slds-text-color_error slds-m-top_x-small">{massFileError}</p>
+                        </template>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium">
+                    <lightning-button
+                        variant="brand"
+                        label="Upload Forecasts"
+                        icon-name="utility:upload"
+                        onclick={handleMassUpload}
+                        disabled={isMassUploadDisabled}>
+                    </lightning-button>
+                    <template lwc:if={isMassLoading}>
+                        <lightning-spinner alternative-text="Processing..." size="small" class="slds-m-left_medium"></lightning-spinner>
+                    </template>
+                </div>
+
+                <template lwc:if={massUploadResult}>
+                    <div class="slds-m-top_medium">
+                        <div class={massResultClass}>
+                            <lightning-icon icon-name={massResultIcon} size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                            {massUploadResult}
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
         <template lwc:else>
-            <div class="center font--big ">
-                <lightning-button-group>
-                    <lightning-button label="Search By Account" onclick={hanldeSearchByAccount}></lightning-button>
-                    <lightning-button label="Search By Product" onclick={hanldeSearchByProduct}></lightning-button>
-                </lightning-button-group>
+            <div class="slds-p-around_large">
+                <div class="slds-text-heading_medium slds-m-bottom_large slds-text-align_center">Select an Option</div>
+                <div class="slds-grid slds-wrap slds-gutters slds-grid_align-center">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
+                        <div class="slds-box slds-box_link slds-theme_default menu-card" onclick={hanldeSearchByAccount}>
+                            <div class="slds-media slds-media_center">
+                                <div class="slds-media__figure">
+                                    <lightning-icon icon-name="standard:account" size="large"></lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h3 class="slds-text-heading_small">Search By Account</h3>
+                                    <p class="slds-text-body_small slds-text-color_weak">Manage forecasts for a specific account</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
+                        <div class="slds-box slds-box_link slds-theme_default menu-card" onclick={hanldeSearchByProduct}>
+                            <div class="slds-media slds-media_center">
+                                <div class="slds-media__figure">
+                                    <lightning-icon icon-name="standard:product" size="large"></lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h3 class="slds-text-heading_small">Search By Product</h3>
+                                    <p class="slds-text-body_small slds-text-color_weak">View forecasts across all accounts for a product</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
+                        <div class="slds-box slds-box_link slds-theme_default menu-card" onclick={handleMassUploadClick}>
+                            <div class="slds-media slds-media_center">
+                                <div class="slds-media__figure">
+                                    <lightning-icon icon-name="standard:file" size="large"></lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h3 class="slds-text-heading_small">Mass Upload</h3>
+                                    <p class="slds-text-body_small slds-text-color_weak">Upload forecasts for multiple accounts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </template>
     </lightning-card>

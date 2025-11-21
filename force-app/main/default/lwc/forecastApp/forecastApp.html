@@ -71,6 +71,12 @@
 
                 </template>
                 <template lwc:else>
+                    <div class="slds-box slds-theme_shade slds-m-bottom_small">
+                        <div class="slds-text-title_bold slds-m-bottom_x-small">Import CSV File</div>
+                        <p class="slds-text-body_small slds-m-bottom_x-small">Upload forecast data for this account using a CSV file.</p>
+                        <p class="slds-text-body_small"><strong>Required columns:</strong> PRODUCT2ID, Direct, Local, Month (MM/DD/YYYY), UNITPRICE, Quantity, Warehouse</p>
+                        <lightning-button variant="base" label="Download Template" icon-name="utility:download" onclick={downloadTemplate} class="slds-m-top_x-small"></lightning-button>
+                    </div>
                     <form class="slds-form--inline">
                         <div class="slds-form-element">
                             <lightning-input type="file"
@@ -79,8 +85,8 @@
                                             onchange={importcsv}
                                             multiple>
                             </lightning-input>
-                        </div>  
-    
+                        </div>
+
                         <div class="slds-form-element slds-text-body_small slds-text-color_error" style="padding-top: 5%;">{filename}</div>
                         <template if:true={displayProductList}>
                             <div class="slds-form-element" style="padding-top: 5%;">
@@ -93,7 +99,7 @@
                             </div>
                         </template>
 
-    
+
                         <div style="margin-left:4%" class="slds-form-element">
                         <template if:true={showLoadingSpinner}>
                                 <lightning-spinner alternative-text="Uploading......" size="medium"></lightning-spinner>
@@ -112,8 +118,8 @@
                                 </c-forecast-historical-table>
                             </div>
                         </template>
-                  
-    
+
+
                     </form>
                 </template>
 

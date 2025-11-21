@@ -8,6 +8,95 @@ public with sharing class ForecastCtrl {
 		public String UNITPRICE;
 		public String Quantity;
 		public String Warehouse;
+		public String AccountId;
+	}
+
+	// Mass upload method for multiple accounts
+	@AuraEnabled
+	public static String insertProductMass(String prodJson) {
+		try {
+			if (String.isBlank(prodJson)) {
+				return 'Error: No data provided';
+			}
+
+			List<productWrapper> pdList = (List<productWrapper>) JSON.deserialize(prodJson, List<productWrapper>.class);
+
+			// Validate AccountId column exists
+			if (pdList.isEmpty() || String.isBlank(pdList[0].AccountId)) {
+				return 'Error: AccountId column is required for mass upload';
+			}
+
+			// Group products by AccountId
+			Map<String, List<productWrapper>> productsByAccount = new Map<String, List<productWrapper>>();
+			Set<String> accountIds = new Set<String>();
+
+			for (productWrapper p : pdList) {
+				if (String.isBlank(p.AccountId)) {
+					continue;
+				}
+				accountIds.add(p.AccountId);
+				if (!productsByAccount.containsKey(p.AccountId)) {
+					productsByAccount.put(p.AccountId, new List<productWrapper>());
+				}
+				productsByAccount.get(p.AccountId).add(p);
+			}
+
+			// Validate accounts exist and have forecasting enabled
+			Map<Id, Account> validAccounts = new Map<Id, Account>([
+				SELECT Id, Name, Forecast_Enabled__c
+				FROM Account
+				WHERE Id IN :accountIds
+			]);
+
+			List<String> errors = new List<String>();
+			Integer successCount = 0;
+
+			// Process each account
+			for (String accountId : productsByAccount.keySet()) {
+				if (!validAccounts.containsKey(accountId)) {
+					errors.add('Account not found: ' + accountId);
+					continue;
+				}
+
+				Account acc = validAccounts.get(accountId);
+				if (!acc.Forecast_Enabled__c) {
+					// Enable forecasting for the account
+					acc.Forecast_Enabled__c = true;
+					update acc;
+				}
+
+				// Convert to JSON and process
+				String accountProdJson = JSON.serialize(productsByAccount.get(accountId));
+				String result = insertProduct(accountProdJson, accountId);
+
+				if (result == 'Success') {
+					successCount++;
+				} else {
+					errors.add('Error processing account ' + acc.Name + ': ' + result);
+				}
+			}
+
+			if (errors.isEmpty()) {
+				return 'Success: Processed ' + successCount + ' accounts';
+			} else {
+				return 'Completed with ' + successCount + ' successful, ' + errors.size() + ' errors: ' + String.join(errors, '; ');
+			}
+
+		} catch (Exception e) {
+			System.debug(e.getMessage());
+			System.debug(e.getStackTraceString());
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	// Get template columns for CSV download
+	@AuraEnabled(cacheable=true)
+	public static String getUploadTemplate(Boolean includAccountId) {
+		if (includAccountId) {
+			return 'AccountId,PRODUCT2ID,Direct,Local,Month,UNITPRICE,Quantity,Warehouse';
+		} else {
+			return 'PRODUCT2ID,Direct,Local,Month,UNITPRICE,Quantity,Warehouse';
+		}
 	}
 
 @auraEnabled
@@ -176,7 +265,7 @@ public static string insertProduct (String prodJson,String accountId)
                 mapOfProductToQuantity.put(fp.Id,mapOfProductToQuantity.get(fp.Product__c+';'+fp.Local_Enabled__c+';'+fp.Direct_Enabled__c));
 
                 Date startDate = Date.today().toStartOfMonth();
-                Date endDate = date.today().addYears(1).addMonths(-1).toStartOfMonth();
+                Date endDate = date.today().addYears(2).addMonths(-1).toStartOfMonth();
                 Date tempDate = startDate;
 
                 while(tempDate <= endDate){
@@ -382,7 +471,7 @@ public static string insertProduct (String prodJson,String accountId)
 						)
 					);
 					Date startDate = Date.today().toStartOfMonth();
-					Date endDate = date.today().addYears(1).addMonths(-1).toStartOfMonth();
+					Date endDate = date.today().addYears(2).addMonths(-1).toStartOfMonth();
 					Date tempDate = startDate;
 
 					while(tempDate <= endDate){
@@ -421,7 +510,7 @@ public static string insertProduct (String prodJson,String accountId)
 					)
 				);
 					Date startDate = Date.today().toStartOfMonth();
-					Date endDate = date.today().addYears(1).addMonths(-1).toStartOfMonth();
+					Date endDate = date.today().addYears(2).addMonths(-1).toStartOfMonth();
 					Date tempDate = startDate;
 
 					while(tempDate <= endDate){
@@ -569,6 +658,56 @@ public static string insertProduct (String prodJson,String accountId)
 		try {
 			List<ForecastItem> forecastItems = (List<ForecastItem>) JSON.deserialize(baseForecastMap, List<ForecastItem> .class);
 			System.debug(direct);
+
+			// Get Forecast_Product__c Id
+			String fpExternalId = accountId + '-' + productId + '-' + (direct ? '0' : '1');
+			List<Forecast_Product__c> fpList = [SELECT Id FROM Forecast_Product__c WHERE External_Id__c = :fpExternalId LIMIT 1];
+
+			if(fpList.isEmpty()) {
+				throw new AuraHandledException('Forecast Product not found');
+			}
+
+			Id forecastProductId = fpList[0].Id;
+
+			// Collect all month external IDs to check
+			Set<String> monthExternalIds = new Set<String>();
+			Map<String, Date> monthIdToDate = new Map<String, Date>();
+
+			for (ForecastItem item : forecastItems) {
+				String monthExtId = accountId + '-' + productId + '-' + item.externalId + '-' + (direct ? '0' : '1');
+				monthExternalIds.add(monthExtId);
+
+				// Parse the month from externalId (format: "Jan-25")
+				String[] parts = item.externalId.split('-');
+				String monthName = parts[0];
+				Integer year = 2000 + Integer.valueOf(parts[1]);
+				Integer monthNum = getMonthNumber(monthName);
+				Date monthDate = Date.newInstance(year, monthNum, 1);
+				monthIdToDate.put(monthExtId, monthDate);
+			}
+
+			// Check which Forecast_Month__c records exist
+			Map<String, Id> existingMonths = new Map<String, Id>();
+			for (Forecast_Month__c fm : [SELECT Id, External_Id__c FROM Forecast_Month__c WHERE External_Id__c IN :monthExternalIds]) {
+				existingMonths.put(fm.External_Id__c, fm.Id);
+			}
+
+			// Create missing Forecast_Month__c records
+			List<Forecast_Month__c> monthsToCreate = new List<Forecast_Month__c>();
+			for (String monthExtId : monthExternalIds) {
+				if (!existingMonths.containsKey(monthExtId)) {
+					monthsToCreate.add(new Forecast_Month__c(
+						Forecast_Product__c = forecastProductId,
+						Month__c = monthIdToDate.get(monthExtId),
+						External_Id__c = monthExtId
+					));
+				}
+			}
+
+			if (!monthsToCreate.isEmpty()) {
+				insert monthsToCreate;
+			}
+
 			List<Forecast_Item__c> forecastItemsToUpsert = new List<Forecast_Item__c> ();
 			for (ForecastItem item: forecastItems) {
 				forecastItemsToUpsert.add(
@@ -588,6 +727,15 @@ public static string insertProduct (String prodJson,String accountId)
 			System.debug(e.getLineNumber());
 			throw new AuraHandledException(e.getMessage());
 		}
+	}
+
+	// Helper method to convert month name to number
+	private static Integer getMonthNumber(String monthName) {
+		Map<String, Integer> monthMap = new Map<String, Integer>{
+			'Jan' => 1, 'Feb' => 2, 'Mar' => 3, 'Apr' => 4, 'May' => 5, 'Jun' => 6,
+			'Jul' => 7, 'Aug' => 8, 'Sep' => 9, 'Oct' => 10, 'Nov' => 11, 'Dec' => 12
+		};
+		return monthMap.get(monthName);
 	}
 
 	@AuraEnabled
@@ -618,12 +766,69 @@ public static string insertProduct (String prodJson,String accountId)
 				update adjustment;
 			}
 
+			// Dynamically create missing Forecast_Month__c records
+			Set<String> monthExternalIds = new Set<String>();
+			Map<String, Date> monthIdToDate = new Map<String, Date>();
+			Map<String, Id> forecastProductIds = new Map<String, Id>();
+
+			for (ForecastItem item : forecastItems) {
+				Boolean isLocal = item.fulfillment == 'local' || item.fulfillment == 'Local';
+				String monthExtId = accountId + '-' + productId + '-' + item.externalId + '-' + (isLocal ? '1' : '0');
+				monthExternalIds.add(monthExtId);
+
+				// Parse the month from externalId (format: "Jan-25")
+				String[] parts = item.externalId.split('-');
+				String monthName = parts[0];
+				Integer year = 2000 + Integer.valueOf(parts[1]);
+				Integer monthNum = getMonthNumber(monthName);
+				Date monthDate = Date.newInstance(year, monthNum, 1);
+				monthIdToDate.put(monthExtId, monthDate);
+
+				// Track forecast product external IDs
+				String fpExtId = accountId + '-' + productId + '-' + (isLocal ? '1' : '0');
+				forecastProductIds.put(fpExtId, null);
+			}
+
+			// Get Forecast Product Ids
+			for (Forecast_Product__c fp : [SELECT Id, External_Id__c FROM Forecast_Product__c WHERE External_Id__c IN :forecastProductIds.keySet()]) {
+				forecastProductIds.put(fp.External_Id__c, fp.Id);
+			}
+
+			// Check which Forecast_Month__c records exist
+			Map<String, Id> existingMonths = new Map<String, Id>();
+			for (Forecast_Month__c fm : [SELECT Id, External_Id__c FROM Forecast_Month__c WHERE External_Id__c IN :monthExternalIds]) {
+				existingMonths.put(fm.External_Id__c, fm.Id);
+			}
+
+			// Create missing Forecast_Month__c records
+			List<Forecast_Month__c> monthsToCreate = new List<Forecast_Month__c>();
+			for (String monthExtId : monthExternalIds) {
+				if (!existingMonths.containsKey(monthExtId)) {
+					Boolean isLocal = monthExtId.endsWith('-1');
+					String fpExtId = accountId + '-' + productId + '-' + (isLocal ? '1' : '0');
+					Id fpId = forecastProductIds.get(fpExtId);
+
+					if (fpId != null) {
+						monthsToCreate.add(new Forecast_Month__c(
+							Forecast_Product__c = fpId,
+							Month__c = monthIdToDate.get(monthExtId),
+							External_Id__c = monthExtId
+						));
+					}
+				}
+			}
+
+			if (!monthsToCreate.isEmpty()) {
+				insert monthsToCreate;
+			}
+
 			for (ForecastItem item: forecastItems) {
+				Boolean isLocal = item.fulfillment == 'local' || item.fulfillment == 'Local';
 				forecastItemsToInsert.add(
 					new Forecast_Item__c(
 						Quantity__c = ForecastUtil.setQuantityInVolume(item.quantity, volume, uom),
-						Forecast__r = new Forecast_Month__c(External_Id__c = accountId + '-' + productId + '-' + item.externalId+ '-'+ (item.fulfillment == 'Local' ? '1' : '0')),
-						External_Id__c = accountId + '-' + productId + '-' + adjustment.Id + '-' + item.externalId+ (item.fulfillment == 'Local' ? '1' : '0'),
+						Forecast__r = new Forecast_Month__c(External_Id__c = accountId + '-' + productId + '-' + item.externalId+ '-'+ (isLocal ? '1' : '0')),
+						External_Id__c = accountId + '-' + productId + '-' + adjustment.Id + '-' + item.externalId+ (isLocal ? '1' : '0'),
 						Fulfillment__c = ForecastUtil.getFulfillment(item.fulfillment),
 						Item_Type__c = Constants.forecastItem.ITEM_TYPE_ADJUSTMENT,
 						Forecast_Adjustment__c = adjustment.Id,
