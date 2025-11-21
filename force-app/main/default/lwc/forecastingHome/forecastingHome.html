@@ -13,7 +13,10 @@
             <c-forecast-app-for-product></c-forecast-app-for-product>
         </template>
         <template lwc:elseif={showMassUpload}>
-            <div class="slds-p-around_medium">
+            <div class="slds-p-around_medium slds-is-relative">
+                <template lwc:if={isMassLoading}>
+                    <lightning-spinner alternative-text="Processing upload..." size="large" class="slds-spinner_container"></lightning-spinner>
+                </template>
                 <div class="slds-grid slds-wrap slds-gutters">
                     <!-- Left Column: Instructions -->
                     <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-m-bottom_medium">
