@@ -46,9 +46,32 @@ export default class ForecastApp extends LightningElement {
 
     selectedVolume = 'pieces';
     pageNumber = 1;
+    monthsView = 24;
 
     openModal = false;
     currencyCODE;
+
+    get is12MonthVariant() {
+        return this.monthsView === 12 ? 'brand' : 'neutral';
+    }
+
+    get is24MonthVariant() {
+        return this.monthsView === 24 ? 'brand' : 'neutral';
+    }
+
+    handleMonthToggle(event) {
+        const months = parseInt(event.currentTarget.dataset.months, 10);
+        if (this.monthsView !== months) {
+            this.monthsView = months;
+            // Refresh the product list if it's displayed
+            if (this.displayProductList) {
+                const productList = this.template.querySelector('c-forecast-product-list');
+                if (productList) {
+                    productList.search();
+                }
+            }
+        }
+    }
 
     getCurrencyCode(accId){
         getCurrencyCode({
@@ -323,15 +346,17 @@ export default class ForecastApp extends LightningElement {
         const template = 'PRODUCT2ID,Direct,Local,Month,UNITPRICE,Quantity,Warehouse\n' +
             '01tXXXXXXXXXXXX,true,false,01/01/2025,100.00,50,';
 
-        const blob = new Blob([template], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'forecast_upload_template.csv';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
+        // Use data URL approach for better LWC compatibility
+        const encodedData = encodeURIComponent(template);
+        const dataUrl = 'data:text/csv;charset=utf-8,' + encodedData;
+
+        const link = document.createElement('a');
+        link.setAttribute('href', dataUrl);
+        link.setAttribute('download', 'forecast_upload_template.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     importcsv(event){

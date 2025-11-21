@@ -359,6 +359,15 @@ public static string insertProduct (String prodJson,String accountId)
 	}
 
 	@AuraEnabled
+	public static List<String> getDateRangeWithMonths(Integer months) {
+		try {
+			return ForecastUtil.prepareDateRange(Date.today().toStartOfMonth(), months);
+		} catch (Exception e) {
+			throw new AuraHandledException(e.getMessage());
+		}
+	}
+
+	@AuraEnabled
 	public static ForecastAccountInfo checkForecast(String accountId) {
 		try {
 			return new ForecastAccountInfo([
