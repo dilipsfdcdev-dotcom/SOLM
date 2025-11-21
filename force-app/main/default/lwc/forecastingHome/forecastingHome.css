@@ -1,3 +1,153 @@
+/* Home Container */
+.home-container {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+    border-radius: 12px;
+    min-height: 400px;
+}
+
+/* Hero Section - Centered Bold Title */
+.hero-section {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #032d60;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: #5c6c7d;
+    font-weight: 400;
+    margin: 0;
+}
+
+/* Menu Card Base Styling */
+.menu-card {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: 12px 12px 0 0;
+}
+
+/* Card Color Themes */
+.menu-card-account::before {
+    background: linear-gradient(90deg, #7f8de1, #5867e8);
+}
+
+.menu-card-product::before {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.menu-card-upload::before {
+    background: linear-gradient(90deg, #10b981, #059669);
+}
+
+/* Card Hover Effects */
+.menu-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.menu-card-account:hover {
+    border-color: #5867e8;
+    background: linear-gradient(to bottom, #f8f9ff, #ffffff);
+}
+
+.menu-card-product:hover {
+    border-color: #d97706;
+    background: linear-gradient(to bottom, #fffbeb, #ffffff);
+}
+
+.menu-card-upload:hover {
+    border-color: #059669;
+    background: linear-gradient(to bottom, #ecfdf5, #ffffff);
+}
+
+.menu-card:active {
+    transform: translateY(-2px);
+}
+
+/* Card Icon Wrapper */
+.card-icon-wrapper {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border-radius: 50%;
+    background: #f3f4f6;
+    transition: all 0.3s ease;
+}
+
+.menu-card-account:hover .card-icon-wrapper {
+    background: #e0e3ff;
+}
+
+.menu-card-product:hover .card-icon-wrapper {
+    background: #fef3c7;
+}
+
+.menu-card-upload:hover .card-icon-wrapper {
+    background: #d1fae5;
+}
+
+/* Card Content */
+.card-content {
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #181818;
+    margin-bottom: 0.5rem;
+}
+
+.card-description {
+    font-size: 0.875rem;
+    color: #706e6b;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Card Arrow */
+.card-arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.menu-card:hover .card-arrow {
+    opacity: 1;
+    right: 0.75rem;
+}
+
+/* Legacy styles for other sections */
 .center {
     display: flex;
     justify-content: center;
@@ -10,26 +160,6 @@
 
 .font--big {
     font-size: 25px;
-}
-
-/* Menu card styling */
-.menu-card {
-    cursor: pointer;
-    transition: all 0.2s ease;
-    min-height: 100px;
-    display: flex;
-    align-items: center;
-    border-radius: 8px;
-}
-
-.menu-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-color: #0176d3;
-}
-
-.menu-card:active {
-    transform: translateY(0);
 }
 
 /* List styling */
@@ -53,4 +183,23 @@
 
 .slds-theme_error {
     background-color: #c23934;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .menu-card {
+        min-height: 120px;
+    }
+
+    .card-arrow {
+        display: none;
+    }
 }

@@ -109,45 +109,54 @@
             </div>
         </template>
         <template lwc:else>
-            <div class="slds-p-around_large">
-                <div class="slds-text-heading_medium slds-m-bottom_large slds-text-align_center">Select an Option</div>
+            <div class="slds-p-around_large home-container">
+                <!-- Hero Section -->
+                <div class="hero-section slds-m-bottom_large">
+                    <h1 class="hero-title">Select an Option</h1>
+                    <p class="hero-subtitle">Choose how you'd like to manage your forecasts</p>
+                </div>
+
+                <!-- Menu Cards Grid -->
                 <div class="slds-grid slds-wrap slds-gutters slds-grid_align-center">
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
-                        <div class="slds-box slds-box_link slds-theme_default menu-card" onclick={hanldeSearchByAccount}>
-                            <div class="slds-media slds-media_center">
-                                <div class="slds-media__figure">
-                                    <lightning-icon icon-name="standard:account" size="large"></lightning-icon>
-                                </div>
-                                <div class="slds-media__body">
-                                    <h3 class="slds-text-heading_small">Search By Account</h3>
-                                    <p class="slds-text-body_small slds-text-color_weak">Manage forecasts for a specific account</p>
-                                </div>
+                        <div class="menu-card menu-card-account" onclick={hanldeSearchByAccount}>
+                            <div class="card-icon-wrapper">
+                                <lightning-icon icon-name="standard:account" size="large"></lightning-icon>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Search By Account</h3>
+                                <p class="card-description">Manage forecasts for a specific account</p>
+                            </div>
+                            <div class="card-arrow">
+                                <lightning-icon icon-name="utility:chevronright" size="small"></lightning-icon>
                             </div>
                         </div>
                     </div>
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
-                        <div class="slds-box slds-box_link slds-theme_default menu-card" onclick={hanldeSearchByProduct}>
-                            <div class="slds-media slds-media_center">
-                                <div class="slds-media__figure">
-                                    <lightning-icon icon-name="standard:product" size="large"></lightning-icon>
-                                </div>
-                                <div class="slds-media__body">
-                                    <h3 class="slds-text-heading_small">Search By Product</h3>
-                                    <p class="slds-text-body_small slds-text-color_weak">View forecasts across all accounts for a product</p>
-                                </div>
+                        <div class="menu-card menu-card-product" onclick={hanldeSearchByProduct}>
+                            <div class="card-icon-wrapper">
+                                <lightning-icon icon-name="standard:product" size="large"></lightning-icon>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Search By Product</h3>
+                                <p class="card-description">View forecasts across all accounts for a product</p>
+                            </div>
+                            <div class="card-arrow">
+                                <lightning-icon icon-name="utility:chevronright" size="small"></lightning-icon>
                             </div>
                         </div>
                     </div>
                     <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_small">
-                        <div class="slds-box slds-box_link slds-theme_default menu-card" onclick={handleMassUploadClick}>
-                            <div class="slds-media slds-media_center">
-                                <div class="slds-media__figure">
-                                    <lightning-icon icon-name="standard:file" size="large"></lightning-icon>
-                                </div>
-                                <div class="slds-media__body">
-                                    <h3 class="slds-text-heading_small">Mass Upload</h3>
-                                    <p class="slds-text-body_small slds-text-color_weak">Upload forecasts for multiple accounts</p>
-                                </div>
+                        <div class="menu-card menu-card-upload" onclick={handleMassUploadClick}>
+                            <div class="card-icon-wrapper">
+                                <lightning-icon icon-name="standard:file" size="large"></lightning-icon>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Mass Upload</h3>
+                                <p class="card-description">Upload forecasts for multiple accounts via CSV</p>
+                            </div>
+                            <div class="card-arrow">
+                                <lightning-icon icon-name="utility:chevronright" size="small"></lightning-icon>
                             </div>
                         </div>
                     </div>
