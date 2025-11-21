@@ -64,7 +64,7 @@
                             <td class="action__column">
                                 <b>{labels.action}</b>
                             </td>
-                            <template for:each={productWrapper.dateRange} for:item="dateEntry">
+                            <template for:each={filteredDateRange} for:item="dateEntry">
                                 <th key={dateEntry} class="quantity__column">
                                     <p>
                                         <span>{dateEntry}</span>
@@ -80,7 +80,7 @@
                                 <b>{labels.previousOrders}</b>
                             </td>
                             <td class="action__column"></td>
-                            <template for:each={productWrapper.previousYearOrders} for:item="previousOrder">
+                            <template for:each={filteredPreviousYearOrders} for:item="previousOrder">
                                 <td key={previousOrder.month} class="quantity__column">
                                     {previousOrder.value}
                                 </td>
@@ -91,7 +91,7 @@
                                 <b>{labels.currentOrders}</b>
                             </td>
                             <td class="action__column"></td>
-                            <template for:each={productWrapper.currentYearOrders} for:item="currentOrder">
+                            <template for:each={filteredCurrentYearOrders} for:item="currentOrder">
                                 <td key={currentOrder.month} class="quantity__column">
                                     {currentOrder.value}
                                 </td>
@@ -230,7 +230,7 @@
                                         </template>
                                     </template>
                                 </td>
-                                <template for:each={productWrapper.opportunitiesTotalDirect}
+                                <template for:each={filteredOpportunitiesTotalDirect}
                                     for:item="opportunitiesTotalDirectItem">
                                     <td key={opportunitiesTotalDirectItem.month}>
                                         {opportunitiesTotalDirectItem.value}
@@ -323,7 +323,7 @@
                                         </lightning-button-icon>
                                     </td>
 
-                                    <template for:each={productWrapper.dateRange} for:item="dateEntry">
+                                    <template for:each={filteredDateRange} for:item="dateEntry">
                                         <td key={dateEntry}>
                                             <lightning-input type="number" value="" variant="label-hidden"
                                                 data-month={dateEntry} data-method={labels.direct} data-type="number"
@@ -368,7 +368,7 @@
                                         </lightning-button-icon>
                                     </template>
                                 </td>
-                                <template for:each={productWrapper.adjustmentsTotalDirect}
+                                <template for:each={filteredAdjustmentsTotalDirect}
                                     for:item="adjustmentsTotalDirectItem">
                                     <td key={adjustmentsTotalDirectItem.month}>
                                         {adjustmentsTotalDirectItem.value}
@@ -380,7 +380,7 @@
                                     <b>{labels.forecastTotal}</b>
                                 </td>
                                 <td class="action__column"></td>
-                                <template for:each={productWrapper.forecastTotalDirect}
+                                <template for:each={filteredForecastTotalDirect}
                                     for:item="forecastTotalDirectItem">
                                     <td key={forecastTotalDirectItem.month}>
                                         {forecastTotalDirectItem.value}
@@ -516,7 +516,7 @@
                                         </template>
                                     </template>
                                 </td>
-                                <template for:each={productWrapper.opportunitiesTotalLocal}
+                                <template for:each={filteredOpportunitiesTotalLocal}
                                     for:item="opportunitiesTotalLocalItem">
                                     <td key={opportunitiesTotalLocalItem.month}>
                                         {opportunitiesTotalLocalItem.value}
@@ -610,7 +610,7 @@
                                         </lightning-button-icon>
                                     </td>
 
-                                    <template for:each={productWrapper.dateRange} for:item="dateEntry">
+                                    <template for:each={filteredDateRange} for:item="dateEntry">
                                         <td key={dateEntry}>
 
                                             <lightning-input type="number" value="" variant="label-hidden"
@@ -656,7 +656,7 @@
                                         </lightning-button-icon>
                                     </template>
                                 </td>
-                                <template for:each={productWrapper.adjustmentsTotalLocal}
+                                <template for:each={filteredAdjustmentsTotalLocal}
                                     for:item="adjustmentsTotalLocalItem">
                                     <td key={adjustmentsTotalLocalItem.month}>
                                         {adjustmentsTotalLocalItem.value}
@@ -668,7 +668,7 @@
                                     <b>{labels.forecastTotal}</b>
                                 </td>
                                 <td class="action__column"></td>
-                                <template for:each={productWrapper.forecastTotalLocal}
+                                <template for:each={filteredForecastTotalLocal}
                                     for:item="forecastTotalLocalItem">
                                     <td key={forecastTotalLocalItem.month}>
                                         {forecastTotalLocalItem.value}
@@ -685,7 +685,7 @@
                                     <b>{labels.baseTotal}</b>
                                 </td>
                                 <td class="action__column"></td>
-                                <template for:each={productWrapper.baseSummary} for:item="baseSum">
+                                <template for:each={filteredBaseSummary} for:item="baseSum">
                                     <td key={baseSum.month}>
                                         {baseSum.value}
                                     </td>
@@ -696,7 +696,7 @@
                                     <b>{labels.oppTotal}</b>
                                 </td>
                                 <td class="action__column"></td>
-                                <template for:each={productWrapper.opportunitiesSummary} for:item="oppSum">
+                                <template for:each={filteredOpportunitiesSummary} for:item="oppSum">
                                     <td key={oppSum.month}>
                                         {oppSum.value}
                                     </td>
@@ -707,7 +707,7 @@
                                     <b>{labels.adjTotal}</b>
                                 </td>
                                 <td class="action__column"></td>
-                                <template for:each={productWrapper.adjustmentsSummary} for:item="adjustmentsSum">
+                                <template for:each={filteredAdjustmentsSummary} for:item="adjustmentsSum">
                                     <td key={adjustmentsSum.month}>
                                         {adjustmentsSum.value}
                                     </td>
@@ -718,7 +718,7 @@
                                     <b>{labels.forecastTotal}</b>
                                 </td>
                                 <td class="action__column"></td>
-                                <template for:each={productWrapper.forecastSummary} for:item="forecastSum">
+                                <template for:each={filteredForecastSummary} for:item="forecastSum">
                                     <td key={forecastSum.month}>
                                         {forecastSum.value}
                                     </td>

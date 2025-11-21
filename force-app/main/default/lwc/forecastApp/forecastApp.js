@@ -13,11 +13,11 @@ import DISABLE_FORECASTING_CONFIRMATION from '@salesforce/label/c.Disable_Foreca
 import getCurrencyCode from '@salesforce/apex/ForecastCtrl.getCurrencyCode';
 import hasManagePermission from '@salesforce/customPermission/Forecasting_Manage';
 
-import { CurrentPageReference } from 'lightning/navigation';
+import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
 
 
 
-export default class ForecastApp extends LightningElement {
+export default class ForecastApp extends NavigationMixin(LightningElement) {
     @track data;
     @track showLoadingSpinner = false;
     MAX_FILE_SIZE = 2000000; //Max file size 2.0 MB
@@ -63,6 +63,10 @@ export default class ForecastApp extends LightningElement {
         const months = parseInt(event.currentTarget.dataset.months, 10);
         if (this.monthsView !== months) {
             this.monthsView = months;
+
+            // Persist monthsView to URL state
+            this.updateUrlState();
+
             // Refresh the product list if it's displayed
             if (this.displayProductList) {
                 const productList = this.template.querySelector('c-forecast-product-list');
@@ -70,7 +74,32 @@ export default class ForecastApp extends LightningElement {
                     productList.search();
                 }
             }
+
+            // Refresh the product details if it's displayed
+            if (this.displayProductDetails) {
+                const productDetails = this.template.querySelector('c-forecast-product-details');
+                if (productDetails && productDetails.refreshMonthsView) {
+                    productDetails.refreshMonthsView();
+                }
+            }
         }
+    }
+
+    updateUrlState() {
+        if (!this.currentPageReference) {
+            return;
+        }
+
+        const updatedState = {
+            ...this.currentPageReference.state,
+            c__monthsView: this.monthsView.toString()
+        };
+
+        this[NavigationMixin.Navigate]({
+            type: this.currentPageReference.type,
+            attributes: this.currentPageReference.attributes,
+            state: updatedState
+        }, true); // Replace current history entry
     }
 
     getCurrencyCode(accId){
@@ -87,17 +116,28 @@ export default class ForecastApp extends LightningElement {
         });
     }
 
+    currentPageReference;
+
     @wire(CurrentPageReference)
     getStateParameters(currentPageReference) {
-        if(currentPageReference?.state?.c__recordId){
-            this.recordId = currentPageReference.state?.c__recordId;
-            this.checkForecast();
+        if (currentPageReference) {
+            this.currentPageReference = currentPageReference;
 
-            this.initialSelection = {
-                id : this.recordId,
-                sObjectType: 'Account',
-                icon: 'standard:account',
-                title: currentPageReference.state?.c__name,
+            // Restore monthsView from URL state
+            if (currentPageReference.state?.c__monthsView) {
+                this.monthsView = parseInt(currentPageReference.state.c__monthsView, 10);
+            }
+
+            if(currentPageReference.state?.c__recordId){
+                this.recordId = currentPageReference.state?.c__recordId;
+                this.checkForecast();
+
+                this.initialSelection = {
+                    id : this.recordId,
+                    sObjectType: 'Account',
+                    icon: 'standard:account',
+                    title: currentPageReference.state?.c__name,
+                }
             }
         }
     }

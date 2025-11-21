@@ -27,8 +27,91 @@ export default class ForecastProductDetails extends LightningElement {
     @api direct;
     _volume;
     @api currencyCode ;
+    _monthsView = 24;
     isLoading = false;
     recalculateVolumes = false;
+
+    @api
+    get monthsView() {
+        return this._monthsView;
+    }
+
+    set monthsView(value) {
+        const newValue = parseInt(value, 10) || 24;
+        if (this._monthsView !== newValue) {
+            this._monthsView = newValue;
+            // Refresh data display if we already have product data
+            if (this.productWrapper && this.productWrapper.dateRange) {
+                this.filterDateRange();
+            }
+        }
+    }
+
+    @api
+    refreshMonthsView() {
+        if (this.productWrapper && this.productWrapper.dateRange) {
+            this.filterDateRange();
+        }
+    }
+
+    filterDateRange() {
+        // Filter the date range and all related data arrays based on monthsView
+        if (this.productWrapper && this.productWrapper.dateRange) {
+            this.filteredDateRange = this.productWrapper.dateRange.slice(0, this._monthsView);
+
+            // Filter all the data arrays to match the filtered date range
+            this.filteredPreviousYearOrders = this.productWrapper.previousYearOrders.slice(0, this._monthsView);
+            this.filteredCurrentYearOrders = this.productWrapper.currentYearOrders.slice(0, this._monthsView);
+            this.filteredOpportunitiesTotalDirect = this.productWrapper.opportunitiesTotalDirect.slice(0, this._monthsView);
+            this.filteredAdjustmentsTotalDirect = this.productWrapper.adjustmentsTotalDirect.slice(0, this._monthsView);
+            this.filteredForecastTotalDirect = this.productWrapper.forecastTotalDirect.slice(0, this._monthsView);
+            this.filteredOpportunitiesTotalLocal = this.productWrapper.opportunitiesTotalLocal.slice(0, this._monthsView);
+            this.filteredAdjustmentsTotalLocal = this.productWrapper.adjustmentsTotalLocal.slice(0, this._monthsView);
+            this.filteredForecastTotalLocal = this.productWrapper.forecastTotalLocal.slice(0, this._monthsView);
+            this.filteredBaseSummary = this.productWrapper.baseSummary.slice(0, this._monthsView);
+            this.filteredOpportunitiesSummary = this.productWrapper.opportunitiesSummary.slice(0, this._monthsView);
+            this.filteredAdjustmentsSummary = this.productWrapper.adjustmentsSummary.slice(0, this._monthsView);
+            this.filteredForecastSummary = this.productWrapper.forecastSummary.slice(0, this._monthsView);
+
+            // Filter base arrays for direct and local
+            this.methods.direct.base = this.methods.direct.base.slice(0, this._monthsView);
+            this.methods.local.base = this.methods.local.base.slice(0, this._monthsView);
+
+            // Filter entries in adjustments
+            this.methods.direct.adjustments = this.methods.direct.adjustments.map(adj => ({
+                ...adj,
+                entries: adj.entries.slice(0, this._monthsView)
+            }));
+            this.methods.local.adjustments = this.methods.local.adjustments.map(adj => ({
+                ...adj,
+                entries: adj.entries.slice(0, this._monthsView)
+            }));
+
+            // Filter entries in opportunities
+            this.methods.direct.opportunities = this.methods.direct.opportunities.map(opp => ({
+                ...opp,
+                entries: opp.entries.slice(0, this._monthsView)
+            }));
+            this.methods.local.opportunities = this.methods.local.opportunities.map(opp => ({
+                ...opp,
+                entries: opp.entries.slice(0, this._monthsView)
+            }));
+        }
+    }
+
+    filteredDateRange = [];
+    filteredPreviousYearOrders = [];
+    filteredCurrentYearOrders = [];
+    filteredOpportunitiesTotalDirect = [];
+    filteredAdjustmentsTotalDirect = [];
+    filteredForecastTotalDirect = [];
+    filteredOpportunitiesTotalLocal = [];
+    filteredAdjustmentsTotalLocal = [];
+    filteredForecastTotalLocal = [];
+    filteredBaseSummary = [];
+    filteredOpportunitiesSummary = [];
+    filteredAdjustmentsSummary = [];
+    filteredForecastSummary = [];
 
     step = 0;
 
@@ -178,6 +261,9 @@ export default class ForecastProductDetails extends LightningElement {
                 this.dispatchEvent(new CustomEvent('disabled'));
                 showNotification('Success','Product has been disabled','success');
             }else{
+                // Filter date range based on monthsView
+                this.filterDateRange();
+
                 this.setBase(this.productWrapper.baseDirectMap, this.labels.direct);
                 this.setBase(this.productWrapper.baseLocalMap, this.labels.local);
 
