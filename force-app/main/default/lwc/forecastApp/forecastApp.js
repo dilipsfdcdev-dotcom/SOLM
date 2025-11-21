@@ -155,19 +155,15 @@ export default class ForecastApp extends LightningElement {
 
     async deleteAllProducts() {
         const result = await LightningConfirm.open({
-            message: "Are you sure you want to permanently delete all forecast data for this account?",
-            variant: "default", // headerless
-            label: "Confirmation"
+            message: "Are you sure you want to permanently delete all forecast data for this account? This action cannot be undone.",
+            variant: "headerless",
+            label: "Delete All Forecast Data",
+            theme: "warning"
         });
 
-        //Confirm has been closed
-
-        //result is true if OK was clicked
         if (result) {
             this.isLoading = true;
             this.deleteForecastData();
-        } else {
-
         }
     }
 
@@ -359,80 +355,241 @@ export default class ForecastApp extends LightningElement {
         document.body.removeChild(link);
     }
 
+    fileError = '';
+
     importcsv(event){
+        this.fileError = '';
         if (event.target.files.length > 0) {
             this.filesUploaded = event.target.files;
             this.filename = event.target.files[0].name;
             console.log(this.filename);
             console.log(this.filesUploaded);
+
+            // Validate file size
             if (this.filesUploaded[0].size > this.MAX_FILE_SIZE) {
-                this.filename = 'File Size is too large to process (max 2MB)';
+                this.fileError = 'File size exceeds 2MB limit. Please select a smaller file.';
+                this.filesUploaded = [];
+                this.filename = '';
+                return;
             }
-    }
+
+            // Validate file type
+            if (!this.filename.toLowerCase().endsWith('.csv')) {
+                this.fileError = 'Invalid file type. Only CSV files are allowed.';
+                this.filesUploaded = [];
+                this.filename = '';
+                return;
+            }
+        }
     }
 
     async handleFileImport() {
+        // Validate file is selected
+        if (!this.filesUploaded || this.filesUploaded.length === 0) {
+            showError('Please select a CSV file first.');
+            return;
+        }
+
         const result = await LightningConfirm.open({
-            message: "By uploading this file, you will update only the items included in the attachment. For any items not included in the attachment, the current forecast will remain unchanged. Do you want to continue?",
-            variant: "default", // headerless
-            label: "Confirmation"
+            message: "By uploading this file, you will update only the items included in the attachment. For any items not included in the attachment, the current forecast will remain unchanged.\n\nDo you want to continue?",
+            variant: "headerless",
+            label: "Confirm Import",
+            theme: "info"
         });
 
-        //Confirm has been closed
-
-        //result is true if OK was clicked
         if (result) {
             this.isLoading = true;
             this.readFiles();
-        } else {
-
         }
     }
 
 
+    // Required columns for account upload template
+    REQUIRED_COLUMNS = ['PRODUCT2ID', 'Direct', 'Local', 'Month', 'UNITPRICE', 'Quantity', 'Warehouse'];
+
     readFiles() {
         console.log('inside read files');
         console.log(this.filesUploaded);
+
+        if (!this.filesUploaded || this.filesUploaded.length === 0) {
+            showError('Please select a file first.');
+            this.isLoading = false;
+            return;
+        }
+
         [...this.filesUploaded].forEach(async file => {
-                try {
-                    console.log(file);
-                    const result = await this.load(file);
-                    // Process the CSV here
-                  this.showLoadingSpinner = false;
+            try {
+                console.log(file);
+                const result = await this.load(file);
+                this.showLoadingSpinner = false;
 
-                    console.log(result);
-                   // this.processData(result);
-                     this.data=this.csvJSON(result);
-                     console.log(this.data);
-                    console.log('data..'+JSON.parse(this.data));
-                    insertProduct({
-                        prodJson: this.data,
-                        accountId : this.recordId
-                    })
-                    .then((result) => {
-                       if(result=='Success'){
-                           this._forecastEnabled = true;
-                           this.checkForecast();
-                           //this.template.querySelector("c-forecast-product-list").search();
-                       }
-                       else {
-                            // showError(result);
-                            showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-                            console.log('error-->'+result);
-                       }
-                    })
-                    .catch((error) => {
-                        // showError(error);
-                        showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
-                        console.log('error-->'+error);
-                        this.isLoading = false;
-                    })
+                console.log(result);
 
-                } catch(e) {
-                    // handle file load exception
-                    console.log('exception....',e);
+                // Validate and convert CSV to JSON
+                const validationResult = this.validateAndConvertCSV(result);
+
+                if (!validationResult.success) {
+                    showError(validationResult.error);
+                    this.isLoading = false;
+                    return;
                 }
-            });
+
+                this.data = validationResult.data;
+                console.log(this.data);
+                console.log('data..' + JSON.parse(this.data));
+
+                insertProduct({
+                    prodJson: this.data,
+                    accountId: this.recordId
+                })
+                .then((result) => {
+                    if (result == 'Success') {
+                        this._forecastEnabled = true;
+                        this.checkForecast();
+                        showNotification('Success', 'Forecast data uploaded successfully.', 'success');
+                    } else {
+                        // Show the actual error from backend
+                        showError(result);
+                        console.log('error-->' + result);
+                    }
+                })
+                .catch((error) => {
+                    let errorMessage = 'An error occurred while processing your request.';
+                    if (error.body && error.body.message) {
+                        errorMessage = error.body.message;
+                    } else if (error.message) {
+                        errorMessage = error.message;
+                    }
+                    showError(errorMessage);
+                    console.log('error-->' + error);
+                    this.isLoading = false;
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
+
+            } catch (e) {
+                let errorMessage = 'Failed to read file. ';
+                if (e.message) {
+                    errorMessage += e.message;
+                }
+                showError(errorMessage);
+                console.log('exception....', e);
+                this.isLoading = false;
+            }
+        });
+    }
+
+    validateAndConvertCSV(csv) {
+        const lines = csv.split(/\r\n|\n/);
+
+        if (lines.length < 2) {
+            return {
+                success: false,
+                error: 'CSV file is empty or has no data rows. Please use the template to format your data.'
+            };
+        }
+
+        const headers = lines[0].split(',').map(h => h.trim());
+
+        // Check for missing required columns
+        const missingColumns = [];
+        for (const col of this.REQUIRED_COLUMNS) {
+            if (!headers.includes(col)) {
+                missingColumns.push(col);
+            }
+        }
+
+        if (missingColumns.length > 0) {
+            return {
+                success: false,
+                error: `Invalid template. Missing required columns: ${missingColumns.join(', ')}. Please download and use the correct template.`
+            };
+        }
+
+        // Check for extra unexpected columns
+        const expectedColumns = new Set(this.REQUIRED_COLUMNS);
+        const unexpectedColumns = headers.filter(h => h && !expectedColumns.has(h));
+
+        if (unexpectedColumns.length > 0) {
+            console.warn('Unexpected columns found:', unexpectedColumns);
+        }
+
+        // Parse data rows
+        const result = [];
+        const errors = [];
+
+        for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue;
+
+            const obj = {};
+            const currentLine = lines[i].split(',');
+
+            // Check if row has correct number of columns
+            if (currentLine.length !== headers.length) {
+                errors.push(`Row ${i}: Expected ${headers.length} columns but found ${currentLine.length}`);
+                continue;
+            }
+
+            for (let j = 0; j < headers.length; j++) {
+                obj[headers[j]] = currentLine[j] ? currentLine[j].trim() : '';
+            }
+
+            // Validate required fields in each row
+            const rowErrors = [];
+
+            if (!obj.PRODUCT2ID) {
+                rowErrors.push('PRODUCT2ID is required');
+            }
+
+            if (!obj.Month) {
+                rowErrors.push('Month is required');
+            } else {
+                // Validate date format MM/DD/YYYY
+                const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/\d{4}$/;
+                if (!dateRegex.test(obj.Month)) {
+                    rowErrors.push('Month must be in MM/DD/YYYY format');
+                }
+            }
+
+            if (obj.Quantity && isNaN(parseFloat(obj.Quantity))) {
+                rowErrors.push('Quantity must be a number');
+            }
+
+            if (obj.UNITPRICE && isNaN(parseFloat(obj.UNITPRICE))) {
+                rowErrors.push('UNITPRICE must be a number');
+            }
+
+            if (rowErrors.length > 0) {
+                errors.push(`Row ${i}: ${rowErrors.join(', ')}`);
+            } else {
+                result.push(obj);
+            }
+        }
+
+        if (result.length === 0) {
+            let errorMsg = 'No valid data found in CSV file.';
+            if (errors.length > 0) {
+                errorMsg += '\n\nErrors found:\n' + errors.slice(0, 5).join('\n');
+                if (errors.length > 5) {
+                    errorMsg += `\n... and ${errors.length - 5} more errors`;
+                }
+            }
+            return {
+                success: false,
+                error: errorMsg
+            };
+        }
+
+        // Show warning if some rows had errors but some were valid
+        if (errors.length > 0) {
+            console.warn('Some rows had validation errors:', errors);
+        }
+
+        return {
+            success: true,
+            data: JSON.stringify(result)
+        };
     }
     async load(file) {
         return new Promise((resolve, reject) => {

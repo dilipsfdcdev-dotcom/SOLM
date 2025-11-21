@@ -1,15 +1,19 @@
 <template>
     <template if:true={openModal}>
-        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open" style="width: 50%; margin:auto">
-            <div class="slds-modal__container" >
-                <lightning-spinner alternative-text="Loading" if:true={isLoading}></lightning-spinner>
-
-                <lightning-modal-header label="Disable Forecasting"></lightning-modal-header>
-                <lightning-modal-body> {labels.disableForecast} </lightning-modal-body>
-                <lightning-modal-footer>
-                    <lightning-button class="btn-margin" label="Cancel" onclick={handleCloseModal}></lightning-button>
-                    <lightning-button label="Disable" variant="brand" onclick={handleDisableForecasting}></lightning-button>
-                </lightning-modal-footer>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon class="slds-modal__close" icon-name="utility:close" alternative-text="Close" onclick={handleCloseModal}></lightning-button-icon>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Disable Forecasting</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-spinner alternative-text="Loading" if:true={isLoading}></lightning-spinner>
+                    <p>{labels.disableForecast}</p>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" onclick={handleCloseModal} class="slds-m-right_x-small"></lightning-button>
+                    <lightning-button label="Disable" variant="destructive" onclick={handleDisableForecasting}></lightning-button>
+                </footer>
             </div>
         </section>
         <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
@@ -26,21 +30,21 @@
                 </div>
 
                 <template if:true={displayDisableForecasting}>
-                    <div class="control__panel--margin full_width">
-                        <lightning-button variant="destructive-text" label="Disable Forecasting"
-                                          onclick={disableForecasting} disabled={isReadOnlyPermission} volume={selectedVolume}>
-                        </lightning-button><br/>
-                    </div>
-                </template>
-
-                <template if:true={displayDisableForecasting}>
-                    <template if:true={displayProductList}>
-                        <div class="control__panel--margin full_width">
-                            <lightning-button variant="destructive-text" label="Delete All Forecast"
-                                            onclick={deleteAllProducts} disabled={isReadOnlyPermission} volume={selectedVolume}>
-                            </lightning-button><br/>
+                    <div class="slds-box slds-theme_shade slds-m-bottom_small">
+                        <div class="slds-text-title_bold slds-m-bottom_x-small">Account Actions</div>
+                        <div class="slds-button-group-row">
+                            <lightning-button variant="destructive-text" label="Disable Forecasting"
+                                              onclick={disableForecasting} disabled={isReadOnlyPermission}
+                                              icon-name="utility:ban" class="slds-m-right_x-small">
+                            </lightning-button>
+                            <template if:true={displayProductList}>
+                                <lightning-button variant="destructive-text" label="Delete All Data"
+                                                onclick={deleteAllProducts} disabled={isReadOnlyPermission}
+                                                icon-name="utility:delete">
+                                </lightning-button>
+                            </template>
                         </div>
-                    </template>
+                    </div>
                 </template>
 
                 <template if:true={displayAddProduct}>
@@ -52,24 +56,26 @@
                 </template>
 
                 <template if:true={displayVolumeFilter}>
-                    <div class="control__panel--margin">
+                    <div class="slds-box slds-theme_shade slds-m-bottom_small">
+                        <div class="slds-text-title_bold slds-m-bottom_x-small">Display Settings</div>
                         <lightning-combobox name="volumes" label={labels.volumeSelectLabel} options={volumeOptions}
-                            value={selectedVolume} onchange={handleVolumeChange}>
+                            value={selectedVolume} onchange={handleVolumeChange} class="slds-m-bottom_small">
                         </lightning-combobox>
-                    </div>
-                    <div class="control__panel--margin">
-                        <label class="slds-form-element__label">Month View</label>
-                        <lightning-button-group>
-                            <lightning-button label="12" onclick={handleMonthToggle} data-months="12" variant={is12MonthVariant}></lightning-button>
-                            <lightning-button label="24" onclick={handleMonthToggle} data-months="24" variant={is24MonthVariant}></lightning-button>
-                        </lightning-button-group>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label">Month View</label>
+                            <lightning-button-group>
+                                <lightning-button label="12 Months" onclick={handleMonthToggle} data-months="12" variant={is12MonthVariant}></lightning-button>
+                                <lightning-button label="24 Months" onclick={handleMonthToggle} data-months="24" variant={is24MonthVariant}></lightning-button>
+                            </lightning-button-group>
+                        </div>
                     </div>
                 </template>
 
                 <template if:true={displayProductSearch}>
-                    <div class="control__panel--margin">
-                        <lightning-input name="productSearch" label={labels.searchProductLabel} value={searchTerm}
-                            type="search" placeholder={labels.searchProductPlaceHolder} onchange={handleProductSearch}>
+                    <div class="slds-box slds-theme_shade slds-m-bottom_small">
+                        <div class="slds-text-title_bold slds-m-bottom_x-small">Search Products</div>
+                        <lightning-input name="productSearch" label="" value={searchTerm}
+                            type="search" placeholder="Search products..." onchange={handleProductSearch}>
                         </lightning-input>
                     </div>
                 </template>
@@ -81,53 +87,61 @@
                     <div class="slds-box slds-theme_shade slds-m-bottom_small">
                         <div class="slds-text-title_bold slds-m-bottom_x-small">Import CSV File</div>
                         <p class="slds-text-body_small slds-m-bottom_x-small">Upload forecast data for this account using a CSV file.</p>
-                        <p class="slds-text-body_small"><strong>Required columns:</strong> PRODUCT2ID, Direct, Local, Month (MM/DD/YYYY), UNITPRICE, Quantity, Warehouse</p>
-                        <lightning-button variant="base" label="Download Template" icon-name="utility:download" onclick={downloadTemplate} class="slds-m-top_x-small"></lightning-button>
-                    </div>
-                    <form class="slds-form--inline">
-                        <div class="slds-form-element">
-                            <lightning-input type="file"
-                                            label="Choose File"
-                                            accept=".csv"
-                                            onchange={importcsv}
-                                            multiple>
-                            </lightning-input>
-                        </div>
+                        <p class="slds-text-body_small slds-m-bottom_small"><strong>Required columns:</strong> PRODUCT2ID, Direct, Local, Month (MM/DD/YYYY), UNITPRICE, Quantity, Warehouse</p>
 
-                        <div class="slds-form-element slds-text-body_small slds-text-color_error" style="padding-top: 5%;">{filename}</div>
-                        <template if:true={displayProductList}>
-                            <div class="slds-form-element" style="padding-top: 5%;">
-                                <lightning-button label="Import" title="Non-primary action" onclick={handleFileImport} class="slds-m-left_x-small"></lightning-button>
+                        <div class="slds-grid slds-wrap slds-gutters_x-small">
+                            <div class="slds-col slds-size_1-of-1 slds-m-bottom_small">
+                                <lightning-input type="file"
+                                                label="Select CSV File"
+                                                accept=".csv"
+                                                onchange={importcsv}>
+                                </lightning-input>
                             </div>
-                        </template>
-                        <template if:false={displayProductList}>
-                            <div class="slds-form-element" style="padding-top: 5%;">
-                                <lightning-button label="Import" title="Non-primary action" onclick={readFiles} class="slds-m-left_x-small"></lightning-button>
-                            </div>
-                        </template>
 
-
-                        <div style="margin-left:4%" class="slds-form-element">
-                        <template if:true={showLoadingSpinner}>
-                                <lightning-spinner alternative-text="Uploading......" size="medium"></lightning-spinner>
+                            <template if:true={filename}>
+                                <div class="slds-col slds-size_1-of-1 slds-m-bottom_x-small">
+                                    <span class="slds-text-body_small slds-text-color_success">
+                                        <lightning-icon icon-name="utility:check" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                                        {filename}
+                                    </span>
+                                </div>
                             </template>
-                        </div>
+                            <template if:true={fileError}>
+                                <div class="slds-col slds-size_1-of-1 slds-m-bottom_x-small">
+                                    <span class="slds-text-body_small slds-text-color_error">
+                                        <lightning-icon icon-name="utility:error" size="xx-small" class="slds-m-right_xx-small" variant="error"></lightning-icon>
+                                        {fileError}
+                                    </span>
+                                </div>
+                            </template>
 
-                        <template lwc:if={displayProductDetails}>
-                            <div class="slds-form-element" style="padding-top: 5%;">
-                                <c-forecast-historical-table account-id={recordId} product-id={productId}>
-                                </c-forecast-historical-table>
+                            <div class="slds-col slds-size_1-of-1">
+                                <div class="slds-button-group-row">
+                                    <lightning-button variant="brand-outline" label="Download Template" icon-name="utility:download" onclick={downloadTemplate} class="slds-m-right_x-small"></lightning-button>
+                                    <template if:true={displayProductList}>
+                                        <lightning-button variant="brand" label="Import Data" icon-name="utility:upload" onclick={handleFileImport}></lightning-button>
+                                    </template>
+                                    <template if:false={displayProductList}>
+                                        <lightning-button variant="brand" label="Import Data" icon-name="utility:upload" onclick={readFiles}></lightning-button>
+                                    </template>
+                                    <template if:true={showLoadingSpinner}>
+                                        <lightning-spinner alternative-text="Uploading..." size="small" class="slds-m-left_small"></lightning-spinner>
+                                    </template>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-m-top_small">
+                        <template lwc:if={displayProductDetails}>
+                            <c-forecast-historical-table account-id={recordId} product-id={productId}>
+                            </c-forecast-historical-table>
                         </template>
                         <template lwc:else>
-                            <div class="slds-form-element" style="padding-top: 5%;">
-                                <c-forecast-historical-table account-id={recordId}>
-                                </c-forecast-historical-table>
-                            </div>
+                            <c-forecast-historical-table account-id={recordId}>
+                            </c-forecast-historical-table>
                         </template>
-
-
-                    </form>
+                    </div>
                 </template>
 
             </div>
