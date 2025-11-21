@@ -261,9 +261,6 @@ export default class ForecastProductDetails extends LightningElement {
                 this.dispatchEvent(new CustomEvent('disabled'));
                 showNotification('Success','Product has been disabled','success');
             }else{
-                // Filter date range based on monthsView
-                this.filterDateRange();
-
                 this.setBase(this.productWrapper.baseDirectMap, this.labels.direct);
                 this.setBase(this.productWrapper.baseLocalMap, this.labels.local);
 
@@ -276,6 +273,9 @@ export default class ForecastProductDetails extends LightningElement {
                 this.setRowSpan(this.labels.direct);
                 this.setRowSpan(this.labels.local);
                 this.setWarehouse(result.warehouse);
+
+                // Filter date range based on monthsView - must be called AFTER all data is populated
+                this.filterDateRange();
             }
         })
         .catch((error) => {
