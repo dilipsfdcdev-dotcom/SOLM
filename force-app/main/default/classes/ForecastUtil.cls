@@ -3,9 +3,13 @@ public with sharing class ForecastUtil {
     public static final String NEW_ADJUSTMENT_NAME = 'Adjustment';
 
     public static List<String> prepareDateRange(Date startDate){
+        return prepareDateRange(startDate, 24);
+    }
+
+    public static List<String> prepareDateRange(Date startDate, Integer months){
         List<String> dateRange = new List<String>();
 
-        Date endDate = startDate.addYears(1).addMonths(-1).toStartOfMonth();
+        Date endDate = startDate.addMonths(months - 1).toStartOfMonth();
         Date tempDate = startDate;
 
         while(tempDate <= endDate){

@@ -1,6 +1,6 @@
 public with sharing class OpportunitySetForecastHandler {
 	public static final Date START_DATE = System.today().toStartOfMonth();
-	public static final Date END_DATE = START_DATE.addYears(1).addMonths(-1);
+	public static final Date END_DATE = START_DATE.addYears(2).addMonths(-1);
 
 	public static final String CASES_VOLUME = 'cases';
 	public static final String PIECES_VOLUME = 'pieces';

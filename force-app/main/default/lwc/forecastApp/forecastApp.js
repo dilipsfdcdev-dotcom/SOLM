@@ -46,9 +46,32 @@ export default class ForecastApp extends LightningElement {
 
     selectedVolume = 'pieces';
     pageNumber = 1;
+    monthsView = 24;
 
     openModal = false;
     currencyCODE;
+
+    get is12MonthVariant() {
+        return this.monthsView === 12 ? 'brand' : 'neutral';
+    }
+
+    get is24MonthVariant() {
+        return this.monthsView === 24 ? 'brand' : 'neutral';
+    }
+
+    handleMonthToggle(event) {
+        const months = parseInt(event.currentTarget.dataset.months, 10);
+        if (this.monthsView !== months) {
+            this.monthsView = months;
+            // Refresh the product list if it's displayed
+            if (this.displayProductList) {
+                const productList = this.template.querySelector('c-forecast-product-list');
+                if (productList) {
+                    productList.search();
+                }
+            }
+        }
+    }
 
     getCurrencyCode(accId){
         getCurrencyCode({
@@ -319,15 +342,32 @@ export default class ForecastApp extends LightningElement {
         }, this.doneTypingInterval);
     }
  
+    downloadTemplate() {
+        const template = 'PRODUCT2ID,Direct,Local,Month,UNITPRICE,Quantity,Warehouse\n' +
+            '01tXXXXXXXXXXXX,true,false,01/01/2025,100.00,50,';
+
+        // Use data URL approach for better LWC compatibility
+        const encodedData = encodeURIComponent(template);
+        const dataUrl = 'data:text/csv;charset=utf-8,' + encodedData;
+
+        const link = document.createElement('a');
+        link.setAttribute('href', dataUrl);
+        link.setAttribute('download', 'forecast_upload_template.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     importcsv(event){
         if (event.target.files.length > 0) {
             this.filesUploaded = event.target.files;
             this.filename = event.target.files[0].name;
             console.log(this.filename);
             console.log(this.filesUploaded);
-            if (this.filesUploaded.size > this.MAX_FILE_SIZE) {
-                this.filename = 'File Size is to long to process';
-            } 
+            if (this.filesUploaded[0].size > this.MAX_FILE_SIZE) {
+                this.filename = 'File Size is too large to process (max 2MB)';
+            }
     }
     }
 

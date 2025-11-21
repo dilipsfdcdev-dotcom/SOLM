@@ -14,9 +14,24 @@ export default class ForecastProductList extends LightningElement {
     @api accountId;
     @api productId;
     _volume;
+    _monthsView = 24;
 
     @track products = [];
     @track dateRange = []
+    @track fullDateRange = [];
+
+    @api
+    get monthsView() {
+        return this._monthsView;
+    }
+
+    set monthsView(value) {
+        this._monthsView = value;
+        if (this.fullDateRange.length > 0) {
+            this.dateRange = this.fullDateRange.slice(0, value);
+            this.products = this.filterProductsByMonths(this._allProducts || []);
+        }
+    }
 
     @api
     get volume() {
@@ -28,6 +43,8 @@ export default class ForecastProductList extends LightningElement {
         this.isLoading = true;
         this.getForecast();
     }
+
+    _allProducts = [];
 
     recordEnd = 0;
     recordStart = 0;
@@ -95,8 +112,10 @@ export default class ForecastProductList extends LightningElement {
                 pageNumber: this.pageNumber,
             })
             .then((result) => {
-                this.dateRange = result.dateRange;
-                this.products = this.setProducts(result.forecastProducts);
+                this.fullDateRange = result.dateRange;
+                this.dateRange = result.dateRange.slice(0, this._monthsView);
+                this._allProducts = this.setProducts(result.forecastProducts);
+                this.products = this.filterProductsByMonths(this._allProducts);
                 this.accountId = result.accountId;
                 this.recordEnd = result.recordEnd;
                 this.totalRecords = result.totalRecords;
@@ -121,15 +140,16 @@ export default class ForecastProductList extends LightningElement {
                 pageNumber: this.pageNumber,
             })
             .then((result) => {
-                this.dateRange = result.dateRange;
-                this.products = this.setProducts(result.forecastProducts);
+                this.fullDateRange = result.dateRange;
+                this.dateRange = result.dateRange.slice(0, this._monthsView);
+                this._allProducts = this.setProducts(result.forecastProducts);
+                this.products = this.filterProductsByMonths(this._allProducts);
                 this.recordEnd = result.recordEnd;
                 this.totalRecords = result.totalRecords;
                 this.recordStart = result.recordStart;
                 this.totalPages = Math.ceil(result.totalRecords / this.pageSize);
                 this.isNext = (this.pageNumber == this.totalPages || this.totalPages == 0);
                 this.isPrev = (this.pageNumber == 1 || this.totalRecords < this.pageSize);
-                console.log('products--->'+JSON.stringify(products))
             })
             .catch((error) => {
                 showError('An error occurred while processing your request. Please reach out to system admin to resolve this issue.');
@@ -205,6 +225,25 @@ export default class ForecastProductList extends LightningElement {
                 forecastRevenue: forecastRevenueArr
             }
         })
+    }
+
+    filterProductsByMonths(products) {
+        if (!products || products.length === 0) {
+            return products;
+        }
+
+        return products.map(product => {
+            return {
+                ...product,
+                previousYearOrders: product.previousYearOrders.slice(0, this._monthsView),
+                currentYearOrders: product.currentYearOrders.slice(0, this._monthsView),
+                baseTotal: product.baseTotal.slice(0, this._monthsView),
+                opportunitiesTotal: product.opportunitiesTotal.slice(0, this._monthsView),
+                adjustmentsTotal: product.adjustmentsTotal.slice(0, this._monthsView),
+                forecastTotal: product.forecastTotal.slice(0, this._monthsView),
+                forecastRevenue: product.forecastRevenue.slice(0, this._monthsView)
+            };
+        });
     }
 
     handlePageNextAction(){
