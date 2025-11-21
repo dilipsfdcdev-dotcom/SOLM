@@ -390,6 +390,13 @@ export default class ForecastApp extends LightningElement {
             return;
         }
 
+        // Skip confirmation if there's no existing data to overwrite
+        if (this._forecastNoData) {
+            this.isLoading = true;
+            this.readFiles();
+            return;
+        }
+
         const result = await LightningConfirm.open({
             message: "By uploading this file, you will update only the items included in the attachment. For any items not included in the attachment, the current forecast will remain unchanged.\n\nDo you want to continue?",
             variant: "headerless",

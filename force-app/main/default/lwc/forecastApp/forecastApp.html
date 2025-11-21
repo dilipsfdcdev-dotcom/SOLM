@@ -118,15 +118,7 @@
                             <div class="slds-col slds-size_1-of-1">
                                 <div class="slds-button-group-row">
                                     <lightning-button variant="brand-outline" label="Download Template" icon-name="utility:download" onclick={downloadTemplate} class="slds-m-right_x-small"></lightning-button>
-                                    <template if:true={displayProductList}>
-                                        <lightning-button variant="brand" label="Import Data" icon-name="utility:upload" onclick={handleFileImport}></lightning-button>
-                                    </template>
-                                    <template if:false={displayProductList}>
-                                        <lightning-button variant="brand" label="Import Data" icon-name="utility:upload" onclick={readFiles}></lightning-button>
-                                    </template>
-                                    <template if:true={showLoadingSpinner}>
-                                        <lightning-spinner alternative-text="Uploading..." size="small" class="slds-m-left_small"></lightning-spinner>
-                                    </template>
+                                    <lightning-button variant="brand" label="Import Data" icon-name="utility:upload" onclick={handleFileImport} disabled={isLoading}></lightning-button>
                                 </div>
                             </div>
                         </div>
