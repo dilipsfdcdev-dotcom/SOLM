@@ -111,6 +111,9 @@ export default class ForecastingHome extends LightningElement {
         document.body.removeChild(link);
     }
 
+    // Required columns for mass upload
+    MASS_REQUIRED_COLUMNS = ['AccountId', 'PRODUCT2ID', 'Direct', 'Local', 'Month', 'UNITPRICE', 'Quantity', 'Warehouse'];
+
     async handleMassUpload() {
         if (!this.massFile) {
             this.massFileError = 'Please select a file first';
@@ -119,19 +122,19 @@ export default class ForecastingHome extends LightningElement {
 
         this.isMassLoading = true;
         this.massUploadResult = '';
+        this.massFileError = '';
 
         try {
             const fileContent = await this.readFile(this.massFile);
-            const jsonData = this.csvToJson(fileContent);
 
-            if (!jsonData || jsonData.length === 0) {
-                throw new Error('No valid data found in CSV file');
+            // Validate and convert CSV
+            const validationResult = this.validateMassUploadCSV(fileContent);
+
+            if (!validationResult.success) {
+                throw new Error(validationResult.error);
             }
 
-            // Validate AccountId column exists
-            if (!jsonData[0].hasOwnProperty('AccountId')) {
-                throw new Error('AccountId column is required for mass upload');
-            }
+            const jsonData = validationResult.data;
 
             const result = await insertProductMass({
                 prodJson: JSON.stringify(jsonData)
@@ -145,18 +148,139 @@ export default class ForecastingHome extends LightningElement {
                 this.massResultSuccess = false;
                 this.massUploadResult = result;
                 if (result.includes('errors')) {
-                    showNotification('Warning', 'Upload completed with some errors', 'warning');
+                    showNotification('Warning', 'Upload completed with some errors. Check the details below.', 'warning');
+                } else {
+                    showError(result);
                 }
             }
 
         } catch (error) {
             this.massResultSuccess = false;
             this.massUploadResult = error.message || 'An error occurred during upload';
-            showError('An error occurred while processing your request. Please check the file format and try again.');
+            showError(error.message || 'An error occurred while processing your request. Please check the file format and try again.');
             console.error('Mass upload error:', error);
         } finally {
             this.isMassLoading = false;
         }
+    }
+
+    validateMassUploadCSV(csv) {
+        const lines = csv.split(/\r\n|\n/);
+
+        if (lines.length < 2) {
+            return {
+                success: false,
+                error: 'CSV file is empty or has no data rows. Please download and use the template.'
+            };
+        }
+
+        const headers = lines[0].split(',').map(h => h.trim());
+
+        // Check for missing required columns
+        const missingColumns = [];
+        for (const col of this.MASS_REQUIRED_COLUMNS) {
+            if (!headers.includes(col)) {
+                missingColumns.push(col);
+            }
+        }
+
+        if (missingColumns.length > 0) {
+            return {
+                success: false,
+                error: `Invalid template. Missing required columns: ${missingColumns.join(', ')}. Please download and use the correct template.`
+            };
+        }
+
+        // Parse and validate data rows
+        const result = [];
+        const errors = [];
+
+        for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue;
+
+            const obj = {};
+            const currentLine = lines[i].split(',');
+
+            // Check column count
+            if (currentLine.length !== headers.length) {
+                errors.push(`Row ${i}: Expected ${headers.length} columns but found ${currentLine.length}`);
+                continue;
+            }
+
+            for (let j = 0; j < headers.length; j++) {
+                obj[headers[j]] = currentLine[j] ? currentLine[j].trim() : '';
+            }
+
+            // Validate required fields
+            const rowErrors = [];
+
+            if (!obj.AccountId) {
+                rowErrors.push('AccountId is required');
+            } else if (obj.AccountId.length !== 15 && obj.AccountId.length !== 18) {
+                rowErrors.push('AccountId must be 15 or 18 characters');
+            }
+
+            if (!obj.PRODUCT2ID) {
+                rowErrors.push('PRODUCT2ID is required');
+            }
+
+            if (!obj.Month) {
+                rowErrors.push('Month is required');
+            } else {
+                // Validate date format MM/DD/YYYY
+                const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/\d{4}$/;
+                if (!dateRegex.test(obj.Month)) {
+                    rowErrors.push('Month must be in MM/DD/YYYY format (e.g., 01/01/2025)');
+                }
+            }
+
+            if (obj.Quantity && isNaN(parseFloat(obj.Quantity))) {
+                rowErrors.push('Quantity must be a number');
+            }
+
+            if (obj.UNITPRICE && isNaN(parseFloat(obj.UNITPRICE))) {
+                rowErrors.push('UNITPRICE must be a number');
+            }
+
+            if (obj.Direct && !['true', 'false'].includes(obj.Direct.toLowerCase())) {
+                rowErrors.push('Direct must be true or false');
+            }
+
+            if (obj.Local && !['true', 'false'].includes(obj.Local.toLowerCase())) {
+                rowErrors.push('Local must be true or false');
+            }
+
+            if (rowErrors.length > 0) {
+                errors.push(`Row ${i}: ${rowErrors.join(', ')}`);
+            } else {
+                result.push(obj);
+            }
+        }
+
+        if (result.length === 0) {
+            let errorMsg = 'No valid data found in CSV file.';
+            if (errors.length > 0) {
+                errorMsg += '\n\nErrors found:\n' + errors.slice(0, 5).join('\n');
+                if (errors.length > 5) {
+                    errorMsg += `\n... and ${errors.length - 5} more errors`;
+                }
+            }
+            return {
+                success: false,
+                error: errorMsg
+            };
+        }
+
+        // Log warnings for partially valid data
+        if (errors.length > 0) {
+            console.warn(`${errors.length} rows had validation errors and were skipped:`, errors);
+        }
+
+        return {
+            success: true,
+            data: result,
+            warnings: errors.length > 0 ? `${errors.length} rows were skipped due to validation errors` : null
+        };
     }
 
     readFile(file) {
