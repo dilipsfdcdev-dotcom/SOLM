@@ -1,0 +1,40 @@
+<template>
+    <lightning-quick-action-panel header="New LOT">
+        <lightning-record-edit-form object-api-name="Opportunity"
+            record-type-id={recordTypeId}>
+            <lightning-spinner alternative-text="Loading" if:true={isLoading}></lightning-spinner>
+
+            <div class="slds-grid slds-wrap">
+
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Name" value={form.Name} 
+                    onchange={handleFieldChange} required></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="StageName" value={form.StageName} 
+                    onchange={handleFieldChange} required></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Amount" value={form.Amount} 
+                    onchange={handleFieldChange}></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Probability" value={form.Probability} 
+                    onchange={handleFieldChange}></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-input-field field-name="Description" value={form.Description} 
+                    onchange={handleFieldChange}></lightning-input-field>
+                </div>
+            </div>
+            
+        </lightning-record-edit-form>
+
+        <div slot="footer">
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+            <lightning-button variant="brand" label="Save" onclick={handleSave} class="slds-m-left_x-small">
+            </lightning-button>
+        </div>
+
+    </lightning-quick-action-panel>
+</template>

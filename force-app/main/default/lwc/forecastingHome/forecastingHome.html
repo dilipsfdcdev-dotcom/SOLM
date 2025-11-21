@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="">
+
+        <template lwc:if={searchByAccount}>
+            <c-forecast-app></c-forecast-app>
+        </template>
+        <template lwc:elseif={searchByProduct}>
+            <c-forecast-app-for-product></c-forecast-app-for-product>
+        </template>
+        <template lwc:else>
+            <div class="center font--big ">
+                <lightning-button-group>
+                    <lightning-button label="Search By Account" onclick={hanldeSearchByAccount}></lightning-button>
+                    <lightning-button label="Search By Product" onclick={hanldeSearchByProduct}></lightning-button>
+                </lightning-button-group>
+            </div>
+        </template>
+    </lightning-card>
+</template>

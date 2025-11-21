@@ -1,0 +1,34 @@
+.btn-margin {
+    margin-right: 4px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    padding:20px 0;
+}
+
+.full_width {
+    width: 100%;
+}
+
+.font--big{
+    font-size: 25px;
+}
+
+.forecast__enable__btn{
+    padding: 10px 15px 10px 15px !important;
+}
+
+.forecasting__controls{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.forecasting__data{
+    padding-right: 20px;
+}
+
+.control__panel--margin{
+    margin-bottom: 0.5em;
+}

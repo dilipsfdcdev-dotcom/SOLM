@@ -1,0 +1,172 @@
+<template>
+    <template if:true={openModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open" style="width: 50%; margin:auto">
+            <div class="slds-modal__container" >
+                <lightning-spinner alternative-text="Loading" if:true={isLoading}></lightning-spinner>
+
+                <lightning-modal-header label="Disable Forecasting"></lightning-modal-header>
+                <lightning-modal-body> {labels.disableForecast} </lightning-modal-body>
+                <lightning-modal-footer>
+                    <lightning-button class="btn-margin" label="Cancel" onclick={handleCloseModal}></lightning-button>
+                    <lightning-button label="Disable" variant="brand" onclick={handleDisableForecasting}></lightning-button>
+                </lightning-modal-footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+    <lightning-card title="">
+        <lightning-spinner alternative-text="Loading" if:true={isLoading}></lightning-spinner>
+        <div class="slds-grid slds-wrap forecasting">
+            <div class="slds-col slds-size_3-of-12 forecasting__controls">
+                <div class="control__panel--margin">
+                    <c-lookup errors={errors} onsearch={handleLookupSearch} selection={initialSelection}
+                        onselectionchange={handleLookupSelectionChange} label={labels.accountSelectLabel}
+                        placeholder="Search...">
+                    </c-lookup>
+                </div>
+
+                <template if:true={displayDisableForecasting}>
+                    <div class="control__panel--margin full_width">
+                        <lightning-button variant="destructive-text" label="Disable Forecasting"
+                                          onclick={disableForecasting} disabled={isReadOnlyPermission} volume={selectedVolume}>
+                        </lightning-button><br/>
+                    </div>
+                </template>
+
+                <template if:true={displayDisableForecasting}>
+                    <template if:true={displayProductList}>
+                        <div class="control__panel--margin full_width">
+                            <lightning-button variant="destructive-text" label="Delete All Forecast"
+                                            onclick={deleteAllProducts} disabled={isReadOnlyPermission} volume={selectedVolume}>
+                            </lightning-button><br/>
+                        </div>
+                    </template>
+                </template>
+
+                <template if:true={displayAddProduct}>
+                    <div class="control__panel--margin">
+                        <c-forecast-enable-product onrefresh={handleRefresh} disabled={isReadOnlyPermission}
+                            account-id={recordId} volume={selectedVolume} local-warehouse-codes={localWarehouseCodes}>
+                        </c-forecast-enable-product>
+                    </div>
+                </template>
+
+                <template if:true={displayVolumeFilter}>
+                    <div class="control__panel--margin">
+                        <lightning-combobox name="volumes" label={labels.volumeSelectLabel} options={volumeOptions}
+                            value={selectedVolume} onchange={handleVolumeChange}>
+                        </lightning-combobox>
+                    </div>
+                </template>
+
+                <template if:true={displayProductSearch}>
+                    <div class="control__panel--margin">
+                        <lightning-input name="productSearch" label={labels.searchProductLabel} value={searchTerm}
+                            type="search" placeholder={labels.searchProductPlaceHolder} onchange={handleProductSearch}>
+                        </lightning-input>
+                    </div>
+                </template>
+
+                <template lwc:if={displayNoAccountSelection}>
+
+                </template>
+                <template lwc:else>
+                    <form class="slds-form--inline">
+                        <div class="slds-form-element">
+                            <lightning-input type="file"
+                                            label="Choose File"
+                                            accept=".csv"
+                                            onchange={importcsv}
+                                            multiple>
+                            </lightning-input>
+                        </div>  
+    
+                        <div class="slds-form-element slds-text-body_small slds-text-color_error" style="padding-top: 5%;">{filename}</div>
+                        <template if:true={displayProductList}>
+                            <div class="slds-form-element" style="padding-top: 5%;">
+                                <lightning-button label="Import" title="Non-primary action" onclick={handleFileImport} class="slds-m-left_x-small"></lightning-button>
+                            </div>
+                        </template>
+                        <template if:false={displayProductList}>
+                            <div class="slds-form-element" style="padding-top: 5%;">
+                                <lightning-button label="Import" title="Non-primary action" onclick={readFiles} class="slds-m-left_x-small"></lightning-button>
+                            </div>
+                        </template>
+
+    
+                        <div style="margin-left:4%" class="slds-form-element">
+                        <template if:true={showLoadingSpinner}>
+                                <lightning-spinner alternative-text="Uploading......" size="medium"></lightning-spinner>
+                            </template>
+                        </div>
+
+                        <template lwc:if={displayProductDetails}>
+                            <div class="slds-form-element" style="padding-top: 5%;">
+                                <c-forecast-historical-table account-id={recordId} product-id={productId}>
+                                </c-forecast-historical-table>
+                            </div>
+                        </template>
+                        <template lwc:else>
+                            <div class="slds-form-element" style="padding-top: 5%;">
+                                <c-forecast-historical-table account-id={recordId}>
+                                </c-forecast-historical-table>
+                            </div>
+                        </template>
+                  
+    
+                    </form>
+                </template>
+
+            </div>
+            <div class="slds-col slds-size_9-of-12 forecasting__data">
+                <template if:true={displayNoAccountSelection}>
+                    <div class="center font--big">
+                        <h1>{labels.accountSelect}</h1>
+                    </div>
+                </template>
+
+                <template if:true={displayNoForecastEnabled}>
+                    <div class="center">
+                        <h1 class="font--big">{labels.forecastEnable}</h1>
+                    </div>
+                    <div class="center">
+                        <lightning-button class="forecast__enable__btn" variant="brand" label="Enable Forecasting"
+                            onclick={enableForecasting} disabled={isReadOnlyPermission} volume={selectedVolume}>
+                        </lightning-button>
+                    </div>
+                </template>
+
+                <template if:true={displayNoForecastData}>
+                    <div class="center">
+                        <h1 class="font--big">{labels.forecastNoData}</h1>
+                    </div>
+                    <div class="center">
+                        <c-forecast-enable-product disabled={isReadOnlyPermission} onrefresh={handleRefresh}
+                            account-id={recordId} volume={selectedVolume} local-warehouse-codes={localWarehouseCodes}
+                            currency-code={currencyCODE}>
+                        </c-forecast-enable-product>
+                    </div>
+                </template>
+
+                <template if:true={displayProductList}>
+                    <c-forecast-product-list disabled={isReadOnlyPermission} account-id={recordId}
+                        onproductselect={handleProductSelect} oncurrentpage={handlePageSelect} page-number={pageNumber}
+                        search-term={searchTerm} volume={selectedVolume}
+                        currency-code={currencyCODE}>
+                    </c-forecast-product-list>
+                </template>
+
+                <template if:true={displayProductDetails}>
+                    <c-forecast-product-details product-id={productId} disabled={isReadOnlyPermission} price={price} direct={direct}
+                        account-id={recordId} onback={handleBack} volume={selectedVolume}
+                        local-warehouse-codes={localWarehouseCodes}
+                        ondisabled={handleDisabled}
+                        currency-code={currencyCODE}>
+                    </c-forecast-product-details>
+                </template>
+
+                
+            </div>
+        </div>
+    </lightning-card>
+</template>

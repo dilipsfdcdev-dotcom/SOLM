@@ -1,0 +1,103 @@
+<template>
+    <lightning-quick-action-panel header="Forecast Confirmation" name={recordId}>
+        <lightning-spinner alternative-text="Loading" if:true={isLoading}></lightning-spinner>
+        <div if:true={showNoProductsLabel}>
+            {noProductsLabel}
+        </div>
+        <div class="forecast__table slds-scrollable_x" if:true={showForecastTable}>
+            <table>
+                <thead>
+                    <tr>
+                        <td class="sticky--first">
+                            <b>Set</b>
+                        </td>
+                        <td class="sticky--second">
+                            <b>Enabled</b>
+                            <lightning-button-icon icon-name="utility:info" variant="bare" class="slds-m-left_xx-small"
+                                tooltip={enabledColumnHeaderInfo}></lightning-button-icon>
+                        </td>
+                        <td class="sticky--third">
+                            <b>Product</b>
+                        </td>
+                        <template for:each={dateRange} for:item="month">
+                            <th class="forecast__table__header" key={month}>
+                                <p>{month}</p>
+                            </th>
+                        </template>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={products} for:item="product">
+                        <tr key={product.opportunityLineItemId}>
+                            <td rowspan="2" class="sticky--first">
+                                <lightning-input type="checkbox" variant="label-hidden" data-type="checkbox" checked
+                                                 onchange={handleSelectionChange} data-product={product.opportunityLineItemId}></lightning-input>
+                            </td >
+                            <td rowspan="2" class="sticky--second">
+                                <p>
+                                    Direct: <b>{product.directEnabled}</b>
+                                </p>
+                                <p>
+                                    Local: <b>{product.localEnabled}</b>
+                                </p>
+                            </td>
+                            <td rowspan="2" class="sticky--third">
+                                <p>
+                                    <b>{product.productName}</b>
+                                </p>
+                                <p>
+                                    {product.productCode}, {product.productLine}
+                                </p>
+                                <p>
+                                    Case: {product.caseQuantity}
+                                </p>
+                            </td>
+                            <template for:each={product.scheduleWrappers} for:item="scheduleWrapper">
+                                <td key={scheduleWrapper.scheduleId} class="quantity__column">
+                                    <p>
+                                        <lightning-input type="number" value={scheduleWrapper.quantity} data-scheduledate={scheduleWrapper.scheduleDate}
+                                                         data-product={product.opportunityLineItemId} variant="label-hidden" data-type="number"
+                                                         step={step} onchange={handleInputChange}></lightning-input>
+                                    </p>
+                                </td>
+                            </template>
+                        </tr>
+                        <tr key={product.opportunityLineItemId}>
+                            <td colspan="3">
+                                <lightning-combobox name="method" label="Fulfillment Method" options={fulfillmentOptions} variant="label-hidden"
+                                                    required placeholder="Select..." dropdown-alignment="auto" value={product.fulfillment}
+                                                    data-product={product.opportunityLineItemId} onchange={handleFulfillmentChange}
+                                                    disabled={product.disableFulfillmentMethodCombobox}>
+                                </lightning-combobox>
+                            </td>
+                            <td colspan="6">
+                                <lightning-input type="text" variant="label-hidden" data-product={product.opportunityLineItemId}
+                                                 onchange={handleCommentChange} value={product.comment} placeholder="Comment..."></lightning-input>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+
+        </div>
+        <div slot="footer">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_2-of-12">
+                    <lightning-combobox name="volumes" variant="label-hidden" options={volumeOptions}
+                        value={selectedVolume} onchange={handleVolumeChange} disabled={showNoProductsLabel}
+                    dropdown-alignment="auto">
+                </lightning-combobox>
+        
+                </div>
+                <div class="slds-col slds-size_10-of-12">
+                    <lightning-button variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+
+                    <lightning-button variant="brand" label="Confirm" onclick={handleConfirm} disabled={disableConfirmButton}
+                        class="slds-m-left_x-small">
+                    </lightning-button>                
+                </div>
+            </div>
+        </div>
+        
+    </lightning-quick-action-panel>
+</template>

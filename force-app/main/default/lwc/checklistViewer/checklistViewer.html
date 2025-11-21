@@ -1,0 +1,29 @@
+<template>
+    <div class="container">
+        <h1 class="heading">Checklist Items</h1>
+        <template if:true={checklistItems}>
+            <div class="checklist-scrollable">
+                <ul class="checklist">
+                    <template for:each={checklistItems} for:item="item">
+                        <li key={item.Id} class={item.rowClass}>
+                            <lightning-input 
+                                type="checkbox" 
+                                label={item.Checklist__c} 
+                                checked={item.isCompleted} 
+                                data-id={item.Id}
+                                onchange={handleCheckboxChange}
+                                disabled={item.isDisabled}>
+                            </lightning-input>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </template>
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+        <template if:true={error}>
+            <p class="slds-text-color_error">{error}</p>
+        </template>
+    </div>
+</template>

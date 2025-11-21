@@ -1,0 +1,13 @@
+.center {
+    display: flex;
+    justify-content: center;
+    padding:20px 0;
+}
+
+.full_width {
+    width: 100%;
+}
+
+.font--big{
+    font-size: 25px;
+}
