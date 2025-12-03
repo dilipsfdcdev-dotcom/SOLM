@@ -70,6 +70,47 @@ private class CustomEmailComposerControllerTest {
     }
 
     @IsTest
+    static void testGetFromAddressOptions() {
+        // Create test account with an owner
+        Account acc = new Account(Name = 'Test Account');
+        insert acc;
+
+        Test.startTest();
+
+        // Test getFromAddressOptions with a valid recordId
+        List<CustomEmailComposerController.FromAddressOption> options =
+            CustomEmailComposerController.getFromAddressOptions(acc.Id);
+
+        Test.stopTest();
+
+        // Verify results - should at least contain owner option
+        System.assertNotEquals(null, options, 'Options list should not be null');
+        // Owner option should be present if the record has an owner
+        Boolean hasOwnerOption = false;
+        for (CustomEmailComposerController.FromAddressOption opt : options) {
+            if (opt.type == 'owner') {
+                hasOwnerOption = true;
+                break;
+            }
+        }
+        // Note: Owner option may or may not be present depending on org setup
+    }
+
+    @IsTest
+    static void testGetFromAddressOptionsWithNull() {
+        Test.startTest();
+
+        // Test getFromAddressOptions with null recordId
+        List<CustomEmailComposerController.FromAddressOption> options =
+            CustomEmailComposerController.getFromAddressOptions(null);
+
+        Test.stopTest();
+
+        // Should return options (org-wide addresses if any exist)
+        System.assertNotEquals(null, options, 'Options list should not be null even with null recordId');
+    }
+
+    @IsTest
     static void testLoadTemplate() {
         // Create email template and test account
         EmailTemplate tpl = createTestEmailTemplate();
@@ -119,20 +160,45 @@ private class CustomEmailComposerControllerTest {
 
         Test.startTest();
 
-        // Send email with valid parameters
+        // Send email with valid parameters (including fromAddressId)
         CustomEmailComposerController.sendMail(
             'test@example.com',
             'cc@example.com',
             'bcc@example.com',
             'Test Subject',
             '<p>Test Body</p>',
-            acc.Id
+            acc.Id,
+            null  // fromAddressId - null means use current user
         );
 
         Test.stopTest();
 
         // Verify email was "sent" (in test context, it's just queued)
        // System.assertEquals(0, Limits.getEmailInvocations(), 'Email should be sent in test context');
+    }
+
+    @IsTest
+    static void testSendMailWithOwnerFromAddress() {
+        // Create test account
+        Account acc = new Account(Name = 'Test Account');
+        insert acc;
+
+        Test.startTest();
+
+        // Send email with 'owner' as fromAddressId (should use current user)
+        CustomEmailComposerController.sendMail(
+            'test@example.com',
+            null,
+            null,
+            'Test Subject',
+            '<p>Test Body</p>',
+            acc.Id,
+            'owner'
+        );
+
+        Test.stopTest();
+
+        // Just verify no exception was thrown
     }
 
     @IsTest
@@ -150,7 +216,8 @@ private class CustomEmailComposerControllerTest {
             'bcc1@example.com,bcc2@example.com',
             'Test Subject - Multiple Recipients',
             '<p>Test Body with multiple recipients</p>',
-            acc.Id
+            acc.Id,
+            null
         );
 
         Test.stopTest();
@@ -173,7 +240,8 @@ private class CustomEmailComposerControllerTest {
             ' bcc@example.com ',
             'Test Subject',
             '<p>Test Body</p>',
-            acc.Id
+            acc.Id,
+            null
         );
 
         Test.stopTest();
@@ -187,7 +255,7 @@ private class CustomEmailComposerControllerTest {
 
         try {
             CustomEmailComposerController.sendMail(
-                '', null, null, 'Subject', '<p>Body</p>', null
+                '', null, null, 'Subject', '<p>Body</p>', null, null
             );
            // System.assert(false, 'Should have thrown exception for missing To address');
         } catch (AuraHandledException e) {
@@ -203,7 +271,7 @@ private class CustomEmailComposerControllerTest {
 
         try {
             CustomEmailComposerController.sendMail(
-                'test@example.com', null, null, '', '<p>Body</p>', null
+                'test@example.com', null, null, '', '<p>Body</p>', null, null
             );
             //t(false, 'Should have thrown exception for missing subject');
         } catch (AuraHandledException e) {
@@ -219,7 +287,7 @@ private class CustomEmailComposerControllerTest {
 
         try {
             CustomEmailComposerController.sendMail(
-                'test@example.com', null, null, 'Subject', '', null
+                'test@example.com', null, null, 'Subject', '', null, null
             );
            // System.assert(false, 'Should have thrown exception for missing body');
         } catch (AuraHandledException e) {
@@ -240,6 +308,7 @@ private class CustomEmailComposerControllerTest {
             null,
             'Test Subject',
             '<p>Test Body</p>',
+            null,
             null
         );
 

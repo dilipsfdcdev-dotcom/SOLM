@@ -3,6 +3,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 
 import getActiveTemplates from '@salesforce/apex/CustomEmailComposerController.getActiveTemplates';
+import getFromAddressOptions from '@salesforce/apex/CustomEmailComposerController.getFromAddressOptions';
 import loadTemplate from '@salesforce/apex/CustomEmailComposerController.loadTemplate';
 import sendMail from '@salesforce/apex/CustomEmailComposerController.sendMail';
 
@@ -15,6 +16,10 @@ export default class CustomEmailComposer extends LightningElement {
 
     @track templateOptions = [];
     @track selectedTemplateId;
+
+    // From address options
+    @track fromAddressOptions = [];
+    @track selectedFromAddressId = '';
 
     // Multi-email support - arrays of email addresses
     @track toAddresses = [];
@@ -32,6 +37,7 @@ export default class CustomEmailComposer extends LightningElement {
     isLoading = false;
     showComposer = false;
     emailAutoPopulated = false;
+    fromAddressesLoaded = false;
 
     // Wire to get Email__c field from Form_Submission__c
     @wire(getRecord, {
@@ -88,6 +94,11 @@ export default class CustomEmailComposer extends LightningElement {
         return this.bccAddresses.length > 0;
     }
 
+    // Check if from address options are available
+    get hasFromAddressOptions() {
+        return this.fromAddressOptions.length > 0;
+    }
+
     // Email validation helper
     isValidEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -112,10 +123,40 @@ export default class CustomEmailComposer extends LightningElement {
             });
     }
 
+    // Load From address options (owner email + org-wide addresses)
+    loadFromAddressOptions() {
+        if (this.fromAddressesLoaded) {
+            return;
+        }
+
+        getFromAddressOptions({ recordId: this.recordId })
+            .then(result => {
+                this.fromAddressOptions = result.map(opt => ({
+                    label: opt.displayName,
+                    value: opt.id,
+                    email: opt.email,
+                    type: opt.type
+                }));
+
+                // Auto-select the first option (usually owner) if available
+                if (this.fromAddressOptions.length > 0 && !this.selectedFromAddressId) {
+                    this.selectedFromAddressId = this.fromAddressOptions[0].value;
+                }
+
+                this.fromAddressesLoaded = true;
+            })
+            .catch(error => {
+                console.log('Could not load from address options:', error);
+                // Silent fail - from addresses are optional
+            });
+    }
+
     /* UI handlers */
 
     handleOpenComposer() {
         this.showComposer = true;
+        // Load from address options when composer opens
+        this.loadFromAddressOptions();
     }
 
     handleCloseComposer() {
@@ -125,6 +166,10 @@ export default class CustomEmailComposer extends LightningElement {
 
     handleTemplateChange(event) {
         this.selectedTemplateId = event.detail.value;
+    }
+
+    handleFromAddressChange(event) {
+        this.selectedFromAddressId = event.detail.value;
     }
 
     // To field handlers
@@ -256,6 +301,10 @@ export default class CustomEmailComposer extends LightningElement {
         this.bccInputValue = '';
         this.subject = '';
         this.body = '';
+        // Reset from address to first option
+        if (this.fromAddressOptions.length > 0) {
+            this.selectedFromAddressId = this.fromAddressOptions[0].value;
+        }
     }
 
     // Call Apex to render template
@@ -301,7 +350,8 @@ export default class CustomEmailComposer extends LightningElement {
             bccAddresses: bccAddressesStr,
             subject: this.subject,
             htmlBody: this.body,
-            recordId: this.recordId
+            recordId: this.recordId,
+            fromAddressId: this.selectedFromAddressId || null
         })
             .then(() => {
                 this.showToast('Success', 'Email sent successfully.', 'success');

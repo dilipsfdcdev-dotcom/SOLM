@@ -12,6 +12,13 @@ public with sharing class CustomEmailComposerController {
         @AuraEnabled public String plainBody;
     }
 
+    public class FromAddressOption {
+        @AuraEnabled public String id;
+        @AuraEnabled public String email;
+        @AuraEnabled public String displayName;
+        @AuraEnabled public String type; // 'owner' or 'orgwide'
+    }
+
     /**
      * Returns active classic email templates:
      *  - In normal run: only from "Solcotton" email folder
@@ -67,6 +74,74 @@ public with sharing class CustomEmailComposerController {
     }
 
     /**
+     * Returns available "From" address options including:
+     * - Record owner's email (for Form_Submission__c)
+     * - All verified Org-Wide Email Addresses
+     */
+    @AuraEnabled(cacheable=true)
+    public static List<FromAddressOption> getFromAddressOptions(Id recordId) {
+        List<FromAddressOption> options = new List<FromAddressOption>();
+
+        // Get record owner's email if recordId is provided
+        if (recordId != null) {
+            try {
+                String sObjectType = recordId.getSObjectType().getDescribe().getName();
+
+                // Query the owner's email dynamically
+                String query = 'SELECT OwnerId, Owner.Email, Owner.Name FROM ' +
+                               String.escapeSingleQuotes(sObjectType) +
+                               ' WHERE Id = :recordId LIMIT 1';
+                List<SObject> records = Database.query(query);
+
+                if (!records.isEmpty()) {
+                    SObject record = records[0];
+                    String ownerEmail = (String)record.getSObject('Owner').get('Email');
+                    String ownerName = (String)record.getSObject('Owner').get('Name');
+
+                    if (!String.isBlank(ownerEmail)) {
+                        FromAddressOption ownerOption = new FromAddressOption();
+                        ownerOption.id = 'owner';
+                        ownerOption.email = ownerEmail;
+                        ownerOption.displayName = ownerName + ' (Record Owner)';
+                        ownerOption.type = 'owner';
+                        options.add(ownerOption);
+                    }
+                }
+            } catch (Exception e) {
+                // Silent fail - owner email might not be accessible
+                System.debug('Could not fetch owner email: ' + e.getMessage());
+            }
+        }
+
+        // Get all verified Org-Wide Email Addresses
+        try {
+            List<OrgWideEmailAddress> orgWideAddresses = [
+                SELECT Id, Address, DisplayName
+                FROM OrgWideEmailAddress
+                WHERE IsVerified = true
+                ORDER BY DisplayName, Address
+                LIMIT 100
+            ];
+
+            for (OrgWideEmailAddress owa : orgWideAddresses) {
+                FromAddressOption owaOption = new FromAddressOption();
+                owaOption.id = owa.Id;
+                owaOption.email = owa.Address;
+                owaOption.displayName = String.isBlank(owa.DisplayName)
+                    ? owa.Address
+                    : owa.DisplayName + ' <' + owa.Address + '>';
+                owaOption.type = 'orgwide';
+                options.add(owaOption);
+            }
+        } catch (Exception e) {
+            // Silent fail - org-wide addresses might not be accessible
+            System.debug('Could not fetch org-wide email addresses: ' + e.getMessage());
+        }
+
+        return options;
+    }
+
+    /**
      * Renders a stored email template for the given record Id.
      * Uses recordId as whatId (related record), no whoId.
      */
@@ -89,6 +164,7 @@ public with sharing class CustomEmailComposerController {
     /**
      * Sends an email using the edited subject/body and relates it to the recordId.
      * Supports multiple recipients in To, CC, and BCC fields (comma-separated).
+     * Supports sending from Org-Wide Email Address.
      */
     @AuraEnabled
     public static void sendMail(
@@ -97,7 +173,8 @@ public with sharing class CustomEmailComposerController {
         String bccAddresses,
         String subject,
         String htmlBody,
-        Id   recordId
+        Id recordId,
+        String fromAddressId
     ) {
         if (String.isBlank(toAddresses)) {
             throw new AuraHandledException('At least one To address is required.');
@@ -110,6 +187,17 @@ public with sharing class CustomEmailComposerController {
         }
 
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+
+        // Set From address (Org-Wide Email Address)
+        if (!String.isBlank(fromAddressId) && fromAddressId != 'owner') {
+            try {
+                email.setOrgWideEmailAddressId(Id.valueOf(fromAddressId));
+            } catch (Exception e) {
+                System.debug('Could not set org-wide email address: ' + e.getMessage());
+                // Continue without setting org-wide address
+            }
+        }
+        // If 'owner' is selected or no fromAddressId, email will be sent from current user
 
         // Parse and set To addresses (comma-separated)
         List<String> toList = parseEmailAddresses(toAddresses);

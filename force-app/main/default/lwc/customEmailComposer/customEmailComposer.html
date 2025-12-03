@@ -61,6 +61,22 @@
                         <div class="slds-box slds-theme_default">
                             <div class="section-header">Recipients</div>
 
+                            <!-- From Address Dropdown -->
+                            <template if:true={hasFromAddressOptions}>
+                                <lightning-combobox
+                                    class="slds-m-top_small"
+                                    name="fromAddress"
+                                    label="From"
+                                    placeholder="Select sender address"
+                                    value={selectedFromAddressId}
+                                    options={fromAddressOptions}
+                                    onchange={handleFromAddressChange}>
+                                </lightning-combobox>
+                                <div class="slds-form-element__help from-address-hint">
+                                    Select record owner or an org-wide email address
+                                </div>
+                            </template>
+
                             <!-- To Field with Pills -->
                             <div class="slds-form-element slds-m-top_small">
                                 <label class="slds-form-element__label">
