@@ -88,18 +88,19 @@ public with sharing class CustomEmailComposerController {
 
     /**
      * Sends an email using the edited subject/body and relates it to the recordId.
+     * Supports multiple recipients in To, CC, and BCC fields (comma-separated).
      */
     @AuraEnabled
     public static void sendMail(
-        String toAddress,
-        String ccAddress,
-        String bccAddress,
+        String toAddresses,
+        String ccAddresses,
+        String bccAddresses,
         String subject,
         String htmlBody,
         Id   recordId
     ) {
-        if (String.isBlank(toAddress)) {
-            throw new AuraHandledException('To address is required.');
+        if (String.isBlank(toAddresses)) {
+            throw new AuraHandledException('At least one To address is required.');
         }
         if (String.isBlank(subject)) {
             throw new AuraHandledException('Subject is required.');
@@ -110,13 +111,27 @@ public with sharing class CustomEmailComposerController {
 
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
 
-        email.setToAddresses(new String[] { toAddress });
-
-        if (!String.isBlank(ccAddress)) {
-            email.setCcAddresses(new String[] { ccAddress });
+        // Parse and set To addresses (comma-separated)
+        List<String> toList = parseEmailAddresses(toAddresses);
+        if (toList.isEmpty()) {
+            throw new AuraHandledException('At least one valid To address is required.');
         }
-        if (!String.isBlank(bccAddress)) {
-            email.setBccAddresses(new String[] { bccAddress });
+        email.setToAddresses(toList);
+
+        // Parse and set CC addresses (comma-separated)
+        if (!String.isBlank(ccAddresses)) {
+            List<String> ccList = parseEmailAddresses(ccAddresses);
+            if (!ccList.isEmpty()) {
+                email.setCcAddresses(ccList);
+            }
+        }
+
+        // Parse and set BCC addresses (comma-separated)
+        if (!String.isBlank(bccAddresses)) {
+            List<String> bccList = parseEmailAddresses(bccAddresses);
+            if (!bccList.isEmpty()) {
+                email.setBccAddresses(bccList);
+            }
         }
 
         email.setSubject(subject);
@@ -129,5 +144,24 @@ public with sharing class CustomEmailComposerController {
         email.setSaveAsActivity(true);
 
         Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
+    }
+
+    /**
+     * Helper method to parse comma-separated email addresses.
+     * Trims whitespace and filters out empty strings.
+     */
+    private static List<String> parseEmailAddresses(String addresses) {
+        List<String> result = new List<String>();
+        if (String.isBlank(addresses)) {
+            return result;
+        }
+
+        for (String addr : addresses.split(',')) {
+            String trimmed = addr.trim();
+            if (!String.isBlank(trimmed)) {
+                result.add(trimmed);
+            }
+        }
+        return result;
     }
 }
