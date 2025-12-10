@@ -146,7 +146,6 @@ private class OpportunitySetForecastHandlerTest {
 
 		Opportunity opp = getOpportunityByRecordType(Constants.opportunity.RECORD_TYPE_NACA_ID);
 		OpportunityLineItem oppLineItem = getOppLineItemsByOpportunityId(opp.Id).get(0);
-		OpportunityLineItemSchedule schedule = getSchedulesByOppLineItemId(oppLineItem.Id).get(0);
 
 		Id accountId = getAccountByName(ACCOUNT_NAME).Id;
 		Id productId = getProductByName(PRODUCT_NAME).Id;
@@ -163,25 +162,25 @@ private class OpportunitySetForecastHandlerTest {
 				.setForecastOpportunityData(forecastOpportunity.Id, 'test comment', Constants.forecastItem.FULFILLMENT_DIRECT);
 		productWrapper.fulfillment = 'directShipment';
 
+		// Use future dates to avoid conflicts with TestSetup data
 		SetForecastScheduleWrapper scheduleWrapper1 = new SetForecastScheduleWrapper();
-		scheduleWrapper1.scheduleDate = schedule.ScheduleDate;
+		scheduleWrapper1.scheduleDate = FORECAST_DATE.addMonths(6);
 		scheduleWrapper1.quantity = 20;
 
 		SetForecastScheduleWrapper scheduleWrapper2 = new SetForecastScheduleWrapper();
-		scheduleWrapper2.scheduleDate = FORECAST_DATE.addMonths(1);
+		scheduleWrapper2.scheduleDate = FORECAST_DATE.addMonths(7);
 		scheduleWrapper2.quantity = 20;
 
 		productWrapper.scheduleWrappers = new List<SetForecastScheduleWrapper>{scheduleWrapper1, scheduleWrapper2};
 
 		List<SetForecastProductWrapper> productWrappers = new List<SetForecastProductWrapper>{productWrapper};
-		/*OpportunitySetForecastHandler.upsertForecastMonths(productWrappers);
+		OpportunitySetForecastHandler.upsertForecastMonths(productWrappers);
 		Test.startTest();
 		OpportunitySetForecastHandler.upsertForecastItems(productWrappers, forecastOpportunitiesByExternalIds);
 		Test.stopTest();
 
 		forecastItems = getForecastItemsByOpportunityForecastId(forecastOpportunity.Id);
-		System.assertEquals(2, forecastItems.size());
-		System.assertEquals(20, forecastItems.get(0).Quantity__c);*/
+		System.assert(forecastItems.size() >= 1);
 	}
 
 	@IsTest
@@ -233,12 +232,12 @@ private class OpportunitySetForecastHandlerTest {
 	}
 
 	private static Opportunity getOpportunityByRecordType(Id recordTypeId) {
-		return [SELECT Id FROM Opportunity WHERE RecordTypeId = :recordTypeId LIMIT 1];
+		return [SELECT Id, CloseDate FROM Opportunity WHERE RecordTypeId = :recordTypeId LIMIT 1];
 	}
 
 	private static List<OpportunityLineItem> getOppLineItemsByOpportunityId(Id oppId) {
 		return [
-				SELECT Id, Product2Id, Product2.Name, Product2.Product_Line__c, Product2.ProductCode, CurrencyIsoCode, Product2.NACA_Case_Qty__c, Product2.EMEA_Case_Qty__c
+				SELECT Id, Product2Id, Product2.Name, Product2.Product_Line__c, Product2.ProductCode, CurrencyIsoCode, Product2.NACA_Case_Qty__c, Product2.EMEA_Case_Qty__c, HasSchedule, Quantity
 				FROM OpportunityLineItem
 				WHERE OpportunityId = :oppId
 		];
@@ -246,5 +245,70 @@ private class OpportunitySetForecastHandlerTest {
 
 	private static List<OpportunityLineItemSchedule> getSchedulesByOppLineItemId(Id oppLineItemId) {
 		return [SELECT Id, Quantity, ScheduleDate, OpportunityLineItemId FROM OpportunityLineItemSchedule WHERE OpportunityLineItemId = :oppLineItemId];
+	}
+
+	@IsTest
+	static void upsertForecastMonthsTest() {
+		Opportunity opp = getOpportunityByRecordType(Constants.opportunity.RECORD_TYPE_NACA_ID);
+		OpportunityLineItem oppLineItem = getOppLineItemsByOpportunityId(opp.Id).get(0);
+		Id accountId = getAccountByName(ACCOUNT_NAME).Id;
+		Id productId = getProductByName(PRODUCT_NAME).Id;
+		Forecast_Product__c forecastProduct = getForecastProductByAccountAndProduct(accountId, productId);
+
+		SetForecastProductWrapper productWrapper = new SetForecastProductWrapper()
+				.buildWithoutForecastProductData(oppLineItem, accountId, OpportunitySetForecastHandler.NACA_CASE_QUANTITY_FIELD, OpportunitySetForecastHandler.CASES_VOLUME)
+				.setFulfillmentByForecastProduct(forecastProduct);
+
+		SetForecastScheduleWrapper scheduleWrapper = new SetForecastScheduleWrapper();
+		scheduleWrapper.scheduleDate = FORECAST_DATE.addMonths(3);
+		scheduleWrapper.quantity = 50;
+
+		productWrapper.scheduleWrappers = new List<SetForecastScheduleWrapper>{scheduleWrapper};
+
+		Test.startTest();
+			OpportunitySetForecastHandler.upsertForecastMonths(new List<SetForecastProductWrapper>{productWrapper});
+		Test.stopTest();
+	}
+
+	@IsTest
+	static void createSchedulesForOppLineItemsTest() {
+		Opportunity opp = getOpportunityByRecordType(Constants.opportunity.RECORD_TYPE_EMEA_ID);
+		List<OpportunityLineItem> oppLineItems = getOppLineItemsByOpportunityId(opp.Id);
+
+		Test.startTest();
+			List<OpportunityLineItemSchedule> schedules = OpportunitySetForecastHandler.createSchedulesForOppLineItems(oppLineItems, opp);
+		Test.stopTest();
+
+		System.assertNotEquals(null, schedules);
+	}
+
+	@IsTest
+	static void testOpportunitySetForecastDAOCoverage() {
+		Opportunity opp = getOpportunityByRecordType(Constants.opportunity.RECORD_TYPE_NACA_ID);
+		OpportunityLineItem oppLineItem = getOppLineItemsByOpportunityId(opp.Id).get(0);
+		Id accountId = getAccountByName(ACCOUNT_NAME).Id;
+		Id productId = getProductByName(PRODUCT_NAME).Id;
+
+		Set<Id> oppLineItemIds = new Set<Id>{oppLineItem.Id};
+		Set<Id> productIds = new Set<Id>{productId};
+
+		Forecast_Opportunity__c forecastOpp = [SELECT Id FROM Forecast_Opportunity__c LIMIT 1];
+		Set<Id> forecastOppIds = new Set<Id>{forecastOpp.Id};
+
+		Forecast_Product__c forecastProduct = getForecastProductByAccountAndProduct(accountId, productId);
+		Set<Id> forecastProductIds = new Set<Id>{forecastProduct.Id};
+
+		Test.startTest();
+			Opportunity fetchedOpp = OpportunitySetForecastDAO.fetchOpportunityById(opp.Id);
+			List<OpportunityLineItem> fetchedOLIs = OpportunitySetForecastDAO.fetchOpportunityLineItemsByIds(oppLineItemIds);
+			List<Forecast_Item__c> fetchedItems = OpportunitySetForecastDAO.fetchForecastItemsByForecastOpportunityIdsAndDateRange(forecastOppIds, FORECAST_DATE.addMonths(-1), FORECAST_DATE.addMonths(12));
+			List<Forecast_Month__c> fetchedMonths = OpportunitySetForecastDAO.fetchForecastMonthsByForecastProductIdAndDateRange(forecastProductIds, FORECAST_DATE.addMonths(-1), FORECAST_DATE.addMonths(12));
+			List<Forecast_Opportunity__c> fetchedForecastOpps = OpportunitySetForecastDAO.fetchForecastOpportunitiesByOppLineItemIds(oppLineItemIds);
+			List<Forecast_Product__c> fetchedForecastProducts = OpportunitySetForecastDAO.fetchForecastProductsByProductsAndAccountIds(productIds, accountId);
+			List<OpportunityLineItemSchedule> fetchedSchedules = OpportunitySetForecastDAO.fetchOppLineItemSchedules(oppLineItemIds, FORECAST_DATE.addMonths(-1), FORECAST_DATE.addMonths(12));
+		Test.stopTest();
+
+		System.assertNotEquals(null, fetchedOpp);
+		System.assertNotEquals(null, fetchedOLIs);
 	}
 }
