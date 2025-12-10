@@ -872,7 +872,7 @@ public static string insertProduct (String prodJson,String accountId)
 				SELECT Id, Forecast__r.Month__c
 				FROM Forecast_Item__c
 				WHERE Forecast_Adjustment__c = :adjustmentId
-				AND Forecast__r.Month__c >= :Date.today().toStartOfMonth()
+				AND Forecast__r.Month__c >= :Date.today().addYears(-1).toStartOfMonth()
 			];
 
 			for(Forecast_Item__c item: itemsToUpdate){
@@ -892,7 +892,7 @@ public static string insertProduct (String prodJson,String accountId)
 				SELECT Id, Forecast__r.Month__c
 				FROM Forecast_Item__c
 				WHERE Forecast_Adjustment__c = :adjustmentId
-				AND Forecast__r.Month__c >= :Date.today().toStartOfMonth()
+				AND Forecast__r.Month__c >= :Date.today().addYears(-1).toStartOfMonth()
 			];
 			for(Forecast_Item__c item: items){
 				item.Active__c = false;
@@ -909,7 +909,7 @@ public static string insertProduct (String prodJson,String accountId)
 			SELECT Id, Forecast__r.Month__c
 			FROM Forecast_Item__c
 			WHERE Forecast_Opportunity__c = :oppForecastId
-			AND Forecast__r.Month__c >= :Date.today().toStartOfMonth()
+			AND Forecast__r.Month__c >= :Date.today().addYears(-1).toStartOfMonth()
 		];
 
 		Forecast_Opportunity__c forecastOpp = new Forecast_Opportunity__c(Id = oppForecastId);
@@ -933,7 +933,7 @@ public static string insertProduct (String prodJson,String accountId)
 	) {
 		try {
 			system.debug('productId-->'+productId);
-			return new ForecastWrapper(null, productId, Date.today().toStartOfMonth(), volume, searchTerm, pageSize, pageNumber)
+			return new ForecastWrapper(null, productId, Date.today().addYears(-1).toStartOfMonth(), volume, searchTerm, pageSize, pageNumber)
 				.setForecast().build();
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
@@ -950,7 +950,7 @@ public static string insertProduct (String prodJson,String accountId)
 		Integer pageNumber
 	) {
 		try {
-			return new ForecastWrapper(accountId, null, Date.today().toStartOfMonth(), volume, searchTerm, pageSize, pageNumber)
+			return new ForecastWrapper(accountId, null, Date.today().addYears(-1).toStartOfMonth(), volume, searchTerm, pageSize, pageNumber)
 				.setForecast().build();
 		} catch (Exception e) {
 			throw new AuraHandledException(e.getMessage());
@@ -1071,7 +1071,7 @@ public static string insertProduct (String prodJson,String accountId)
 						(SELECT Id, Month__c, Adjustments_Total__c, Base_Total__c, Current_Orders__c,
 							Previous_Year_Orders__c, Opportunities_Total__c, Forecast_Total__c
 							FROM Forecast_Months__r
-							WHERE Month__c >= :Date.today().toStartOfMonth()
+							WHERE Month__c >= :Date.today().addYears(-1).toStartOfMonth()
 							ORDER BY Month__c ASC)
 						FROM Forecast_Product__c
 						WHERE Product__c =: productId
@@ -1090,7 +1090,7 @@ public static string insertProduct (String prodJson,String accountId)
 						(SELECT Id, Month__c, Adjustments_Total__c, Base_Total__c, Current_Orders__c,
 							Previous_Year_Orders__c, Opportunities_Total__c, Forecast_Total__c
 							FROM Forecast_Months__r
-							WHERE Month__c >= :Date.today().toStartOfMonth()
+							WHERE Month__c >= :Date.today().addYears(-1).toStartOfMonth()
 							ORDER BY Month__c ASC)
 						FROM Forecast_Product__c
 						WHERE Product__c =: productId
@@ -1111,7 +1111,7 @@ public static string insertProduct (String prodJson,String accountId)
 						(SELECT Id, Month__c, Adjustments_Total__c, Base_Total__c, Current_Orders__c,
 							Previous_Year_Orders__c, Opportunities_Total__c, Forecast_Total__c
 							FROM Forecast_Months__r
-							WHERE Month__c >= :Date.today().toStartOfMonth()
+							WHERE Month__c >= :Date.today().addYears(-1).toStartOfMonth()
 							ORDER BY Month__c ASC)
 						FROM Forecast_Product__c
 						WHERE Account__c =: accountId
@@ -1130,7 +1130,7 @@ public static string insertProduct (String prodJson,String accountId)
 						(SELECT Id, Month__c, Adjustments_Total__c, Base_Total__c, Current_Orders__c,
 							Previous_Year_Orders__c, Opportunities_Total__c, Forecast_Total__c
 							FROM Forecast_Months__r
-							WHERE Month__c >= :Date.today().toStartOfMonth()
+							WHERE Month__c >= :Date.today().addYears(-1).toStartOfMonth()
 							ORDER BY Month__c ASC)
 						FROM Forecast_Product__c
 						WHERE Account__c =: accountId
