@@ -339,4 +339,400 @@ private class ForecastCtrlTest {
     {
         ForecastCtrl.justIncrement();
     }
+
+    @isTest
+    private static void getDateRangeWithMonthsTest(){
+        Test.startTest();
+            List<String> dateRange = ForecastCtrl.getDateRangeWithMonths(6);
+        Test.stopTest();
+        System.assertNotEquals(null, dateRange);
+    }
+
+    @isTest
+    private static void getUploadTemplateTest(){
+        Test.startTest();
+            String templateWithAccount = ForecastCtrl.getUploadTemplate(true);
+            String templateWithoutAccount = ForecastCtrl.getUploadTemplate(false);
+        Test.stopTest();
+        System.assert(templateWithAccount.contains('AccountId'));
+        System.assert(!templateWithoutAccount.contains('AccountId'));
+    }
+
+    @isTest
+    private static void deleteForecastingTest(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        ForecastCtrl.enableForecast(acc.Id);
+        ForecastCtrl.enableProductForecast(acc.Id, getForecastWrapper(product), 'cases');
+
+        Test.startTest();
+            ForecastCtrl.deleteForecasting(acc.Id);
+        Test.stopTest();
+
+        List<Forecast_Product__c> forecasts = [SELECT Id FROM Forecast_Product__c WHERE Account__c = :acc.Id];
+        System.assertEquals(0, forecasts.size());
+    }
+
+    @isTest
+    private static void updatePriceFPTest(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        ForecastCtrl.enableForecast(acc.Id);
+        ForecastCtrl.enableProductForecast(acc.Id, getForecastWrapper(product), 'cases');
+
+        Test.startTest();
+            ForecastCtrl.updatePriceFP(acc.Id, product.Id, 100.00);
+        Test.stopTest();
+    }
+
+    @isTest
+    private static void getForecastByProductTest(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        ForecastCtrl.enableForecast(acc.Id);
+        ForecastCtrl.enableProductForecast(acc.Id, getForecastWrapper(product), 'cases');
+
+        Test.startTest();
+            ForecastCtrl.ForecastWrapper wrapper = ForecastCtrl.getForecastByProduct(product.Id, 'cases', '', 5, 1);
+        Test.stopTest();
+
+        System.assertNotEquals(null, wrapper);
+    }
+
+    @isTest
+    private static void getForecastWithSearchTermTest(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        ForecastCtrl.enableForecast(acc.Id);
+        ForecastCtrl.enableProductForecast(acc.Id, getForecastWrapper(product), 'cases');
+
+        Test.startTest();
+            ForecastCtrl.ForecastWrapper wrapper = ForecastCtrl.getForecast(acc.Id, 'cases', 'Test', 5, 1);
+        Test.stopTest();
+
+        System.assertNotEquals(null, wrapper);
+    }
+
+    @isTest
+    private static void forecastOpportunityApprovalTest(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        ForecastCtrl.enableForecast(acc.Id);
+        ForecastCtrl.enableProductForecast(acc.Id, getForecastWrapper(product), 'cases');
+
+        // Create forecast opportunity and item
+        Forecast_Product__c fp = [SELECT Id FROM Forecast_Product__c WHERE Account__c = :acc.Id AND Product__c = :product.Id LIMIT 1];
+
+        Forecast_Month__c fm = [SELECT Id FROM Forecast_Month__c WHERE Forecast_Product__c = :fp.Id LIMIT 1];
+
+        Forecast_Opportunity__c forecastOpp = new Forecast_Opportunity__c(
+            External_Id__c = acc.Id + '-' + product.Id + '-test-opp',
+            Fulfillment__c = Constants.forecastItem.FULFILLMENT_DIRECT
+        );
+        insert forecastOpp;
+
+        Forecast_Item__c item = new Forecast_Item__c(
+            Forecast__c = fm.Id,
+            Forecast_Opportunity__c = forecastOpp.Id,
+            Item_Type__c = Constants.forecastItem.ITEM_TYPE_OPP_PRODUCT,
+            Quantity__c = 100,
+            Fulfillment__c = Constants.forecastItem.FULFILLMENT_DIRECT,
+            External_Id__c = acc.Id + '-' + product.Id + '-test-item'
+        );
+        insert item;
+
+        Test.startTest();
+            ForecastCtrl.forecastOpportunityApproval(forecastOpp.Id, Constants.approval.APPROVED);
+        Test.stopTest();
+
+        Forecast_Opportunity__c updatedOpp = [SELECT BU_Approval__c FROM Forecast_Opportunity__c WHERE Id = :forecastOpp.Id];
+        System.assertEquals(Constants.approval.APPROVED, updatedOpp.BU_Approval__c);
+    }
+
+    @isTest
+    private static void getHistoricalForecastByAccountTest(){
+        Account acc = getAccount();
+
+        Test.startTest();
+            List<Historical_Forecast__c> forecasts = ForecastCtrl.getHistoricalForecastByAccount(acc.Id);
+        Test.stopTest();
+
+        System.assertNotEquals(null, forecasts);
+    }
+
+    @isTest
+    private static void getHistoricalForecastByProductTest(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        Test.startTest();
+            List<Historical_Forecast__c> forecasts = ForecastCtrl.getHistoricalForecastByProduct(acc.Id, product.Id);
+        Test.stopTest();
+
+        System.assertNotEquals(null, forecasts);
+    }
+
+    @isTest
+    private static void getForecastProductTest(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        ForecastCtrl.enableForecast(acc.Id);
+        ForecastCtrl.enableProductForecast(acc.Id, getForecastWrapper(product), 'cases');
+
+        Test.startTest();
+            List<Forecast_Product__c> forecasts = ForecastCtrl.getForecastProduct(acc.Id);
+        Test.stopTest();
+
+        System.assert(forecasts.size() > 0);
+    }
+
+    @isTest
+    private static void getCurrencyCodeTest(){
+        Account acc = getAccount();
+
+        Test.startTest();
+            String currencyCode = ForecastCtrl.getCurrencyCode(acc.Id);
+        Test.stopTest();
+
+        System.assertNotEquals(null, currencyCode);
+    }
+
+    @isTest
+    private static void testForecastOpportunityEntryWrapper(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        ForecastCtrl.enableForecast(acc.Id);
+        ForecastCtrl.enableProductForecast(acc.Id, getForecastWrapper(product), 'cases');
+
+        Forecast_Product__c fp = [SELECT Id FROM Forecast_Product__c WHERE Account__c = :acc.Id AND Product__c = :product.Id LIMIT 1];
+        Forecast_Month__c fm = [SELECT Id, Month__c FROM Forecast_Month__c WHERE Forecast_Product__c = :fp.Id LIMIT 1];
+
+        Forecast_Opportunity__c forecastOpp = new Forecast_Opportunity__c(
+            External_Id__c = acc.Id + '-' + product.Id + '-wrapper-test',
+            Fulfillment__c = Constants.forecastItem.FULFILLMENT_DIRECT,
+            Comment__c = 'Test Comment',
+            BU_Approval__c = Constants.approval.APPROVED
+        );
+        insert forecastOpp;
+
+        Forecast_Item__c item = new Forecast_Item__c(
+            Forecast__c = fm.Id,
+            Forecast_Opportunity__c = forecastOpp.Id,
+            Item_Type__c = Constants.forecastItem.ITEM_TYPE_OPP_PRODUCT,
+            Quantity__c = 100,
+            Fulfillment__c = Constants.forecastItem.FULFILLMENT_DIRECT,
+            External_Id__c = acc.Id + '-' + product.Id + '-wrapper-item',
+            Active__c = true
+        );
+        insert item;
+
+        Test.startTest();
+            List<String> dateRange = ForecastCtrl.getDateRange();
+            Forecast_Item__c queriedItem = [
+                SELECT Id, Forecast_Opportunity__c, Forecast_Opportunity__r.Comment__c,
+                       Forecast_Opportunity__r.BU_Approval__c, Forecast_Opportunity__r.Opportunity_Product__r.OpportunityId,
+                       Forecast_Opportunity__r.Opportunity_Product__r.Opportunity.Name,
+                       Quantity__c, Fulfillment__c, Item_Type__c, Forecast__r.Month__c
+                FROM Forecast_Item__c WHERE Id = :item.Id
+            ];
+            ForecastOpportunityEntryWrapper wrapper = new ForecastOpportunityEntryWrapper(queriedItem, dateRange);
+        Test.stopTest();
+
+        System.assertEquals(forecastOpp.Id, wrapper.recordId);
+        System.assertEquals(true, wrapper.approved);
+    }
+
+    @isTest
+    private static void testForecastOpportunityEntryWrapperRejected(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        ForecastCtrl.enableForecast(acc.Id);
+        ForecastCtrl.enableProductForecast(acc.Id, getForecastWrapper(product), 'cases');
+
+        Forecast_Product__c fp = [SELECT Id FROM Forecast_Product__c WHERE Account__c = :acc.Id AND Product__c = :product.Id LIMIT 1];
+        Forecast_Month__c fm = [SELECT Id FROM Forecast_Month__c WHERE Forecast_Product__c = :fp.Id LIMIT 1];
+
+        Forecast_Opportunity__c forecastOpp = new Forecast_Opportunity__c(
+            External_Id__c = acc.Id + '-' + product.Id + '-rejected-test',
+            Fulfillment__c = Constants.forecastItem.FULFILLMENT_DIRECT,
+            BU_Approval__c = Constants.approval.REJECTED
+        );
+        insert forecastOpp;
+
+        Forecast_Item__c item = new Forecast_Item__c(
+            Forecast__c = fm.Id,
+            Forecast_Opportunity__c = forecastOpp.Id,
+            Item_Type__c = Constants.forecastItem.ITEM_TYPE_OPP_PRODUCT,
+            Quantity__c = 100,
+            Fulfillment__c = Constants.forecastItem.FULFILLMENT_DIRECT,
+            External_Id__c = acc.Id + '-' + product.Id + '-rejected-item',
+            Active__c = true
+        );
+        insert item;
+
+        Test.startTest();
+            List<String> dateRange = ForecastCtrl.getDateRange();
+            Forecast_Item__c queriedItem = [
+                SELECT Id, Forecast_Opportunity__c, Forecast_Opportunity__r.Comment__c,
+                       Forecast_Opportunity__r.BU_Approval__c, Forecast_Opportunity__r.Opportunity_Product__r.OpportunityId,
+                       Forecast_Opportunity__r.Opportunity_Product__r.Opportunity.Name,
+                       Quantity__c, Fulfillment__c, Item_Type__c, Forecast__r.Month__c
+                FROM Forecast_Item__c WHERE Id = :item.Id
+            ];
+            ForecastOpportunityEntryWrapper wrapper = new ForecastOpportunityEntryWrapper(queriedItem, dateRange);
+        Test.stopTest();
+
+        System.assertEquals(true, wrapper.rejected);
+    }
+
+    @isTest
+    private static void testForecastAdjustmentEntryWrapper(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        ForecastCtrl.enableForecast(acc.Id);
+        ForecastCtrl.enableProductForecast(acc.Id, getForecastWrapper(product), 'cases');
+
+        Forecast_Product__c fp = [SELECT Id FROM Forecast_Product__c WHERE Account__c = :acc.Id AND Product__c = :product.Id LIMIT 1];
+        Forecast_Month__c fm = [SELECT Id FROM Forecast_Month__c WHERE Forecast_Product__c = :fp.Id LIMIT 1];
+
+        Forecast_Adjustment__c adjustment = new Forecast_Adjustment__c(
+            Name = 'Test Adjustment',
+            Comment__c = 'Adjustment Comment'
+        );
+        insert adjustment;
+
+        Forecast_Item__c item = new Forecast_Item__c(
+            Forecast__c = fm.Id,
+            Forecast_Adjustment__c = adjustment.Id,
+            Item_Type__c = Constants.forecastItem.ITEM_TYPE_ADJUSTMENT,
+            Quantity__c = 50,
+            Fulfillment__c = Constants.forecastItem.FULFILLMENT_LOCAL,
+            External_Id__c = acc.Id + '-' + product.Id + '-adj-item',
+            Active__c = true
+        );
+        insert item;
+
+        Test.startTest();
+            List<String> dateRange = ForecastCtrl.getDateRange();
+            Forecast_Item__c queriedItem = [
+                SELECT Id, Forecast_Adjustment__c, Forecast_Adjustment__r.Name,
+                       Forecast_Adjustment__r.Comment__c, Forecast_Adjustment__r.Forecast_Opportunity__c,
+                       Forecast_Adjustment__r.Forecast_Opportunity__r.Opportunity_Product__r.Opportunity.Name,
+                       Quantity__c, Fulfillment__c, Item_Type__c, Forecast__r.Month__c
+                FROM Forecast_Item__c WHERE Id = :item.Id
+            ];
+            ForecastAdjustmentEntryWrapper wrapper = new ForecastAdjustmentEntryWrapper(queriedItem, dateRange);
+        Test.stopTest();
+
+        System.assertEquals(adjustment.Id, wrapper.recordId);
+        System.assertEquals('Test Adjustment', wrapper.name);
+    }
+
+    @isTest
+    private static void testConstantsCoverage(){
+        Test.startTest();
+            // Access all constant types
+            String approved = Constants.approval.APPROVED;
+            String rejected = Constants.approval.REJECTED;
+            String pending = Constants.approval.PENDING;
+
+            String accRecordTypeNACA = Constants.account.RECORD_TYPE_NACA;
+            String accRecordTypeEMEA = Constants.account.RECORD_TYPE_EMEA;
+            String customerStatus = Constants.account.CUSTOMER_STATUS_CUSTOMER;
+            String branchEMEA = Constants.account.BRANCH_EMEA;
+            String branchNACA = Constants.account.BRANCH_NACA;
+
+            String caseOriginEmail = Constants.caseConstants.ORIGIN_EMAIL;
+            String caseOriginPhone = Constants.caseConstants.ORIGIN_PHONE;
+            String caseOriginWeb = Constants.caseConstants.ORIGIN_WEB;
+            String caseStatusNew = Constants.caseConstants.STATUS_NEW;
+            String casePriority = Constants.caseConstants.PRIORITY_MEDIUM_RETURNS;
+            String caseType = Constants.caseConstants.TYPE_ORDER_PLACEMENT;
+
+            String itemTypeCurrentOrder = Constants.forecastItem.ITEM_TYPE_CURRENT_ORDER;
+            String itemTypePreviousYear = Constants.forecastItem.ITEM_TYPE_PREVIOUS_YEAR_ORDER;
+            String itemTypeAdjustment = Constants.forecastItem.ITEM_TYPE_ADJUSTMENT;
+            String itemTypeBase = Constants.forecastItem.ITEM_TYPE_BASE;
+            String itemTypeOpp = Constants.forecastItem.ITEM_TYPE_OPP_PRODUCT;
+            String fulfillmentDirect = Constants.forecastItem.FULFILLMENT_DIRECT;
+            String fulfillmentLocal = Constants.forecastItem.FULFILLMENT_LOCAL;
+            String warehouseCode = Constants.forecastItem.WAREHOUSE_DIRECT_CODE;
+
+            String leadRecordType = Constants.lead.RECORD_TYPE_NACA;
+            String leadSource = Constants.lead.SOURCE_SOL_M_WEBPAGE;
+
+            String oppStageLost = Constants.opportunity.STAGE_CLOSED_LOST;
+            String oppStageWon = Constants.opportunity.STAGE_CLOSED_WON;
+            String oppStageDisq = Constants.opportunity.STAGE_DISQUALIFIED;
+            String oppStageProsp = Constants.opportunity.STAGE_PROSPECTING;
+            String oppStageNeg = Constants.opportunity.STAGE_NEGOTIATION;
+            String oppStageForec = Constants.opportunity.STAGE_FORECASTING;
+            String oppStageAnalyzing = Constants.opportunity.STAGE_ANALYZING;
+            String oppRecordTypeNACA = Constants.opportunity.RECORD_TYPE_NACA;
+            String oppRecordTypeEMEA = Constants.opportunity.RECORD_TYPE_EMEA;
+            String oppRecordTypeTender = Constants.opportunity.RECORD_TYPE_EMEA_TENDER;
+            String oppRecordTypeLOT = Constants.opportunity.RECORD_TYPE_EMEA_TENDER_LOT;
+
+            String orderStatusOpen = Constants.order.STATUS_OPEN;
+            String orderStatusClosed = Constants.order.STATUS_CLOSED;
+            String orderStatusCanceled = Constants.order.STATUS_CANCELED;
+            String orderRecordTypeNACA = Constants.order.RECORD_TYPE_NACA;
+            String orderRecordTypeEMEA = Constants.order.RECORD_TYPE_EMEA;
+            String orderTypeCRM = Constants.order.TYPE_CRM;
+            String orderTypeSAP = Constants.order.TYPE_SAP;
+            String nacaSAPPrefix = Constants.order.NACA_SAP_PREFIX;
+            String emeaSAPPrefix = Constants.order.EMEA_SAP_PREFIX;
+
+            Set<String> currencies = Constants.pricebookEntry.CURRENCIES;
+
+            Id standardPricebookId = Constants.priceBook.STANDARD_PRICEBOOK_ID;
+            String pbRecordTypeNACA = Constants.priceBook.RECORD_TYPE_NACA;
+            String pbRecordTypeEMEA = Constants.priceBook.RECORD_TYPE_EMEA;
+
+            String quoteRecordTypeNACA = Constants.quote.RECORD_TYPE_NACA;
+            String quoteRecordTypeEMEA = Constants.quote.RECORD_TYPE_EMEA;
+            Map<String, String> quoteMap = Constants.quote.recordTypeIdByOpportunityRTId;
+
+            String taskStatusOpen = Constants.task.STATUS_OPEN;
+            String taskStatusCompleted = Constants.task.STATUS_COMPLETED;
+            String taskNotificationType = Constants.task.CUSTOM_NOTIFICATION_TYPE_NAME;
+        Test.stopTest();
+
+        System.assertNotEquals(null, approved);
+    }
+
+    @isTest
+    private static void disableProductDirectTest(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        ForecastCtrl.enableForecast(acc.Id);
+        ForecastCtrl.enableProductForecast(acc.Id, getForecastWrapper(product), 'cases');
+
+        Test.startTest();
+            ForecastCtrl.disableProduct(acc.Id, product.Id, true);
+        Test.stopTest();
+    }
+
+    @isTest
+    private static void disableProductLocalTest(){
+        Account acc = getAccount();
+        Product2 product = getProduct();
+
+        ForecastCtrl.enableForecast(acc.Id);
+        ForecastCtrl.enableProductForecast(acc.Id, getForecastWrapper(product), 'cases');
+
+        Test.startTest();
+            ForecastCtrl.disableProduct(acc.Id, product.Id, false);
+        Test.stopTest();
+    }
 }
