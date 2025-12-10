@@ -2,7 +2,7 @@
 public with sharing class CreateForecastMonthsBatchTest {
 	private final static String PRODUCT_NAME = 'Test-CreateForecastMonthsBatch-product';
 	private final static String ACCOUNT_NAME = 'Test-CreateForecastMonthsBatch-account';
-	private final static Date MONTH = Date.today().toStartOfMonth().addYears(1).addMonths(-1);
+	private final static Date MONTH = Date.today().toStartOfMonth().addYears(2).addMonths(-1);
 
 	@TestSetup
 	static void setup(){
