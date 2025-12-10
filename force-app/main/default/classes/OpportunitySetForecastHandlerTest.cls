@@ -233,12 +233,12 @@ private class OpportunitySetForecastHandlerTest {
 	}
 
 	private static Opportunity getOpportunityByRecordType(Id recordTypeId) {
-		return [SELECT Id FROM Opportunity WHERE RecordTypeId = :recordTypeId LIMIT 1];
+		return [SELECT Id, CloseDate FROM Opportunity WHERE RecordTypeId = :recordTypeId LIMIT 1];
 	}
 
 	private static List<OpportunityLineItem> getOppLineItemsByOpportunityId(Id oppId) {
 		return [
-				SELECT Id, Product2Id, Product2.Name, Product2.Product_Line__c, Product2.ProductCode, CurrencyIsoCode, Product2.NACA_Case_Qty__c, Product2.EMEA_Case_Qty__c
+				SELECT Id, Product2Id, Product2.Name, Product2.Product_Line__c, Product2.ProductCode, CurrencyIsoCode, Product2.NACA_Case_Qty__c, Product2.EMEA_Case_Qty__c, HasSchedule, Quantity
 				FROM OpportunityLineItem
 				WHERE OpportunityId = :oppId
 		];
