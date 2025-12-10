@@ -146,7 +146,6 @@ private class OpportunitySetForecastHandlerTest {
 
 		Opportunity opp = getOpportunityByRecordType(Constants.opportunity.RECORD_TYPE_NACA_ID);
 		OpportunityLineItem oppLineItem = getOppLineItemsByOpportunityId(opp.Id).get(0);
-		OpportunityLineItemSchedule schedule = getSchedulesByOppLineItemId(oppLineItem.Id).get(0);
 
 		Id accountId = getAccountByName(ACCOUNT_NAME).Id;
 		Id productId = getProductByName(PRODUCT_NAME).Id;
@@ -163,12 +162,13 @@ private class OpportunitySetForecastHandlerTest {
 				.setForecastOpportunityData(forecastOpportunity.Id, 'test comment', Constants.forecastItem.FULFILLMENT_DIRECT);
 		productWrapper.fulfillment = 'directShipment';
 
+		// Use future dates to avoid conflicts with TestSetup data
 		SetForecastScheduleWrapper scheduleWrapper1 = new SetForecastScheduleWrapper();
-		scheduleWrapper1.scheduleDate = schedule.ScheduleDate;
+		scheduleWrapper1.scheduleDate = FORECAST_DATE.addMonths(6);
 		scheduleWrapper1.quantity = 20;
 
 		SetForecastScheduleWrapper scheduleWrapper2 = new SetForecastScheduleWrapper();
-		scheduleWrapper2.scheduleDate = FORECAST_DATE.addMonths(1);
+		scheduleWrapper2.scheduleDate = FORECAST_DATE.addMonths(7);
 		scheduleWrapper2.quantity = 20;
 
 		productWrapper.scheduleWrappers = new List<SetForecastScheduleWrapper>{scheduleWrapper1, scheduleWrapper2};
