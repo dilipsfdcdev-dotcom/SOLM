@@ -46,7 +46,7 @@
             Bonjour {!Lead.FirstName},<br><br>
             Merci de nous avoir contactés. Nous avons bien reçu votre message et notre équipe vous répondra dans les plus brefs délais.<br><br>
             En attendant, vous pouvez consulter notre
-            <a href="https://solcotton-france-prod.myshopify.com/pages/faq" style="color:#0066CC; text-decoration:underline;">FAQ</a>
+            <a href="https://solcotton.com/pages/faq" style="color:#0066CC; text-decoration:underline;">FAQ</a>
             pour obtenir des informations rapides.<br><br>
             Merci pour votre confiance,<br><br>
             L’équipe SolCotton
@@ -66,7 +66,7 @@
 
             <!-- WEBSITE LINK -->
             <div style="text-align:center; font-size:14px; padding-bottom:18px;">
-              <a href="https://solcotton-france-prod.myshopify.com/" target="_blank"
+              <a href="https://solcotton.com/" target="_blank"
                  style="color:#0066CC; text-decoration:underline;">
                 www.solcotton.com
               </a>
