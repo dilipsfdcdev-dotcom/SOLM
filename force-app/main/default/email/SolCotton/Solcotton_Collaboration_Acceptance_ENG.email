@@ -34,31 +34,21 @@
           </td>
         </tr>
 
-        <!-- MESSAGE BLOCK -->
+        <!-- MESSAGE -->
         <tr>
-          <td class="content" style="padding:30px 24px; color:#181818; font-size:14px; line-height:150%; text-align:left;">
-            <p>Hello {{{Recipient.FirstName}}},</p>
-            <p>Thank you so much for your message and for your interest in SolCotton. We took the time to explore your content, and we would be delighted to collaborate with you.</p>
-            <p>Your content, especially [insert personalized compliment here: "your natural approach," "your eye for detail," "your minimalist aesthetic," etc.] aligns perfectly with our vision. We believe a collaboration could bring great value to both of our worlds.</p>
-            <p>Here's what we would like to propose:</p>
-            <ul>
-                <li>[Brief details about the product send-out, or compensation, or expected format]</li>
-                <li>[Mention key dates]</li>
-            </ul>
-            <p>To move forward, could you please share:</p>
-            <ul>
-                <li>your postal address,</li>
-                <li>your skin type (if applicable),</li>
-                <li>and any other useful information (preferences, content format, availability, etc.)?</li>
-            </ul>
-            <p>We're excited to start this collaboration with you and are happy to discuss any details further.</p>
-          </td>
-        </tr>
-
-        <!-- SIGN OFF -->
-        <tr>
-          <td style="text-align:center; color:#181818; font-size:14px; padding:0 24px 24px;">
-            With softness and care,<br>
+          <td style="padding:20px; text-align:center; font-size:14px; line-height:150%; color:#181818;">
+            Hello {!Lead.FirstName},<br><br>
+            Thank you so much for your message and for your interest in SolCotton. We took the time to explore your content, and we would be delighted to collaborate with you.<br><br>
+            Your content, especially [insert personalized compliment here: "your natural approach," "your eye for detail," "your minimalist aesthetic," etc.] aligns perfectly with our vision. We believe a collaboration could bring great value to both of our worlds.<br><br>
+            Here's what we would like to propose:<br>
+            - [Brief details about the product send-out, or compensation, or expected format]<br>
+            - [Mention key dates]<br><br>
+            To move forward, could you please share:<br>
+            - your postal address,<br>
+            - your skin type (if applicable),<br>
+            - and any other useful information (preferences, content format, availability, etc.)?<br><br>
+            We're excited to start this collaboration with you and are happy to discuss any details further.<br><br>
+            With softness and care,<br><br>
             The SolCotton team
           </td>
         </tr>

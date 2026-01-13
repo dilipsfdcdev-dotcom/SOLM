@@ -34,20 +34,15 @@
           </td>
         </tr>
 
-        <!-- MESSAGE BLOCK -->
+        <!-- MESSAGE -->
         <tr>
-          <td class="content" style="padding:30px 24px; color:#181818; font-size:14px; line-height:150%; text-align:left;">
-            <p>Hello {{{Recipient.FirstName}}},</p>
-            <p>We have received your request.</p>
-            <p>We are pleased to inform you that your order is currently in transit. It should arrive within the next few days, depending on your carrier's delivery times.</p>
-            <p>Thank you for your trust and your patience.<br>Please feel free to contact us if you have any questions.</p>
-          </td>
-        </tr>
-
-        <!-- SIGN OFF -->
-        <tr>
-          <td style="text-align:center; color:#181818; font-size:14px; padding:0 24px 24px;">
-            With softness and care,<br>
+          <td style="padding:20px; text-align:center; font-size:14px; line-height:150%; color:#181818;">
+            Hello {!Lead.FirstName},<br><br>
+            We have received your request.<br><br>
+            We are pleased to inform you that your order is currently in transit. It should arrive within the next few days, depending on your carrier's delivery times.<br><br>
+            Thank you for your trust and your patience.<br>
+            Please feel free to contact us if you have any questions.<br><br>
+            With softness and care,<br><br>
             The SolCotton team
           </td>
         </tr>

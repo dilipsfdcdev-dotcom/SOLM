@@ -34,20 +34,14 @@
           </td>
         </tr>
 
-        <!-- MESSAGE BLOCK -->
+        <!-- MESSAGE -->
         <tr>
-          <td class="content" style="padding:30px 24px; color:#181818; font-size:14px; line-height:150%; text-align:left;">
-            <p>Hi {{{Recipient.FirstName}}},</p>
-            <p>Thank you for reaching out.</p>
-            <p>To create a SolCotton account, begin by selecting the account icon at the top right of our website. Enter your email address, then check your inbox for a message from us. Tap the secure login link, you will be signed in instantly and your account will be created at the same time.</p>
-            <p>No password is required, every future sign-in works the same way, simply request a new secure link.</p>
-          </td>
-        </tr>
-
-        <!-- SIGN OFF -->
-        <tr>
-          <td style="text-align:center; color:#181818; font-size:14px; padding:0 24px 24px;">
-            With softness and care,<br>
+          <td style="padding:20px; text-align:center; font-size:14px; line-height:150%; color:#181818;">
+            Hi {!Lead.FirstName},<br><br>
+            Thank you for reaching out.<br><br>
+            To create a SolCotton account, begin by selecting the account icon at the top right of our website. Enter your email address, then check your inbox for a message from us. Tap the secure login link, you will be signed in instantly and your account will be created at the same time.<br><br>
+            No password is required, every future sign-in works the same way, simply request a new secure link.<br><br>
+            With softness and care,<br><br>
             The SolCotton team
           </td>
         </tr>

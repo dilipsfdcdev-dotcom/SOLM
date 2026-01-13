@@ -34,20 +34,14 @@
           </td>
         </tr>
 
-        <!-- MESSAGE BLOCK -->
+        <!-- MESSAGE -->
         <tr>
-          <td class="content" style="padding:30px 24px; color:#181818; font-size:14px; line-height:150%; text-align:left;">
-            <p>Hello {{{Recipient.FirstName}}},</p>
-            <p>We have received your message.</p>
-            <p>Thank you for contacting us and for providing the information regarding your product. We are sincerely sorry that your order arrived damaged.</p>
-            <p>We have issued a full refund, which will be credited to your payment method in the coming days. We apologize for this inconvenience and hope to see you again soon on SolCotton.</p>
-          </td>
-        </tr>
-
-        <!-- SIGN OFF -->
-        <tr>
-          <td style="text-align:center; color:#181818; font-size:14px; padding:0 24px 24px;">
-            With softness and care,<br>
+          <td style="padding:20px; text-align:center; font-size:14px; line-height:150%; color:#181818;">
+            Hello {!Lead.FirstName},<br><br>
+            We have received your message.<br><br>
+            Thank you for contacting us and for providing the information regarding your product. We are sincerely sorry that your order arrived damaged.<br><br>
+            We have issued a full refund, which will be credited to your payment method in the coming days. We apologize for this inconvenience and hope to see you again soon on SolCotton.<br><br>
+            With softness and care,<br><br>
             The SolCotton team
           </td>
         </tr>

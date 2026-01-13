@@ -34,20 +34,14 @@
           </td>
         </tr>
 
-        <!-- MESSAGE BLOCK -->
+        <!-- MESSAGE -->
         <tr>
-          <td class="content" style="padding:30px 24px; color:#181818; font-size:14px; line-height:150%; text-align:left;">
-            <p>Hello {{{Recipient.FirstName}}},</p>
-            <p>We have received your return request for your order.</p>
-            <p>At SolCotton, customer satisfaction is a priority. We confirm that your refund has been processed and will be credited to your payment method in the coming days.</p>
-            <p>We understand that this may be disappointing and sincerely thank you for your understanding.</p>
-          </td>
-        </tr>
-
-        <!-- SIGN OFF -->
-        <tr>
-          <td style="text-align:center; color:#181818; font-size:14px; padding:0 24px 24px;">
-            With softness and care,<br>
+          <td style="padding:20px; text-align:center; font-size:14px; line-height:150%; color:#181818;">
+            Hello {!Lead.FirstName},<br><br>
+            We have received your return request for your order.<br><br>
+            At SolCotton, customer satisfaction is a priority. We confirm that your refund has been processed and will be credited to your payment method in the coming days.<br><br>
+            We understand that this may be disappointing and sincerely thank you for your understanding.<br><br>
+            With softness and care,<br><br>
             The SolCotton team
           </td>
         </tr>

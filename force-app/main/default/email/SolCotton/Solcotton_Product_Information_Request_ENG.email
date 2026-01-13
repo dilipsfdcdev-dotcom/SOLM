@@ -34,23 +34,17 @@
           </td>
         </tr>
 
-        <!-- MESSAGE BLOCK -->
+        <!-- MESSAGE -->
         <tr>
-          <td class="content" style="padding:30px 24px; color:#181818; font-size:14px; line-height:150%; text-align:left;">
-            <p>Hello {{{Recipient.FirstName}}},</p>
-            <p>Thank you for your message and for your interest in our products!</p>
-            <p>All our wipes are made of 100% cotton, with no additives or synthetic fibers. Their differences lie in the texture, thickness, and feel on the skin, each one designed for a specific self-care moment.</p>
-            <p><strong>L'Essentiel</strong> is your everyday companion: a thin and flexible 100% natural cotton fabric, hypoallergenic and free from synthetic fibers. Naturally soft and breathable, it is suitable for the whole family, including sensitive or irritated skin. Perfect for gentle nose care, drying the skin, or quick hygiene routines, it offers simple comfort day after day.</p>
-            <p><strong>La Délicate</strong> is a 100% cotton dry wipe, soft and plush, designed for sensitive and reactive skin. Ideal for makeup removal, applying toner, or daily skincare, it offers a supple, refined, and respectful touch for a gentle routine.</p>
-            <p><strong>La Divine</strong> is the thickest, densest, and most embracing of the SolCotton dry wipes. Still 100% natural cotton, free from synthetic fibers and dermatologically tested, it provides optimal comfort for dry or mature skin. Created for moments of relaxation, it enhances each gesture — removing a mask, cleansing, or offering the skin a moment of pure softness.</p>
-            <p>To guide you better, could you please tell me your skin type (dry, combination, sensitive, normal) and your main use?</p>
-          </td>
-        </tr>
-
-        <!-- SIGN OFF -->
-        <tr>
-          <td style="text-align:center; color:#181818; font-size:14px; padding:0 24px 24px;">
-            With softness and care,<br>
+          <td style="padding:20px; text-align:center; font-size:14px; line-height:150%; color:#181818;">
+            Hello {!Lead.FirstName},<br><br>
+            Thank you for your message and for your interest in our products!<br><br>
+            All our wipes are made of 100% cotton, with no additives or synthetic fibers. Their differences lie in the texture, thickness, and feel on the skin, each one designed for a specific self-care moment.<br><br>
+            <strong>L'Essentiel</strong> is your everyday companion: a thin and flexible 100% natural cotton fabric, hypoallergenic and free from synthetic fibers. Naturally soft and breathable, it is suitable for the whole family, including sensitive or irritated skin. Perfect for gentle nose care, drying the skin, or quick hygiene routines, it offers simple comfort day after day.<br><br>
+            <strong>La Délicate</strong> is a 100% cotton dry wipe, soft and plush, designed for sensitive and reactive skin. Ideal for makeup removal, applying toner, or daily skincare, it offers a supple, refined, and respectful touch for a gentle routine.<br><br>
+            <strong>La Divine</strong> is the thickest, densest, and most embracing of the SolCotton dry wipes. Still 100% natural cotton, free from synthetic fibers and dermatologically tested, it provides optimal comfort for dry or mature skin. Created for moments of relaxation, it enhances each gesture — removing a mask, cleansing, or offering the skin a moment of pure softness.<br><br>
+            To guide you better, could you please tell me your skin type (dry, combination, sensitive, normal) and your main use?<br><br>
+            With softness and care,<br><br>
             The SolCotton team
           </td>
         </tr>

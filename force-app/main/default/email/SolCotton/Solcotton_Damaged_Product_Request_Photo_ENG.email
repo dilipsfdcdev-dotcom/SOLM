@@ -34,20 +34,14 @@
           </td>
         </tr>
 
-        <!-- MESSAGE BLOCK -->
+        <!-- MESSAGE -->
         <tr>
-          <td class="content" style="padding:30px 24px; color:#181818; font-size:14px; line-height:150%; text-align:left;">
-            <p>Hello {{{Recipient.FirstName}}},</p>
-            <p>We have received your request.</p>
-            <p>We are sorry to hear that [describe the issue]. To assist you as quickly as possible, could you please send us a photo of the product in question, as well as your order number if not shared yet?</p>
-            <p>We look forward to resolving the issue for you!</p>
-          </td>
-        </tr>
-
-        <!-- SIGN OFF -->
-        <tr>
-          <td style="text-align:center; color:#181818; font-size:14px; padding:0 24px 24px;">
-            With softness and care,<br>
+          <td style="padding:20px; text-align:center; font-size:14px; line-height:150%; color:#181818;">
+            Hello {!Lead.FirstName},<br><br>
+            We have received your request.<br><br>
+            We are sorry to hear that [describe the issue]. To assist you as quickly as possible, could you please send us a photo of the product in question, as well as your order number if not shared yet?<br><br>
+            We look forward to resolving the issue for you!<br><br>
+            With softness and care,<br><br>
             The SolCotton team
           </td>
         </tr>

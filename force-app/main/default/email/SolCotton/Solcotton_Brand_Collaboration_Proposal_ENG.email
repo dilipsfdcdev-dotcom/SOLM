@@ -34,22 +34,16 @@
           </td>
         </tr>
 
-        <!-- MESSAGE BLOCK -->
+        <!-- MESSAGE -->
         <tr>
-          <td class="content" style="padding:30px 24px; color:#181818; font-size:14px; line-height:150%; text-align:left;">
-            <p>Hi,</p>
-            <p>I'm reaching out on behalf of SolCotton, a brand dedicated to 100% natural cotton care, celebrating softness, sustainability, and everyday comfort.</p>
-            <p>We've been following your brand with great interest and believe there could be a beautiful synergy between our worlds.</p>
-            <p>We'd love to explore a brand collaboration, perhaps around [e.g., a limited edition, co-branded box, or cross promotion] to create a meaningful, responsible, and elegant experience for our communities.</p>
-            <p>If the idea resonates with you, would you be open to a quick call to discuss it further? We'd be delighted to explore potential partnership opportunities together.</p>
-            <p>We're excited to start this collaboration with you and are happy to discuss any details further.</p>
-          </td>
-        </tr>
-
-        <!-- SIGN OFF -->
-        <tr>
-          <td style="text-align:center; color:#181818; font-size:14px; padding:0 24px 24px;">
-            With softness and care,<br>
+          <td style="padding:20px; text-align:center; font-size:14px; line-height:150%; color:#181818;">
+            Hi,<br><br>
+            I'm reaching out on behalf of SolCotton, a brand dedicated to 100% natural cotton care, celebrating softness, sustainability, and everyday comfort.<br><br>
+            We've been following your brand with great interest and believe there could be a beautiful synergy between our worlds.<br><br>
+            We'd love to explore a brand collaboration, perhaps around [e.g., a limited edition, co-branded box, or cross promotion] to create a meaningful, responsible, and elegant experience for our communities.<br><br>
+            If the idea resonates with you, would you be open to a quick call to discuss it further? We'd be delighted to explore potential partnership opportunities together.<br><br>
+            We're excited to start this collaboration with you and are happy to discuss any details further.<br><br>
+            With softness and care,<br><br>
             The SolCotton team
           </td>
         </tr>

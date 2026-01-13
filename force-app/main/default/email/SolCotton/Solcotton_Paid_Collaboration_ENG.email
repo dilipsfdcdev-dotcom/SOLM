@@ -34,27 +34,19 @@
           </td>
         </tr>
 
-        <!-- MESSAGE BLOCK -->
+        <!-- MESSAGE -->
         <tr>
-          <td class="content" style="padding:30px 24px; color:#181818; font-size:14px; line-height:150%; text-align:left;">
-            <p>Hi {{{Recipient.FirstName}}},</p>
-            <p>Thank you so much for reaching out and for your interest in collaborating with SolCotton. We'd be delighted to explore a paid partnership with you, your aesthetic and values align beautifully with our brand.</p>
-            <p>To help us tailor the collaboration, could you please share:</p>
-            <ul>
-                <li>Your latest audience and engagement statistics</li>
-                <li>Your preferred content formats (story, reel, post, video, etc.)</li>
-                <li>Your rate card or media kit</li>
-                <li>Your upcoming availability for posting</li>
-            </ul>
-            <p>Once we have this information, we'll get back to you quickly with a tailored proposal.</p>
-            <p>Looking forward to working together.</p>
-          </td>
-        </tr>
-
-        <!-- SIGN OFF -->
-        <tr>
-          <td style="text-align:center; color:#181818; font-size:14px; padding:0 24px 24px;">
-            With softness and care,<br>
+          <td style="padding:20px; text-align:center; font-size:14px; line-height:150%; color:#181818;">
+            Hi {!Lead.FirstName},<br><br>
+            Thank you so much for reaching out and for your interest in collaborating with SolCotton. We'd be delighted to explore a paid partnership with you, your aesthetic and values align beautifully with our brand.<br><br>
+            To help us tailor the collaboration, could you please share:<br>
+            - Your latest audience and engagement statistics<br>
+            - Your preferred content formats (story, reel, post, video, etc.)<br>
+            - Your rate card or media kit<br>
+            - Your upcoming availability for posting<br><br>
+            Once we have this information, we'll get back to you quickly with a tailored proposal.<br><br>
+            Looking forward to working together.<br><br>
+            With softness and care,<br><br>
             The SolCotton team
           </td>
         </tr>

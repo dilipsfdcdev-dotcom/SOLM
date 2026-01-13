@@ -34,26 +34,18 @@
           </td>
         </tr>
 
-        <!-- MESSAGE BLOCK -->
+        <!-- MESSAGE -->
         <tr>
-          <td class="content" style="padding:30px 24px; color:#181818; font-size:14px; line-height:150%; text-align:left;">
-            <p>Hi {{{Recipient.FirstName}}},</p>
-            <p>Thank you so much for your message and for your interest in SolCotton.</p>
-            <p>We love discovering new collaborations!</p>
-            <p>To help us review your proposal, could you please share the following details:</p>
-            <ul>
-                <li>Your profile or organization</li>
-                <li>Your project or the type of partnership you have in mind</li>
-            </ul>
-            <p>We'll get back to you shortly.</p>
-            <p>Looking forward to hearing from you.</p>
-          </td>
-        </tr>
-
-        <!-- SIGN OFF -->
-        <tr>
-          <td style="text-align:center; color:#181818; font-size:14px; padding:0 24px 24px;">
-            With softness and care,<br>
+          <td style="padding:20px; text-align:center; font-size:14px; line-height:150%; color:#181818;">
+            Hi {!Lead.FirstName},<br><br>
+            Thank you so much for your message and for your interest in SolCotton.<br><br>
+            We love discovering new collaborations!<br><br>
+            To help us review your proposal, could you please share the following details:<br>
+            - Your profile or organization<br>
+            - Your project or the type of partnership you have in mind<br><br>
+            We'll get back to you shortly.<br><br>
+            Looking forward to hearing from you.<br><br>
+            With softness and care,<br><br>
             The SolCotton team
           </td>
         </tr>
