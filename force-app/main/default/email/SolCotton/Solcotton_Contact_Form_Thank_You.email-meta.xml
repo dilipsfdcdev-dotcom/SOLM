@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email automatically sent after a contact form submission on the solcotton website</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Solcotton - Contact Form Thank You</name>
+    <style>none</style>
+    <subject>Merci pour votre intérêt concernant Solcotton</subject>
+    <textOnly>Bonjour {!Lead.FirstName},
+
+Merci d’avoir pris contact avec nous via notre site. Nous avons bien reçu votre demande et nous vous répondrons dans les plus brefs délais.
+
+InsuJet est une innovation au service des patients diabétiques sous insulinothérapie. Déjà adopté au Canada et en Suisse, InsuJet sera bientôt le premier dispositif d’injection d’insuline sans aiguille disponible en France.
+
+
+À très bientôt,
+
+L’équipe InsuJet
+www.insujet.fr</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
