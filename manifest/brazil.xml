@@ -63,6 +63,9 @@
         <members>Account.TaxExemptAccount__c</members>
         <members>Account.BillingType__c</members>
         <members>Account.Type__c</members>
+        <members>Account.IsIntegrationValid__c</members>
+        <members>Account.CheckIntegration__c</members>
+        
        
         <!-- Opportunity Fields -->
         <members>Opportunity.Agencia__c</members>
@@ -71,8 +74,9 @@
         <members>Opportunity.CEPOportunidade__c</members>
         <members>Opportunity.CidadeOportunidade__c</members>
         <members>Opportunity.CodigoSAP__c</members>
-        <members>Opportunity.Control_Approval_Status</members>
         <members>Opportunity.DataEntrega__c</members>
+        <members>Opportunity.Customer_Category__c</members>
+        
         <members>Opportunity.DataFechamentoMenorDataAtual__c</members>
         <members>Opportunity.DataLancamento__c</members>
         <members>Opportunity.Days_Without_Activity__c</members>
@@ -116,14 +120,16 @@
         <members>Order.Do_Not_Calc__c</members>
         <members>Order.Forma_de_frete__c</members>
         <members>Order.Forma_de_Pagamento__c</members>
-        <members>Order.IntellipostId__c</members>
+        <members>Order.IntelipostId__c</members>
         <members>Order.Invoice_Date__c</members>
         <members>Order.Legacy_ID__c</members>
+         <members>Order.Legacy_Order_Number__c</members>
+        
         <members>Order.Lock_Products__c</members>
         <members>Order.MainUsage__c</members>
         <members>Order.Margin__c</members>
         <members>Order.NumeroPedidoCliente__c</members>
-        <members>Order.Numero_do_Empenno__c</members>
+        <members>Order.Numero_do_Empenho__c</members>
         <members>Order.NumeroProcesso__c</members>
         <members>Order.Order_Month__c</members>
         <members>Order.Prazo__c</members>
@@ -161,9 +167,6 @@
         <!-- Contact Fields -->
         <members>Contact.Legacy_ID__c</members>
        
-        <!-- Lead Fields -->
-        <members>Lead.Invoice_Date__c</members>
-       
         <!-- Order Product (Order Item) Fields -->
         <members>OrderItem.Discount__c</members>
         <members>OrderItem.IsFullBackOrder__c</members>
@@ -192,6 +195,7 @@
         <members>OpportunityLineItem.Total_Tax__c</members>
         <members>OpportunityLineItem.UnidadeMedida__c</members>
         <members>OpportunityLineItem.Unit_Price_With_Tax__c</members>
+        <members>OpportunityLineItem.CodigoSAP__c</members>
        
         <!-- Price Book Entry Fields -->
         <members>PricebookEntry.CodigoSAP__c</members>
@@ -204,11 +208,13 @@
         <members>Cidade__c.Nome_do_Estado__c</members>
         <members>Cidade__c.State__c</members>
        
-        <!-- ListenerAccount Fields -->
-        <members>ListenerAccount__e.BillingComplement__c</members>
-       
         <name>CustomField</name>
     </types>
+
+    <types>
+   <members>OrderStatus</members>
+   <name>StandardValueSet</name>
+</types>
    
     <!-- Validation Rules -->
     <types>
@@ -263,8 +269,6 @@
    
     <!-- Lightning Pages -->
     <types>
-        <members>Account_NACA</members>
-        <members>Account_Record_Page</members>
         <members>Brazil_Order_Record_Page1</members>
         <members>Brazil_Record_Page</members>
         <members>Brazil_Record_Page1</members>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Forma_de_Pagamento__c</fullName>
+    <label>Forma de Pagamento</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Boleto</fullName>
+                <default>false</default>
+                <label>Boleto Bancário</label>
+            </value>
+            <value>
+                <fullName>Bank Transfer</fullName>
+                <default>false</default>
+                <label>Bank Transfer</label>
+            </value>
+            <value>
+                <fullName>Letter of Credit</fullName>
+                <default>false</default>
+                <label>Letter of Credit</label>
+            </value>
+            <value>
+                <fullName>Mercado Pago</fullName>
+                <default>false</default>
+                <label>Mercado Pago</label>
+            </value>
+            <value>
+                <fullName>B2W</fullName>
+                <default>false</default>
+                <label>B2W</label>
+            </value>
+            <value>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+                <label>Credit Card</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

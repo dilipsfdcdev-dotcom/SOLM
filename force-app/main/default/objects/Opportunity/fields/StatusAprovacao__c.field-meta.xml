@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StatusAprovacao__c</fullName>
+    <label>Status de Aprovação</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>true</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Precisa de Aprovação</fullName>
+                <default>false</default>
+                <label>Precisa de Aprovação</label>
+            </value>
+            <value>
+                <fullName>Em Aprovação</fullName>
+                <default>false</default>
+                <label>Em Aprovação</label>
+            </value>
+            <value>
+                <fullName>Esperando por Diretoria Comercial</fullName>
+                <default>false</default>
+                <label>Esperando por Diretoria Comercial</label>
+            </value>
+            <value>
+                <fullName>Esperando por Diretoria Financeira</fullName>
+                <default>false</default>
+                <label>Esperando por Diretoria Financeira</label>
+            </value>
+            <value>
+                <fullName>Aprovado</fullName>
+                <default>false</default>
+                <label>Aprovado</label>
+            </value>
+            <value>
+                <fullName>Reprovado</fullName>
+                <default>false</default>
+                <label>Reprovado</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

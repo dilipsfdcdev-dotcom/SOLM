@@ -684,77 +684,205 @@ public static string insertProduct (String prodJson,String accountId)
 	}
 
 	@AuraEnabled
-	public static void upsertBaseForecast(String accountId, String productId, String baseForecastMap, String volume, Integer uom,boolean direct) {
+	public static void upsertBaseForecast(String accountId, String productId, String baseForecastMap, String volume, Integer uom, boolean direct) {
 		try {
-			List<ForecastItem> forecastItems = (List<ForecastItem>) JSON.deserialize(baseForecastMap, List<ForecastItem> .class);
-			System.debug(direct);
+			System.debug('=== upsertBaseForecast START ===');
+			System.debug('Input Parameters:');
+			System.debug('accountId: ' + accountId);
+			System.debug('productId: ' + productId);
+			System.debug('baseForecastMap: ' + baseForecastMap);
+			System.debug('volume: ' + volume);
+			System.debug('uom: ' + uom);
+			System.debug('direct: ' + direct);
+			
+			List<ForecastItem> forecastItems = (List<ForecastItem>) JSON.deserialize(baseForecastMap, List<ForecastItem>.class);
+			System.debug('Deserialized forecastItems count: ' + forecastItems.size());
+			
+			// Log each forecast item
+			for (Integer idx = 0; idx < forecastItems.size(); idx++) {
+				ForecastItem item = forecastItems[idx];
+				System.debug('ForecastItem[' + idx + ']: externalId=' + item.externalId + ', quantity=' + item.quantity + ', fulfillment=' + item.fulfillment);
+			}
 
 			// Get Forecast_Product__c Id
 			String fpExternalId = accountId + '-' + productId + '-' + (direct ? '0' : '1');
+			System.debug('Looking for Forecast_Product__c with External_Id__c: ' + fpExternalId);
+			
 			List<Forecast_Product__c> fpList = [SELECT Id FROM Forecast_Product__c WHERE External_Id__c = :fpExternalId LIMIT 1];
+			System.debug('Forecast_Product__c query result count: ' + fpList.size());
 
-			if(fpList.isEmpty()) {
+			if (fpList.isEmpty()) {
+				System.debug('ERROR: Forecast Product not found for External_Id__c: ' + fpExternalId);
 				throw new AuraHandledException('Forecast Product not found');
 			}
 
 			Id forecastProductId = fpList[0].Id;
+			System.debug('Found Forecast_Product__c Id: ' + forecastProductId);
 
 			// Collect all month external IDs to check
 			Set<String> monthExternalIds = new Set<String>();
 			Map<String, Date> monthIdToDate = new Map<String, Date>();
 
+			System.debug('=== Processing month external IDs ===');
 			for (ForecastItem item : forecastItems) {
 				String monthExtId = accountId + '-' + productId + '-' + item.externalId + '-' + (direct ? '0' : '1');
 				monthExternalIds.add(monthExtId);
+				System.debug('Processing item.externalId: ' + item.externalId);
 
 				// Parse the month from externalId (format: "Jan-25")
 				String[] parts = item.externalId.split('-');
+				System.debug('Split parts: ' + parts);
+				
+				if (parts.size() < 2) {
+					System.debug('ERROR: Invalid externalId format - expected "Mon-YY" but got: ' + item.externalId);
+					continue;
+				}
+				
 				String monthName = parts[0];
-				Integer year = 2000 + Integer.valueOf(parts[1]);
+				System.debug('monthName: ' + monthName);
+				
+				Integer yearPart;
+				try {
+					yearPart = Integer.valueOf(parts[1]);
+					System.debug('yearPart (raw): ' + yearPart);
+				} catch (Exception e) {
+					System.debug('ERROR: Failed to parse year from: ' + parts[1] + ' - ' + e.getMessage());
+					continue;
+				}
+				
+				Integer year = 2000 + yearPart;
+				System.debug('year (calculated): ' + year);
+				
 				Integer monthNum = getMonthNumber(monthName);
+				System.debug('monthNum: ' + monthNum);
+				
+				if (monthNum == null) {
+					System.debug('ERROR: Invalid month name: ' + monthName);
+					continue;
+				}
+				
 				Date monthDate = Date.newInstance(year, monthNum, 1);
+				System.debug('monthDate: ' + monthDate);
+				
 				monthIdToDate.put(monthExtId, monthDate);
+				System.debug('Added to monthIdToDate - key: ' + monthExtId + ', value: ' + monthDate);
 			}
 
+			System.debug('Total monthExternalIds collected: ' + monthExternalIds.size());
+			System.debug('monthExternalIds: ' + monthExternalIds);
+
 			// Check which Forecast_Month__c records exist
+			System.debug('=== Querying existing Forecast_Month__c records ===');
 			Map<String, Id> existingMonths = new Map<String, Id>();
 			for (Forecast_Month__c fm : [SELECT Id, External_Id__c FROM Forecast_Month__c WHERE External_Id__c IN :monthExternalIds]) {
 				existingMonths.put(fm.External_Id__c, fm.Id);
+				System.debug('Found existing Forecast_Month__c: ' + fm.External_Id__c + ' => ' + fm.Id);
 			}
+			System.debug('Total existing Forecast_Month__c found: ' + existingMonths.size());
 
 			// Create missing Forecast_Month__c records
+			System.debug('=== Creating missing Forecast_Month__c records ===');
 			List<Forecast_Month__c> monthsToCreate = new List<Forecast_Month__c>();
 			for (String monthExtId : monthExternalIds) {
 				if (!existingMonths.containsKey(monthExtId)) {
+					System.debug('Creating new Forecast_Month__c for: ' + monthExtId);
+					Date monthDate = monthIdToDate.get(monthExtId);
+					System.debug('Month date for new record: ' + monthDate);
+					
+					if (monthDate == null) {
+						System.debug('WARNING: monthDate is null for monthExtId: ' + monthExtId);
+						continue;
+					}
+					
 					monthsToCreate.add(new Forecast_Month__c(
 						Forecast_Product__c = forecastProductId,
-						Month__c = monthIdToDate.get(monthExtId),
+						Month__c = monthDate,
 						External_Id__c = monthExtId
 					));
+				} else {
+					System.debug('Forecast_Month__c already exists for: ' + monthExtId);
 				}
 			}
 
+			System.debug('Total Forecast_Month__c records to create: ' + monthsToCreate.size());
 			if (!monthsToCreate.isEmpty()) {
+				System.debug('Inserting new Forecast_Month__c records...');
 				insert monthsToCreate;
+				System.debug('Insert successful');
 			}
 
-			List<Forecast_Item__c> forecastItemsToUpsert = new List<Forecast_Item__c> ();
-			for (ForecastItem item: forecastItems) {
+			// Build Forecast_Item__c records
+			System.debug('=== Building Forecast_Item__c records ===');
+			List<Forecast_Item__c> forecastItemsToUpsert = new List<Forecast_Item__c>();
+			for (Integer idx = 0; idx < forecastItems.size(); idx++) {
+				ForecastItem item = forecastItems[idx];
+				System.debug('Processing ForecastItem[' + idx + ']: ' + item.externalId);
+				
+				String itemExternalId = accountId + '-' + productId + '-base-' + item.fulfillment + '-' + item.externalId;
+				String monthExternalId = accountId + '-' + productId + '-' + item.externalId + '-' + (direct ? '0' : '1');
+				
+				System.debug('Item External_Id__c: ' + itemExternalId);
+				System.debug('Month External_Id__c reference: ' + monthExternalId);
+				System.debug('item.quantity: ' + item.quantity);
+				System.debug('item.fulfillment: ' + item.fulfillment);
+				
+				Decimal calculatedQuantity;
+				try {
+					calculatedQuantity = ForecastUtil.setQuantityInVolume(item.quantity, volume, uom);
+					System.debug('Calculated quantity: ' + calculatedQuantity);
+				} catch (Exception e) {
+					System.debug('ERROR calculating quantity: ' + e.getMessage());
+					System.debug('Stack trace: ' + e.getStackTraceString());
+					throw e;
+				}
+				
+				String fulfillmentValue;
+				try {
+					fulfillmentValue = ForecastUtil.getFulfillment(item.fulfillment);
+					System.debug('Fulfillment value: ' + fulfillmentValue);
+				} catch (Exception e) {
+					System.debug('ERROR getting fulfillment: ' + e.getMessage());
+					System.debug('Stack trace: ' + e.getStackTraceString());
+					throw e;
+				}
+				
 				forecastItemsToUpsert.add(
 					new Forecast_Item__c(
-						Quantity__c = ForecastUtil.setQuantityInVolume(item.quantity, volume, uom),
-						External_Id__c =  accountId + '-' + productId + '-base-' + item.fulfillment + '-' + item.externalId,
-						Forecast__r = new Forecast_Month__c(External_Id__c = accountId + '-' + productId + '-' + item.externalId+'-'+(direct ? '0':'1')),
+						Quantity__c = calculatedQuantity,
+						External_Id__c = itemExternalId,
+						Forecast__r = new Forecast_Month__c(External_Id__c = monthExternalId),
 						Item_Type__c = Constants.forecastItem.ITEM_TYPE_BASE,
-						Fulfillment__c = ForecastUtil.getFulfillment(item.fulfillment)
+						Fulfillment__c = fulfillmentValue
 					)
 				);
+				System.debug('Added Forecast_Item__c to upsert list');
 			}
 
+			System.debug('Total Forecast_Item__c records to upsert: ' + forecastItemsToUpsert.size());
+			
+			// Log all records before upsert
+			System.debug('=== Forecast_Item__c records details before upsert ===');
+			for (Integer idx = 0; idx < forecastItemsToUpsert.size(); idx++) {
+				Forecast_Item__c fi = forecastItemsToUpsert[idx];
+				System.debug('Record[' + idx + ']: External_Id__c=' + fi.External_Id__c + 
+							', Quantity__c=' + fi.Quantity__c + 
+							', Fulfillment__c=' + fi.Fulfillment__c + 
+							', Item_Type__c=' + fi.Item_Type__c +
+							', Forecast__r.External_Id__c=' + (fi.Forecast__r != null ? fi.Forecast__r.External_Id__c : 'NULL'));
+			}
+			
+			System.debug('=== Executing upsert ===');
 			upsert forecastItemsToUpsert External_Id__c;
+			System.debug('Upsert successful');
+			
+			System.debug('=== upsertBaseForecast END ===');
+			
 		} catch (Exception e) {
-			System.debug(e.getMessage());
-			System.debug(e.getLineNumber());
+			System.debug('=== EXCEPTION CAUGHT ===');
+			System.debug('Exception Type: ' + e.getTypeName());
+			System.debug('Exception Message: ' + e.getMessage());
+			System.debug('Exception Line Number: ' + e.getLineNumber());
+			System.debug('Exception Stack Trace: ' + e.getStackTraceString());
 			throw new AuraHandledException(e.getMessage());
 		}
 	}
@@ -765,8 +893,12 @@ public static string insertProduct (String prodJson,String accountId)
 			'Jan' => 1, 'Feb' => 2, 'Mar' => 3, 'Apr' => 4, 'May' => 5, 'Jun' => 6,
 			'Jul' => 7, 'Aug' => 8, 'Sep' => 9, 'Oct' => 10, 'Nov' => 11, 'Dec' => 12
 		};
-		return monthMap.get(monthName);
+		Integer result = monthMap.get(monthName);
+		System.debug('getMonthNumber(' + monthName + ') => ' + result);
+		return result;
 	}
+
+
 
 	@AuraEnabled
 	public static void upsertForecastAdjustments(

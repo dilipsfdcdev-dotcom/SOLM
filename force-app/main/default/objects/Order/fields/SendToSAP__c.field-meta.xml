@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SendToSAP__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Strictly used by Community Partner to flag records to be used by automated process in order to activate Contract and Orders.
+This is necessary due to the impossibility for Partners activate contract and orders by themselves.</description>
+    <label>SendToSAP</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

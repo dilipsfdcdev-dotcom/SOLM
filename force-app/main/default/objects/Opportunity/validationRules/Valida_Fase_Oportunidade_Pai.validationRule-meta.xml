@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valida_Fase_Oportunidade_Pai</fullName>
+    <active>true</active>
+    <description>Fase da Oportunidade Pai não pode ser alterada para &quot;Empenho&quot;</description>
+    <errorConditionFormula>AND(
+    IsChildren__c = FALSE,
+    ISPICKVAL(StageName, &quot;Empenho&quot;),
+    OR(
+        RecordType.DeveloperName = &quot;Distribuidor&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Direta&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Indireta&quot;,
+        RecordType.DeveloperName = &quot;OEM&quot;,
+        RecordType.DeveloperName = &quot;Purchasing_Group&quot;,
+        RecordType.DeveloperName = &quot;VendaDireta&quot;,
+        RecordType.DeveloperName = &quot;Samples&quot;
+    )
+)</errorConditionFormula>
+    <errorDisplayField>StageName</errorDisplayField>
+    <errorMessage>Só é possível alterar a fase para &quot;Empenho&quot; em registros de oportunidades filhas.</errorMessage>
+</ValidationRule>

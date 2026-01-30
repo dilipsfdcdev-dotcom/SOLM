@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nome_do_Estado__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE( State__c, 
+    &apos;AC&apos;, &apos;ACRE&apos;,
+    &apos;AL&apos;, &apos;ALAGOAS&apos;,
+    &apos;AP&apos;, &apos;AMAPA&apos;,
+    &apos;AM&apos;, &apos;AMAZONAS&apos;,
+    &apos;BA&apos;, &apos;BAHIA&apos;,
+    &apos;CE&apos;, &apos;CEARA&apos;,
+    &apos;DF&apos;, &apos;DISTRITO FEDERAL&apos;,
+    &apos;ES&apos;, &apos;ESPIRITO SANTO&apos;,
+    &apos;GO&apos;, &apos;GOIAS&apos;,
+    &apos;MA&apos;, &apos;MARANHAO&apos;,
+    &apos;MT&apos;, &apos;MATO GROSSO&apos;,
+    &apos;MS&apos;, &apos;MATO GROSSO DO SUL&apos;,
+    &apos;MG&apos;, &apos;MINAS GERAIS&apos;,
+    &apos;PA&apos;, &apos;PARA&apos;,
+    &apos;PB&apos;, &apos;PARAIBA&apos;,
+    &apos;PR&apos;, &apos;PARANA&apos;,
+    &apos;PE&apos;, &apos;PERNAMBUCO&apos;,
+    &apos;PI&apos;, &apos;PIAUI&apos;,
+    &apos;RJ&apos;, &apos;RIO DE JANEIRO&apos;,
+    &apos;RN&apos;, &apos;RIO GRANDE DO NORTE&apos;,
+    &apos;RS&apos;, &apos;RIO GRANDE DO SUL&apos;,
+    &apos;RO&apos;, &apos;RONDONIA&apos;,
+    &apos;RR&apos;, &apos;RORAIMA&apos;,
+    &apos;SC&apos;, &apos;SANTA CATARINA&apos;,
+    &apos;SP&apos;, &apos;SAO PAULO&apos;,
+    &apos;SE&apos;, &apos;SERGIPE&apos;,
+    &apos;TO&apos;, &apos;TOCANTINS&apos;, 
+    Null 
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Nome do Estado</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

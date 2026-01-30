@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Obriga_CPF_CNPJ</fullName>
+    <active>true</active>
+    <description>Apenas para SA</description>
+    <errorConditionFormula>AND(
+    OR(
+        RecordType.DeveloperName = &quot;SA&quot;,
+        RecordType.DeveloperName = &quot;Supplier&quot;
+    ),
+    TEXT(AccountSource) &lt;&gt; &quot;Market Place&quot;,
+    BillingCountry = &quot;Brasil&quot;,
+    ISBLANK(CNPJ__c),
+    ISBLANK(CPF__c),
+    RecordType.DeveloperName = &quot;Brazil&quot;
+)</errorConditionFormula>
+    <errorMessage>É obrigatório informar o CNPJ ou CPF da Conta</errorMessage>
+</ValidationRule>

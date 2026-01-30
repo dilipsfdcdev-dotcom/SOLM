@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Qty_per_Case__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>PII;HIPAA;GDPR;PCI;COPPA;CCPA</complianceGroup>
+    <externalId>false</externalId>
+    <formula>PricebookEntry.Product2.Qty_per_Case__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Qty per Case</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>Public</securityClassification>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

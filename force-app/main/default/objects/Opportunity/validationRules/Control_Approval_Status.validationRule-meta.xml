@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Control_Approval_Status</fullName>
+    <active>true</active>
+    <description>Users can only change mannually a status to &quot;Needs Approval&quot; or &quot;-- None --&quot;, all other are controlled by Approval Process</description>
+    <errorConditionFormula>AND(
+    OR(
+        ISCHANGED(PrecoListaTotal__c),
+        ISCHANGED(Amount),
+        ISCHANGED(StatusAprovacao__c)
+    ),
+    TEXT(StatusAprovacao__c) &lt;&gt; &quot;Precisa de Aprovação&quot;,
+    NOT(ISBLANK(TEXT(StatusAprovacao__c))),
+    OR(
+        RecordType.DeveloperName = &quot;Distribuidor&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Direta&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Indireta&quot;,
+        RecordType.DeveloperName = &quot;OEM&quot;,
+        RecordType.DeveloperName = &quot;Purchasing_Group&quot;,
+        RecordType.DeveloperName = &quot;VendaDireta&quot;,
+        RecordType.DeveloperName = &quot;Samples&quot;
+    )
+)</errorConditionFormula>
+    <errorMessage>Você pode alterar o Status da Aprovação apenas para &quot;Precisa de Aprovação&quot;</errorMessage>
+</ValidationRule>

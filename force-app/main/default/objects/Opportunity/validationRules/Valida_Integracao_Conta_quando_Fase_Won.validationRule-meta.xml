@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valida_Integracao_Conta_quando_Fase_Won</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    $User.ProfileId = &apos;00e4N000001Qscr&apos;,
+    ISBLANK(Account.CodigoSAP__c),
+    ISPICKVAL(StageName, &apos;Closed Won&apos;),
+    OR(
+        RecordType.DeveloperName = &quot;Distribuidor&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Direta&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Indireta&quot;,
+        RecordType.DeveloperName = &quot;OEM&quot;,
+        RecordType.DeveloperName = &quot;Purchasing_Group&quot;,
+        RecordType.DeveloperName = &quot;VendaDireta&quot;,
+        RecordType.DeveloperName = &quot;Samples&quot;
+    )
+)</errorConditionFormula>
+    <errorMessage>Para fechar a oportunidade, a conta deve estar integrada com o SAP. Verifique os dados de endereço de cobrança e entrega da conta, junto com CNPJ e email para NFE.</errorMessage>
+</ValidationRule>

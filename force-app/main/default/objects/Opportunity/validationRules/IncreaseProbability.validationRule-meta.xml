@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IncreaseProbability</fullName>
+    <active>true</active>
+    <description>Permite o usuário aumentar a probabilidade apenas após a etapa Resultado</description>
+    <errorConditionFormula>AND(
+    OR(
+        AND(ISPICKVAL(StageName, &quot;Edital/Prospecção&quot;), Probability &gt; 0.10),
+        AND(ISPICKVAL(StageName, &quot;Proposal/Price Quote&quot;), Probability &gt; 0.30),
+        AND(ISPICKVAL(StageName, &quot;Negociação&quot;), Probability &gt; 0.40)
+    ),
+    OR(
+        RecordType.DeveloperName = &quot;Distribuidor&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Direta&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Indireta&quot;,
+        RecordType.DeveloperName = &quot;OEM&quot;,
+        RecordType.DeveloperName = &quot;Purchasing_Group&quot;,
+        RecordType.DeveloperName = &quot;VendaDireta&quot;,
+        RecordType.DeveloperName = &quot;Samples&quot;
+    )
+)</errorConditionFormula>
+    <errorDisplayField>Probability</errorDisplayField>
+    <errorMessage>Para aumentar a probabilidade é necessário seguir para para a próxima etapa. Se for acima de 70%, siga para a etapa Resultado.</errorMessage>
+</ValidationRule>

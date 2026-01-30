@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assunto__c</fullName>
+    <label>Assunto</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Orçamento</fullName>
+                <default>false</default>
+                <label>Orçamento</label>
+            </value>
+            <value>
+                <fullName>Contato</fullName>
+                <default>false</default>
+                <label>Contato</label>
+            </value>
+            <value>
+                <fullName>Trabalhe Conosco</fullName>
+                <default>false</default>
+                <label>Trabalhe Conosco</label>
+            </value>
+            <value>
+                <fullName>Suporte</fullName>
+                <default>false</default>
+                <label>Suporte</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

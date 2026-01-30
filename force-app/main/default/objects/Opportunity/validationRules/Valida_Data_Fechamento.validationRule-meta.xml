@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valida_Data_Fechamento</fullName>
+    <active>true</active>
+    <description>Não permitir que a data de fechamento da oportunidade seja menor que data atual.</description>
+    <errorConditionFormula>AND(
+    ISCHANGED(StageName),
+    TEXT(StageName) = &quot;Closed Won&quot;,
+    CloseDate &lt;&gt; TODAY(),
+    OR(
+        RecordType.DeveloperName = &quot;Distribuidor&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Direta&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Indireta&quot;,
+        RecordType.DeveloperName = &quot;OEM&quot;,
+        RecordType.DeveloperName = &quot;Purchasing_Group&quot;,
+        RecordType.DeveloperName = &quot;VendaDireta&quot;,
+        RecordType.DeveloperName = &quot;Samples&quot;
+    )
+)</errorConditionFormula>
+    <errorDisplayField>CloseDate</errorDisplayField>
+    <errorMessage>You cannot enter a Close Date different from today´s date.</errorMessage>
+</ValidationRule>

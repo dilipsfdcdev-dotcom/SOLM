@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AcctCompactLayout</fullName>
+    <fields>Name</fields>
+    <fields>Type</fields>
+    <fields>Phone</fields>
+    <fields>Website</fields>
+    <fields>OwnerId</fields>
+    <fields>Site</fields>
+    <fields>Industry</fields>
+    <fields>Forecasted_Products_Number__c</fields>
+    <fields>Forecast_Enabled__c</fields>
+    <label>AcctCompactLayout</label>
+</CompactLayout>

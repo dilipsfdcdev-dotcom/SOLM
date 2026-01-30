@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CidadeEntregaPreenchidaELookupPreenchido</fullName>
+    <active>true</active>
+    <description>Exclusivo SA. Fórmula para validar se campo de pesquisa de cidade de entrega foi preenchido.</description>
+    <errorConditionFormula>AND(
+    RecordType.DeveloperName = &quot;SA&quot;,
+    BillingCountry = &quot;Brasil&quot;,
+    OR(
+        NOT(ISBLANK(ShippingCity)),
+        NOT(ISBLANK(ShippingStreet))
+    ),
+    ISBLANK(CidadeEntrega__r.Name),
+    RecordType.DeveloperName = &quot;Brazil&quot;
+)</errorConditionFormula>
+    <errorDisplayField>CidadeEntrega__c</errorDisplayField>
+    <errorMessage>O preenchimento do campo Cidade de Entrega é obrigatório.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valida_Fase_da_Oportunidade_Aprovada</fullName>
+    <active>true</active>
+    <description>Não permitir colocar oportunidade nas fases Proposta, Resultado, OF, Empenho para Oportunidade pendentes de Aprovação</description>
+    <errorConditionFormula>AND(
+    $User.ProfileId = &apos;00e4N000001Qscr&apos;,
+    NecessitaAprovacao__c = TRUE,
+    NOT(ISPICKVAL(StatusAprovacao__c, &apos;Aprovado&apos;)),
+    ISPICKVAL(StageName, &apos;Closed Won&apos;),
+    OR(
+        RecordType.DeveloperName = &quot;Distribuidor&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Direta&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Indireta&quot;,
+        RecordType.DeveloperName = &quot;OEM&quot;,
+        RecordType.DeveloperName = &quot;Purchasing_Group&quot;,
+        RecordType.DeveloperName = &quot;VendaDireta&quot;,
+        RecordType.DeveloperName = &quot;Samples&quot;
+    )
+)</errorConditionFormula>
+    <errorDisplayField>StageName</errorDisplayField>
+    <errorMessage>Oportunidade pendente de aprovação.
+Por favor aprove antes de alterar a Fase.</errorMessage>
+</ValidationRule>

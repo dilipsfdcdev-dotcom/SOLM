@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Group_Name__c</fullName>
+    <inlineHelpText>Sempre selecionar a opção &quot;Customer - Local&quot;.</inlineHelpText>
+    <label>Group Name</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer - Local</fullName>
+                <default>true</default>
+                <label>Customer - Local</label>
+            </value>
+            <value>
+                <fullName>Customer - Corporate</fullName>
+                <default>false</default>
+                <label>Customer - Corporate</label>
+            </value>
+            <value>
+                <fullName>Customer - Interco</fullName>
+                <default>false</default>
+                <label>Customer - Interco</label>
+            </value>
+            <value>
+                <fullName>Customer - Other</fullName>
+                <default>false</default>
+                <label>Customer - Other</label>
+            </value>
+            <value>
+                <fullName>Vendor</fullName>
+                <default>false</default>
+                <label>Vendor</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QtyOfDeliveries__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE
+(
+text(DeliveryTimeFrame__c ), 
+&quot;BiWeekly&quot;, Validade__c /0.5,
+&quot;Monthly&quot;,   Validade__c /1, 
+&quot;Bimonthly&quot;, Validade__c /2,
+&quot;Quarterly&quot;, Validade__c /3,
+&quot;Semester&quot;,  Validade__c /6,
+Validade__c /12
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>QtyOfDeliveries</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

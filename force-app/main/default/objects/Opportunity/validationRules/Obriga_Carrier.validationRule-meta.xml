@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Obriga_Carrier</fullName>
+    <active>true</active>
+    <description>Valid only to SA</description>
+    <errorConditionFormula>AND(
+    OR(
+        NOT(ISPICKVAL(Forma_de_frete__c, &quot;CIF&quot;)),
+        NOT(ISPICKVAL(Forma_de_frete__c, &quot;CIF - Samples&quot;))
+    ),
+    $User.ProfileId = &quot;00e4N000001Qscr&quot;,
+    ISBLANK(Transportadora__c),
+    OR(
+        RecordType.DeveloperName = &quot;Distribuidor&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Direta&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Indireta&quot;,
+        RecordType.DeveloperName = &quot;OEM&quot;,
+        RecordType.DeveloperName = &quot;Purchasing_Group&quot;,
+        RecordType.DeveloperName = &quot;VendaDireta&quot;,
+        RecordType.DeveloperName = &quot;Samples&quot;
+    )
+)</errorConditionFormula>
+    <errorMessage>You must indicate a Carrier to this opportunity</errorMessage>
+</ValidationRule>

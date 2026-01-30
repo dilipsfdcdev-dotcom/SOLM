@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Obriga_Endereco_Cobranca</fullName>
+    <active>true</active>
+    <description>Multi região. Controla os campos obrigatórios de endereço por região.</description>
+    <errorConditionFormula>OR
+(
+AND
+(
+RecordType.DeveloperName = &apos;SA&apos;,
+BillingCountry = &apos;Brasil&apos;,
+NOT( ISPICKVAL(AccountSource, &apos;Market Place&apos;) ),
+OR(
+ISBLANK(BillingCity ),
+ISBLANK(BillingPostalCode),
+ISBLANK(TEXT(BillingType__c)),
+ISBLANK(BillingAddress),
+ISBLANK(BillingState),
+ISBLANK(BillingStreet),
+ISBLANK(BillingCountry)
+)
+),
+AND
+(
+RecordType.DeveloperName = &apos;Supplier&apos;,
+OR(
+ISBLANK(BillingCity ),
+ISBLANK(BillingPostalCode),
+ISBLANK(TEXT(BillingType__c)),
+ISBLANK(BillingAddress),
+ISBLANK(BillingState),
+ISBLANK(BillingStreet),
+ISBLANK(BillingCountry)
+)
+),
+AND
+(
+RecordType.DeveloperName = &apos;NACA&apos;,
+OR(
+ISBLANK(BillingCity ),
+ISBLANK(BillingPostalCode),
+ISBLANK(BillingAddress),
+ISBLANK(BillingStreet),
+ISBLANK(BillingCountry)
+)
+),
+AND
+(
+RecordType.DeveloperName = &apos;EMEA&apos;,
+OR(
+ISBLANK(BillingCity ),
+ISBLANK(BillingAddress),
+ISBLANK(BillingStreet),
+ISBLANK(BillingCountry)
+)
+)
+)</errorConditionFormula>
+    <errorMessage>É obrigatório o preenchimento dos dados de endereço de cobrança.</errorMessage>
+</ValidationRule>

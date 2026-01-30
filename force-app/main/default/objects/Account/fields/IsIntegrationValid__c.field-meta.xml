@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsIntegrationValid__c</fullName>
+    <formula>IF(ISPICKVAL(CheckIntegration__c, &quot;True&quot;),True,False)</formula>
+    <inlineHelpText>O cadastro somente integrará para o SAP caso este checkbox esteja marcado automaticamente. Confira se todos os campos estão preenchidos corretamente e o cadastro devidamente aprovado.</inlineHelpText>
+    <label>É integrável?</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CheckApprovalIntegrity</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    OR(
+        ISCHANGED(PrecoListaTotal__c),
+        ISCHANGED(Amount)
+    ),
+    AND(
+        TEXT(StatusAprovacao__c) &lt;&gt; &quot;Precisa de Aprovação&quot;,
+        NecessitaAprovacao__c = TRUE
+    ),
+    NOT(ISBLANK(TEXT(StatusAprovacao__c))),
+    OR(
+        RecordType.DeveloperName = &quot;Distribuidor&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Direta&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Indireta&quot;,
+        RecordType.DeveloperName = &quot;OEM&quot;,
+        RecordType.DeveloperName = &quot;Purchasing_Group&quot;,
+        RecordType.DeveloperName = &quot;VendaDireta&quot;,
+        RecordType.DeveloperName = &quot;Samples&quot;
+    )
+)</errorConditionFormula>
+    <errorMessage>Você não pode alterar preços e descontos de uma oportunidade aprovada. Altere o Status da Oportunidade para &quot;Precisa de Aprovação&quot; e altere os valores novamente.</errorMessage>
+</ValidationRule>

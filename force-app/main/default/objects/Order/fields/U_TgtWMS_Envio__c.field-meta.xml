@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>U_TgtWMS_Envio__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Receives the picking status from SAP (Must be 1, 2, 3 or 4)</description>
+    <externalId>true</externalId>
+    <label>WMS Order Status</label>
+    <precision>1</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>Public</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

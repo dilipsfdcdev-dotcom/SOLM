@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Obriga_Preencher_Data_Entrega_Lancamento</fullName>
+    <active>true</active>
+    <description>Regra de validação para preencher a data de entrega e data de lançamento quando fechar a oportunidade.</description>
+    <errorConditionFormula>AND(
+    OR(
+        ISBLANK(DataLancamento__c),
+        ISBLANK(DataEntrega__c)
+    ),
+    OR(
+        ISPICKVAL(StageName, &quot;Empenho&quot;),
+        ISPICKVAL(StageName, &quot;OF&quot;)
+    ),
+    IsChildren__c = TRUE,
+    OR(
+        RecordType.DeveloperName = &quot;Distribuidor&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Direta&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Indireta&quot;,
+        RecordType.DeveloperName = &quot;OEM&quot;,
+        RecordType.DeveloperName = &quot;Purchasing_Group&quot;,
+        RecordType.DeveloperName = &quot;VendaDireta&quot;,
+        RecordType.DeveloperName = &quot;Samples&quot;
+    )
+)</errorConditionFormula>
+    <errorMessage>Para alterar a fase para Empenho ou OF, é obrigado preencher os campos Data de Entrega e Data de Lançamento.</errorMessage>
+</ValidationRule>

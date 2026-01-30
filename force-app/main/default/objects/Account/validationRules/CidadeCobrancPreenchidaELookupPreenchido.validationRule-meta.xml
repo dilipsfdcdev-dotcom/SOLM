@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CidadeCobrancPreenchidaELookupPreenchido</fullName>
+    <active>true</active>
+    <description>Exclusivo SA. Verifica se o campo de pesquisa da cidade de cobrança foi preenchido...</description>
+    <errorConditionFormula>AND(
+    RecordType.DeveloperName = &quot;SA&quot;,
+    BillingCountry = &quot;Brasil&quot;,
+    OR(
+        NOT(ISBLANK(BillingCity)),
+        NOT(ISBLANK(BillingStreet))
+    ),
+    ISBLANK(CidadeCobranca__r.Name),
+    RecordType.DeveloperName = &quot;Brazil&quot;
+)</errorConditionFormula>
+    <errorDisplayField>CidadeCobranca__c</errorDisplayField>
+    <errorMessage>O preenchimento do campo Cidade de Cobrança é obrigatório.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Forma_de_frete__c</fullName>
+    <label>Forma de frete</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CIF</fullName>
+                <default>false</default>
+                <label>CIF</label>
+            </value>
+            <value>
+                <fullName>FOB</fullName>
+                <default>false</default>
+                <label>FOB</label>
+            </value>
+            <value>
+                <fullName>FOB China</fullName>
+                <default>false</default>
+                <label>FOB China</label>
+            </value>
+            <value>
+                <fullName>FOB Lublin</fullName>
+                <default>false</default>
+                <label>FOB Lublin</label>
+            </value>
+            <value>
+                <fullName>DAP</fullName>
+                <default>false</default>
+                <label>DAP</label>
+            </value>
+            <value>
+                <fullName>DDP</fullName>
+                <default>false</default>
+                <label>DDP</label>
+            </value>
+            <value>
+                <fullName>RETIRADA NA SOL-MILLENNIUM</fullName>
+                <default>false</default>
+                <label>RETIRADA NA SOL-MILLENNIUM</label>
+            </value>
+            <value>
+                <fullName>FOB - RODONAVES</fullName>
+                <default>false</default>
+                <label>FOB - RODONAVES</label>
+            </value>
+            <value>
+                <fullName>FOB - GRUPO TROCA</fullName>
+                <default>false</default>
+                <label>FOB - GRUPO TROCA</label>
+            </value>
+            <value>
+                <fullName>FOB - BRASPRESS</fullName>
+                <default>false</default>
+                <label>FOB - BRASPRESS</label>
+            </value>
+            <value>
+                <fullName>FOB - JAMEF</fullName>
+                <default>false</default>
+                <label>FOB - JAMEF</label>
+            </value>
+            <value>
+                <fullName>FOB - LOVATO</fullName>
+                <default>false</default>
+                <label>FOB - LOVATO</label>
+            </value>
+            <value>
+                <fullName>FOB - ATIVA</fullName>
+                <default>false</default>
+                <label>FOB - ATIVA</label>
+            </value>
+            <value>
+                <fullName>FOB - TRANSWELLS</fullName>
+                <default>false</default>
+                <label>FOB - TRANSWELLS</label>
+            </value>
+            <value>
+                <fullName>FOB - BSB</fullName>
+                <default>false</default>
+                <label>FOB - BSB</label>
+            </value>
+            <value>
+                <fullName>FOB - PATRUS</fullName>
+                <default>false</default>
+                <label>FOB - PATRUS</label>
+            </value>
+            <value>
+                <fullName>FOB - TNT MERCURIO</fullName>
+                <default>false</default>
+                <label>FOB - TNT MERCURIO</label>
+            </value>
+            <value>
+                <fullName>FOB - RISSO</fullName>
+                <default>false</default>
+                <label>FOB - RISSO</label>
+            </value>
+            <value>
+                <fullName>FOB - OUTRAS</fullName>
+                <default>false</default>
+                <label>FOB - OUTRAS</label>
+            </value>
+            <value>
+                <fullName>CIF - Samples</fullName>
+                <default>false</default>
+                <label>CIF - Samples</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

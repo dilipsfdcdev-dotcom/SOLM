@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valida_SubSetor_Conta_Distribuidor</fullName>
+    <active>true</active>
+    <description>Quando a oportunidade for do tipo de registro Distribuidor o campo Nome da Conta deve lista somente Contas do Sub-Setor igual a Distribuidor.</description>
+    <errorConditionFormula>AND(
+    RecordType.DeveloperName = &quot;SA_Distribuidor&quot;,
+    NOT(ISPICKVAL(Account.SubSetor__c, &quot;Distribuidor&quot;)),
+    OR(
+        RecordType.DeveloperName = &quot;Distribuidor&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Direta&quot;,
+        RecordType.DeveloperName = &quot;Licitacao_Indireta&quot;,
+        RecordType.DeveloperName = &quot;OEM&quot;,
+        RecordType.DeveloperName = &quot;Purchasing_Group&quot;,
+        RecordType.DeveloperName = &quot;VendaDireta&quot;,
+        RecordType.DeveloperName = &quot;Samples&quot;
+    )
+)</errorConditionFormula>
+    <errorDisplayField>AccountId</errorDisplayField>
+    <errorMessage>Quando o tipo de registro for igual a distribuidor só sera possível inserir conta com sub-setor igual a Distribuidor.</errorMessage>
+</ValidationRule>
