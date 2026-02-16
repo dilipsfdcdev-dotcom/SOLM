@@ -5,7 +5,7 @@
         <description>Quote Approval</description>
         <protected>false</protected>
         <recipients>
-            <recipient>epaszkowska@solm.com</recipient>
+            <recipient>dkumar@solm.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -16,7 +16,7 @@
         <description>Quote Approval Acknowledge</description>
         <protected>false</protected>
         <recipients>
-            <recipient>skarthikeya@skyhnetworks.com</recipient>
+            <recipient>dkumar@solm.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -27,7 +27,7 @@
         <description>Quote Approved</description>
         <protected>false</protected>
         <recipients>
-            <recipient>skarthikeya@skyhnetworks.com</recipient>
+            <recipient>dkumar@solm.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -38,10 +38,65 @@
         <description>Quote Rejected</description>
         <protected>false</protected>
         <recipients>
-            <recipient>skarthikeya@skyhnetworks.com</recipient>
+            <recipient>dkumar@solm.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
         <template>unfiled$public/Quote_Rejected</template>
     </alerts>
+    <fieldUpdates>
+        <fullName>If_Appoved</fullName>
+        <field>Status</field>
+        <literalValue>Approved</literalValue>
+        <name>If Appoved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>If_Rejected</fullName>
+        <field>Status</field>
+        <literalValue>Rejected</literalValue>
+        <name>If Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Quote_Update_Name</fullName>
+        <field>Name</field>
+        <formula>QuoteNumber</formula>
+        <name>Quote - Update Name</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Sent</fullName>
+        <field>Status</field>
+        <literalValue>In Revision</literalValue>
+        <name>Update Sent</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>Quote - Update Name</fullName>
+        <actions>
+            <name>Quote_Update_Name</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>Quote.Name</field>
+            <operation>equals</operation>
+            <value>Autofill</value>
+        </criteriaItems>
+        <description>When creating and updating the Quotation, the system must update the Quotation Name with the value of the Quotation number.</description>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
 </Workflow>

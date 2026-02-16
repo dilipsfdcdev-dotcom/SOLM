@@ -8,42 +8,43 @@
 		<name>ApexClass</name>
 	</types>
 	<types>
-		<members>Standard_Price__c.Branch__c</members>
-        <members>Standard_Price__c.Duty_Cost_Piece__c</members>
-        <members>Standard_Price__c.InboundCostPiece__c</members>
-        <members>Standard_Price__c.Incoterms__c</members>
-        <members>Standard_Price__c.ItemCode__c</members>
-        <members>Standard_Price__c.Outbound_Cost_Piece__c</members>
-        <members>Standard_Price__c.Standard_Cost__c</members>
-        <members>Standard_Price__c.Warehouse_Cost_Piece__c</members>
-        <members>Standard_Price__c.WhsCode__c</members>
-		<members>Product2.GP_Threshold__c</members>
-		<members>Quote.Total_Price_Summary__c</members>
-        <members>Quote.Total_Deal_Quantity__c</members>
-        <members>Quote.Total_GP_Dollars__c</members>
-        <members>Quote.Total_GP_Percent__c</members>
-        <members>Quote.Total_Standard_Cost__c</members>
-        <members>Quote.Offer_Validity__c</members>
-        <members>Quote.Incoterm__c</members>
-        <members>Quote.Deliver_it_by__c</members>
-		<members>QuoteLineItem.Qty_box_Case__c</members>
-        <members>QuoteLineItem.Price_per_Case__c</members>
-        <members>QuoteLineItem.Price_per_Box__c</members>
-        <members>QuoteLineItem.GPDollar__c</members>
-        <members>QuoteLineItem.GPPercentage__c</members>
-        <members>QuoteLineItem.Standard_Cost__c</members>
-        <members>QuoteLineItem.Discount_Custom__c</members>
-		<members>BU_Task_Owner__mdt.BU__c</members>
-        <members>BU_Task_Owner__mdt.Owner__c</members>
-		<name>CustomField</name>
-	</types>
-	<types>
 		<members>QuoteTrigger</members>
 		<name>ApexTrigger</name>
 	</types>
 	<types>
 		<members>Quote.Quote_Approval</members>
 		<name>ApprovalProcess</name>
+	</types>
+	<types>
+		<members>BU_Task_Owner__mdt.BU__c</members>
+		<members>BU_Task_Owner__mdt.Owner__c</members>
+		<members>Product2.GP_Threshold__c</members>
+		<members>Quote.Deliver_it_by__c</members>
+		<members>Quote.Incoterm__c</members>
+		<members>Quote.Offer_Validity__c</members>
+		<members>Quote.Total_Deal_Quantity__c</members>
+		<members>Quote.Total_GP_Dollars__c</members>
+		<members>Quote.Total_GP_Percent__c</members>
+		<members>Quote.Total_Price_Summary__c</members>
+		<members>Quote.Total_Standard_Cost__c</members>
+		<members>QuoteLineItem.Discount_Custom__c</members>
+		<members>QuoteLineItem.GPDollar__c</members>
+		<members>QuoteLineItem.GPPercentage__c</members>
+		<members>QuoteLineItem.Price_per_Box__c</members>
+		<members>QuoteLineItem.Price_per_Case__c</members>
+		<members>QuoteLineItem.Qty_box_Case__c</members>
+		<members>QuoteLineItem.Standard_Cost__c</members>
+		<members>QuoteLineItem.Total_Price__c</members>
+		<members>Standard_Price__c.Branch__c</members>
+		<members>Standard_Price__c.Duty_Cost_Piece__c</members>
+		<members>Standard_Price__c.InboundCostPiece__c</members>
+		<members>Standard_Price__c.Incoterms__c</members>
+		<members>Standard_Price__c.ItemCode__c</members>
+		<members>Standard_Price__c.Outbound_Cost_Piece__c</members>
+		<members>Standard_Price__c.Standard_Cost__c</members>
+		<members>Standard_Price__c.Warehouse_Cost_Piece__c</members>
+		<members>Standard_Price__c.WhsCode__c</members>
+		<name>CustomField</name>
 	</types>
 	<types>
 		<members>BU_Task_Owner__mdt</members>
@@ -72,11 +73,21 @@
 		<name>WebLink</name>
 	</types>
 	<types>
+		<members>Quote</members>
+		<name>Workflow</name>
+	</types>
+	<types>
 		<members>Quote.Quote_Approval</members>
 		<members>Quote.Quote_Approval_Acknowledge</members>
 		<members>Quote.Quote_Approved</members>
 		<members>Quote.Quote_Rejected</members>
 		<name>WorkflowAlert</name>
+	</types>
+	<types>
+		<members>Quote.If_Appoved</members>
+		<members>Quote.If_Rejected</members>
+		<members>Quote.Update_Sent</members>
+		<name>WorkflowFieldUpdate</name>
 	</types>
 	<version>65.0</version>
 </Package>
