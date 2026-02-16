@@ -3,9 +3,15 @@
 	<types>
 		<members>QuoteDiscountTaskHandler</members>
 		<members>QuoteDiscountTaskHandlerTest</members>
+		<members>QuotePdfExactController</members>
+		<members>QuotePdfExactControllerTest</members>
 		<members>customAddProductModalClass</members>
 		<members>customAddProductModalClassTest</members>
 		<name>ApexClass</name>
+	</types>
+	<types>
+		<members>QuotePDF</members>
+		<name>ApexPage</name>
 	</types>
 	<types>
 		<members>QuoteTrigger</members>
@@ -69,11 +75,21 @@
 		<members>QLI_2</members>
 		<members>QLI_Screen_Data</members>
 		<members>Quote_Approval</members>
+		<members>Quotepdf</members>
 		<name>Flow</name>
 	</types>
 	<types>
 		<members>addNewProductCustom</members>
 		<name>LightningComponentBundle</name>
+	</types>
+	<types>
+		<members>Quote.Create_PDF</members>
+		<members>Quote.Save_to_Quote</members>
+		<name>QuickAction</name>
+	</types>
+	<types>
+		<members>SolMillenniumLogo</members>
+		<name>StaticResource</name>
 	</types>
 	<types>
 		<members>Quote.Create_Pricelist</members>
