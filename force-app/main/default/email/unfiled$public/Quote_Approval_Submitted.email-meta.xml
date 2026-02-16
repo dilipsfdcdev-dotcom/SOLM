@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>Test_for_Survey</letterhead>
+    <name>Quote Approval Submitted</name>
+    <style>freeForm</style>
+    <subject>Quote Submitted for Approval – Let’s Get This Deal Rolling!</subject>
+    <textOnly>Hi,
+
+How are you!
+
+Good news — your quote {!Quote.Name} has been successfully submitted for approval! 🎉
+
+Our approval team has been alerted and is now reviewing it (coffee in hand ☕, of course). You’ll receive an update as soon as it’s approved or if any tweaks are needed.
+
+In the meantime, feel free to celebrate this small victory — every great deal starts with a click! 💪
+
+
+
+Quote Name : {!Quote.Name}
+Account Name : {!Quote.Bill_To_Account__c}
+Total Price : {!Quote.Total_Price_Summary__c}
+
+
+Total Deal Quantity : {!Quote.Total_Deal_Quantity__c}
+
+
+Thank you for keeping the sales engines running strong.
+
+
+
+Warm regards,
+The Sales Operations Team
+“Turning quotes into closed deals, one approval at a time.”</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

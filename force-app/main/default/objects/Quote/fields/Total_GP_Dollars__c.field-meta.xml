@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_GP_Dollars__c</fullName>
+    <formula>(  TotalPrice -  Total_Standard_Cost__c )  *  Total_Deal_Quantity__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total GP$</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>6</scale>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>Test_for_Survey</letterhead>
+    <name>Quote Rejected</name>
+    <style>freeForm</style>
+    <subject>Quote Not Approved</subject>
+    <textOnly>Hi Team,
+
+After reviewing the quote - {!Quote.Name}, we&apos;ve decided not to move forward with approval at this time.
+
+{!Quote.Link}
+
+While the proposal had its merits (and gave our budget a good cardio workout), it doesn’t align with our current scope, priorities, or cost expectations.
+
+Thank you to everyone who reviewed and provided feedback - much appreciated. If there are alternatives worth exploring or adjustments we can suggest back to the vendor, happy to discuss.
+
+
+Let’s regroup as needed to determine the best path forward.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

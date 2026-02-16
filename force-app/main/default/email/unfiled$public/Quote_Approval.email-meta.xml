@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>Test_for_Survey</letterhead>
+    <name>Quote Approval</name>
+    <style>freeForm</style>
+    <subject>Please accept the offer with price list</subject>
+    <textOnly>Hi,
+
+How are you!
+
+We kindly request you to review and accept the below offer with Pricelist at your convenience.
+
+
+
+Quote Name : {!Quote.Name}
+Account Name : {!Quote.Bill_To_Account__c}
+Total Price : {!Quote.Total_Price_Summary__c}
+Total Standard Cost : {!Quote.Total_Standard_Cost__c}
+Total GP % : {!Quote.Total_GP_Percent__c}
+Total GP $ : {!Quote.Total_GP_Dollars__c}
+Total Deal Quantity : {!Quote.Total_Deal_Quantity__c}
+
+
+Kindly review your Quote by clicking on the link below:
+{!Quote.Link}
+
+
+
+For your convenience, you may approve or reject this quote directly by replying to this email with the keywords “Approve” or “Reject.”
+
+
+
+Thank You!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
