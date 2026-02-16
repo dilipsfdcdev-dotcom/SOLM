@@ -47,6 +47,13 @@
 		<name>CustomField</name>
 	</types>
 	<types>
+		<members>BU_Task_Owner.Ewelina</members>
+		<members>BU_Task_Owner.Ewelina_3</members>
+		<members>BU_Task_Owner.Ewelina_4</members>
+		<members>BU_Task_Owner.Siva</members>
+		<name>CustomMetadata</name>
+	</types>
+	<types>
 		<members>BU_Task_Owner__mdt</members>
 		<name>CustomObject</name>
 	</types>
