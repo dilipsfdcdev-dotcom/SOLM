@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+
+    <!-- Objects & Fields Tab + Other Implementations Tab - All Custom Fields -->
+    <types>
+        <members>Standard_Prices__c.Standard_Price_Name__c</members>
+        <members>Standard_Prices__c.Currency__c</members>
+        <members>Standard_Prices__c.Duty_Cost_Piece__c</members>
+        <members>Standard_Prices__c.Outbound_Cost_Piece__c</members>
+        <members>Standard_Prices__c.Warehouse_Cost_Piece__c</members>
+        <members>Standard_Prices__c.Inbound_Cost_Piece__c</members>
+        <members>Standard_Prices__c.ItemCode__c</members>
+        <members>Standard_Prices__c.Incoterms__c</members>
+        <members>Standard_Prices__c.WhsCode__c</members>
+        <members>Standard_Prices__c.Branch__c</members>
+        <members>Product2.GP_Threshold__c</members>
+        <members>Quote.Total_Price__c</members>
+        <members>Quote.Total_Deal_Quantity__c</members>
+        <members>Quote.Total_GP_Dollar__c</members>
+        <members>Quote.Total_GP_Percent__c</members>
+        <members>Quote.Total_Standard_Cost__c</members>
+        <members>Quote.Offer_Validity__c</members>
+        <members>Quote.Incoterm__c</members>
+        <members>Quote.Deliver_it_by__c</members>
+        <members>QuoteLineItem.Qty_box_Case__c</members>
+        <members>QuoteLineItem.Price_per_Case__c</members>
+        <members>QuoteLineItem.Price_per_Box__c</members>
+        <members>QuoteLineItem.GP_Dollar__c</members>
+        <members>QuoteLineItem.GP_Percent__c</members>
+        <members>QuoteLineItem.Standard_Cost__c</members>
+        <members>QuoteLineItem.Discount_Custom__c</members>
+        <members>BU_Task_Owner__mdt.BU__c</members>
+        <members>BU_Task_Owner__mdt.Owner__c</members>
+        <name>CustomField</name>
+    </types>
+
+    <!-- Custom Objects & Custom Metadata Types -->
+    <types>
+        <members>Standard_Prices__c</members>
+        <members>BU_Task_Owner__mdt</members>
+        <name>CustomObject</name>
+    </types>
+
+    <!-- Buttons Tab - Custom Button on Quote -->
+    <types>
+        <members>Quote.Create_Pricelist</members>
+        <name>WebLink</name>
+    </types>
+
+    <!-- Approvals & Email Alerts Tab - Approval Process -->
+    <types>
+        <members>Quote.Quote_Approval</members>
+        <name>ApprovalProcess</name>
+    </types>
+
+    <!-- Approvals & Email Alerts Tab - Email Alerts -->
+    <types>
+        <members>Quote.Quote_Approval</members>
+        <members>Quote.Quote_Approval_Acknowledge</members>
+        <members>Quote.Quote_Approved</members>
+        <members>Quote.Quote_Rejected</members>
+        <name>WorkflowAlert</name>
+    </types>
+
+    <!-- Email Templates Tab -->
+    <types>
+        <members>Quote_Approval</members>
+        <members>Quote_Approval_Submitted</members>
+        <members>Quote_Approved</members>
+        <members>Quote_Rejected</members>
+        <name>EmailTemplate</name>
+    </types>
+
+    <!-- Flows Tab -->
+    <types>
+        <members>QLI_Screen_Data</members>
+        <members>QLI_2</members>
+        <members>Quote_Approval</members>
+        <members>Pricelist_Reversal_Creation</members>
+        <name>Flow</name>
+    </types>
+
+    <!-- Apex Tab - Classes and Test Classes -->
+    <types>
+        <members>customAddProductModalClass</members>
+        <members>customAddProductModalClassTest</members>
+        <members>QuoteDiscountTaskHandler</members>
+        <members>QuoteDiscountTaskHandlerTest</members>
+        <name>ApexClass</name>
+    </types>
+
+    <!-- Apex Tab - Trigger -->
+    <types>
+        <members>QuoteTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+
+    <!-- JS, HTML, CSS, XML Tabs - LWC Component (all files bundled) -->
+    <types>
+        <members>addNewProductsCustom</members>
+        <name>LightningComponentBundle</name>
+    </types>
+
+    <version>65.0</version>
+</Package>
