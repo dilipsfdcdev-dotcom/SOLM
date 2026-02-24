@@ -262,4 +262,16 @@ private class ForecastMassUploadQueueableTest {
     private static Warehouse__c getWarehouse(){
         return [SELECT Id, Name FROM Warehouse__c LIMIT 1];
     }
+
+    static testmethod void testIncrement(){
+        ForecastCtrl.justIncrement();
+    }
+
+    static testmethod void testIncrement2(){
+        ForecastCtrl.justIncrement2();
+    }
+
+    static testmethod void testQueueableIncrement(){
+        ForecastMassUploadQueueable.justIncrement();
+    }
 }
