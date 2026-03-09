@@ -66,14 +66,23 @@ start_agent topic_selector:
 
         actions:
             go_to_case_inquiry_search: @utils.transition to @topic.case_inquiry_search
+                description: "Route when user wants to look up, check status, search, or find cases."
             go_to_case_creation: @utils.transition to @topic.case_creation
+                description: "Route when user wants to create, log, open, raise, or submit a new case."
             go_to_case_updates: @utils.transition to @topic.case_updates
+                description: "Route when user wants to update, edit, change status/priority, or add comments."
             go_to_case_closure: @utils.transition to @topic.case_closure
+                description: "Route when user wants to close, resolve, or mark a case as done."
             go_to_case_reassignment: @utils.transition to @topic.case_reassignment
+                description: "Route when user wants to reassign, transfer ownership, or change case owner."
             go_to_case_history: @utils.transition to @topic.case_history
+                description: "Route when user wants case history, audit trail, changes, or activity log."
             go_to_related_case_intelligence: @utils.transition to @topic.related_case_intelligence
+                description: "Route when user wants similar cases, related issues, known solutions, or patterns."
             go_to_reporting_summaries: @utils.transition to @topic.reporting_summaries
+                description: "Route when user wants summaries, reports, daily workload, case counts, or statistics."
             go_to_escalation: @utils.transition to @topic.escalation
+                description: "Route when user wants to speak to a human, live agent, or escalate."
 
 
 topic case_inquiry_search:
@@ -103,13 +112,13 @@ topic case_inquiry_search:
                 contactId: string
                     description: "The ContactId of the authenticated user."
             outputs:
-                caseList: object
+                caseList: list[object]
                     description: "List of case records."
-                totalCount: number
+                totalCount: integer
                     description: "Total number of cases."
-                openCount: number
+                openCount: integer
                     description: "Number of open cases."
-                closedCount: number
+                closedCount: integer
                     description: "Number of closed cases."
                 message: string
                     description: "Summary message."
@@ -131,9 +140,9 @@ topic case_inquiry_search:
                 dateTo: string
                     description: "End date in YYYY-MM-DD format."
             outputs:
-                caseList: object
+                caseList: list[object]
                     description: "Filtered list of case records."
-                resultCount: number
+                resultCount: integer
                     description: "Number of results."
                 message: string
                     description: "Result message."
@@ -144,18 +153,18 @@ topic case_inquiry_search:
             inputs:
                 contactId: string
                     description: "ContactId of the user."
-                daysOpen: number
+                daysOpen: integer
                     description: "Number of days a case must be open to be considered overdue. Default is 7."
             outputs:
-                overdueCaseList: object
+                overdueCaseList: list[object]
                     description: "List of overdue case records."
-                overdueCount: number
+                overdueCount: integer
                     description: "Number of overdue cases."
                 message: string
                     description: "Result message."
 
     reasoning:
-        instructions: ->
+        instructions:->
             if @variables.ContactId:
                 | The user's ContactId is {!@variables.ContactId}. Use this automatically for all case lookups.
             | Help the user find and view their cases. You have these capabilities:
@@ -169,23 +178,23 @@ topic case_inquiry_search:
 
         actions:
             get_case: @actions.get_case
-                with contactId = @variables.ContactId
-                with caseNumber = ...
+                with contactId=@variables.ContactId
+                with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
                 set @variables.caseStatus = @outputs.caseRecord.Status
             get_cases_by_contact: @actions.get_cases_by_contact
-                with contactId = @variables.ContactId
+                with contactId=@variables.ContactId
             search_cases: @actions.search_cases
-                with contactId = @variables.ContactId
-                with keyword = ...
-                with statusFilter = ...
-                with priorityFilter = ...
-                with dateFrom = ...
-                with dateTo = ...
+                with contactId=@variables.ContactId
+                with keyword=...
+                with statusFilter=...
+                with priorityFilter=...
+                with dateFrom=...
+                with dateTo=...
             get_overdue_cases: @actions.get_overdue_cases
-                with contactId = @variables.ContactId
-                with daysOpen = ...
+                with contactId=@variables.ContactId
+                with daysOpen=...
 
 
 topic case_creation:
@@ -241,12 +250,12 @@ topic case_creation:
 
         actions:
             create_case: @actions.create_case
-                with contactId = @variables.ContactId
-                with subject = ...
-                with description = ...
-                with priority = ...
-                with caseType = ...
-                with origin = "Messaging"
+                with contactId=@variables.ContactId
+                with subject=...
+                with description=...
+                with priority=...
+                with caseType=...
+                with origin="Messaging"
                 set @variables.caseId = @outputs.caseId
                 set @variables.caseNumber = @outputs.caseNumber
 
@@ -322,7 +331,7 @@ topic case_updates:
                     description: "Result message."
 
     reasoning:
-        instructions: ->
+        instructions:->
             | Help users update their cases or add comments.
             if @variables.caseId:
                 | You are currently working with case {!@variables.caseNumber} (Id: {!@variables.caseId}).
@@ -339,21 +348,21 @@ topic case_updates:
 
         actions:
             get_case: @actions.get_case
-                with contactId = @variables.ContactId
-                with caseNumber = ...
+                with contactId=@variables.ContactId
+                with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
                 set @variables.caseStatus = @outputs.caseRecord.Status
             update_case: @actions.update_case
-                with caseId = @variables.caseId
-                with status = ...
-                with priority = ...
-                with description = ...
-                with caseType = ...
-                with subject = ...
+                with caseId=@variables.caseId
+                with status=...
+                with priority=...
+                with description=...
+                with caseType=...
+                with subject=...
             add_comment: @actions.add_comment
-                with caseId = @variables.caseId
-                with commentBody = ...
+                with caseId=@variables.caseId
+                with commentBody=...
 
 
 topic case_closure:
@@ -414,16 +423,16 @@ topic case_closure:
 
         actions:
             get_case: @actions.get_case
-                with contactId = @variables.ContactId
-                with caseNumber = ...
+                with contactId=@variables.ContactId
+                with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
                 set @variables.caseStatus = @outputs.caseRecord.Status
             close_case: @actions.close_case
-                with caseId = @variables.caseId
-                with resolutionSummary = ...
-                with rootCause = ...
-                with closureNotes = ...
+                with caseId=@variables.caseId
+                with resolutionSummary=...
+                with rootCause=...
+                with closureNotes=...
 
 
 topic case_reassignment:
@@ -478,14 +487,14 @@ topic case_reassignment:
 
         actions:
             get_case: @actions.get_case
-                with contactId = @variables.ContactId
-                with caseNumber = ...
+                with contactId=@variables.ContactId
+                with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
             reassign_case: @actions.reassign_case
-                with caseId = @variables.caseId
-                with newOwnerId = ...
-                with queueName = ...
+                with caseId=@variables.caseId
+                with newOwnerId=...
+                with queueName=...
 
 
 topic case_history:
@@ -518,9 +527,9 @@ topic case_history:
             outputs:
                 historySummary: string
                     description: "Formatted field-change history."
-                commentCount: number
+                commentCount: integer
                     description: "Number of comments."
-                historyCount: number
+                historyCount: integer
                     description: "Number of history records."
                 isSuccess: boolean
                     description: "Whether retrieval succeeded."
@@ -540,12 +549,12 @@ topic case_history:
 
         actions:
             get_case: @actions.get_case
-                with contactId = @variables.ContactId
-                with caseNumber = ...
+                with contactId=@variables.ContactId
+                with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
             get_case_history: @actions.get_case_history
-                with caseId = @variables.caseId
+                with caseId=@variables.caseId
 
 
 topic related_case_intelligence:
@@ -563,9 +572,9 @@ topic related_case_intelligence:
                 includeResolutions: boolean
                     description: "Whether to include resolution notes from closed cases."
             outputs:
-                similarCaseList: object
+                similarCaseList: list[object]
                     description: "List of similar case records."
-                resultCount: number
+                resultCount: integer
                     description: "Number of similar cases found."
                 hasPattern: boolean
                     description: "Whether a pattern (3+ similar cases) was detected."
@@ -583,9 +592,9 @@ topic related_case_intelligence:
 
         actions:
             find_similar_cases: @actions.find_similar_cases
-                with keyword = ...
-                with caseType = ...
-                with includeResolutions = True
+                with keyword=...
+                with caseType=...
+                with includeResolutions=True
 
 
 topic reporting_summaries:
@@ -599,27 +608,27 @@ topic reporting_summaries:
                 contactId: string
                     description: "ContactId of the authenticated user."
             outputs:
-                totalCases: number
+                totalCases: integer
                     description: "Total number of cases."
-                newCount: number
+                newCount: integer
                     description: "Cases with New status."
-                openCount: number
+                openCount: integer
                     description: "Cases with Open status."
-                inProgressCount: number
+                inProgressCount: integer
                     description: "Cases In Progress."
-                escalatedCount: number
+                escalatedCount: integer
                     description: "Escalated cases."
-                waitingCount: number
+                waitingCount: integer
                     description: "Cases Waiting on Customer."
-                closedCount: number
+                closedCount: integer
                     description: "Closed cases."
-                criticalHighCount: number
+                criticalHighCount: integer
                     description: "Critical and High priority cases."
-                mediumCount: number
+                mediumCount: integer
                     description: "Medium priority cases."
-                lowCount: number
+                lowCount: integer
                     description: "Low priority cases."
-                recentOpenCases: object
+                recentOpenCases: list[object]
                     description: "5 most recent open cases."
                 message: string
                     description: "Summary message."
@@ -631,9 +640,9 @@ topic reporting_summaries:
                 contactId: string
                     description: "ContactId of the authenticated user."
             outputs:
-                urgentCaseList: object
+                urgentCaseList: list[object]
                     description: "List of urgent cases."
-                urgentCount: number
+                urgentCount: integer
                     description: "Number of urgent cases."
                 message: string
                     description: "Result message."
@@ -649,9 +658,9 @@ topic reporting_summaries:
 
         actions:
             get_case_summary: @actions.get_case_summary
-                with contactId = @variables.ContactId
+                with contactId=@variables.ContactId
             get_urgent_cases: @actions.get_urgent_cases
-                with contactId = @variables.ContactId
+                with contactId=@variables.ContactId
 
 
 topic escalation:
@@ -667,4 +676,6 @@ topic escalation:
             Never block or discourage escalation if user requests it.
 
         actions:
-            escalate_to_human: @utils.escalate
+            escalate_to_human:
+                description: "Escalate to a live human agent."
+                action: "@utils.escalate"
