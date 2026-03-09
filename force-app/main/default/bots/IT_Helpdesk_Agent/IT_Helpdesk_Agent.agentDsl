@@ -56,13 +56,13 @@ start_agent topic_selector:
     reasoning:
         instructions: |
             Analyze the user's message and conversation history to route to the correct topic.
-            IMPORTANT — IDENTITY CHECK FIRST:
-            If resolvedContactId ({!@variables.resolvedContactId}) is already set, route directly to the appropriate topic.
-            If resolvedContactId is NOT set, route to identify_user FIRST before any case operation.
+            CRITICAL — IDENTITY CHECK FIRST:
+            The current resolvedContactId is: "{!@variables.resolvedContactId}"
+            RULE: If resolvedContactId is empty (blank string ""), you MUST call go_to_identify_user. This applies even if the user has provided an email address — the email still needs to be resolved to a ContactId.
+            Only route to other topics when resolvedContactId contains an actual Salesforce Id value (starts with "003").
             Exception: If the user wants to escalate to a live agent, route directly to escalation (no identity needed).
             If the user just says hi or a greeting, respond with a friendly welcome and list what you can help with.
-            If the user provides a case number directly, route to case_inquiry_search (after identity check).
-            Route based on the following intent mapping:
+            Once resolvedContactId IS set, route based on the following intent mapping:
             - Lookup, check status, search, find cases → case_inquiry_search
             - Create, log, open, raise, submit a new case → case_creation
             - Update, edit, change status/priority, add comments → case_updates
@@ -121,19 +121,19 @@ topic identify_user:
     reasoning:
         instructions: |
             Your goal is to identify the user so case operations can proceed.
-            STEP 1: Check if the session already has a ContactId ({!@variables.ContactId}).
-              - If it is NOT empty, call resolve_contact with sessionContactId set to that value to verify it.
-              - If it IS empty, go to Step 2.
-            STEP 2: Ask the user for their email address: "To get started, could you please provide your email address so I can look up your account?"
-            STEP 3: Once the user provides their email, call resolve_contact with the email parameter set to the email address the user just provided.
-            STEP 4: Check the result:
-              - If isFound is true, greet the user by name using contactName and then route back to topic_selector to handle their original request.
-              - If isFound is false, say: "I couldn't find an account with that email. Please double-check the address or I can connect you with a live agent."
+            The session ContactId value is: {!@variables.ContactId}
+            STEP 1: If the session ContactId above is NOT empty and NOT None, call resolve_contact with sessionContactId set to that value.
+            STEP 2: If the session ContactId IS empty or None, ask the user for their email: "To get started, could you please provide your email address so I can look up your account?"
+            STEP 3: Once the user provides their email, call resolve_contact with ONLY the email parameter set to the email address the user provided. Leave sessionContactId empty.
+            STEP 4: After resolve_contact returns:
+              - If isFound is true: greet the user by name using contactName, then use go_to_topic_selector to route back and handle their original request.
+              - If isFound is false: say "I couldn't find an account with that email. Please double-check the address or I can connect you with a live agent."
               - If the user wants to try a different email, go back to Step 2.
+            IMPORTANT: You MUST call resolve_contact to look up the user. Do NOT skip this step.
 
         actions:
             resolve_contact: @actions.resolve_contact
-                with sessionContactId=@variables.ContactId
+                with sessionContactId=...
                 with email=...
                 set @variables.resolvedContactId = @outputs.contactId
             go_to_topic_selector: @utils.transition to @topic.topic_selector
