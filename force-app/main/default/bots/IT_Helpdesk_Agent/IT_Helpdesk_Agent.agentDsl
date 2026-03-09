@@ -41,6 +41,10 @@ variables:
         description: "Stores the case number of the current case."
     caseStatus: mutable string = ""
         description: "Stores the current status of the case."
+    userEmail: mutable string = ""
+        description: "The user's email address captured from the conversation for identity resolution."
+    contactName: mutable string = ""
+        description: "The full name of the resolved Contact."
 
 language:
     default_locale: "en_US"
@@ -119,26 +123,47 @@ topic identify_user:
                     description: "Result message."
 
     reasoning:
-        instructions: |
-            Your goal is to identify the user so case operations can proceed.
-            The session ContactId value is: {!@variables.ContactId}
-            STEP 1: If the session ContactId above is NOT empty and NOT None, call resolve_contact with sessionContactId set to that value.
-            STEP 2: If the session ContactId IS empty or None, ask the user for their email: "To get started, could you please provide your email address so I can look up your account?"
-            STEP 3: Once the user provides their email, call resolve_contact with ONLY the email parameter set to the email address the user provided. Leave sessionContactId empty.
-            STEP 4: After resolve_contact returns:
-              - If isFound is true: greet the user by name using contactName, then use go_to_topic_selector to route back and handle their original request.
-              - If isFound is false: say "I couldn't find an account with that email. Please double-check the address or I can connect you with a live agent."
-              - If the user wants to try a different email, go back to Step 2.
-            IMPORTANT: You MUST call resolve_contact to look up the user. Do NOT skip this step.
+        instructions: ->
+            # Deterministic: resolve from session ContactId if available
+            if @variables.resolvedContactId == "":
+                if @variables.ContactId is not None and @variables.ContactId != "":
+                    run @actions.resolve_contact
+                        with sessionContactId=@variables.ContactId
+                        set @variables.resolvedContactId = @outputs.contactId
+                        set @variables.contactName = @outputs.contactName
+
+            # Deterministic: resolve from previously captured email
+            if @variables.resolvedContactId == "" and @variables.userEmail != "":
+                run @actions.resolve_contact
+                    with email=@variables.userEmail
+                    set @variables.resolvedContactId = @outputs.contactId
+                    set @variables.contactName = @outputs.contactName
+                if @variables.resolvedContactId == "":
+                    set @variables.userEmail = ""
+
+            if @variables.resolvedContactId != "":
+                | Welcome, {!@variables.contactName}! I have verified your identity.
+                  Use go_to_topic_selector to route back and handle the user's original request.
+            else:
+                | To get started, could you please provide your email address so I can look up your account?
+                  Once the user provides their email, use {!@actions.capture_email} to capture it.
+                  If you already asked and the email was not found, let the user know and ask them to try a different email address or offer to connect them with a live agent.
 
         actions:
-            resolve_contact: @actions.resolve_contact
-                description: "Call this action to resolve user identity by verifying an existing ContactId or looking up a Contact by email address."
-                with sessionContactId=...
-                with email=...
-                set @variables.resolvedContactId = @outputs.contactId
+            capture_email: @utils.setVariables
+                description: "Capture the user's email address from the conversation"
+                with userEmail = ...
             go_to_topic_selector: @utils.transition to @topic.topic_selector
                 description: "Return to the main topic selector after successful user identification."
+
+    after_reasoning: ->
+        if @variables.resolvedContactId == "" and @variables.userEmail != "":
+            run @actions.resolve_contact
+                with email=@variables.userEmail
+                set @variables.resolvedContactId = @outputs.contactId
+                set @variables.contactName = @outputs.contactName
+        if @variables.resolvedContactId != "":
+            transition to @topic.topic_selector
 
 
 topic case_inquiry_search:
