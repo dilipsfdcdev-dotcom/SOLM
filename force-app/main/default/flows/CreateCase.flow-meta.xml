@@ -6,7 +6,6 @@
     <processType>AutoLaunchedFlow</processType>
     <status>Active</status>
 
-    <!-- INPUTS -->
     <variables>
         <name>contactId</name>
         <dataType>String</dataType>
@@ -59,8 +58,6 @@
         <isOutput>false</isOutput>
         <value><stringValue>New</stringValue></value>
     </variables>
-
-    <!-- OUTPUTS -->
     <variables>
         <name>caseRecord</name>
         <dataType>SObject</dataType>
@@ -98,8 +95,6 @@
         <isOutput>true</isOutput>
         <value><booleanValue>false</booleanValue></value>
     </variables>
-
-    <!-- INTERNAL variable for new case record -->
     <variables>
         <name>newCase</name>
         <dataType>SObject</dataType>
@@ -115,43 +110,6 @@
         <connector><targetReference>Validate_Required_Fields</targetReference></connector>
     </start>
 
-    <!-- DECISION: Validate required fields -->
-    <decisions>
-        <name>Validate_Required_Fields</name>
-        <label>Validate Required Fields</label>
-        <locationX>200</locationX>
-        <locationY>150</locationY>
-        <defaultConnectorLabel>Validation Failed</defaultConnectorLabel>
-        <defaultConnector><targetReference>Set_Validation_Error</targetReference></defaultConnector>
-        <rules>
-            <name>Fields_Valid</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>contactId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue><booleanValue>false</booleanValue></rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>subject</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue><booleanValue>false</booleanValue></rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>subject</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue><stringValue></stringValue></rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>description</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue><booleanValue>false</booleanValue></rightValue>
-            </conditions>
-            <connector><targetReference>Assign_Case_Fields</targetReference></connector>
-            <label>All Fields Valid</label>
-        </rules>
-    </decisions>
-
-    <!-- ASSIGNMENT: Populate case fields -->
     <assignments>
         <name>Assign_Case_Fields</name>
         <label>Assign Case Fields</label>
@@ -194,8 +152,85 @@
         </assignmentItems>
         <connector><targetReference>Create_Case_Record</targetReference></connector>
     </assignments>
+    <assignments>
+        <name>Set_Output_Variables</name>
+        <label>Set Output Variables</label>
+        <locationX>1000</locationX>
+        <locationY>150</locationY>
+        <assignmentItems>
+            <assignToReference>caseNumber</assignToReference>
+            <operator>Assign</operator>
+            <value><elementReference>caseRecord.CaseNumber</elementReference></value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>caseId</assignToReference>
+            <operator>Assign</operator>
+            <value><elementReference>caseRecord.Id</elementReference></value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>isSuccess</assignToReference>
+            <operator>Assign</operator>
+            <value><booleanValue>true</booleanValue></value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Validation_Error</name>
+        <label>Set Validation Error</label>
+        <locationX>200</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>errorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value><stringValue>Required fields missing: contactId, subject, and description are required to create a case.</stringValue></value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Create_Error</name>
+        <label>Set Create Error</label>
+        <locationX>600</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>errorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value><elementReference>$Flow.FaultMessage</elementReference></value>
+        </assignmentItems>
+    </assignments>
 
-    <!-- RECORD CREATE -->
+    <decisions>
+        <name>Validate_Required_Fields</name>
+        <label>Validate Required Fields</label>
+        <locationX>200</locationX>
+        <locationY>150</locationY>
+        <defaultConnectorLabel>Validation Failed</defaultConnectorLabel>
+        <defaultConnector><targetReference>Set_Validation_Error</targetReference></defaultConnector>
+        <rules>
+            <name>Fields_Valid</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>contactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue><booleanValue>false</booleanValue></rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>subject</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue><booleanValue>false</booleanValue></rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>subject</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue><stringValue></stringValue></rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>description</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue><booleanValue>false</booleanValue></rightValue>
+            </conditions>
+            <connector><targetReference>Assign_Case_Fields</targetReference></connector>
+            <label>All Fields Valid</label>
+        </rules>
+    </decisions>
+
     <recordCreates>
         <name>Create_Case_Record</name>
         <label>Create Case Record</label>
@@ -207,7 +242,6 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
 
-    <!-- RECORD LOOKUP: Fetch created case to return full record + case number -->
     <recordLookups>
         <name>Get_Created_Case</name>
         <label>Get Created Case Record</label>
@@ -235,50 +269,4 @@
         <queriedFields>ContactId</queriedFields>
         <queriedFields>Origin</queriedFields>
     </recordLookups>
-
-    <assignments>
-        <name>Set_Output_Variables</name>
-        <label>Set Output Variables</label>
-        <locationX>1000</locationX>
-        <locationY>150</locationY>
-        <assignmentItems>
-            <assignToReference>caseNumber</assignToReference>
-            <operator>Assign</operator>
-            <value><elementReference>caseRecord.CaseNumber</elementReference></value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>caseId</assignToReference>
-            <operator>Assign</operator>
-            <value><elementReference>caseRecord.Id</elementReference></value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>isSuccess</assignToReference>
-            <operator>Assign</operator>
-            <value><booleanValue>true</booleanValue></value>
-        </assignmentItems>
-    </assignments>
-
-    <assignments>
-        <name>Set_Validation_Error</name>
-        <label>Set Validation Error</label>
-        <locationX>200</locationX>
-        <locationY>350</locationY>
-        <assignmentItems>
-            <assignToReference>errorMessage</assignToReference>
-            <operator>Assign</operator>
-            <value><stringValue>Required fields missing: contactId, subject, and description are required to create a case.</stringValue></value>
-        </assignmentItems>
-    </assignments>
-
-    <assignments>
-        <name>Set_Create_Error</name>
-        <label>Set Create Error</label>
-        <locationX>600</locationX>
-        <locationY>350</locationY>
-        <assignmentItems>
-            <assignToReference>errorMessage</assignToReference>
-            <operator>Assign</operator>
-            <value><elementReference>$Flow.FaultMessage</elementReference></value>
-        </assignmentItems>
-    </assignments>
 </Flow>

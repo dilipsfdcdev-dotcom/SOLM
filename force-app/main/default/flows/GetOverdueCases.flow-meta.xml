@@ -30,62 +30,23 @@
         <isOutput>true</isOutput>
         <objectType>Case</objectType>
     </variables>
-    <variables>
-        <name>cutoffDate</name>
+
+    <formulas>
+        <name>cutoffDateFormula</name>
         <dataType>DateTime</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>daysAsNegative</name>
-        <dataType>Number</dataType>
-        <scale>0</scale>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
+        <expression>NOW() - {!daysOpen}</expression>
+    </formulas>
 
     <start>
         <locationX>50</locationX>
         <locationY>50</locationY>
-        <connector><targetReference>Negate_Days</targetReference></connector>
+        <connector><targetReference>Get_Overdue_Cases</targetReference></connector>
     </start>
 
-    <!-- Calculate cutoff date = TODAY minus daysOpen -->
-    <assignments>
-        <name>Negate_Days</name>
-        <label>Negate Days for Subtraction</label>
-        <locationX>200</locationX>
-        <locationY>150</locationY>
-        <assignmentItems>
-            <assignToReference>daysAsNegative</assignToReference>
-            <operator>Subtract</operator>
-            <value><numberValue>0</numberValue></value>
-        </assignmentItems>
-        <connector><targetReference>Calculate_Cutoff</targetReference></connector>
-    </assignments>
-
-    <assignments>
-        <name>Calculate_Cutoff</name>
-        <label>Calculate Cutoff Date</label>
-        <locationX>400</locationX>
-        <locationY>150</locationY>
-        <assignmentItems>
-            <assignToReference>cutoffDate</assignToReference>
-            <operator>Add</operator>
-            <value><elementReference>$Flow.CurrentDateTime</elementReference></value>
-        </assignmentItems>
-        <!-- Note: Use a formula resource in production to compute NOW() - daysOpen*86400 seconds -->
-        <connector><targetReference>Get_Overdue_Cases</targetReference></connector>
-    </assignments>
-
-    <!-- RECORD LOOKUP: Open cases older than cutoff using formula -->
-    <!-- Formula Resource: cutoffDateFormula = NOW() - (daysOpen / 1) — add in Flow Builder -->
     <recordLookups>
         <name>Get_Overdue_Cases</name>
         <label>Get Overdue Open Cases</label>
-        <locationX>600</locationX>
+        <locationX>200</locationX>
         <locationY>150</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <filterLogic>and</filterLogic>
@@ -100,11 +61,9 @@
             <value><stringValue>Closed</stringValue></value>
         </filters>
         <filters>
-            <!-- CreatedDate less than cutoff = open for longer than N days -->
-            <!-- In Flow Builder, reference a Formula resource: {!cutoffDateFormula} = NOW() - daysOpen -->
             <field>CreatedDate</field>
             <operator>LessThan</operator>
-            <value><elementReference>cutoffDate</elementReference></value>
+            <value><elementReference>cutoffDateFormula</elementReference></value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>Case</object>

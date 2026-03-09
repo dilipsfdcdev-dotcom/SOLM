@@ -64,76 +64,6 @@
         <connector><targetReference>Validate_CaseId</targetReference></connector>
     </start>
 
-    <decisions>
-        <name>Validate_CaseId</name>
-        <label>Validate CaseId</label>
-        <locationX>200</locationX>
-        <locationY>150</locationY>
-        <defaultConnectorLabel>Missing CaseId</defaultConnectorLabel>
-        <defaultConnector><targetReference>Set_CaseId_Error</targetReference></defaultConnector>
-        <rules>
-            <name>CaseId_Valid</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>caseId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue><booleanValue>false</booleanValue></rightValue>
-            </conditions>
-            <connector><targetReference>Get_Existing_Case</targetReference></connector>
-            <label>CaseId Provided</label>
-        </rules>
-    </decisions>
-
-    <recordLookups>
-        <name>Get_Existing_Case</name>
-        <label>Get Existing Case</label>
-        <locationX>400</locationX>
-        <locationY>150</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector><targetReference>Check_Status_Update</targetReference></connector>
-        <faultConnector><targetReference>Set_Lookup_Error</targetReference></faultConnector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value><elementReference>caseId</elementReference></value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Case</object>
-        <outputReference>caseRecord</outputReference>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>CaseNumber</queriedFields>
-        <queriedFields>Subject</queriedFields>
-        <queriedFields>Status</queriedFields>
-        <queriedFields>Priority</queriedFields>
-        <queriedFields>Description</queriedFields>
-    </recordLookups>
-
-    <!-- Conditionally update Status -->
-    <decisions>
-        <name>Check_Status_Update</name>
-        <label>Update Status?</label>
-        <locationX>600</locationX>
-        <locationY>150</locationY>
-        <defaultConnectorLabel>No Status Update</defaultConnectorLabel>
-        <defaultConnector><targetReference>Check_Priority_Update</targetReference></defaultConnector>
-        <rules>
-            <name>Has_Status</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>status</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue><booleanValue>false</booleanValue></rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>status</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue><stringValue></stringValue></rightValue>
-            </conditions>
-            <connector><targetReference>Assign_Status</targetReference></connector>
-            <label>Status Provided</label>
-        </rules>
-    </decisions>
     <assignments>
         <name>Assign_Status</name>
         <label>Assign Status</label>
@@ -146,31 +76,6 @@
         </assignmentItems>
         <connector><targetReference>Check_Priority_Update</targetReference></connector>
     </assignments>
-
-    <decisions>
-        <name>Check_Priority_Update</name>
-        <label>Update Priority?</label>
-        <locationX>800</locationX>
-        <locationY>200</locationY>
-        <defaultConnectorLabel>No Priority Update</defaultConnectorLabel>
-        <defaultConnector><targetReference>Check_Description_Update</targetReference></defaultConnector>
-        <rules>
-            <name>Has_Priority</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>priority</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue><booleanValue>false</booleanValue></rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>priority</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue><stringValue></stringValue></rightValue>
-            </conditions>
-            <connector><targetReference>Assign_Priority</targetReference></connector>
-            <label>Priority Provided</label>
-        </rules>
-    </decisions>
     <assignments>
         <name>Assign_Priority</name>
         <label>Assign Priority</label>
@@ -183,31 +88,6 @@
         </assignmentItems>
         <connector><targetReference>Check_Description_Update</targetReference></connector>
     </assignments>
-
-    <decisions>
-        <name>Check_Description_Update</name>
-        <label>Update Description?</label>
-        <locationX>1000</locationX>
-        <locationY>300</locationY>
-        <defaultConnectorLabel>No Description Update</defaultConnectorLabel>
-        <defaultConnector><targetReference>Save_Case_Record</targetReference></defaultConnector>
-        <rules>
-            <name>Has_Description</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>description</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue><booleanValue>false</booleanValue></rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>description</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue><stringValue></stringValue></rightValue>
-            </conditions>
-            <connector><targetReference>Assign_Description</targetReference></connector>
-            <label>Description Provided</label>
-        </rules>
-    </decisions>
     <assignments>
         <name>Assign_Description</name>
         <label>Assign Description</label>
@@ -220,17 +100,6 @@
         </assignmentItems>
         <connector><targetReference>Save_Case_Record</targetReference></connector>
     </assignments>
-
-    <recordUpdates>
-        <name>Save_Case_Record</name>
-        <label>Save Updated Case</label>
-        <locationX>1200</locationX>
-        <locationY>400</locationY>
-        <connector><targetReference>Set_Update_Success</targetReference></connector>
-        <faultConnector><targetReference>Set_Update_Error</targetReference></faultConnector>
-        <inputReference>caseRecord</inputReference>
-    </recordUpdates>
-
     <assignments>
         <name>Set_Update_Success</name>
         <label>Set Success</label>
@@ -275,4 +144,131 @@
             <value><elementReference>$Flow.FaultMessage</elementReference></value>
         </assignmentItems>
     </assignments>
+
+    <decisions>
+        <name>Validate_CaseId</name>
+        <label>Validate CaseId</label>
+        <locationX>200</locationX>
+        <locationY>150</locationY>
+        <defaultConnectorLabel>Missing CaseId</defaultConnectorLabel>
+        <defaultConnector><targetReference>Set_CaseId_Error</targetReference></defaultConnector>
+        <rules>
+            <name>CaseId_Valid</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>caseId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue><booleanValue>false</booleanValue></rightValue>
+            </conditions>
+            <connector><targetReference>Get_Existing_Case</targetReference></connector>
+            <label>CaseId Provided</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Status_Update</name>
+        <label>Update Status?</label>
+        <locationX>600</locationX>
+        <locationY>150</locationY>
+        <defaultConnectorLabel>No Status Update</defaultConnectorLabel>
+        <defaultConnector><targetReference>Check_Priority_Update</targetReference></defaultConnector>
+        <rules>
+            <name>Has_Status</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>status</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue><booleanValue>false</booleanValue></rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue><stringValue></stringValue></rightValue>
+            </conditions>
+            <connector><targetReference>Assign_Status</targetReference></connector>
+            <label>Status Provided</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Priority_Update</name>
+        <label>Update Priority?</label>
+        <locationX>800</locationX>
+        <locationY>200</locationY>
+        <defaultConnectorLabel>No Priority Update</defaultConnectorLabel>
+        <defaultConnector><targetReference>Check_Description_Update</targetReference></defaultConnector>
+        <rules>
+            <name>Has_Priority</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>priority</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue><booleanValue>false</booleanValue></rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>priority</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue><stringValue></stringValue></rightValue>
+            </conditions>
+            <connector><targetReference>Assign_Priority</targetReference></connector>
+            <label>Priority Provided</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Description_Update</name>
+        <label>Update Description?</label>
+        <locationX>1000</locationX>
+        <locationY>300</locationY>
+        <defaultConnectorLabel>No Description Update</defaultConnectorLabel>
+        <defaultConnector><targetReference>Save_Case_Record</targetReference></defaultConnector>
+        <rules>
+            <name>Has_Description</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>description</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue><booleanValue>false</booleanValue></rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>description</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue><stringValue></stringValue></rightValue>
+            </conditions>
+            <connector><targetReference>Assign_Description</targetReference></connector>
+            <label>Description Provided</label>
+        </rules>
+    </decisions>
+
+    <recordLookups>
+        <name>Get_Existing_Case</name>
+        <label>Get Existing Case</label>
+        <locationX>400</locationX>
+        <locationY>150</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector><targetReference>Check_Status_Update</targetReference></connector>
+        <faultConnector><targetReference>Set_Lookup_Error</targetReference></faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value><elementReference>caseId</elementReference></value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <outputReference>caseRecord</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Subject</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>Priority</queriedFields>
+        <queriedFields>Description</queriedFields>
+    </recordLookups>
+
+    <recordUpdates>
+        <name>Save_Case_Record</name>
+        <label>Save Updated Case</label>
+        <locationX>1200</locationX>
+        <locationY>400</locationY>
+        <connector><targetReference>Set_Update_Success</targetReference></connector>
+        <faultConnector><targetReference>Set_Update_Error</targetReference></faultConnector>
+        <inputReference>caseRecord</inputReference>
+    </recordUpdates>
 </Flow>
