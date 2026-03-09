@@ -133,6 +133,7 @@ topic identify_user:
 
         actions:
             resolve_contact: @actions.resolve_contact
+                description: "Call this action to resolve user identity by verifying an existing ContactId or looking up a Contact by email address."
                 with sessionContactId=...
                 with email=...
                 set @variables.resolvedContactId = @outputs.contactId
@@ -236,14 +237,17 @@ topic case_inquiry_search:
 
         actions:
             get_case: @actions.get_case
+                description: "Retrieve a specific case by case number for the authenticated user."
                 with contactId=@variables.resolvedContactId
                 with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
                 set @variables.caseStatus = @outputs.caseRecord.Status
             get_cases_by_contact: @actions.get_cases_by_contact
+                description: "Retrieve all cases linked to the authenticated user's contact."
                 with contactId=@variables.resolvedContactId
             search_cases: @actions.search_cases
+                description: "Search and filter cases by keyword, status, priority, or date range."
                 with contactId=@variables.resolvedContactId
                 with keyword=...
                 with statusFilter=...
@@ -251,6 +255,7 @@ topic case_inquiry_search:
                 with dateFrom=...
                 with dateTo=...
             get_overdue_cases: @actions.get_overdue_cases
+                description: "Find cases that have been open longer than a specified number of days."
                 with contactId=@variables.resolvedContactId
                 with daysOpen=...
 
@@ -309,6 +314,7 @@ topic case_creation:
 
         actions:
             create_case: @actions.create_case
+                description: "Create a new support case and assign it to the Support queue."
                 with contactId=@variables.resolvedContactId
                 with subject=...
                 with caseDescription=...
@@ -408,12 +414,14 @@ topic case_updates:
 
         actions:
             get_case: @actions.get_case
+                description: "Retrieve a case by case number for the authenticated user."
                 with contactId=@variables.resolvedContactId
                 with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
                 set @variables.caseStatus = @outputs.caseRecord.Status
             update_case: @actions.update_case
+                description: "Update one or more fields on an existing case."
                 with caseId=@variables.caseId
                 with status=...
                 with priority=...
@@ -421,6 +429,7 @@ topic case_updates:
                 with caseType=...
                 with subject=...
             add_comment: @actions.add_comment
+                description: "Add a comment to an existing case."
                 with caseId=@variables.caseId
                 with commentBody=...
 
@@ -485,12 +494,14 @@ topic case_closure:
 
         actions:
             get_case: @actions.get_case
+                description: "Retrieve a case by case number to verify it exists before closure."
                 with contactId=@variables.resolvedContactId
                 with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
                 set @variables.caseStatus = @outputs.caseRecord.Status
             close_case: @actions.close_case
+                description: "Close a case with resolution summary and optional root cause and notes."
                 with caseId=@variables.caseId
                 with resolutionSummary=...
                 with rootCause=...
@@ -551,11 +562,13 @@ topic case_reassignment:
 
         actions:
             get_case: @actions.get_case
+                description: "Retrieve a case by case number to show current details and owner."
                 with contactId=@variables.resolvedContactId
                 with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
             reassign_case: @actions.reassign_case
+                description: "Reassign a case to a different user or queue."
                 with caseId=@variables.caseId
                 with newOwnerId=...
                 with queueName=...
@@ -614,11 +627,13 @@ topic case_history:
 
         actions:
             get_case: @actions.get_case
+                description: "Retrieve a case by case number to verify it exists before viewing history."
                 with contactId=@variables.resolvedContactId
                 with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
             get_case_history: @actions.get_case_history
+                description: "Retrieve comments and field-change history for a case."
                 with caseId=@variables.caseId
 
 
@@ -658,6 +673,7 @@ topic related_case_intelligence:
 
         actions:
             find_similar_cases: @actions.find_similar_cases
+                description: "Find cases similar to the user's issue across all contacts by keyword or type."
                 with keyword=...
                 with caseType=...
                 with includeResolutions=True
@@ -726,8 +742,10 @@ topic reporting_summaries:
 
         actions:
             get_case_summary: @actions.get_case_summary
+                description: "Return aggregated case counts by status and priority for the user."
                 with contactId=@variables.resolvedContactId
             get_urgent_cases: @actions.get_urgent_cases
+                description: "Return open Critical and High priority cases needing immediate attention."
                 with contactId=@variables.resolvedContactId
 
 
