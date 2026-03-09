@@ -55,15 +55,22 @@ knowledge:
 
 
 start_agent topic_selector:
-    description: "Welcome the user and route to the appropriate topic based on their intent."
+    description: "Welcome the user, resolve identity, and route to the appropriate topic based on their intent."
 
     reasoning:
         instructions: ->
             # Deterministic identity check — must happen before any case operation
-            if @variables.resolvedContactId == "":
+            # Step 1: If no email captured yet, go to identify_user to collect it
+            if @variables.resolvedContactId == "" and @variables.userEmail == "":
                 transition to @topic.identify_user
 
-            | Analyze the user's message and conversation history to route to the correct topic.
+            | # Identity Resolution
+              If the user's identity has not been resolved yet (resolvedContactId is empty but userEmail is available),
+              you MUST call {!@actions.resolve_contact} FIRST before doing anything else.
+              - If the contact is found, greet the user by name and proceed to route their request.
+              - If the contact is not found, inform the user that no account was found for that email and ask them to try a different email or offer to connect them with a live agent.
+
+              # Routing (only after identity is resolved)
               The user is verified as: {!@variables.contactName} ({!@variables.resolvedContactId}).
               If the user just says hi or a greeting, respond with a friendly welcome and list what you can help with.
               Route based on the following intent mapping:
@@ -78,6 +85,11 @@ start_agent topic_selector:
               - Speak to human, live agent, escalate → use {!@actions.go_to_live_agent_transfer}
 
         actions:
+            resolve_contact: @actions.resolve_contact
+                description: "Look up the user's Contact record by email address. MUST be called when resolvedContactId is empty."
+                with email=@variables.userEmail
+                set @variables.resolvedContactId = @outputs.contactId
+                set @variables.contactName = @outputs.contactName
             go_to_case_inquiry_search: @utils.transition to @topic.case_inquiry_search
                 description: "Route when user wants to look up, check status, search, or find cases."
                 available when @variables.resolvedContactId != ""
@@ -105,33 +117,6 @@ start_agent topic_selector:
             go_to_live_agent_transfer: @utils.transition to @topic.live_agent_transfer
                 description: "Route when user wants to speak to a human, live agent, or escalate."
 
-
-topic identify_user:
-    description: "Identify the user by asking for their email address, looking up their Contact record, and setting resolvedContactId."
-
-    reasoning:
-        instructions: |
-            Ask the user for their email address so you can verify their identity.
-            When the user provides an email:
-            1. Call {!@actions.capture_email} to store the email.
-            2. Immediately call {!@actions.resolve_contact} to look up their account — do NOT respond to the user between these two steps.
-            After resolve_contact returns:
-            - If the contact was found, welcome them by name and call {!@actions.go_to_topic_selector} to continue.
-            - If no contact was found, tell the user no account was found for that email and ask them to try a different email address or offer to connect them with a live agent.
-
-        actions:
-            capture_email: @utils.setVariables
-                description: "Capture the user's email address from the conversation"
-                with userEmail = ...
-            resolve_contact: @actions.resolve_contact
-                description: "Look up the user's Contact record by email address."
-                with email=@variables.userEmail
-                set @variables.resolvedContactId = @outputs.contactId
-                set @variables.contactName = @outputs.contactName
-            go_to_topic_selector: @utils.transition to @topic.topic_selector
-                description: "Return to the main topic selector after successful user identification."
-                available when @variables.resolvedContactId != ""
-
     actions:
         resolve_contact:
             description: "Looks up a Contact record by email address and returns the ContactId and name."
@@ -150,6 +135,25 @@ topic identify_user:
                     description: "Whether a Contact was found."
                 message: string
                     description: "Result message."
+
+
+topic identify_user:
+    description: "Capture the user's email address for identity verification."
+
+    reasoning:
+        instructions: |
+            Ask the user for their email address so you can verify their identity.
+            When the user provides an email, immediately call {!@actions.capture_email} to store it.
+            After capturing the email, call {!@actions.go_to_topic_selector} to continue with identity verification.
+            Do NOT attempt to look up the contact yourself — that will happen automatically after you return.
+
+        actions:
+            capture_email: @utils.setVariables
+                description: "Capture the user's email address from the conversation"
+                with userEmail = ...
+            go_to_topic_selector: @utils.transition to @topic.topic_selector
+                description: "Return to the main topic selector to continue identity verification."
+                available when @variables.userEmail != ""
 
 
 topic case_inquiry_search:
