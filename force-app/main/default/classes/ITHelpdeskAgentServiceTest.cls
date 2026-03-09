@@ -791,7 +791,7 @@ private class ITHelpdeskAgentServiceTest {
     }
 
     @isTest
-    static void testGetContactByEmailInvocable_Found() {
+    static void testGetContactByEmailInvocable_ByEmail_Found() {
         ITHelpdesk_GetContactByEmail.Input inp = new ITHelpdesk_GetContactByEmail.Input();
         inp.email = 'testuser@ithelpdesk.test';
 
@@ -807,7 +807,7 @@ private class ITHelpdeskAgentServiceTest {
     }
 
     @isTest
-    static void testGetContactByEmailInvocable_NotFound() {
+    static void testGetContactByEmailInvocable_ByEmail_NotFound() {
         ITHelpdesk_GetContactByEmail.Input inp = new ITHelpdesk_GetContactByEmail.Input();
         inp.email = 'nobody@nowhere.test';
 
@@ -819,6 +819,37 @@ private class ITHelpdeskAgentServiceTest {
 
         System.assertEquals(false, results[0].isFound);
         System.assertEquals(null, results[0].contactId);
+    }
+
+    @isTest
+    static void testGetContactByEmailInvocable_ByContactId_Passthrough() {
+        Contact con = getTestContact();
+
+        ITHelpdesk_GetContactByEmail.Input inp = new ITHelpdesk_GetContactByEmail.Input();
+        inp.contactId = con.Id;
+
+        Test.startTest();
+        List<ITHelpdesk_GetContactByEmail.Output> results = ITHelpdesk_GetContactByEmail.execute(
+            new List<ITHelpdesk_GetContactByEmail.Input>{ inp }
+        );
+        Test.stopTest();
+
+        System.assertEquals(true, results[0].isFound);
+        System.assertEquals(con.Id, results[0].contactId);
+        System.assertEquals('Test User', results[0].contactName);
+    }
+
+    @isTest
+    static void testGetContactByEmailInvocable_NeitherProvided() {
+        ITHelpdesk_GetContactByEmail.Input inp = new ITHelpdesk_GetContactByEmail.Input();
+
+        Test.startTest();
+        List<ITHelpdesk_GetContactByEmail.Output> results = ITHelpdesk_GetContactByEmail.execute(
+            new List<ITHelpdesk_GetContactByEmail.Input>{ inp }
+        );
+        Test.stopTest();
+
+        System.assertEquals(false, results[0].isFound);
     }
 
 

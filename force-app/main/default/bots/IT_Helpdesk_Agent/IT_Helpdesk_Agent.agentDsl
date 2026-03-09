@@ -13,11 +13,10 @@ system:
         Format case details in clean, readable structures.
         Always confirm destructive actions like closing or reassigning a case before proceeding.
         When collecting information for case creation or closure, ask ONE field at a time.
-        IDENTITY RESOLUTION: Before performing any case operation, you MUST ensure the user is identified.
-        - If ContactId is already set (from a messaging session), use it directly.
-        - If ContactId is NOT set, you must obtain the user's email address first. In Teams channels the email may be available from the session; otherwise ask the user for their email.
-        - Use the email to look up the Contact and set ContactId before proceeding with any case action.
-        - If no Contact is found for the email, offer to connect them with a live agent.
+        IDENTITY RESOLUTION: Before performing any case operation, you MUST ensure the user is identified via resolvedContactId.
+        - Always route to the identify_user topic first. It will resolve identity from the session ContactId or by email lookup.
+        - If neither is available, ask the user for their email address.
+        - If no Contact is found, offer to connect them with a live agent.
         Never fabricate case numbers, statuses, or details.
         When displaying cases, use formatted tables or lists with Case Number, Subject, Status, Priority, and relevant dates.
 
@@ -36,6 +35,8 @@ variables:
         description: "This variable may also be referred to as MessagingSession EndUserLanguage"
     userEmail: mutable string = ""
         description: "Stores the user's email address used to look up their Contact record. Obtained from Teams session or by asking the user."
+    resolvedContactId: mutable string = ""
+        description: "The resolved ContactId used for all case operations. Populated by the identify_user topic — either from the session ContactId or from email lookup."
     caseId: mutable string = ""
         description: "Stores the Salesforce Id of the current case being worked on."
     caseNumber: mutable string = ""
@@ -58,8 +59,8 @@ start_agent topic_selector:
         instructions: |
             Analyze the user's message and conversation history to route to the correct topic.
             IMPORTANT — IDENTITY CHECK FIRST:
-            If ContactId ({!@variables.ContactId}) is already set, route directly to the appropriate topic.
-            If ContactId is NOT set, route to identify_user FIRST before any case operation.
+            If resolvedContactId ({!@variables.resolvedContactId}) is already set, route directly to the appropriate topic.
+            If resolvedContactId is NOT set, route to identify_user FIRST before any case operation.
             Exception: If the user wants to escalate to a live agent, route directly to escalation (no identity needed).
             If the user just says hi or a greeting, respond with a friendly welcome and list what you can help with.
             If the user provides a case number directly, route to case_inquiry_search (after identity check).
@@ -101,37 +102,39 @@ topic identify_user:
     description: "Identify the user by resolving their email address to a Salesforce ContactId. This topic is invoked before any case operation when ContactId is not already set."
 
     actions:
-        get_contact_by_email:
-            description: "Looks up a Contact record by email address and returns the ContactId."
+        resolve_contact:
+            description: "Resolves user identity: verifies an existing ContactId or looks up a Contact by email address."
             target: "apex://ITHelpdesk_GetContactByEmail"
             inputs:
+                contactId: string
+                    description: "An existing ContactId from the messaging session, if available."
                 email: string
-                    description: "The user's email address."
-                    is_required: True
+                    description: "The user's email address, used when ContactId is not available."
             outputs:
                 contactId: string
-                    description: "The Salesforce ContactId matching the email."
+                    description: "The resolved Salesforce ContactId."
                 contactName: string
                     description: "The full name of the Contact."
                 isFound: boolean
-                    description: "Whether a Contact was found for the given email."
+                    description: "Whether a Contact was found."
                 message: string
                     description: "Result message."
 
     reasoning:
         instructions: |
             Identify the user before any case operations can proceed.
-            If ContactId is already set via {!@variables.ContactId}, the user is already identified — proceed to help with their request.
-            If ContactId is NOT set but userEmail is available via {!@variables.userEmail}, call get_contact_by_email to look up the Contact.
-            If neither ContactId nor userEmail is available, ask the user: "To get started, could you please provide your email address so I can look up your account?"
-            Validate the email format before calling get_contact_by_email.
+            If ContactId is already available from the session ({!@variables.ContactId}), call resolve_contact with contactId to verify and pass it through.
+            If ContactId is NOT available, check if userEmail ({!@variables.userEmail}) is set and call resolve_contact with the email.
+            If neither is available, ask the user: "To get started, could you please provide your email address so I can look up your account?"
+            Validate the email format before calling resolve_contact.
             Once the Contact is found, greet the user by name and proceed to help with their request.
             If no Contact is found, say: "I couldn't find an account with that email. Please double-check or I can connect you with a live agent."
 
         actions:
-            get_contact_by_email: @actions.get_contact_by_email
+            resolve_contact: @actions.resolve_contact
+                with contactId=@variables.ContactId
                 with email=@variables.userEmail
-                set @variables.ContactId = @outputs.contactId
+                set @variables.resolvedContactId = @outputs.contactId
 
 
 topic case_inquiry_search:
@@ -217,36 +220,35 @@ topic case_inquiry_search:
                     description: "Result message."
 
     reasoning:
-        instructions:->
-            if @variables.ContactId:
-                | The user's ContactId is {!@variables.ContactId}. Use this automatically for all case lookups.
-            | Help the user find and view their cases. You have these capabilities:
-            | 1. RETRIEVE A SPECIFIC CASE — Ask for the case number, then use get_case.
-            | 2. LIST ALL CASES — Use get_cases_by_contact to show all cases with open/closed counts.
-            | 3. SEARCH AND FILTER — Use search_cases with keywords, status, priority, or date range.
-            | 4. FIND OVERDUE CASES — Use get_overdue_cases to find cases open longer than N days (default 7).
-            | 5. QUICK SUMMARY — When user says "my cases", use get_cases_by_contact and show count by status.
-            | Display case details with: Case Number, Subject, Status, Priority, Type, Created Date, Owner.
-            | If no cases found, say so clearly and offer to create a new one.
+        instructions: |
+            The user's resolved ContactId is {!@variables.resolvedContactId}. Use this for all case lookups.
+            Help the user find and view their cases. You have these capabilities:
+            1. RETRIEVE A SPECIFIC CASE — Ask for the case number, then use get_case.
+            2. LIST ALL CASES — Use get_cases_by_contact to show all cases with open/closed counts.
+            3. SEARCH AND FILTER — Use search_cases with keywords, status, priority, or date range.
+            4. FIND OVERDUE CASES — Use get_overdue_cases to find cases open longer than N days (default 7).
+            5. QUICK SUMMARY — When user says "my cases", use get_cases_by_contact and show count by status.
+            Display case details with: Case Number, Subject, Status, Priority, Type, Created Date, Owner.
+            If no cases found, say so clearly and offer to create a new one.
 
         actions:
             get_case: @actions.get_case
-                with contactId=@variables.ContactId
+                with contactId=@variables.resolvedContactId
                 with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
                 set @variables.caseStatus = @outputs.caseRecord.Status
             get_cases_by_contact: @actions.get_cases_by_contact
-                with contactId=@variables.ContactId
+                with contactId=@variables.resolvedContactId
             search_cases: @actions.search_cases
-                with contactId=@variables.ContactId
+                with contactId=@variables.resolvedContactId
                 with keyword=...
                 with statusFilter=...
                 with priorityFilter=...
                 with dateFrom=...
                 with dateTo=...
             get_overdue_cases: @actions.get_overdue_cases
-                with contactId=@variables.ContactId
+                with contactId=@variables.resolvedContactId
                 with daysOpen=...
 
 
@@ -295,7 +297,7 @@ topic case_creation:
             Step 2 - Description: Ask "Please describe the issue in detail." Validate at least 10 characters.
             Step 3 - Priority: Ask "What priority level?" Offer: Critical, High, Medium (default), Low.
             Step 4 - Type: Ask "What type of issue?" Offer: Hardware, Software, Network, Access/Permissions, Email, Other.
-            Auto-populate: ContactId from {!@variables.ContactId}, Origin as "Web".
+            Auto-populate: ContactId from {!@variables.resolvedContactId}, Origin as "Web".
             The case will be automatically assigned to the Support queue.
             Step 5 - Show full summary and ask "Shall I create this case? (Yes/No)"
             Step 6 - If confirmed, call create_case.
@@ -304,7 +306,7 @@ topic case_creation:
 
         actions:
             create_case: @actions.create_case
-                with contactId=@variables.ContactId
+                with contactId=@variables.resolvedContactId
                 with subject=...
                 with caseDescription=...
                 with priority=...
@@ -387,24 +389,23 @@ topic case_updates:
                     description: "Result message."
 
     reasoning:
-        instructions:->
-            | Help users update their cases or add comments.
-            if @variables.caseId:
-                | You are currently working with case {!@variables.caseNumber} (Id: {!@variables.caseId}).
-            | FOR UPDATES:
-            | - Ask for case number if not provided. Use get_case to retrieve current details and display them.
-            | - Ask what the user wants to update: status, priority, subject, description, or type.
-            | - Collect the new value, show the proposed change, and confirm with user before calling update_case.
-            | Valid statuses: New, Open, In Progress, Escalated, Waiting on Customer.
-            | Valid priorities: Critical, High, Medium, Low.
-            | Valid types: Hardware, Software, Network, Access/Permissions, Email, Other.
-            | FOR ADDING COMMENTS:
-            | - Ask for case number and comment text. Confirm, then call add_comment.
-            | ALWAYS confirm before applying any change.
+        instructions: |
+            Help users update their cases or add comments.
+            If a case is already loaded ({!@variables.caseNumber}), you can work with it directly.
+            FOR UPDATES:
+            - Ask for case number if not provided. Use get_case to retrieve current details and display them.
+            - Ask what the user wants to update: status, priority, subject, description, or type.
+            - Collect the new value, show the proposed change, and confirm with user before calling update_case.
+            Valid statuses: New, Open, In Progress, Escalated, Waiting on Customer.
+            Valid priorities: Critical, High, Medium, Low.
+            Valid types: Hardware, Software, Network, Access/Permissions, Email, Other.
+            FOR ADDING COMMENTS:
+            - Ask for case number and comment text. Confirm, then call add_comment.
+            ALWAYS confirm before applying any change.
 
         actions:
             get_case: @actions.get_case
-                with contactId=@variables.ContactId
+                with contactId=@variables.resolvedContactId
                 with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
@@ -481,7 +482,7 @@ topic case_closure:
 
         actions:
             get_case: @actions.get_case
-                with contactId=@variables.ContactId
+                with contactId=@variables.resolvedContactId
                 with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
@@ -547,7 +548,7 @@ topic case_reassignment:
 
         actions:
             get_case: @actions.get_case
-                with contactId=@variables.ContactId
+                with contactId=@variables.resolvedContactId
                 with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
@@ -610,7 +611,7 @@ topic case_history:
 
         actions:
             get_case: @actions.get_case
-                with contactId=@variables.ContactId
+                with contactId=@variables.resolvedContactId
                 with caseNumber=...
                 set @variables.caseId = @outputs.caseRecord.Id
                 set @variables.caseNumber = @outputs.caseRecord.CaseNumber
@@ -722,9 +723,9 @@ topic reporting_summaries:
 
         actions:
             get_case_summary: @actions.get_case_summary
-                with contactId=@variables.ContactId
+                with contactId=@variables.resolvedContactId
             get_urgent_cases: @actions.get_urgent_cases
-                with contactId=@variables.ContactId
+                with contactId=@variables.resolvedContactId
 
 
 topic escalation:
