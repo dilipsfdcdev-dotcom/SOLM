@@ -28,7 +28,7 @@ private class ITHelpdeskAgentServiceTest {
             Priority    = 'Critical',
             Status      = 'New',
             Type        = 'Network',
-            Origin      = 'Messaging'
+            Origin      = 'Web'
         ));
 
         // Case 2 - Open / High
@@ -39,7 +39,7 @@ private class ITHelpdeskAgentServiceTest {
             Priority    = 'High',
             Status      = 'Open',
             Type        = 'Hardware',
-            Origin      = 'Messaging'
+            Origin      = 'Web'
         ));
 
         // Case 3 - In Progress / Medium
@@ -50,7 +50,7 @@ private class ITHelpdeskAgentServiceTest {
             Priority    = 'Medium',
             Status      = 'In Progress',
             Type        = 'Software',
-            Origin      = 'Messaging'
+            Origin      = 'Web'
         ));
 
         // Case 4 - Closed / Low
@@ -61,7 +61,7 @@ private class ITHelpdeskAgentServiceTest {
             Priority    = 'Low',
             Status      = 'Closed',
             Type        = 'Access/Permissions',
-            Origin      = 'Messaging'
+            Origin      = 'Web'
         ));
 
         // Case 5 - Waiting on Customer / Medium
@@ -72,7 +72,7 @@ private class ITHelpdeskAgentServiceTest {
             Priority    = 'Medium',
             Status      = 'Waiting on Customer',
             Type        = 'Email',
-            Origin      = 'Messaging'
+            Origin      = 'Web'
         ));
 
         insert cases;
@@ -321,7 +321,7 @@ private class ITHelpdeskAgentServiceTest {
         Test.stopTest();
 
         System.assertEquals('Medium', result.Priority);
-        System.assertEquals('Messaging', result.Origin);
+        System.assertEquals('Web', result.Origin);
     }
 
     @isTest

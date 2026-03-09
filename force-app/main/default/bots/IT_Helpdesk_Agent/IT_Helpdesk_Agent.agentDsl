@@ -220,7 +220,7 @@ topic case_creation:
                 caseType: string
                     description: "Case type: Hardware, Software, Network, Access/Permissions, Email, Other."
                 origin: string
-                    description: "Origin of the case. Auto-set to Messaging."
+                    description: "Origin of the case. Auto-set to Web."
             outputs:
                 caseRecord: object
                     description: "The newly created case record."
@@ -243,7 +243,7 @@ topic case_creation:
             Step 2 - Description: Ask "Please describe the issue in detail." Validate at least 10 characters.
             Step 3 - Priority: Ask "What priority level?" Offer: Critical, High, Medium (default), Low.
             Step 4 - Type: Ask "What type of issue?" Offer: Hardware, Software, Network, Access/Permissions, Email, Other.
-            Auto-populate: ContactId from {!@variables.ContactId}, Origin as "Messaging".
+            Auto-populate: ContactId from {!@variables.ContactId}, Origin as "Web".
             The case will be automatically assigned to the Support queue.
             Step 5 - Show full summary and ask "Shall I create this case? (Yes/No)"
             Step 6 - If confirmed, call create_case.
@@ -257,7 +257,7 @@ topic case_creation:
                 with caseDescription=...
                 with priority=...
                 with caseType=...
-                with origin="Messaging"
+                with origin="Web"
                 set @variables.caseId = @outputs.caseId
                 set @variables.caseNumber = @outputs.caseNumber
 

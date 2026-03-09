@@ -96,7 +96,7 @@ public with sharing class ITHelpdeskAgentService {
         }
         if (String.isNotBlank(keyword)) {
             String likeKeyword = '%' + String.escapeSingleQuotes(keyword) + '%';
-            query += ' AND (Subject LIKE \'' + likeKeyword + '\' OR Description LIKE \'' + likeKeyword + '\')';
+            query += ' AND Subject LIKE \'' + likeKeyword + '\'';
         }
         if (String.isNotBlank(dateFrom)) {
             query += ' AND CreatedDate >= ' + String.escapeSingleQuotes(dateFrom) + 'T00:00:00Z';
@@ -144,7 +144,7 @@ public with sharing class ITHelpdeskAgentService {
         newCase.Description = description;
         newCase.Priority    = String.isNotBlank(priority) ? priority : 'Medium';
         newCase.Type        = String.isNotBlank(caseType) ? caseType : null;
-        newCase.Origin      = String.isNotBlank(origin)   ? origin   : 'Messaging';
+        newCase.Origin      = String.isNotBlank(origin)   ? origin   : 'Web';
         newCase.Status      = 'New';
 
         if (supportQueueId != null) {
@@ -269,7 +269,7 @@ public with sharing class ITHelpdeskAgentService {
         }
         if (String.isNotBlank(keyword)) {
             String likeKeyword = '%' + String.escapeSingleQuotes(keyword) + '%';
-            query += ' AND (Subject LIKE \'' + likeKeyword + '\' OR Description LIKE \'' + likeKeyword + '\')';
+            query += ' AND Subject LIKE \'' + likeKeyword + '\'';
         }
         query += ' ORDER BY CreatedDate DESC LIMIT 50';
 
