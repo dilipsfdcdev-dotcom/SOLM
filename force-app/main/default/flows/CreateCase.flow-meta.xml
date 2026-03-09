@@ -239,7 +239,6 @@
         <connector><targetReference>Get_Created_Case</targetReference></connector>
         <faultConnector><targetReference>Set_Create_Error</targetReference></faultConnector>
         <inputReference>newCase</inputReference>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
 
     <recordLookups>

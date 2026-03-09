@@ -164,6 +164,5 @@
         <connector><targetReference>Set_Success</targetReference></connector>
         <faultConnector><targetReference>Set_Create_Error</targetReference></faultConnector>
         <inputReference>newComment</inputReference>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
 </Flow>
