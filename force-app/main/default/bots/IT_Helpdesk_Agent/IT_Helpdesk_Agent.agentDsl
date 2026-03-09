@@ -115,6 +115,7 @@ topic case_inquiry_search:
             outputs:
                 caseList: list[object]
                     description: "List of case records."
+                    complex_data_type_name: "lightning__recordInfoType"
                 totalCount: integer
                     description: "Total number of cases."
                 openCount: integer
@@ -143,6 +144,7 @@ topic case_inquiry_search:
             outputs:
                 caseList: list[object]
                     description: "Filtered list of case records."
+                    complex_data_type_name: "lightning__recordInfoType"
                 resultCount: integer
                     description: "Number of results."
                 message: string
@@ -159,6 +161,7 @@ topic case_inquiry_search:
             outputs:
                 overdueCaseList: list[object]
                     description: "List of overdue case records."
+                    complex_data_type_name: "lightning__recordInfoType"
                 overdueCount: integer
                     description: "Number of overdue cases."
                 message: string
@@ -583,6 +586,7 @@ topic related_case_intelligence:
             outputs:
                 similarCaseList: list[object]
                     description: "List of similar case records."
+                    complex_data_type_name: "lightning__recordInfoType"
                 resultCount: integer
                     description: "Number of similar cases found."
                 hasPattern: boolean
@@ -639,6 +643,7 @@ topic reporting_summaries:
                     description: "Low priority cases."
                 recentOpenCases: list[object]
                     description: "5 most recent open cases."
+                    complex_data_type_name: "lightning__recordInfoType"
                 message: string
                     description: "Summary message."
 
@@ -651,6 +656,7 @@ topic reporting_summaries:
             outputs:
                 urgentCaseList: list[object]
                     description: "List of urgent cases."
+                    complex_data_type_name: "lightning__recordInfoType"
                 urgentCount: integer
                     description: "Number of urgent cases."
                 message: string
