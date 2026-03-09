@@ -112,10 +112,12 @@ topic identify_user:
     reasoning:
         instructions: |
             Ask the user for their email address so you can verify their identity.
-            Once they provide their email, use {!@actions.capture_email} to capture it.
-            Then use {!@actions.resolve_contact} to look up their account.
-            If found, welcome them by name and use {!@actions.go_to_topic_selector} to continue.
-            If not found, let them know no account was found for that email and ask them to try a different email address or offer to connect them with a live agent.
+            When the user provides an email:
+            1. Call {!@actions.capture_email} to store the email.
+            2. Immediately call {!@actions.resolve_contact} to look up their account — do NOT respond to the user between these two steps.
+            After resolve_contact returns:
+            - If the contact was found, welcome them by name and call {!@actions.go_to_topic_selector} to continue.
+            - If no contact was found, tell the user no account was found for that email and ask them to try a different email address or offer to connect them with a live agent.
 
         actions:
             capture_email: @utils.setVariables
@@ -123,7 +125,7 @@ topic identify_user:
                 with userEmail = ...
             resolve_contact: @actions.resolve_contact
                 description: "Look up the user's Contact record by email address."
-                with email = @variables.userEmail
+                with email=@variables.userEmail
                 set @variables.resolvedContactId = @outputs.contactId
                 set @variables.contactName = @outputs.contactName
             go_to_topic_selector: @utils.transition to @topic.topic_selector
@@ -135,9 +137,10 @@ topic identify_user:
             description: "Looks up a Contact record by email address and returns the ContactId and name."
             target: "apex://ITHelpdesk_GetContactByEmail"
             inputs:
+                sessionContactId: string
+                    description: "Session Contact Id if already known from the messaging session."
                 email: string
                     description: "The user's email address."
-                    is_required: True
             outputs:
                 contactId: string
                     description: "The resolved Salesforce ContactId."
