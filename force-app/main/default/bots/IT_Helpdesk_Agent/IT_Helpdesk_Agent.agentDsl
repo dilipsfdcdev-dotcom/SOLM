@@ -106,7 +106,7 @@ topic identify_user:
             description: "Resolves user identity: verifies an existing ContactId or looks up a Contact by email address."
             target: "apex://ITHelpdesk_GetContactByEmail"
             inputs:
-                contactId: string
+                sessionContactId: string
                     description: "An existing ContactId from the messaging session, if available."
                 email: string
                     description: "The user's email address, used when ContactId is not available."
@@ -132,7 +132,7 @@ topic identify_user:
 
         actions:
             resolve_contact: @actions.resolve_contact
-                with contactId=@variables.ContactId
+                with sessionContactId=@variables.ContactId
                 with email=@variables.userEmail
                 set @variables.resolvedContactId = @outputs.contactId
 

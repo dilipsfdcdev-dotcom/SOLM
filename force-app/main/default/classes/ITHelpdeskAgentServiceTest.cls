@@ -826,7 +826,7 @@ private class ITHelpdeskAgentServiceTest {
         Contact con = getTestContact();
 
         ITHelpdesk_GetContactByEmail.Input inp = new ITHelpdesk_GetContactByEmail.Input();
-        inp.contactId = con.Id;
+        inp.sessionContactId = con.Id;
 
         Test.startTest();
         List<ITHelpdesk_GetContactByEmail.Output> results = ITHelpdesk_GetContactByEmail.execute(

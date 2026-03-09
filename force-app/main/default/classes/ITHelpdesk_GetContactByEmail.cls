@@ -7,8 +7,8 @@
 public with sharing class ITHelpdesk_GetContactByEmail {
 
     public class Input {
-        @InvocableVariable(label='Contact Id' required=false)
-        public String contactId;
+        @InvocableVariable(label='Session Contact Id' required=false)
+        public String sessionContactId;
 
         @InvocableVariable(label='Email Address' required=false)
         public String email;
@@ -37,9 +37,9 @@ public with sharing class ITHelpdesk_GetContactByEmail {
             Output out = new Output();
 
             // If contactId is already provided, verify and pass through
-            if (String.isNotBlank(inp.contactId)) {
+            if (String.isNotBlank(inp.sessionContactId)) {
                 List<Contact> contacts = [
-                    SELECT Id, Name FROM Contact WHERE Id = :inp.contactId LIMIT 1
+                    SELECT Id, Name FROM Contact WHERE Id = :inp.sessionContactId LIMIT 1
                 ];
                 if (!contacts.isEmpty()) {
                     out.contactId = contacts[0].Id;
@@ -48,7 +48,7 @@ public with sharing class ITHelpdesk_GetContactByEmail {
                     out.message = 'Contact verified: ' + contacts[0].Name;
                 } else {
                     out.isFound = false;
-                    out.message = 'No contact found with Id: ' + inp.contactId;
+                    out.message = 'No contact found with Id: ' + inp.sessionContactId;
                 }
             }
             // Otherwise, look up by email
