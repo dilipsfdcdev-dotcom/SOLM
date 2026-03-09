@@ -64,14 +64,13 @@ start_agent topic_selector:
             if @variables.resolvedContactId == "" and @variables.userEmail == "":
                 transition to @topic.identify_user
 
-            | # Identity Resolution
-              If the user's identity has not been resolved yet (resolvedContactId is empty but userEmail is available),
-              you MUST call {!@actions.resolve_contact} FIRST before doing anything else.
-              - If the contact is found, greet the user by name and proceed to route their request.
-              - If the contact is not found, inform the user that no account was found for that email and ask them to try a different email or offer to connect them with a live agent.
+            # Step 2: If email captured but contact not resolved, resolve deterministically
+            if @variables.resolvedContactId == "" and @variables.userEmail != "":
+                run @actions.resolve_contact
 
-              # Routing (only after identity is resolved)
-              The user is verified as: {!@variables.contactName} ({!@variables.resolvedContactId}).
+            | The user is verified as: {!@variables.contactName} ({!@variables.resolvedContactId}).
+              If resolvedContactId is still empty, it means no contact was found for the email.
+              In that case, inform the user that no account was found and ask them to try a different email or offer to connect them with a live agent.
               If the user just says hi or a greeting, respond with a friendly welcome and list what you can help with.
               Route based on the following intent mapping:
               - Lookup, check status, search, find cases → use {!@actions.go_to_case_inquiry_search}
@@ -86,7 +85,7 @@ start_agent topic_selector:
 
         actions:
             resolve_contact: @actions.resolve_contact
-                description: "Look up the user's Contact record by email address. MUST be called when resolvedContactId is empty."
+                description: "Look up the user's Contact record by email address."
                 with email=@variables.userEmail
                 set @variables.resolvedContactId = @outputs.contactId
                 set @variables.contactName = @outputs.contactName
