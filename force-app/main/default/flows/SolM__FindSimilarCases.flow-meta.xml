@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <description>Finds cases similar to the user's issue by searching across type and subject keywords. Returns closed cases with resolutions for suggestion. Used by Agentforce IT Helpdesk Agent.</description>
+    <label>SolM Find Similar Cases</label>
+    <processType>AutoLaunchedFlow</processType>
+    <status>Active</status>
+
+    <variables>
+        <n>keyword</n>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <n>caseType</n>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <n>includeResolutions</n>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value><booleanValue>true</booleanValue></value>
+    </variables>
+    <variables>
+        <n>similarCaseList</n>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <n>matchCount</n>
+        <dataType>Number</dataType>
+        <scale>0</scale>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector><targetReference>Route_Search_Type</targetReference></connector>
+    </start>
+
+    <decisions>
+        <n>Route_Search_Type</n>
+        <label>Route by Search Parameters</label>
+        <locationX>200</locationX>
+        <locationY>150</locationY>
+        <defaultConnectorLabel>Search All Open Cases</defaultConnectorLabel>
+        <defaultConnector><targetReference>Search_All_Open</targetReference></defaultConnector>
+        <rules>
+            <n>Type_And_Keyword</n>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>caseType</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue><booleanValue>false</booleanValue></rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>keyword</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue><booleanValue>false</booleanValue></rightValue>
+            </conditions>
+            <connector><targetReference>Search_By_Type</targetReference></connector>
+            <label>Type Provided</label>
+        </rules>
+    </decisions>
+
+    <!-- Search by Type — returns all cases of that type for pattern detection -->
+    <recordLookups>
+        <n>Search_By_Type</n>
+        <label>Search By Type</label>
+        <locationX>400</locationX>
+        <locationY>150</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector><targetReference>Count_Results</targetReference></connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Type</field>
+            <operator>EqualTo</operator>
+            <value><elementReference>caseType</elementReference></value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Case</object>
+        <outputReference>similarCaseList</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Subject</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>Priority</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>Description</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <limit>20</limit>
+    </recordLookups>
+
+    <!-- Search All Open Cases (fallback — agent will filter by keyword in reasoning) -->
+    <recordLookups>
+        <n>Search_All_Open</n>
+        <label>Search All Open Cases</label>
+        <locationX>100</locationX>
+        <locationY>350</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector><targetReference>Count_Results</targetReference></connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value><stringValue>Closed</stringValue></value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Case</object>
+        <outputReference>similarCaseList</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Subject</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>Priority</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>Description</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <limit>20</limit>
+    </recordLookups>
+
+    <assignments>
+        <n>Count_Results</n>
+        <label>Count Results</label>
+        <locationX>600</locationX>
+        <locationY>300</locationY>
+        <assignmentItems>
+            <assignToReference>matchCount</assignToReference>
+            <operator>AssignCount</operator>
+            <value><elementReference>similarCaseList</elementReference></value>
+        </assignmentItems>
+    </assignments>
+</Flow>

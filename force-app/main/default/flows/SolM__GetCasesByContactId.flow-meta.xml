@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <description>Returns all cases linked to the authenticated user contact. Used by Agentforce IT Helpdesk Agent for case listing and summary.</description>
+    <label>SolM Get Cases By Contact Id</label>
+    <processType>AutoLaunchedFlow</processType>
+    <status>Active</status>
+
+    <!-- INPUT VARIABLES -->
+    <variables>
+        <name>contactId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <description>ContactId of the authenticated user from the messaging session.</description>
+    </variables>
+
+    <!-- OUTPUT VARIABLES -->
+    <variables>
+        <name>caseList</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Case</objectType>
+        <description>List of case records belonging to the contact.</description>
+    </variables>
+    <variables>
+        <name>totalCount</name>
+        <dataType>Number</dataType>
+        <scale>0</scale>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <description>Total number of cases found.</description>
+    </variables>
+    <variables>
+        <name>errorMessage</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <description>Error message if something goes wrong.</description>
+    </variables>
+
+    <!-- START -->
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Validate_ContactId</targetReference>
+        </connector>
+    </start>
+
+    <!-- DECISION: Validate ContactId -->
+    <decisions>
+        <name>Validate_ContactId</name>
+        <label>Validate ContactId</label>
+        <locationX>200</locationX>
+        <locationY>150</locationY>
+        <defaultConnectorLabel>ContactId Missing</defaultConnectorLabel>
+        <defaultConnector>
+            <targetReference>Set_Error_Missing_ContactId</targetReference>
+        </defaultConnector>
+        <rules>
+            <name>ContactId_Provided</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>contactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue><booleanValue>false</booleanValue></rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>contactId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue><stringValue></stringValue></rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Cases_By_Contact</targetReference>
+            </connector>
+            <label>ContactId Provided</label>
+        </rules>
+    </decisions>
+
+    <!-- RECORD LOOKUP: Get Cases -->
+    <recordLookups>
+        <name>Get_Cases_By_Contact</name>
+        <label>Get Cases By Contact</label>
+        <locationX>400</locationX>
+        <locationY>150</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Count_Cases</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value><elementReference>contactId</elementReference></value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Case</object>
+        <outputReference>caseList</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Subject</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>Priority</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>Description</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <queriedFields>LastModifiedDate</queriedFields>
+        <queriedFields>OwnerId</queriedFields>
+        <sortField>LastModifiedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <limit>50</limit>
+    </recordLookups>
+
+    <!-- ASSIGNMENT: Count Cases -->
+    <assignments>
+        <name>Count_Cases</name>
+        <label>Count Cases</label>
+        <locationX>600</locationX>
+        <locationY>150</locationY>
+        <assignmentItems>
+            <assignToReference>totalCount</assignToReference>
+            <operator>AssignCount</operator>
+            <value><elementReference>caseList</elementReference></value>
+        </assignmentItems>
+        <connector>
+            <targetReference>End_Success</targetReference>
+        </connector>
+    </assignments>
+
+    <!-- ASSIGNMENT: Set Error -->
+    <assignments>
+        <name>Set_Error_Missing_ContactId</name>
+        <label>Set Error - Missing ContactId</label>
+        <locationX>200</locationX>
+        <locationY>300</locationY>
+        <assignmentItems>
+            <assignToReference>errorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value><stringValue>ContactId is required to retrieve cases.</stringValue></value>
+        </assignmentItems>
+        <connector>
+            <targetReference>End_Error</targetReference>
+        </connector>
+    </assignments>
+
+    <screens>
+        <name>End_Success</name>
+        <label>End Success</label>
+        <locationX>800</locationX>
+        <locationY>150</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>End_Error</name>
+        <label>End Error</label>
+        <locationX>200</locationX>
+        <locationY>450</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+</Flow>
