@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>ITHelpdeskAgentService</members>
+        <members>ITHelpdeskAgentServiceTest</members>
+        <members>ITHelpdesk_GetCase</members>
+        <members>ITHelpdesk_GetCasesByContact</members>
+        <members>ITHelpdesk_SearchCases</members>
+        <members>ITHelpdesk_GetOverdueCases</members>
+        <members>ITHelpdesk_CreateCase</members>
+        <members>ITHelpdesk_UpdateCase</members>
+        <members>ITHelpdesk_AddComment</members>
+        <members>ITHelpdesk_CloseCase</members>
+        <members>ITHelpdesk_FindSimilarCases</members>
+        <members>ITHelpdesk_GetCaseSummary</members>
+        <members>ITHelpdesk_GetUrgentCases</members>
+        <members>ITHelpdesk_ReassignCase</members>
+        <members>ITHelpdesk_GetCaseHistory</members>
+        <members>ITHelpdesk_GetContactByEmail</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>IT_Helpdesk_Agent</members>
+        <name>Bot</name>
+    </types>
+    <version>62.0</version>
+</Package>
