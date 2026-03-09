@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Read</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>US Sales - Acute Care Region Manager - Frank</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>US Sales Acute Care Region Manager Frank</name>
+    <opportunityAccessLevel>Read</opportunityAccessLevel>
+    <parentRole>US_Key_Account_Manager_US_Distribution</parentRole>
+</Role>

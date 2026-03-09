@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Subtype --></label>
+    <name>Subtype__c</name>
+    <picklistValues>
+        <masterLabel>Clinic Study Patient</masterLabel>
+        <translation><!-- Clinic Study Patient --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Compounding Pharmacy</masterLabel>
+        <translation><!-- Compounding Pharmacy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Corporate Head Office (Pharmacy)</masterLabel>
+        <translation><!-- Corporate Head Office (Pharmacy) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Corporate Pharmacy</masterLabel>
+        <translation><!-- Corporate Pharmacy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>E-Commerce</masterLabel>
+        <translation><!-- E-Commerce --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hospital Pharmacy</masterLabel>
+        <translation><!-- Hospital Pharmacy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Independent Pharmacy</masterLabel>
+        <translation><!-- Independent Pharmacy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LTC Pharmacy</masterLabel>
+        <translation><!-- LTC Pharmacy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Specialty Pharmacy</masterLabel>
+        <translation><!-- Specialty Pharmacy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Testimonial Patient</masterLabel>
+        <translation><!-- Testimonial Patient --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

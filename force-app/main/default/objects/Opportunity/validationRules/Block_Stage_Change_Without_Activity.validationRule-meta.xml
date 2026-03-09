@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Block_Stage_Change_Without_Activity</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  Has_Qualified_Activity__c = FALSE,
+  OR(
+    ISPICKVAL(StageName, &quot;Closed Won&quot;),
+    ISPICKVAL(StageName, &quot;Closed Lost&quot;)
+  ),
+  $Profile.Name &lt;&gt; &quot;System Administrator&quot;,
+ 	Region__c &lt;&gt; &quot;Brazil&quot;
+)</errorConditionFormula>
+    <errorMessage>Please log a customer interaction (Call, Meeting, or Email) on this Opportunity before closing it as Won or Lost.</errorMessage>
+</ValidationRule>

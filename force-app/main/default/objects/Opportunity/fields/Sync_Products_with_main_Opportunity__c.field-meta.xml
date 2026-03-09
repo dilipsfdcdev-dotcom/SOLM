@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sync_Products_with_main_Opportunity__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Dedicated for recurring Opportunity. If checked, any change to Products in main Opportunity is going to be synced to the recurring one.</inlineHelpText>
+    <label>Sync Products with main Opportunity</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

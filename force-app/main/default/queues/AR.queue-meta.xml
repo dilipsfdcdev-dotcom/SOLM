@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>AR</name>
+    <queueMembers>
+        <users>
+            <user>abhileshm@solm.com</user>
+            <user>arai@solm.com</user>
+            <user>cburke@solm.com</user>
+            <user>gpolu@solm.com</user>
+            <user>pchebolu@solm.com</user>
+            <user>plamani@solm.com</user>
+            <user>vipin.agrawal@solm.com</user>
+            <user>ysun@solm.com</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>AR</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

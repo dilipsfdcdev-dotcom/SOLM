@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payment_Terms__c</fullName>
+    <inlineHelpText>If empty on creation, value copied from Account.</inlineHelpText>
+    <label>Payment Terms</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>100% prepayment before production</fullName>
+                <default>false</default>
+                <label>100% prepayment before production</label>
+            </value>
+            <value>
+                <fullName>100% prepayment before shipment</fullName>
+                <default>false</default>
+                <label>100% prepayment before shipment</label>
+            </value>
+            <value>
+                <fullName>Net7-C</fullName>
+                <default>false</default>
+                <label>Net7-C</label>
+            </value>
+            <value>
+                <fullName>Net14-C</fullName>
+                <default>false</default>
+                <label>Net14-C</label>
+            </value>
+            <value>
+                <fullName>Net30-C</fullName>
+                <default>false</default>
+                <label>Net30-C</label>
+            </value>
+            <value>
+                <fullName>Net45-C</fullName>
+                <default>false</default>
+                <label>Net45-C</label>
+            </value>
+            <value>
+                <fullName>Net60-C</fullName>
+                <default>false</default>
+                <label>Net60-C</label>
+            </value>
+            <value>
+                <fullName>Net90-C</fullName>
+                <default>false</default>
+                <label>Net90-C</label>
+            </value>
+            <value>
+                <fullName>Net120-C</fullName>
+                <default>false</default>
+                <label>Net120-C</label>
+            </value>
+            <value>
+                <fullName>Letter of Credit</fullName>
+                <default>false</default>
+                <label>Letter of Credit</label>
+            </value>
+            <value>
+                <fullName>30% Prepayment, 70% COD</fullName>
+                <default>false</default>
+                <label>30% Prepayment, 70% COD</label>
+            </value>
+            <value>
+                <fullName>30% Prepayment, 70% Net30-C</fullName>
+                <default>false</default>
+                <label>30% Prepayment, 70% Net30-C</label>
+            </value>
+            <value>
+                <fullName>50% Net30C + 50% Net60-C</fullName>
+                <default>false</default>
+                <label>50% Net30C + 50% Net60-C</label>
+            </value>
+            <value>
+                <fullName>50% Prepayment, 50% COD</fullName>
+                <default>false</default>
+                <label>50% Prepayment, 50% COD</label>
+            </value>
+            <value>
+                <fullName>80% prepayment, 20% ship</fullName>
+                <default>false</default>
+                <label>80% prepayment, 20% ship</label>
+            </value>
+            <value>
+                <fullName>Payment at delivery</fullName>
+                <default>false</default>
+                <label>Payment at delivery</label>
+            </value>
+            <value>
+                <fullName>100% COD</fullName>
+                <default>false</default>
+                <label>100% COD</label>
+            </value>
+            <value>
+                <fullName>100% Prepayment</fullName>
+                <default>false</default>
+                <label>100% Prepayment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

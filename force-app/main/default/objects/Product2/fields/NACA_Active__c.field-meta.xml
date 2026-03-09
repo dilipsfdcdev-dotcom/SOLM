@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NACA_Active__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Determines if Product is available/active for NACA region.</description>
+    <inlineHelpText>Determines if Product is available/active for NACA region.</inlineHelpText>
+    <label>US Active</label>
+    <trackHistory>true</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

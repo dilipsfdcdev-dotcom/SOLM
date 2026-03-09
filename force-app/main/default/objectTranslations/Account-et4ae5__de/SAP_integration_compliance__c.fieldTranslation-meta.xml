@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- In order to integrate Account with SAP, some fields must be filled. List of required fields is available in Sent to SAP quick action. --></help>
+    <label><!-- SAP integration compliance --></label>
+    <name>SAP_integration_compliance__c</name>
+</CustomFieldTranslation>

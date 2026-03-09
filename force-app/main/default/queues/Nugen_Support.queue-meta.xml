@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <email>supportnugen@solm.com</email>
+    <name>Nugen Support</name>
+    <queueMembers>
+        <users>
+            <user>ctcai@solm.com</user>
+            <user>hpuruswani@solm.com</user>
+            <user>mdewani@solm.com</user>
+            <user>pbommideni@solm.com</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Lead</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Lead EMEA</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px; font-family: Arial;&quot;&gt;We have made the first contact, but it&amp;#39;s unclear at the moment if we will be able to proceed - no additional materials were send. &lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Contact</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Disqualified_Reason__c</fieldNames>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px; font-family: Arial;&quot;&gt;We currently see no options of continuing the conversation - from institution or Sol-Millennium side. &lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Disqualified</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px; font-family: Arial;&quot;&gt;We are in active process of acquisition. Further conversations are happening. &lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>In Progress</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px; font-family: Arial;&quot;&gt;We have identified that this institution can be a possible lead - we have some very basic information about them.&lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Prospect</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Converted_Account__c</fieldNames>
+        <fieldNames>Converted_Contact__c</fieldNames>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px; font-family: Arial;&quot;&gt;We have successfully converted this lead to an active account and we&amp;#39;re proceeding with opportunities. &lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Qualified</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Lead_EMEA</recordTypeName>
+</PathAssistant>

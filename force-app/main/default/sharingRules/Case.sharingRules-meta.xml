@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>EMEA_Case_reassignment_Access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>EMEA Case reassignment Access</label>
+        <sharedTo>
+            <group>EMEA_Sales_Ops</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EMEA Sales Ops</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Finance_Read</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Finance Read</label>
+        <sharedTo>
+            <group>NACA_Finance_Case_Read</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Finance</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Finance_Supervisor</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Finance Supervisor</label>
+        <sharedTo>
+            <role>Finance_Supervisor</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Finance</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Logistics_Read</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Logistics Read</label>
+        <sharedTo>
+            <group>NACA_Logistics_Case_Read</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Logistics</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Logistics_Supervisor</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Logistics Supervisor</label>
+        <sharedTo>
+            <role>Logistics_Supervisor</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Logistics</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Ownership_change_Finance</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Ownership change Finance</label>
+        <sharedTo>
+            <roleAndSubordinates>Finance_Supervisor</roleAndSubordinates>
+        </sharedTo>
+        <booleanFilter>1 OR 2 Or 3</booleanFilter>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>equals</operation>
+            <value>0058c00000Cq0FfAAJ</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>equals</operation>
+            <value>0058c00000Cq0FpAAJ</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>equals</operation>
+            <value>0058c00000Cq0FuAAJ</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Quality_Read</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Quality Read</label>
+        <sharedTo>
+            <group>NACA_Quality_Case_Read</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Quality</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Quality_Supervisor</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Quality Supervisor</label>
+        <sharedTo>
+            <role>Quality_Supervisor</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Quality</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Sales_Ops_Read</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Sales Ops Read</label>
+        <sharedTo>
+            <group>NACA_Sales_Ops_Case_Read</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Sales Ops</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Sales_Ops_Supervisor</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Sales Ops Supervisor</label>
+        <sharedTo>
+            <role>Sales_Operation_Supervisor</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Sales Ops</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Sharing_Magda_s_cases</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Sharing Magda&apos;s cases</label>
+        <sharedTo>
+            <role>EMEA_Sales_Ops</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>equals</operation>
+            <value>0058c00000Bv5ucAAB</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>View_EMEA_Cases</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>View EMEA Cases</label>
+        <sharedTo>
+            <role>EMEA_Sales_Operations_Specialist</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Priority</field>
+            <operation>equals</operation>
+            <value>Orders EMEA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>View_Info_Cases</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>View Info Cases</label>
+        <sharedTo>
+            <role>EMEA_Sales_Operations_Specialist</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Priority</field>
+            <operation>equals</operation>
+            <value>Info EU</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>View_all_Magda_M_cases</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>View all Magda M cases</label>
+        <sharedTo>
+            <role>EMEA_Sales_Ops</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>equals</operation>
+            <value>0058c00000DiSMIAA3</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

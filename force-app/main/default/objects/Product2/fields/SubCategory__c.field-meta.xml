@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SubCategory__c</fullName>
+    <label>SubCategory</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Alcohol swabs non-sterile</fullName>
+                <default>false</default>
+                <label>Alcohol swabs non-sterile</label>
+            </value>
+            <value>
+                <fullName>Alcohol swabs sterile</fullName>
+                <default>false</default>
+                <label>Alcohol swabs sterile</label>
+            </value>
+            <value>
+                <fullName>Alcohol wipes PE bag</fullName>
+                <default>false</default>
+                <label>Alcohol wipes PE bag</label>
+            </value>
+            <value>
+                <fullName>Alcohol wipes tube</fullName>
+                <default>false</default>
+                <label>Alcohol wipes tube</label>
+            </value>
+            <value>
+                <fullName>Beard Cover</fullName>
+                <default>false</default>
+                <label>Beard Cover</label>
+            </value>
+            <value>
+                <fullName>Blunt Fill Needle With Filter</fullName>
+                <default>false</default>
+                <label>Blunt Fill Needle With Filter</label>
+            </value>
+            <value>
+                <fullName>Blunt Fill Needle/Hypodermic Needle</fullName>
+                <default>false</default>
+                <label>Blunt Fill Needle/Hypodermic Needle</label>
+            </value>
+            <value>
+                <fullName>Boot Covers</fullName>
+                <default>false</default>
+                <label>Boot Covers</label>
+            </value>
+            <value>
+                <fullName>Child Mask</fullName>
+                <default>false</default>
+                <label>Child Mask</label>
+            </value>
+            <value>
+                <fullName>Disposable Bouffant Cap</fullName>
+                <default>false</default>
+                <label>Disposable Bouffant Cap</label>
+            </value>
+            <value>
+                <fullName>Disposable Face shield</fullName>
+                <default>false</default>
+                <label>Disposable Face shield</label>
+            </value>
+            <value>
+                <fullName>Disposable Shoe Covers</fullName>
+                <default>false</default>
+                <label>Disposable Shoe Covers</label>
+            </value>
+            <value>
+                <fullName>Disposable Surgeon Cap</fullName>
+                <default>false</default>
+                <label>Disposable Surgeon Cap</label>
+            </value>
+            <value>
+                <fullName>Enteral Syringe</fullName>
+                <default>false</default>
+                <label>Enteral Syringe</label>
+            </value>
+            <value>
+                <fullName>EZ Wing</fullName>
+                <default>false</default>
+                <label>EZ Wing</label>
+            </value>
+            <value>
+                <fullName>Face Mask</fullName>
+                <default>false</default>
+                <label>Face Mask</label>
+            </value>
+            <value>
+                <fullName>Finger Pulse Oximeter</fullName>
+                <default>false</default>
+                <label>Finger Pulse Oximeter</label>
+            </value>
+            <value>
+                <fullName>Fingertip Oximeter</fullName>
+                <default>false</default>
+                <label>Fingertip Oximeter</label>
+            </value>
+            <value>
+                <fullName>Flush Syringe - Saline</fullName>
+                <default>false</default>
+                <label>Flush Syringe - Saline</label>
+            </value>
+            <value>
+                <fullName>Infrared Thermometers</fullName>
+                <default>false</default>
+                <label>Infrared Thermometers</label>
+            </value>
+            <value>
+                <fullName>Instant hand sanitizer</fullName>
+                <default>false</default>
+                <label>Instant hand sanitizer</label>
+            </value>
+            <value>
+                <fullName>Instant hand sanitizer Gel</fullName>
+                <default>false</default>
+                <label>Instant hand sanitizer Gel</label>
+            </value>
+            <value>
+                <fullName>Isolation Gowns</fullName>
+                <default>false</default>
+                <label>Isolation Gowns</label>
+            </value>
+            <value>
+                <fullName>KN95 Respirator</fullName>
+                <default>false</default>
+                <label>KN95 Respirator</label>
+            </value>
+            <value>
+                <fullName>Lab Coat</fullName>
+                <default>false</default>
+                <label>Lab Coat</label>
+            </value>
+            <value>
+                <fullName>Luer Adapter</fullName>
+                <default>false</default>
+                <label>Luer Adapter</label>
+            </value>
+            <value>
+                <fullName>N95 Respirator</fullName>
+                <default>false</default>
+                <label>N95 Respirator</label>
+            </value>
+            <value>
+                <fullName>Nitrile Glove</fullName>
+                <default>false</default>
+                <label>Nitrile Glove</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Blood Collection Holder</fullName>
+                <default>false</default>
+                <label>Non-Safety Blood Collection Holder</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Butterfly Needle-VET</fullName>
+                <default>false</default>
+                <label>Non-Safety Butterfly Needle-VET</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Fixed Needle Syringe</fullName>
+                <default>false</default>
+                <label>Non-Safety Fixed Needle Syringe</label>
+            </value>
+            <value>
+                <fullName>Non-Safety IV Catheter open system-VET</fullName>
+                <default>false</default>
+                <label>Non-Safety IV Catheter open system-VET</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Multisample Needle</fullName>
+                <default>false</default>
+                <label>Non-Safety Multisample Needle</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Multi-Sample Needle</fullName>
+                <default>false</default>
+                <label>Non-Safety Multi-Sample Needle</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Pen needle</fullName>
+                <default>false</default>
+                <label>Non-Safety Pen needle</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Syringe 100ML</fullName>
+                <default>false</default>
+                <label>Non-Safety Syringe 100ML</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Syringe 10ML</fullName>
+                <default>false</default>
+                <label>Non-Safety Syringe 10ML</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Syringe 12ML</fullName>
+                <default>false</default>
+                <label>Non-Safety Syringe 12ML</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Syringe 1ML</fullName>
+                <default>false</default>
+                <label>Non-Safety Syringe 1ML</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Syringe 20ML</fullName>
+                <default>false</default>
+                <label>Non-Safety Syringe 20ML</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Syringe 30ML</fullName>
+                <default>false</default>
+                <label>Non-Safety Syringe 30ML</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Syringe 3ML</fullName>
+                <default>false</default>
+                <label>Non-Safety Syringe 3ML</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Syringe 50/60ml</fullName>
+                <default>false</default>
+                <label>Non-Safety Syringe 50/60ml</label>
+            </value>
+            <value>
+                <fullName>Non-Safety Syringe 5ml</fullName>
+                <default>false</default>
+                <label>Non-Safety Syringe 5ml</label>
+            </value>
+            <value>
+                <fullName>Oral Syringe (O-ring Type)</fullName>
+                <default>false</default>
+                <label>Oral Syringe (O-ring Type)</label>
+            </value>
+            <value>
+                <fullName>other</fullName>
+                <default>false</default>
+                <label>other</label>
+            </value>
+            <value>
+                <fullName>Packaging</fullName>
+                <default>false</default>
+                <label>Packaging</label>
+            </value>
+            <value>
+                <fullName>Portable Ventilator</fullName>
+                <default>false</default>
+                <label>Portable Ventilator</label>
+            </value>
+            <value>
+                <fullName>Protective Coverall</fullName>
+                <default>false</default>
+                <label>Protective Coverall</label>
+            </value>
+            <value>
+                <fullName>Safety Blood collection Holder Set (Vaccum Retractable Tech)</fullName>
+                <default>false</default>
+                <label>Safety Blood collection Holder Set (Vaccum Retractable Tech)</label>
+            </value>
+            <value>
+                <fullName>Safety Box</fullName>
+                <default>false</default>
+                <label>Safety Box</label>
+            </value>
+            <value>
+                <fullName>Safety Butterfly Needle &amp; Set (Shield Technology)</fullName>
+                <default>false</default>
+                <label>Safety Butterfly Needle &amp; Set (Shield Technology)</label>
+            </value>
+            <value>
+                <fullName>Safety Butterfly Needle &amp; Set (Vacuum Technology)</fullName>
+                <default>false</default>
+                <label>Safety Butterfly Needle &amp; Set (Vacuum Technology)</label>
+            </value>
+            <value>
+                <fullName>Safety Insulin Syringe (SOL-GUARD, Shield Technology)</fullName>
+                <default>false</default>
+                <label>Safety Insulin Syringe (SOL-GUARD, Shield Technology)</label>
+            </value>
+            <value>
+                <fullName>Safety Multi-Sample Needle</fullName>
+                <default>false</default>
+                <label>Safety Multi-Sample Needle</label>
+            </value>
+            <value>
+                <fullName>Safety Needle Combo</fullName>
+                <default>false</default>
+                <label>Safety Needle Combo</label>
+            </value>
+            <value>
+                <fullName>Safety Needle Only</fullName>
+                <default>false</default>
+                <label>Safety Needle Only</label>
+            </value>
+            <value>
+                <fullName>Sample</fullName>
+                <default>false</default>
+                <label>Sample</label>
+            </value>
+            <value>
+                <fullName>Silicone Oil</fullName>
+                <default>false</default>
+                <label>Silicone Oil</label>
+            </value>
+            <value>
+                <fullName>SOL-CARE 3ml Safety Needle Combo</fullName>
+                <default>false</default>
+                <label>SOL-CARE 3ml Safety Needle Combo</label>
+            </value>
+            <value>
+                <fullName>SOL-CARE Manual retractable Safety Syringe  3ML</fullName>
+                <default>false</default>
+                <label>SOL-CARE Manual retractable Safety Syringe  3ML</label>
+            </value>
+            <value>
+                <fullName>SOL-CARE Manual retractable Safety Syringe 1ML</fullName>
+                <default>false</default>
+                <label>SOL-CARE Manual retractable Safety Syringe 1ML</label>
+            </value>
+            <value>
+                <fullName>SOL-CARE Manual retractable Safety Syringe 3ML</fullName>
+                <default>false</default>
+                <label>SOL-CARE Manual retractable Safety Syringe 3ML</label>
+            </value>
+            <value>
+                <fullName>SOL-CARE Manual retractable Safety Syringe 5ML/10ML/20ML</fullName>
+                <default>false</default>
+                <label>SOL-CARE Manual retractable Safety Syringe 5ML/10ML/20ML</label>
+            </value>
+            <value>
+                <fullName>SOL-CARE Safety Needle</fullName>
+                <default>false</default>
+                <label>SOL-CARE Safety Needle</label>
+            </value>
+            <value>
+                <fullName>SOL-GUARD Safety syringe</fullName>
+                <default>false</default>
+                <label>SOL-GUARD Safety syringe</label>
+            </value>
+            <value>
+                <fullName>SOL-M 3ml LS Syringe With Needle</fullName>
+                <default>false</default>
+                <label>SOL-M 3ml LS Syringe With Needle</label>
+            </value>
+            <value>
+                <fullName>SOL-M 5ml LL Syringe With Needle Tray</fullName>
+                <default>false</default>
+                <label>SOL-M 5ml LL Syringe With Needle Tray</label>
+            </value>
+            <value>
+                <fullName>SOL-M Non-Safety Fixed Needle Syringe</fullName>
+                <default>false</default>
+                <label>SOL-M Non-Safety Fixed Needle Syringe</label>
+            </value>
+            <value>
+                <fullName>SOL-M Oral Syringes (Gasket type)</fullName>
+                <default>false</default>
+                <label>SOL-M Oral Syringes (Gasket type)</label>
+            </value>
+            <value>
+                <fullName>Surgical Gown</fullName>
+                <default>false</default>
+                <label>Surgical Gown</label>
+            </value>
+            <value>
+                <fullName>Surgical Hood</fullName>
+                <default>false</default>
+                <label>Surgical Hood</label>
+            </value>
+            <value>
+                <fullName>Surgical Mask</fullName>
+                <default>false</default>
+                <label>Surgical Mask</label>
+            </value>
+            <value>
+                <fullName>Syringe Tip Cap</fullName>
+                <default>false</default>
+                <label>Syringe Tip Cap</label>
+            </value>
+            <value>
+                <fullName>Vinyl Glove</fullName>
+                <default>false</default>
+                <label>Vinyl Glove</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

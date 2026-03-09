@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- BU --></label>
+    <name>BU__c</name>
+    <picklistValues>
+        <masterLabel>BU01 Injection and Pharma</masterLabel>
+        <translation><!-- BU01 Injection and Pharma --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BU02 Diagnostics</masterLabel>
+        <translation><!-- BU02 Diagnostics --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BU03 Diabetes Care</masterLabel>
+        <translation><!-- BU03 Diabetes Care --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BU04 Vascular Access &amp; Infusion Therapy</masterLabel>
+        <translation><!-- BU04 Vascular Access &amp; Infusion Therapy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BU05 Oncology</masterLabel>
+        <translation><!-- BU05 Oncology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BU06 Injection Prevention</masterLabel>
+        <translation><!-- BU06 Injection Prevention --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BU07 Kitting</masterLabel>
+        <translation><!-- BU07 Kitting --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BU08 Advanced Wound Care</masterLabel>
+        <translation><!-- BU08 Advanced Wound Care --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BU09 Medical Supplies</masterLabel>
+        <translation><!-- BU09 Medical Supplies --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BU10 SolCotton</masterLabel>
+        <translation><!-- BU10 SolCotton --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BU11 Clothing</masterLabel>
+        <translation><!-- BU11 Clothing --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

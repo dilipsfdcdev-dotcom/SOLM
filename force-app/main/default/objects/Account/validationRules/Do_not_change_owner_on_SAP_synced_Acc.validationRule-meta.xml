@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Do_not_change_owner_on_SAP_synced_Acc</fullName>
+    <active>false</active>
+    <description>Account Owner change should be enabled only for Accounts without SAP Code.
+If SAP Code present, change should be request via Service team. The team is changing Owner in SAP and synced to Salesforce is automatically performed.</description>
+    <errorConditionFormula>$Profile.Name  &lt;&gt; &quot;System Administrator&quot; &amp;&amp;
+$UserRole.DeveloperName &lt;&gt; &quot;Sales_Operation_Manager&quot; &amp;&amp;
+$UserRole.DeveloperName &lt;&gt; &quot;Sales_Operations_Specialist&quot; &amp;&amp;
+$UserRole.DeveloperName &lt;&gt; &quot;EMEA_Business_Team&quot; &amp;&amp;
+NOT( ISBLANK( SAP_Code__c ) ) &amp;&amp;
+ISCHANGED(  OwnerId  ) &amp;&amp;
+(RecordType.DeveloperName  = &quot;Account_NACA&quot; || RecordType.DeveloperName  = &quot;Account_EMEA&quot;)</errorConditionFormula>
+    <errorMessage>In order to change Account Owner synchronized with SAP, please confirm it with your Sales Director first.</errorMessage>
+</ValidationRule>

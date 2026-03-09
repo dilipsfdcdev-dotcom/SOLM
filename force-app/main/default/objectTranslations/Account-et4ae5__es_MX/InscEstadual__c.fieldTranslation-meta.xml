@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Preencha apenas números. Caso o cliente seja isento, deixe o campo em branco --></help>
+    <label><!-- Inscrição Estadual --></label>
+    <name>InscEstadual__c</name>
+</CustomFieldTranslation>

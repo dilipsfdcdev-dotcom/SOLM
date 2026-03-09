@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Category</fullName>
+    <active>false</active>
+    <errorConditionFormula>RecordType.DeveloperName = &quot;Opportunity_NACA&quot;
+&amp;&amp;
+Number_of_Categories__c = 0
+&amp;&amp;
+(ISPICKVAL( StageName, &apos;Initial Contact&apos;) || ISPICKVAL( StageName, &apos;Sampling &amp; Evaluation&apos;))
+&amp;&amp;
+!Is_this_a_recurring_opportunity__c 
+&amp;&amp;
+$Profile.Name != &apos;System Administrator&apos;</errorConditionFormula>
+    <errorMessage>In order to progress out of the Prospecting Stage, you must add the category related to your opportunity.</errorMessage>
+</ValidationRule>

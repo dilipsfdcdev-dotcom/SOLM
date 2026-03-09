@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Forecast Month</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Forecast Months</value>
+    </caseValues>
+    <layouts>
+        <layout>Forecast Month Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Direct Shipment --></label>
+            <section>Direct Shipment</section>
+        </sections>
+        <sections>
+            <label><!-- Local Warehouse --></label>
+            <section>Local Warehouse</section>
+        </sections>
+        <sections>
+            <label><!-- Orders --></label>
+            <section>Orders</section>
+        </sections>
+        <sections>
+            <label><!-- Summary --></label>
+            <section>Summary</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

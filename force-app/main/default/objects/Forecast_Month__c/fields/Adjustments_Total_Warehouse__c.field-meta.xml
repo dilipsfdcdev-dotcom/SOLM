@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Adjustments_Total_Warehouse__c</fullName>
+    <label>Adjustments Total: Warehouse</label>
+    <summarizedField>Forecast_Item__c.Quantity__c</summarizedField>
+    <summaryFilterItems>
+        <field>Forecast_Item__c.Fulfillment__c</field>
+        <operation>equals</operation>
+        <value>Local Warehouse</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Forecast_Item__c.Item_Type__c</field>
+        <operation>equals</operation>
+        <value>Adjustment</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Forecast_Item__c.Active__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Forecast_Item__c.External_Id__c</field>
+        <operation>notEqual</operation>
+        <value></value>
+    </summaryFilterItems>
+    <summaryForeignKey>Forecast_Item__c.Forecast__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SE_Accounts</fullName>
+    <booleanFilter>1 OR 2</booleanFilter>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>SAP_Code__c</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>ACCOUNT.ADDRESS2_STATE_CODE</columns>
+    <columns>ACCOUNT.ADDRESS1_STATE_CODE</columns>
+    <columns>Forecast_Enabled__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.ADDRESS1_STATE_CODE</field>
+        <operation>equals</operation>
+        <value>AL,FL,GA,KY,MS,NC,SC,TN</value>
+    </filters>
+    <filters>
+        <field>ACCOUNT.ADDRESS2_STATE_CODE</field>
+        <operation>equals</operation>
+        <value>AL,FL,GA,KY,MS,NC,SC,TN</value>
+    </filters>
+    <label>SE Accounts</label>
+    <sharedTo>
+        <role>US_Sales_Representative_ACS_Lyns_Team</role>
+    </sharedTo>
+</ListView>

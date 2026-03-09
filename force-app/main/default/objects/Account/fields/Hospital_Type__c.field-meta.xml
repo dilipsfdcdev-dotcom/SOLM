@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hospital_Type__c</fullName>
+    <inlineHelpText>When Organization type was chosen as hospital, this field will become enabled.</inlineHelpText>
+    <label>Hospital Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Organization_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>Hospital_Type</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>Health System</controllingFieldValue>
+            <controllingFieldValue>Hospital</controllingFieldValue>
+            <controllingFieldValue>Hosp-Public/MOH</controllingFieldValue>
+            <controllingFieldValue>Hosp-Private</controllingFieldValue>
+            <controllingFieldValue>Hosp-Military</controllingFieldValue>
+            <valueName>Children Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Health System</controllingFieldValue>
+            <controllingFieldValue>Hospital</controllingFieldValue>
+            <controllingFieldValue>Hosp-Public/MOH</controllingFieldValue>
+            <controllingFieldValue>Hosp-Private</controllingFieldValue>
+            <controllingFieldValue>Hosp-Military</controllingFieldValue>
+            <valueName>Critical Access Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Health System</controllingFieldValue>
+            <controllingFieldValue>Hospital</controllingFieldValue>
+            <controllingFieldValue>Hosp-Public/MOH</controllingFieldValue>
+            <controllingFieldValue>Hosp-Private</controllingFieldValue>
+            <controllingFieldValue>Hosp-Military</controllingFieldValue>
+            <valueName>Department of Defense Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Health System</controllingFieldValue>
+            <controllingFieldValue>Hospital</controllingFieldValue>
+            <controllingFieldValue>Hosp-Public/MOH</controllingFieldValue>
+            <controllingFieldValue>Hosp-Private</controllingFieldValue>
+            <controllingFieldValue>Hosp-Military</controllingFieldValue>
+            <valueName>Long Term Acute Care Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Health System</controllingFieldValue>
+            <controllingFieldValue>Hospital</controllingFieldValue>
+            <controllingFieldValue>Hosp-Public/MOH</controllingFieldValue>
+            <controllingFieldValue>Hosp-Private</controllingFieldValue>
+            <controllingFieldValue>Hosp-Military</controllingFieldValue>
+            <valueName>Psychiatric Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Health System</controllingFieldValue>
+            <controllingFieldValue>Hospital</controllingFieldValue>
+            <controllingFieldValue>Hosp-Public/MOH</controllingFieldValue>
+            <controllingFieldValue>Hosp-Private</controllingFieldValue>
+            <controllingFieldValue>Hosp-Military</controllingFieldValue>
+            <valueName>Religious Non-Medical Health Care Institution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Health System</controllingFieldValue>
+            <controllingFieldValue>Hospital</controllingFieldValue>
+            <controllingFieldValue>Hosp-Public/MOH</controllingFieldValue>
+            <controllingFieldValue>Hosp-Private</controllingFieldValue>
+            <controllingFieldValue>Hosp-Military</controllingFieldValue>
+            <valueName>Short Term Acute Care Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Health System</controllingFieldValue>
+            <controllingFieldValue>Hospital</controllingFieldValue>
+            <controllingFieldValue>Hosp-Public/MOH</controllingFieldValue>
+            <controllingFieldValue>Hosp-Private</controllingFieldValue>
+            <controllingFieldValue>Hosp-Military</controllingFieldValue>
+            <valueName>VA Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Health System</controllingFieldValue>
+            <controllingFieldValue>Hospital</controllingFieldValue>
+            <controllingFieldValue>Hosp-Public/MOH</controllingFieldValue>
+            <controllingFieldValue>Hosp-Private</controllingFieldValue>
+            <controllingFieldValue>Hosp-Military</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Hospital</controllingFieldValue>
+            <controllingFieldValue>Hosp-Public/MOH</controllingFieldValue>
+            <controllingFieldValue>Hosp-Private</controllingFieldValue>
+            <controllingFieldValue>Hosp-Military</controllingFieldValue>
+            <valueName>Rehabilitation Hospital</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

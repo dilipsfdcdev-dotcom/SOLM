@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Assunto --></label>
+    <name>Assunto__c</name>
+    <picklistValues>
+        <masterLabel>Contato</masterLabel>
+        <translation><!-- Contato --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Orçamento</masterLabel>
+        <translation><!-- Orçamento --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Suporte</masterLabel>
+        <translation><!-- Suporte --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trabalhe Conosco</masterLabel>
+        <translation><!-- Trabalhe Conosco --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

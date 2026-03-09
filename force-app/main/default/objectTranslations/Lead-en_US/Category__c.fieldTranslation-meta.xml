@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Category --></label>
+    <name>Category__c</name>
+    <picklistValues>
+        <masterLabel>Besoin d&apos;accompagnement pour la prise en main</masterLabel>
+        <translation>Need support to get started</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Informations concernant ma commande</masterLabel>
+        <translation>Information about my order</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Informations générales sur InsuJet</masterLabel>
+        <translation>General Information About Insujet</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Informations pour professionnels de santé</masterLabel>
+        <translation>Information for healthcare professionals</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Partenariats, collaboration ou média</masterLabel>
+        <translation>Partnerships, collaboration or media</translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Support technique InsuJet</masterLabel>
+        <translation>InsuJet technical support</translation>
+    </picklistValues>
+</CustomFieldTranslation>

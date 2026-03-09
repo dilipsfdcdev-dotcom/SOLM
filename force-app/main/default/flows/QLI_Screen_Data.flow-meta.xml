@@ -2,7 +2,7 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>65.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
-    <description>To get QLI Margin Simulation details</description>
+    <description>To get QLI Margin Simulation details (Depricated)</description>
     <environments>Default</environments>
     <formulas>
         <name>GPDollars</name>
@@ -40,7 +40,7 @@
         <scale>6</scale>
     </formulas>
     <interviewLabel>QLI Screen Data {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>QLI - After Insert/Update</label>
+    <label>QLI - After Insert/Update(Depricated)</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -128,9 +128,6 @@
         </inputAssignments>
         <inputAssignments>
             <field>Incoterm__c</field>
-            <value>
-                <elementReference>Get_Quote.Incoterm__c</elementReference>
-            </value>
         </inputAssignments>
         <inputAssignments>
             <field>Price_per_Box__c</field>
@@ -174,5 +171,5 @@
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Obsolete</status>
+    <status>Draft</status>
 </Flow>

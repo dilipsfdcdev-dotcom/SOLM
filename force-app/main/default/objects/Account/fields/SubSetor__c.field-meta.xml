@@ -180,6 +180,11 @@
                 <default>false</default>
                 <label>Vet Distributor</label>
             </value>
+            <value>
+                <fullName>Rede Farmácia</fullName>
+                <default>false</default>
+                <label>Rede Farmácia</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

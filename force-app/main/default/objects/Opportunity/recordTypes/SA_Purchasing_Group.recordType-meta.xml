@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SA_Purchasing_Group</fullName>
-    <active>true</active>
+    <active>false</active>
     <businessProcess>Venda Direta</businessProcess>
     <label>Purchasing Group</label>
     <picklistValues>
@@ -16,29 +16,6 @@
         </values>
         <values>
             <fullName>Itaú</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Customer_Category__c</picklist>
-        <values>
-            <fullName>Heavy Users</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>High Profitability</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Key Products</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Key-Account</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Standard</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -187,6 +164,64 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Frequency__c</picklist>
+        <values>
+            <fullName>Monthly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yearly</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Incoterms__c</picklist>
+        <values>
+            <fullName>CFR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CIF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CIP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CPT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DAP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DDP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DPU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EXW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FOB</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>LeadSource</picklist>
         <values>
             <fullName>Definitive Healthcare Database</fullName>
@@ -222,7 +257,38 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Prazo__c</picklist>
+        <picklist>Loss_Reason__c</picklist>
+        <values>
+            <fullName>Lost to Competitor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Budget %2F Lost Funding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Decision %2F Non-Responsive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Price</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Payment_Terms__c</picklist>
+        <values>
+            <fullName>100%25 COD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>100%25 Prepayment</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>100%25 prepayment before production</fullName>
             <default>false</default>
@@ -232,71 +298,70 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>10d</fullName>
+            <fullName>30%25 Prepayment%2C 70%25 COD</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>120d</fullName>
+            <fullName>30%25 Prepayment%2C 70%25 Net30-C</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>14d</fullName>
+            <fullName>50%25 Net30C %2B 50%25 Net60-C</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>15d</fullName>
+            <fullName>50%25 Prepayment%2C 50%25 COD</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>80%25 prepayment%2C 20%25 ship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letter of Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Net120-C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Net14-C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Net30-C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Net45-C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Net60-C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Net7-C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Net90-C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment at delivery</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Prazo__c</picklist>
         <values>
             <fullName>21</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>28</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>28d</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%25 Prepayment%2C 70%25 COD</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F40</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F45</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F45%2F60</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F45%2F60%2F75</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F45%2F60%2F75%2F90</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F60</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F60%2F75</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F60%2F90</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30d</fullName>
             <default>false</default>
         </values>
         <values>
@@ -309,10 +374,6 @@
         </values>
         <values>
             <fullName>35</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>35d</fullName>
             <default>false</default>
         </values>
         <values>
@@ -340,14 +401,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>45%2F60%2F90</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>45d</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>46</fullName>
             <default>false</default>
         </values>
@@ -361,14 +414,6 @@
         </values>
         <values>
             <fullName>49</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>50%25 Prepayment%2C 50%25 COD</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>50%25 Prepayment%2C 50%25 Net14-C</fullName>
             <default>false</default>
         </values>
         <values>
@@ -391,40 +436,341 @@
             <fullName>55</fullName>
             <default>false</default>
         </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product_Line__c</picklist>
         <values>
-            <fullName>60%2F90</fullName>
+            <fullName>AD %26 RUP Syringe</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>60d</fullName>
+            <fullName>Alcohol Swabs</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>75d</fullName>
+            <fullName>Allergy Syringe</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>7d</fullName>
+            <fullName>Anesthesia Needles</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>90d</fullName>
+            <fullName>Beard Cover</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Cash</fullName>
+            <fullName>Blood Collection Holders %26 Accessories</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit Card</fullName>
+            <fullName>Blood Collection Tube</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Letter of Credit</fullName>
+            <fullName>Blood Pressure Monitors</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>À vista</fullName>
+            <fullName>Blunt Fill Needle %26 Filter Needle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Blunt Fill Needle Combo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bouffant Cap</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Catheter Dressing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coverall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enteral Syringe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exam Gloves</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Face Sheild</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flush Syringe - Saline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gowns</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HFNC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Heel Blood Lancets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hood</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IV Accessories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IV Lines</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Infusion Accessories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lab Coat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mask</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medical Supplies - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Invasive Ventilator</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oral Dispensing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oral Syringe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oral Syringe Tip Caps %26 accessories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Plastic Cannula %26 EZ Wing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pulse Oximeter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Arm Insulin Syringe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Arm Syringe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Blood Collection Holder %28Vacuum Retractable Tech%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Butterfly Needle %26 Set %28Shield Technology%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Butterfly Needle %26 Set %28Spring Technology%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Capillary Blood Collection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety IV Bag Connector</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety IV Catheters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety IV Catheters %28Closed System%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Insulin Syringe %28SOL-CARE%2C Manually Retractable%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Insulin Syringe %28SOL-GUARD%2C Sheild Technology%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Multi-Sample Needle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Needle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Needle Combo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Syringe %28SOL-CARE%2C Manually Retractable%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Syringe %28SOL-Guard%2C Sheild Technology%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safety Winged Infusion Set</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sanitizer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shoe Cover</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specimen Collection Kit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Butterfly Needle %26 Set</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Butterfly Needle %26 Set %28with Luer Adaptor%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Capillary Blood Collection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard IV Catheters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Insulin Syringe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Multi-Sample Needle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Needle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Non-Safety Syringe and Needle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Pen Needle</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Syringe - 2 Part</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Syringe - 3 Part</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Syringe and Needle Combo- 3 Parts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Surface Cleaner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Syringe Tip Caps %26 accessories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Syringe Tray</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thermometer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vet Blood Collection Needles%2C Holders %26 Sets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vet IV Catheters</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vet Insulin %26 TB Syringes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vet Needles %26 Syringes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vet Oral Syringe</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Recurring_Type__c</picklist>
+        <values>
+            <fullName>Divide</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multiply</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Shipment_Origin__c</picklist>
+        <values>
+            <fullName>China</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>France</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poland</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Turkey</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UK</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -463,6 +809,49 @@
         </values>
         <values>
             <fullName>New Business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Why_we_lost__c</picklist>
+        <values>
+            <fullName>Contract Bundling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Missing Documents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Inventory</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Price</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Project Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Timeline</fullName>
             <default>false</default>
         </values>
     </picklistValues>

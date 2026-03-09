@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BU__c</fullName>
+    <label>BU</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BU01 Injection and Pharma</fullName>
+                <default>false</default>
+                <label>BU01 Injection and Pharma</label>
+            </value>
+            <value>
+                <fullName>BU02 Diagnostics</fullName>
+                <default>false</default>
+                <label>BU02 Diagnostics</label>
+            </value>
+            <value>
+                <fullName>BU03 Diabetes Care</fullName>
+                <default>false</default>
+                <label>BU03 Diabetes Care</label>
+            </value>
+            <value>
+                <fullName>BU04 Vascular Access &amp; Infusion Therapy</fullName>
+                <default>false</default>
+                <label>BU04 Vascular Access &amp; Infusion Therapy</label>
+            </value>
+            <value>
+                <fullName>BU05 Oncology</fullName>
+                <default>false</default>
+                <label>BU05 Oncology</label>
+            </value>
+            <value>
+                <fullName>BU06 Injection Prevention</fullName>
+                <default>false</default>
+                <label>BU06 Injection Prevention</label>
+            </value>
+            <value>
+                <fullName>BU07 Kitting</fullName>
+                <default>false</default>
+                <label>BU07 Kitting</label>
+            </value>
+            <value>
+                <fullName>BU08 Advanced Wound Care</fullName>
+                <default>false</default>
+                <label>BU08 Advanced Wound Care</label>
+            </value>
+            <value>
+                <fullName>BU09 Medical Supplies</fullName>
+                <default>false</default>
+                <label>BU09 Medical Supplies</label>
+            </value>
+            <value>
+                <fullName>BU10 SolCotton</fullName>
+                <default>false</default>
+                <label>BU10 SolCotton</label>
+            </value>
+            <value>
+                <fullName>BU11 Clothing</fullName>
+                <default>false</default>
+                <label>BU11 Clothing</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Case_Closed_Survey_Email</fullName>
+        <description>Case Closed Survey Email</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderAddress>support@sol-m.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Survey_Invitation_for_Closed_Cases</template>
+    </alerts>
+    <alerts>
+        <fullName>Notifcation_for_new_support_case_Technician</fullName>
+        <description>Notifcation for new support case (Technician)</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>jsharma@solm.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>mdewani@solm.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>snarayanan@solm.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>support@sol-m.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Notification_for_new_support_case</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_For_Case_Assignment</fullName>
+        <description>Notification For Case Assignment</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderAddress>support@sol-m.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Support_Case_is_assigned</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_For_New_Case_Created</fullName>
+        <description>Notification For New Case Created</description>
+        <protected>false</protected>
+        <recipients>
+            <field>SuppliedEmail</field>
+            <type>email</type>
+        </recipients>
+        <senderAddress>support@sol-m.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/New_Support_Case_is_created</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_For_New_Case_For_Type_Standard_Cost_Maintenance</fullName>
+        <description>Notification For New Case For Type Standard Cost Maintenance</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>bdrobniak@solm.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>pmlodecki@solm.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>rbuytendorp@solm.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>support@sol-m.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/New_Standard_cost_Maintenance_case_Email_to_mangers</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_For_Procurement_case_is_closed</fullName>
+        <description>Notification For Procurement case is closed</description>
+        <protected>false</protected>
+        <recipients>
+            <type>owner</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Procurement_case_is_closed</template>
+    </alerts>
+    <alerts>
+        <fullName>Sourcing_Opp_Case_created_Notification</fullName>
+        <description>Sourcing Opp Case created Notification</description>
+        <protected>false</protected>
+        <recipients>
+            <field>ContactId</field>
+            <type>contactLookup</type>
+        </recipients>
+        <senderType>CurrentUser</senderType>
+        <template>unfiled$public/Sourcing_Opp_Case_Assigned</template>
+    </alerts>
+    <fieldUpdates>
+        <fullName>ChangePriorityToHigh</fullName>
+        <field>Priority</field>
+        <literalValue>High</literalValue>
+        <name>Altera a prioridade do caso para alta.</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

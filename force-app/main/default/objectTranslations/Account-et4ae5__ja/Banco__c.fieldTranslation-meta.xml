@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Banco --></label>
+    <name>Banco__c</name>
+    <picklistValues>
+        <masterLabel>Banco do Brasil TRF</masterLabel>
+        <translation><!-- Banco do Brasil TRF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Itau</masterLabel>
+        <translation><!-- Itau --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Itau CG</masterLabel>
+        <translation><!-- Itau CG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Itau TRF</masterLabel>
+        <translation><!-- Itau TRF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OUTITABRL4729</masterLabel>
+        <translation><!-- OUTITABRL4729 --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

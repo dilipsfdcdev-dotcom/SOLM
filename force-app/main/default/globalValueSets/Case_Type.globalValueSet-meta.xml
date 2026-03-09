@@ -1,0 +1,1084 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Business Partner update</fullName>
+        <default>false</default>
+        <label>Business Partner update</label>
+    </customValue>
+    <customValue>
+        <fullName>Corporate Customer Order</fullName>
+        <default>false</default>
+        <label>Corporate Customer Order</label>
+    </customValue>
+    <customValue>
+        <fullName>CRD Update</fullName>
+        <default>false</default>
+        <label>CRD Update</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Onboarding</fullName>
+        <default>false</default>
+        <label>Customer Onboarding</label>
+    </customValue>
+    <customValue>
+        <fullName>Damaged product</fullName>
+        <default>false</default>
+        <label>Damaged product</label>
+    </customValue>
+    <customValue>
+        <fullName>EDI 810 error</fullName>
+        <default>false</default>
+        <label>EDI 810 error</label>
+    </customValue>
+    <customValue>
+        <fullName>EDI 850 failure</fullName>
+        <default>false</default>
+        <label>EDI 850 failure</label>
+    </customValue>
+    <customValue>
+        <fullName>EDI 855 failure</fullName>
+        <default>false</default>
+        <label>EDI 855 failure</label>
+    </customValue>
+    <customValue>
+        <fullName>EDI 856 failure</fullName>
+        <default>false</default>
+        <label>EDI 856 failure</label>
+    </customValue>
+    <customValue>
+        <fullName>EDI transactions</fullName>
+        <default>false</default>
+        <label>EDI transactions</label>
+    </customValue>
+    <customValue>
+        <fullName>ETD update</fullName>
+        <default>false</default>
+        <label>ETD update</label>
+    </customValue>
+    <customValue>
+        <fullName>Lost product / Shortage</fullName>
+        <default>false</default>
+        <label>Lost product / Shortage</label>
+    </customValue>
+    <customValue>
+        <fullName>Midpoint stock inquiry</fullName>
+        <default>false</default>
+        <label>Midpoint stock inquiry</label>
+    </customValue>
+    <customValue>
+        <fullName>Midpoint training/update</fullName>
+        <default>false</default>
+        <label>Midpoint training/update</label>
+    </customValue>
+    <customValue>
+        <fullName>Miss Picked product</fullName>
+        <default>false</default>
+        <label>Miss Picked product</label>
+    </customValue>
+    <customValue>
+        <fullName>New Partner Set up request</fullName>
+        <default>false</default>
+        <label>New Partner Set up request</label>
+    </customValue>
+    <customValue>
+        <fullName>No action</fullName>
+        <default>false</default>
+        <label>No action</label>
+    </customValue>
+    <customValue>
+        <fullName>Order inquiry</fullName>
+        <default>false</default>
+        <label>Order inquiry</label>
+    </customValue>
+    <customValue>
+        <fullName>Order placement</fullName>
+        <default>false</default>
+        <label>Order placement</label>
+    </customValue>
+    <customValue>
+        <fullName>Order tracking</fullName>
+        <default>false</default>
+        <label>Order tracking</label>
+    </customValue>
+    <customValue>
+        <fullName>Overage</fullName>
+        <default>false</default>
+        <label>Overage</label>
+    </customValue>
+    <customValue>
+        <fullName>Packing slip/ invoice/ commercial invoice</fullName>
+        <default>false</default>
+        <label>Packing slip/ invoice/ commercial invoice</label>
+    </customValue>
+    <customValue>
+        <fullName>PO Information Update</fullName>
+        <default>false</default>
+        <label>PO Information Update</label>
+    </customValue>
+    <customValue>
+        <fullName>PRD Update</fullName>
+        <default>false</default>
+        <label>PRD Update</label>
+    </customValue>
+    <customValue>
+        <fullName>Price Discrepancy</fullName>
+        <default>false</default>
+        <label>Price Discrepancy</label>
+    </customValue>
+    <customValue>
+        <fullName>Product Availability</fullName>
+        <default>false</default>
+        <label>Product Availability</label>
+    </customValue>
+    <customValue>
+        <fullName>Product compaint</fullName>
+        <default>false</default>
+        <label>Product compaint</label>
+    </customValue>
+    <customValue>
+        <fullName>Redirected</fullName>
+        <default>false</default>
+        <label>Redirected</label>
+    </customValue>
+    <customValue>
+        <fullName>Request for paperwork</fullName>
+        <default>false</default>
+        <label>Request for paperwork</label>
+    </customValue>
+    <customValue>
+        <fullName>Sample order inquiry</fullName>
+        <default>false</default>
+        <label>Sample order inquiry</label>
+    </customValue>
+    <customValue>
+        <fullName>Sample order placement</fullName>
+        <default>false</default>
+        <label>Sample order placement</label>
+    </customValue>
+    <customValue>
+        <fullName>Sample order tracking</fullName>
+        <default>false</default>
+        <label>Sample order tracking</label>
+    </customValue>
+    <customValue>
+        <fullName>Shipping instruction updates (China)</fullName>
+        <default>false</default>
+        <label>Shipping instruction updates (China)</label>
+    </customValue>
+    <customValue>
+        <fullName>Simple/Restocking return</fullName>
+        <default>false</default>
+        <label>Simple/Restocking return</label>
+    </customValue>
+    <customValue>
+        <fullName>Tax Certificate Upload</fullName>
+        <default>false</default>
+        <label>Tax Certificate Upload</label>
+    </customValue>
+    <customValue>
+        <fullName>Track an order</fullName>
+        <default>false</default>
+        <label>Track an order</label>
+    </customValue>
+    <customValue>
+        <fullName>Undeliverable Email Error</fullName>
+        <default>false</default>
+        <label>Undeliverable Email Error</label>
+    </customValue>
+    <customValue>
+        <fullName>Update Customer Pricing</fullName>
+        <default>false</default>
+        <label>Update Customer Pricing</label>
+    </customValue>
+    <customValue>
+        <fullName>APAC</fullName>
+        <default>false</default>
+        <label>APAC</label>
+    </customValue>
+    <customValue>
+        <fullName>BRAZIL</fullName>
+        <default>false</default>
+        <label>BRAZIL</label>
+    </customValue>
+    <customValue>
+        <fullName>EMEA</fullName>
+        <default>false</default>
+        <label>EMEA</label>
+    </customValue>
+    <customValue>
+        <fullName>NACA</fullName>
+        <default>false</default>
+        <label>NACA</label>
+    </customValue>
+    <customValue>
+        <fullName>Request for Quality document</fullName>
+        <default>false</default>
+        <label>Request for Quality document</label>
+    </customValue>
+    <customValue>
+        <fullName>Quality Document is incorrect</fullName>
+        <default>false</default>
+        <label>Quality Document is incorrect</label>
+    </customValue>
+    <customValue>
+        <fullName>Invoice accuracy</fullName>
+        <default>false</default>
+        <label>Invoice accuracy</label>
+    </customValue>
+    <customValue>
+        <fullName>Invoice issuance</fullName>
+        <default>false</default>
+        <label>Invoice issuance</label>
+    </customValue>
+    <customValue>
+        <fullName>Payment term accuracy</fullName>
+        <default>false</default>
+        <label>Payment term accuracy</label>
+    </customValue>
+    <customValue>
+        <fullName>Payment accuracy</fullName>
+        <default>false</default>
+        <label>Payment accuracy</label>
+    </customValue>
+    <customValue>
+        <fullName>Credit memo</fullName>
+        <default>false</default>
+        <label>Credit memo</label>
+    </customValue>
+    <customValue>
+        <fullName>Sales tax</fullName>
+        <default>false</default>
+        <label>Sales tax</label>
+    </customValue>
+    <customValue>
+        <fullName>Delayed by customer</fullName>
+        <default>false</default>
+        <label>Delayed by customer</label>
+    </customValue>
+    <customValue>
+        <fullName>Unknown, request for investigation</fullName>
+        <default>false</default>
+        <label>Unknown, request for investigation</label>
+    </customValue>
+    <customValue>
+        <fullName>Vendor invoice</fullName>
+        <default>false</default>
+        <label>Vendor invoice</label>
+    </customValue>
+    <customValue>
+        <fullName>Vendor remittance</fullName>
+        <default>false</default>
+        <label>Vendor remittance</label>
+    </customValue>
+    <customValue>
+        <fullName>Payment inquiry</fullName>
+        <default>false</default>
+        <label>Payment inquiry</label>
+    </customValue>
+    <customValue>
+        <fullName>Vendor account</fullName>
+        <default>false</default>
+        <label>Vendor account</label>
+    </customValue>
+    <customValue>
+        <fullName>Suspicious transactions -&gt; Red flags</fullName>
+        <default>false</default>
+        <label>Suspicious transactions -&gt; Red flags</label>
+    </customValue>
+    <customValue>
+        <fullName>Chargebacks/Rebates</fullName>
+        <default>false</default>
+        <label>Chargebacks/Rebates</label>
+    </customValue>
+    <customValue>
+        <fullName>New customer create</fullName>
+        <default>false</default>
+        <label>New customer create</label>
+    </customValue>
+    <customValue>
+        <fullName>Billing location changes</fullName>
+        <default>false</default>
+        <label>Billing location changes</label>
+    </customValue>
+    <customValue>
+        <fullName>General account requirement updates</fullName>
+        <default>false</default>
+        <label>General account requirement updates</label>
+    </customValue>
+    <customValue>
+        <fullName>Address changes</fullName>
+        <default>false</default>
+        <label>Address changes</label>
+    </customValue>
+    <customValue>
+        <fullName>Entity/Company name changes (No ownership change)</fullName>
+        <default>false</default>
+        <label>Entity/Company name changes (No ownership change)</label>
+    </customValue>
+    <customValue>
+        <fullName>Entity/Company name changes (Ownership/Merger change)</fullName>
+        <default>false</default>
+        <label>Entity/Company name changes (Ownership/Merger change)</label>
+    </customValue>
+    <customValue>
+        <fullName>Remittance Detail Case type</fullName>
+        <default>false</default>
+        <label>Remittance Detail Case type</label>
+    </customValue>
+    <customValue>
+        <fullName>Shortage/Deduction Notification Case type</fullName>
+        <default>false</default>
+        <label>Shortage/Deduction Notification Case type</label>
+    </customValue>
+    <customValue>
+        <fullName>Statement Request Case type</fullName>
+        <default>false</default>
+        <label>Statement Request Case type</label>
+    </customValue>
+    <customValue>
+        <fullName>Annotated Statement Received Case type</fullName>
+        <default>false</default>
+        <label>Annotated Statement Received Case type</label>
+    </customValue>
+    <customValue>
+        <fullName>POD/PS Request Case type</fullName>
+        <default>false</default>
+        <label>POD/PS Request Case type</label>
+    </customValue>
+    <customValue>
+        <fullName>“Analysis Requested” Case type</fullName>
+        <default>false</default>
+        <label>“Analysis Requested” Case type</label>
+    </customValue>
+    <customValue>
+        <fullName>Vendor Statement</fullName>
+        <default>false</default>
+        <label>Vendor Statement</label>
+    </customValue>
+    <customValue>
+        <fullName>Overdue Invoice</fullName>
+        <default>false</default>
+        <label>Overdue Invoice</label>
+    </customValue>
+    <customValue>
+        <fullName>Commercial invoice requests</fullName>
+        <default>false</default>
+        <label>Commercial invoice requests</label>
+    </customValue>
+    <customValue>
+        <fullName>China needs a document</fullName>
+        <default>false</default>
+        <label>China needs a document</label>
+    </customValue>
+    <customValue>
+        <fullName>Tracking direct to customer shipments</fullName>
+        <default>false</default>
+        <label>Tracking direct to customer shipments</label>
+    </customValue>
+    <customValue>
+        <fullName>Tracking containers landing in Geodis</fullName>
+        <default>false</default>
+        <label>Tracking containers landing in Geodis</label>
+    </customValue>
+    <customValue>
+        <fullName>Filing a Claim due to carrier damages</fullName>
+        <default>false</default>
+        <label>Filing a Claim due to carrier damages</label>
+    </customValue>
+    <customValue>
+        <fullName>Scheduling a product pickup</fullName>
+        <default>false</default>
+        <label>Scheduling a product pickup</label>
+    </customValue>
+    <customValue>
+        <fullName>Approval</fullName>
+        <default>false</default>
+        <label>Approval</label>
+    </customValue>
+    <customValue>
+        <fullName>Usage File</fullName>
+        <default>false</default>
+        <label>Usage File</label>
+    </customValue>
+    <customValue>
+        <fullName>Production Update</fullName>
+        <default>false</default>
+        <label>Production Update</label>
+    </customValue>
+    <customValue>
+        <fullName>Air freight Quote</fullName>
+        <default>false</default>
+        <label>Air freight Quote</label>
+    </customValue>
+    <customValue>
+        <fullName>Purchase order processing</fullName>
+        <default>false</default>
+        <label>Purchase order processing</label>
+    </customValue>
+    <customValue>
+        <fullName>Internal transfer order update</fullName>
+        <default>false</default>
+        <label>Internal transfer order update</label>
+    </customValue>
+    <customValue>
+        <fullName>Product info request</fullName>
+        <default>false</default>
+        <label>Product info request</label>
+    </customValue>
+    <customValue>
+        <fullName>Sales rep request</fullName>
+        <default>false</default>
+        <label>Sales rep request</label>
+    </customValue>
+    <customValue>
+        <fullName>General information request</fullName>
+        <default>false</default>
+        <label>General information request</label>
+    </customValue>
+    <customValue>
+        <fullName>PBI</fullName>
+        <default>false</default>
+        <label>PBI</label>
+    </customValue>
+    <customValue>
+        <fullName>EDI</fullName>
+        <default>false</default>
+        <label>EDI</label>
+    </customValue>
+    <customValue>
+        <fullName>Salesforce</fullName>
+        <default>false</default>
+        <label>Salesforce</label>
+    </customValue>
+    <customValue>
+        <fullName>SAP</fullName>
+        <default>false</default>
+        <label>SAP</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Hardware</fullName>
+        <default>false</default>
+        <label>Hardware</label>
+    </customValue>
+    <customValue>
+        <fullName>Onboarding</fullName>
+        <default>false</default>
+        <label>Onboarding</label>
+    </customValue>
+    <customValue>
+        <fullName>Permission Request</fullName>
+        <default>false</default>
+        <label>Permission Request</label>
+    </customValue>
+    <customValue>
+        <fullName>Power Apps</fullName>
+        <default>false</default>
+        <label>Power Apps</label>
+    </customValue>
+    <customValue>
+        <fullName>Product Questions</fullName>
+        <default>false</default>
+        <label>Product Questions</label>
+    </customValue>
+    <customValue>
+        <fullName>QA Documents</fullName>
+        <default>false</default>
+        <label>QA Documents</label>
+    </customValue>
+    <customValue>
+        <fullName>Order/ Line Item Cancellation</fullName>
+        <default>false</default>
+        <label>Order/ Line Item Cancellation</label>
+    </customValue>
+    <customValue>
+        <fullName>Special Price Request</fullName>
+        <default>false</default>
+        <label>Special Price Request</label>
+    </customValue>
+    <customValue>
+        <fullName>Price Change Request</fullName>
+        <default>false</default>
+        <label>Price Change Request</label>
+    </customValue>
+    <customValue>
+        <fullName>3PL Overship</fullName>
+        <default>false</default>
+        <label>3PL Overship</label>
+    </customValue>
+    <customValue>
+        <fullName>3PL Picking Error</fullName>
+        <default>false</default>
+        <label>3PL Picking Error</label>
+    </customValue>
+    <customValue>
+        <fullName>3PL Shortage</fullName>
+        <default>false</default>
+        <label>3PL Shortage</label>
+    </customValue>
+    <customValue>
+        <fullName>Carrier Returned to Warehouse</fullName>
+        <default>false</default>
+        <label>Carrier Returned to Warehouse</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Carrier Damage/Shortage</fullName>
+        <default>false</default>
+        <label>Customer Carrier Damage/Shortage</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Complaint - Quality</fullName>
+        <default>false</default>
+        <label>Customer Complaint - Quality</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer Order Error - SKU/Quantities</fullName>
+        <default>false</default>
+        <label>Customer Order Error - SKU/Quantities</label>
+    </customValue>
+    <customValue>
+        <fullName>Invalid Claim</fullName>
+        <default>false</default>
+        <label>Invalid Claim</label>
+    </customValue>
+    <customValue>
+        <fullName>Recall</fullName>
+        <default>false</default>
+        <label>Recall</label>
+    </customValue>
+    <customValue>
+        <fullName>Simple Return</fullName>
+        <default>false</default>
+        <label>Simple Return</label>
+    </customValue>
+    <customValue>
+        <fullName>Sol- M - Damaged by Carrier</fullName>
+        <default>false</default>
+        <label>Sol- M - Damaged by Carrier</label>
+    </customValue>
+    <customValue>
+        <fullName>Sol- M - Lost in Transit</fullName>
+        <default>false</default>
+        <label>Sol- M - Lost in Transit</label>
+    </customValue>
+    <customValue>
+        <fullName>Sol M - Order Entry Error</fullName>
+        <default>false</default>
+        <label>Sol M - Order Entry Error</label>
+    </customValue>
+    <customValue>
+        <fullName>System Error</fullName>
+        <default>false</default>
+        <label>System Error</label>
+    </customValue>
+    <customValue>
+        <fullName>Tax Issues</fullName>
+        <default>false</default>
+        <label>Tax Issues</label>
+    </customValue>
+    <customValue>
+        <fullName>Product complaint</fullName>
+        <default>false</default>
+        <label>Product complaint</label>
+    </customValue>
+    <customValue>
+        <fullName>Cooperation request (potential customer)</fullName>
+        <default>false</default>
+        <label>Cooperation request (potential customer)</label>
+    </customValue>
+    <customValue>
+        <fullName>Cooperation request (potential supplier)</fullName>
+        <default>false</default>
+        <label>Cooperation request (potential supplier)</label>
+    </customValue>
+    <customValue>
+        <fullName>Exhibition, trade show</fullName>
+        <default>false</default>
+        <label>Exhibition, trade show</label>
+    </customValue>
+    <customValue>
+        <fullName>Proposal / offer</fullName>
+        <default>false</default>
+        <label>Proposal / offer</label>
+    </customValue>
+    <customValue>
+        <fullName>Invoice (services)</fullName>
+        <default>false</default>
+        <label>Invoice (services)</label>
+    </customValue>
+    <customValue>
+        <fullName>Order updates, tracking, delivery schedule</fullName>
+        <default>false</default>
+        <label>Order updates, tracking, delivery schedule</label>
+    </customValue>
+    <customValue>
+        <fullName>Delivery arrangements</fullName>
+        <default>false</default>
+        <label>Delivery arrangements</label>
+    </customValue>
+    <customValue>
+        <fullName>Invoice, packing list, COO, BL</fullName>
+        <default>false</default>
+        <label>Invoice, packing list, COO, BL</label>
+    </customValue>
+    <customValue>
+        <fullName>Correction invoice</fullName>
+        <default>false</default>
+        <label>Correction invoice</label>
+    </customValue>
+    <customValue>
+        <fullName>Pre-payment, overdue</fullName>
+        <default>false</default>
+        <label>Pre-payment, overdue</label>
+    </customValue>
+    <customValue>
+        <fullName>Forwarder communication</fullName>
+        <default>false</default>
+        <label>Forwarder communication</label>
+    </customValue>
+    <customValue>
+        <fullName>Docs preparation and drafts (COO, BL)</fullName>
+        <default>false</default>
+        <label>Docs preparation and drafts (COO, BL)</label>
+    </customValue>
+    <customValue>
+        <fullName>Docs legalization</fullName>
+        <default>false</default>
+        <label>Docs legalization</label>
+    </customValue>
+    <customValue>
+        <fullName>WDT / Intra-Community VAT</fullName>
+        <default>false</default>
+        <label>WDT / Intra-Community VAT</label>
+    </customValue>
+    <customValue>
+        <fullName>QA documents, COA, DoC, CE</fullName>
+        <default>false</default>
+        <label>QA documents, COA, DoC, CE</label>
+    </customValue>
+    <customValue>
+        <fullName>Customs procedure</fullName>
+        <default>false</default>
+        <label>Customs procedure</label>
+    </customValue>
+    <customValue>
+        <fullName>Return</fullName>
+        <default>false</default>
+        <label>Return</label>
+    </customValue>
+    <customValue>
+        <fullName>Delivery discrepancy (QTY)</fullName>
+        <default>false</default>
+        <label>Delivery discrepancy (QTY)</label>
+    </customValue>
+    <customValue>
+        <fullName>Service complaint</fullName>
+        <default>false</default>
+        <label>Service complaint</label>
+    </customValue>
+    <customValue>
+        <fullName>Labelling</fullName>
+        <default>false</default>
+        <label>Labelling</label>
+    </customValue>
+    <customValue>
+        <fullName>New customer creation</fullName>
+        <default>false</default>
+        <label>New customer creation</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer data update</fullName>
+        <default>false</default>
+        <label>Customer data update</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer price update</fullName>
+        <default>false</default>
+        <label>Customer price update</label>
+    </customValue>
+    <customValue>
+        <fullName>Internal PO communication</fullName>
+        <default>false</default>
+        <label>Internal PO communication</label>
+    </customValue>
+    <customValue>
+        <fullName>Samples</fullName>
+        <default>false</default>
+        <label>Samples</label>
+    </customValue>
+    <customValue>
+        <fullName>Forecast</fullName>
+        <default>false</default>
+        <label>Forecast</label>
+    </customValue>
+    <customValue>
+        <fullName>IT</fullName>
+        <default>false</default>
+        <label>IT</label>
+    </customValue>
+    <customValue>
+        <fullName>Spam / no interest</fullName>
+        <default>false</default>
+        <label>Spam / no interest</label>
+    </customValue>
+    <customValue>
+        <fullName>Request for quality docs or complaint</fullName>
+        <default>false</default>
+        <label>Request for quality docs or complaint</label>
+    </customValue>
+    <customValue>
+        <fullName>Potential customer / product inquiry</fullName>
+        <default>false</default>
+        <label>Potential customer / product inquiry</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer master data</fullName>
+        <default>false</default>
+        <label>Customer master data</label>
+    </customValue>
+    <customValue>
+        <fullName>Warehouse reports</fullName>
+        <default>false</default>
+        <label>Warehouse reports</label>
+    </customValue>
+    <customValue>
+        <fullName>Product information, labelling, availability</fullName>
+        <default>false</default>
+        <label>Product information, labelling, availability</label>
+    </customValue>
+    <customValue>
+        <fullName>Order placement.</fullName>
+        <default>false</default>
+        <label>Order placement.</label>
+    </customValue>
+    <customValue>
+        <fullName>Order updates, tracking, delivery schedule.</fullName>
+        <default>false</default>
+        <label>Order updates, tracking, delivery schedule.</label>
+    </customValue>
+    <customValue>
+        <fullName>Delivery arrangements.</fullName>
+        <default>false</default>
+        <label>Delivery arrangements.</label>
+    </customValue>
+    <customValue>
+        <fullName>Invoice, packing list, COO, BL.</fullName>
+        <default>false</default>
+        <label>Invoice, packing list, COO, BL.</label>
+    </customValue>
+    <customValue>
+        <fullName>QA documents, COA, DoC, CE.</fullName>
+        <default>false</default>
+        <label>QA documents, COA, DoC, CE.</label>
+    </customValue>
+    <customValue>
+        <fullName>Pre-payment, overdue.</fullName>
+        <default>false</default>
+        <label>Pre-payment, overdue.</label>
+    </customValue>
+    <customValue>
+        <fullName>Customer master data.</fullName>
+        <default>false</default>
+        <label>Customer master data.</label>
+    </customValue>
+    <customValue>
+        <fullName>Correction invoice.</fullName>
+        <default>false</default>
+        <label>Correction invoice.</label>
+    </customValue>
+    <customValue>
+        <fullName>Service complaint.</fullName>
+        <default>false</default>
+        <label>Service complaint.</label>
+    </customValue>
+    <customValue>
+        <fullName>Product complaint (quality).</fullName>
+        <default>false</default>
+        <label>Product complaint (quality).</label>
+    </customValue>
+    <customValue>
+        <fullName>Return.</fullName>
+        <default>false</default>
+        <label>Return.</label>
+    </customValue>
+    <customValue>
+        <fullName>Customs procedure.</fullName>
+        <default>false</default>
+        <label>Customs procedure.</label>
+    </customValue>
+    <customValue>
+        <fullName>Product information, labelling, availability.</fullName>
+        <default>false</default>
+        <label>Product information, labelling, availability.</label>
+    </customValue>
+    <customValue>
+        <fullName>WDT / Intra-Community VAT.</fullName>
+        <default>false</default>
+        <label>WDT / Intra-Community VAT.</label>
+    </customValue>
+    <customValue>
+        <fullName>Warehouse reports.</fullName>
+        <default>false</default>
+        <label>Warehouse reports.</label>
+    </customValue>
+    <customValue>
+        <fullName>Samples.</fullName>
+        <default>false</default>
+        <label>Samples.</label>
+    </customValue>
+    <customValue>
+        <fullName>Internal PO communication.</fullName>
+        <default>false</default>
+        <label>Internal PO communication.</label>
+    </customValue>
+    <customValue>
+        <fullName>Forecast.</fullName>
+        <default>false</default>
+        <label>Forecast.</label>
+    </customValue>
+    <customValue>
+        <fullName>IT.</fullName>
+        <default>false</default>
+        <label>IT.</label>
+    </customValue>
+    <customValue>
+        <fullName>Other.</fullName>
+        <default>false</default>
+        <label>Other.</label>
+    </customValue>
+    <customValue>
+        <fullName>Sample Request</fullName>
+        <default>false</default>
+        <label>Sample Request</label>
+    </customValue>
+    <customValue>
+        <fullName>Approval App</fullName>
+        <default>false</default>
+        <label>Approval App</label>
+    </customValue>
+    <customValue>
+        <fullName>Credit Limit</fullName>
+        <default>false</default>
+        <label>Credit Limit</label>
+    </customValue>
+    <customValue>
+        <fullName>PBI New Development</fullName>
+        <default>false</default>
+        <label>PBI New Development</label>
+    </customValue>
+    <customValue>
+        <fullName>Data Cleanse/Update</fullName>
+        <default>false</default>
+        <label>Data Cleanse/Update</label>
+    </customValue>
+    <customValue>
+        <fullName>Finance Support</fullName>
+        <default>false</default>
+        <label>Finance Support</label>
+    </customValue>
+    <customValue>
+        <fullName>New Opportunity</fullName>
+        <default>false</default>
+        <label>New Opportunity</label>
+    </customValue>
+    <customValue>
+        <fullName>Layer products</fullName>
+        <default>false</default>
+        <label>Layer products</label>
+    </customValue>
+    <customValue>
+        <fullName>Network</fullName>
+        <default>false</default>
+        <label>Network</label>
+    </customValue>
+    <customValue>
+        <fullName>Offboarding</fullName>
+        <default>false</default>
+        <label>Offboarding</label>
+    </customValue>
+    <customValue>
+        <fullName>Database</fullName>
+        <default>false</default>
+        <label>Database</label>
+    </customValue>
+    <customValue>
+        <fullName>Cyber Security</fullName>
+        <default>false</default>
+        <label>Cyber Security</label>
+    </customValue>
+    <customValue>
+        <fullName>Inquiry/assistance</fullName>
+        <default>false</default>
+        <label>Inquiry/assistance</label>
+    </customValue>
+    <customValue>
+        <fullName>Operating System/Server</fullName>
+        <default>false</default>
+        <label>Operating System/Server</label>
+    </customValue>
+    <customValue>
+        <fullName>ESXI</fullName>
+        <default>false</default>
+        <label>ESXI</label>
+    </customValue>
+    <customValue>
+        <fullName>Cloud</fullName>
+        <default>false</default>
+        <label>Cloud</label>
+    </customValue>
+    <customValue>
+        <fullName>Compute</fullName>
+        <default>false</default>
+        <label>Compute</label>
+    </customValue>
+    <customValue>
+        <fullName>Ariba</fullName>
+        <default>false</default>
+        <label>Ariba</label>
+    </customValue>
+    <customValue>
+        <fullName>Supply Chain &amp; Logistics</fullName>
+        <default>false</default>
+        <label>Supply Chain &amp; Logistics</label>
+    </customValue>
+    <customValue>
+        <fullName>Goods Return</fullName>
+        <default>false</default>
+        <label>Goods Return</label>
+    </customValue>
+    <customValue>
+        <fullName>Complaints</fullName>
+        <default>false</default>
+        <label>Complaints</label>
+    </customValue>
+    <customValue>
+        <fullName>Chorus</fullName>
+        <default>false</default>
+        <label>Chorus</label>
+    </customValue>
+    <customValue>
+        <fullName>Resale Certificate</fullName>
+        <default>false</default>
+        <label>Resale Certificate</label>
+    </customValue>
+    <customValue>
+        <fullName>PML</fullName>
+        <default>false</default>
+        <label>PML</label>
+    </customValue>
+    <customValue>
+        <fullName>Kepion</fullName>
+        <default>false</default>
+        <label>Kepion</label>
+    </customValue>
+    <customValue>
+        <fullName>Standard Cost Maintanence</fullName>
+        <default>false</default>
+        <label>Standard Cost Maintanence</label>
+    </customValue>
+    <customValue>
+        <fullName>PBI VIP CEO Ticket</fullName>
+        <default>false</default>
+        <label>PBI VIP CEO Ticket</label>
+    </customValue>
+    <customValue>
+        <fullName>eCommerce</fullName>
+        <default>false</default>
+        <label>eCommerce</label>
+    </customValue>
+    <customValue>
+        <fullName>Tender</fullName>
+        <default>false</default>
+        <label>Tender</label>
+    </customValue>
+    <customValue>
+        <fullName>Website - eCommerce</fullName>
+        <default>false</default>
+        <label>Website - eCommerce</label>
+    </customValue>
+    <customValue>
+        <fullName>Website - Marketing</fullName>
+        <default>false</default>
+        <label>Website - Marketing</label>
+    </customValue>
+    <customValue>
+        <fullName>Placing Orders / Checkout</fullName>
+        <default>false</default>
+        <label>Placing Orders / Checkout</label>
+    </customValue>
+    <customValue>
+        <fullName>Access / Account</fullName>
+        <default>false</default>
+        <label>Access / Account</label>
+    </customValue>
+    <customValue>
+        <fullName>Products / Prices</fullName>
+        <default>false</default>
+        <label>Products / Prices</label>
+    </customValue>
+    <customValue>
+        <fullName>Content / Information</fullName>
+        <default>false</default>
+        <label>Content / Information</label>
+    </customValue>
+    <customValue>
+        <fullName>Forms / Contacting Us</fullName>
+        <default>false</default>
+        <label>Forms / Contacting Us</label>
+    </customValue>
+    <customValue>
+        <fullName>Price List</fullName>
+        <default>false</default>
+        <label>Price List</label>
+    </customValue>
+    <customValue>
+        <fullName>Email Add/Change</fullName>
+        <default>false</default>
+        <label>Email Add/Change</label>
+    </customValue>
+    <customValue>
+        <fullName>Insujet</fullName>
+        <default>false</default>
+        <label>Insujet</label>
+    </customValue>
+    <customValue>
+        <fullName>Solcotton</fullName>
+        <default>false</default>
+        <label>Solcotton</label>
+    </customValue>
+    <customValue>
+        <fullName>Agreement</fullName>
+        <default>false</default>
+        <label>Agreement</label>
+    </customValue>
+    <customValue>
+        <fullName>Request for Quality document (DoC, CE, COA)</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Request for Quality document (DoC, CE, COA)</label>
+    </customValue>
+    <customValue>
+        <fullName>Product information</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Product information</label>
+    </customValue>
+    <customValue>
+        <fullName>Assignment</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Assignment</label>
+    </customValue>
+    <customValue>
+        <fullName>Remove “Assignment”</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Remove “Assignment”</label>
+    </customValue>
+    <masterLabel>Case Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

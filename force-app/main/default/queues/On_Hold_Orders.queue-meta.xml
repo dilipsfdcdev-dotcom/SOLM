@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>On Hold Orders</name>
+    <queueMembers>
+        <users>
+            <user>cschneider@solm.com</user>
+            <user>dbeljung@solm.com</user>
+            <user>mpacheco@solm.com</user>
+            <user>pdhondwad@solm.com</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

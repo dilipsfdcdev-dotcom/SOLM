@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UoM__c</fullName>
+    <label>UoM</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CX</fullName>
+                <default>false</default>
+                <label>CX</label>
+            </value>
+            <value>
+                <fullName>UN</fullName>
+                <default>false</default>
+                <label>UN</label>
+            </value>
+            <value>
+                <fullName>VOL</fullName>
+                <default>false</default>
+                <label>VOL</label>
+            </value>
+            <value>
+                <fullName>CASE</fullName>
+                <default>false</default>
+                <label>CASE</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

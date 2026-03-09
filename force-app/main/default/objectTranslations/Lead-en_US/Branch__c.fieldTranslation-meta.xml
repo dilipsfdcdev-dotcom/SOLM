@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Branch --></label>
+    <name>Branch__c</name>
+    <picklistValues>
+        <masterLabel>SMES</masterLabel>
+        <translation><!-- SMES --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMFR</masterLabel>
+        <translation><!-- SMFR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMPL</masterLabel>
+        <translation><!-- SMPL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SMUS</masterLabel>
+        <translation><!-- SMUS --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

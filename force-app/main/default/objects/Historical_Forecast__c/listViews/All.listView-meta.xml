@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>ASP__c</columns>
+    <columns>Product__c</columns>
+    <columns>Region__c</columns>
+    <columns>Total_Quantity__c</columns>
+    <columns>Total_Revenue__c</columns>
+    <columns>Value__c</columns>
+    <columns>Warehouse__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Account__c</field>
+        <operation>equals</operation>
+        <value>THE STEVENS COMPANY LTD</value>
+    </filters>
+    <filters>
+        <field>Product__c</field>
+        <operation>equals</operation>
+        <value>SOL-CARE 0.5ml Insulin Safety Syringe w/Fixed Needle 30G*8mm (U-100 Insulin Only)</value>
+    </filters>
+    <label>All</label>
+</ListView>

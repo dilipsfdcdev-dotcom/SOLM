@@ -1,0 +1,42 @@
+<aura:component controller="CubeRmHelper"
+                implements="force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:hasRecordId"
+                access="global">
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="warnings" type="List"/>
+    <aura:attribute name="unlinkText" type="String"/>
+    <aura:attribute name="linkedLotIds" type="List"/>
+    <aura:attribute name="showUnlinkSpinner" type="boolean" default="true"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="appEvent" type="cuberm_tc:RefreshEvent"/>
+
+    <div style="position: relative; height: 200px;">
+        <header class="slds-modal__header">
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Unlink from Opportunity</h2>
+        </header>
+        <div style="height: 100px;">
+            <div class="slds-modal__content slds-p-around_medium slds-text-align_center" id="modal-content-id-1">
+                <aura:if isTrue="{!v.warnings.length > 0}">
+                    <div class="prepUnlinkErrors">
+                        <aura:iteration items="{!v.warnings}" var="warning">
+                            <div>{!warning}</div>
+                        </aura:iteration>
+                    </div>
+                    <aura:set attribute="else">
+                        <lightning:formattedText class="slds-text-heading_small" value="{!v.unlinkText}"/>
+                    </aura:set>
+                </aura:if>
+            </div>
+        </div>
+        <div class=".slds-modal__footer button-container slds-text-align_center slds-m-top_small"
+             style="border-top: 2px solid rgb(221, 219, 218);">
+            <lightning:button class="slds-m-vertical_x-small" label="Cancel"
+                              onclick="{!c.closeQuickActionUnlink}"/>
+            <lightning:button aura:id="unlinkButtonId" class="slds-m-vertical_x-small" label="Confirm" variant="brand"
+                              onclick="{!c.confirmUnlink}" disabled="true"/>
+        </div>
+        <aura:if isTrue="{!v.showUnlinkSpinner}">
+            <lightning:spinner variant="brand" size="medium"/>
+        </aura:if>
+    </div>
+</aura:component>

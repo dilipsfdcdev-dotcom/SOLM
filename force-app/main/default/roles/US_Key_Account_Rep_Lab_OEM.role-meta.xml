@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Read</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>US Key Account Rep Lab &amp; OEM</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>US Key Account Rep Lab &amp; OEM</name>
+    <opportunityAccessLevel>Read</opportunityAccessLevel>
+    <parentRole>US_Key_Account_Manager_Lab_OEM_Sales</parentRole>
+</Role>

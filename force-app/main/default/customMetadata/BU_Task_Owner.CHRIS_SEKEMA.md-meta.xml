@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>CHRIS SEKEMA</label>
+    <protected>false</protected>
+    <values>
+        <field>BU__c</field>
+        <value xsi:type="xsd:string">BU03 Diabetes Care</value>
+    </values>
+    <values>
+        <field>Owner__c</field>
+        <value xsi:type="xsd:string">0058c00000D2DGSAA3</value>
+    </values>
+</CustomMetadata>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Selecione a forma de pagamento --></help>
+    <label><!-- Payment Terms Code --></label>
+    <name>Payment_Terms_Code__c</name>
+    <picklistValues>
+        <masterLabel>100% prepayment before production</masterLabel>
+        <translation><!-- 100% prepayment before production --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>100% prepayment before shipment</masterLabel>
+        <translation><!-- 100% prepayment before shipment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>10d</masterLabel>
+        <translation><!-- 10d --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>120d</masterLabel>
+        <translation><!-- 120d --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>14d</masterLabel>
+        <translation><!-- 14d --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>28d</masterLabel>
+        <translation><!-- 28d --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30% Prepayment, 70% COD</masterLabel>
+        <translation><!-- 30% Prepayment, 70% COD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30/40</masterLabel>
+        <translation><!-- 30/40 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30/45</masterLabel>
+        <translation><!-- 30/45 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30/45/60</masterLabel>
+        <translation><!-- 30/45/60 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30/45/60/75</masterLabel>
+        <translation><!-- 30/45/60/75 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30/60</masterLabel>
+        <translation><!-- 30/60 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30/60/90</masterLabel>
+        <translation><!-- 30/60/90 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30d</masterLabel>
+        <translation><!-- 30d --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>35d</masterLabel>
+        <translation><!-- 35d --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>45/60/90</masterLabel>
+        <translation><!-- 45/60/90 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>45d</masterLabel>
+        <translation><!-- 45d --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>50% Prepayment, 50% COD</masterLabel>
+        <translation><!-- 50% Prepayment, 50% COD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>50% Prepayment, 50% Net14-C</masterLabel>
+        <translation><!-- 50% Prepayment, 50% Net14-C --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>60/90</masterLabel>
+        <translation><!-- 60/90 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>60d</masterLabel>
+        <translation><!-- 60d --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>75d</masterLabel>
+        <translation><!-- 75d --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>7d</masterLabel>
+        <translation><!-- 7d --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>90d</masterLabel>
+        <translation><!-- 90d --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cash</masterLabel>
+        <translation><!-- Cash --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Credit Card</masterLabel>
+        <translation><!-- Credit Card --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Letter of Credit</masterLabel>
+        <translation><!-- Letter of Credit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>À vista</masterLabel>
+        <translation><!-- À vista --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

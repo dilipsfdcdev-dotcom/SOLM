@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CallCenter xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <adapterUrl>/hvcc/amz/index.html</adapterUrl>
+    <contactCenterChannels>
+        <channel>Voice_18556816346</channel>
+        <contactCenter xsi:nil="true"/>
+    </contactCenterChannels>
+    <contactCenterChannels>
+        <channel>Voice_18556818583</channel>
+        <contactCenter xsi:nil="true"/>
+    </contactCenterChannels>
+    <customSettings>{&quot;reqTimeout&quot;:&quot;5000&quot;,&quot;reqStandbyUrl&quot;:&quot;https://domain:port/softphone&quot;,&quot;reqCallCenterType&quot;:&quot;SCVOOTBTelephony&quot;,&quot;reqSoftphoneHeight&quot;:&quot;300&quot;,&quot;reqUseApi&quot;:&quot;true&quot;,&quot;reqSoftphoneWidth&quot;:&quot;500&quot;,&quot;reqSalesforceCompatibilityMode&quot;:&quot;Lightning&quot;}</customSettings>
+    <displayName>SOLM</displayName>
+    <displayNameLabel>Display Name</displayNameLabel>
+    <internalNameLabel>Internal Name</internalNameLabel>
+    <sections>
+        <items>
+            <label>CTI Adapter URL</label>
+            <name>reqAdapterUrl</name>
+            <value>/hvcc/amz/index.html</value>
+        </items>
+        <items>
+            <label>Use CTI API</label>
+            <name>reqUseApi</name>
+            <value>true</value>
+        </items>
+        <items>
+            <label>Softphone Height</label>
+            <name>reqSoftphoneHeight</name>
+            <value>300</value>
+        </items>
+        <items>
+            <label>Softphone Width</label>
+            <name>reqSoftphoneWidth</name>
+            <value>500</value>
+        </items>
+        <items>
+            <label>Salesforce Compatibility Mode</label>
+            <name>reqSalesforceCompatibilityMode</name>
+            <value>Lightning</value>
+        </items>
+        <label>General Information</label>
+        <name>reqGeneralInfo</name>
+    </sections>
+    <sections>
+        <items>
+            <label>Telephony Provider</label>
+            <name>reqTelephonyProvider</name>
+            <value>AMAZON_CONNECT</value>
+        </items>
+        <items>
+            <label>Instance Name</label>
+            <name>reqInstanceName</name>
+            <value>SOLM00D8c000004f32B</value>
+        </items>
+        <items>
+            <label>Relay State</label>
+            <name>reqRelayState</name>
+            <value>https://us-west-2.console.aws.amazon.com/connect/federate/9f9f2edc-ad84-467c-8fa5-19e68bfd76f4</value>
+        </items>
+        <items>
+            <label>Identity URL</label>
+            <name>reqIdentityUrl</name>
+            <value>https://solmillenium2.my.salesforce.com/idp/login?app=0spN500000000Xt</value>
+        </items>
+        <items>
+            <label>Telephony Integration Certificate</label>
+            <name>reqTelephonyIntegrationCertificate</name>
+            <value>-----BEGIN CERTIFICATE-----
+MIIDmTCCAoGgAwIBAgIJb6R3BBCuWQ8PMA0GCSqGSIb3DQEBBQUAMIGCMQswCQYD
+VQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xFzAV
+BgNVBAoTDnNhbGVzZm9yY2UuY29tMRswGQYDVQQDExJ3d3cuc2FsZXNmb3JjZS5j
+b20xGDAWBgNVBAsTDzAwRDhjMDAwMDA0ZjMyQjAeFw0yNTA5MDUwNzI2MDNaFw0y
+NjA5MDUwNzI2MDNaMIGCMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNV
+BAcTDVNhbiBGcmFuY2lzY28xFzAVBgNVBAoTDnNhbGVzZm9yY2UuY29tMRswGQYD
+VQQDExJ3d3cuc2FsZXNmb3JjZS5jb20xGDAWBgNVBAsTDzAwRDhjMDAwMDA0ZjMy
+QjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL0ZZcuNOIn+j7s3wRCh
+T9SNUTqD3jFCWKAnbbCaCwJ3GJAdO52c0iXoHAiZ4QQ/an3gi/VGHNxP3enTfSKJ
+4E0+SKzF3sCQFssAO1AfdzvHczo9yq03sxsPDt/pxk6KDdX+wbSXLJMAwOLAk1RV
+7frwo6dJ0vc092LxVXVrS/JhFYIpfiYoVwtBsCwh38Y5H1FMhb5Q8Y1fo0sejrqQ
+kvE/PlzU6EKQK4N9qlDHnM+kVhkMcGj1JNJnqSnWsFuUr3hQV5EBBcvZY14PlXoc
+v9raivc+4hwJywtCgpudblA/ssVZjc2N5DTjbru9tLzkb/A1nth8+ZCj+PVTmCt9
+0F8CAwEAAaMQMA4wDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOCAQEAudGH
+vSg8f43f+VoW9f95uL3ubxbMEGZ6CZsohHMT8pqKcQfnbjL1D3eMfg6yWkNHYEfc
+SkzlqfwmQxGs2wErA7mXaatAJuovpkgVxq5jQdRNI9xFvH7JC/JCJ5vG1IAmCSzs
+1j+PYbJnzt/wDaVZEyxrQ/Jwmg+GUAzQ2VhEAYrUrZdFl6cpyae07Ri0jxWORpUc
+1cOI24U+HvBQ15X96RtQdkuqXBdsMnsNDpDQUW9YKk9lFDwP8MT4dXtBF7MbujSG
+WPGsFIJNI0UaOSQ6y5dICH7p6aT9wWS6hFVNvLEGqrXADnzrJwQd716fqWqlMo5z
+Pa1RlGaKfPlIrvgNew==
+-----END CERTIFICATE-----</value>
+        </items>
+        <items>
+            <label>Region</label>
+            <name>reqRegion</name>
+            <value>us-west-2</value>
+        </items>
+        <items>
+            <label>Connected App Id</label>
+            <name>reqConnectedAppId</name>
+            <value>0H4N50000000DJp</value>
+        </items>
+        <items>
+            <label>Instance Id</label>
+            <name>reqInstanceId</name>
+            <value>9f9f2edc-ad84-467c-8fa5-19e68bfd76f4</value>
+        </items>
+        <items>
+            <label>Instance Service Role</label>
+            <name>reqInstanceServiceRole</name>
+            <value>arn:aws:iam::911167898706:role/aws-service-role/connect.amazonaws.com/AWSServiceRoleForAmazonConnect_Zg5M8NlLcAlSuSduNhfM</value>
+        </items>
+        <items>
+            <label>Settings Relay State</label>
+            <name>reqSettingsRelayState</name>
+            <value>https://us-west-2.console.aws.amazon.com/connect/federate/9f9f2edc-ad84-467c-8fa5-19e68bfd76f4</value>
+        </items>
+        <items>
+            <label>Stack Id</label>
+            <name>reqStackId</name>
+            <value>arn:aws:cloudformation:us-west-2:911167898706:stack/SOLM-SCVContactCenterStack/8a1a0600-dcb4-11ef-a962-0afaf724b017</value>
+        </items>
+        <items>
+            <label>Instance Recording Role</label>
+            <name>reqInstanceRecordingRole</name>
+            <value>arn:aws:iam::911167898706:role/SOLM-ConnectCallRole</value>
+        </items>
+        <items>
+            <label>Telephony Integration Keypair Expiration Date</label>
+            <name>reqTelephonyIntegrationKeyPairExpDate</name>
+            <value>05/09/2026 07:25:59</value>
+        </items>
+        <items>
+            <label>Rest API Connected App Id</label>
+            <name>reqRestApiConnectedAppId</name>
+            <value>0H4N50000000DJq</value>
+        </items>
+        <items>
+            <label>Salesforce ApiVersion</label>
+            <name>reqAppApiVersion</name>
+            <value>62.0</value>
+        </items>
+        <items>
+            <label>Trusted Role ARN</label>
+            <name>reqTrustedRoleARN</name>
+            <value>arn:aws:iam::911167898706:role/ProvisioningRole</value>
+        </items>
+        <items>
+            <label>Universal Call Recording Access</label>
+            <name>reqUniversalCallRecordingAccess</name>
+            <value>true</value>
+        </items>
+        <items>
+            <label>Presence Sync Status Access</label>
+            <name>reqPresenceStatusSyncAccess</name>
+            <value>true</value>
+        </items>
+        <items>
+            <label>Quick Connect for Omni Flow Transfer Id</label>
+            <name>reqTransferTargetForOmniFlowTransfer</name>
+            <value>arn:aws:connect:us-west-2:911167898706:instance/9f9f2edc-ad84-467c-8fa5-19e68bfd76f4/transfer-destination/e6f6600f-1c6c-4581-a9a9-7513687ef8e9</value>
+        </items>
+        <items>
+            <label>Quick Connect for Omni Flow Transfer</label>
+            <name>reqTransferTargetForOmniFlowTransferDisplayName</name>
+            <value>Quick Connect for Omni-Channel Flow Transfers</value>
+        </items>
+        <items>
+            <label>Cloud Formation template version</label>
+            <name>reqVersion</name>
+            <value>18.0</value>
+        </items>
+        <items>
+            <label>Long Distance Prefix</label>
+            <name>reqLongDistPrefix</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Voice Extension Flexipage</label>
+            <name>reqVoiceExtensionFlexipage</name>
+            <value xsi:nil="true"/>
+        </items>
+        <items>
+            <label>Always Show Voice Extension</label>
+            <name>reqAlwaysShowVoiceExtension</name>
+            <value>false</value>
+        </items>
+        <items>
+            <label>Enhanced Agent Stability</label>
+            <name>reqEnhancedAgentStabilityAccess</name>
+            <value>false</value>
+        </items>
+        <items>
+            <label>Provider Presence Status Sync</label>
+            <name>reqShowVendorStatusInfoAccess</name>
+            <value>false</value>
+        </items>
+        <items>
+            <label>Voice ID</label>
+            <name>reqIsVoiceIdEnabled</name>
+            <value>false</value>
+        </items>
+        <items>
+            <label>Unified Routing Enabled</label>
+            <name>reqUnifiedRoutingEnabled</name>
+            <value>false</value>
+        </items>
+        <label>Service Voice Settings</label>
+        <name>reqHvcc</name>
+    </sections>
+    <version>18</version>
+</CallCenter>

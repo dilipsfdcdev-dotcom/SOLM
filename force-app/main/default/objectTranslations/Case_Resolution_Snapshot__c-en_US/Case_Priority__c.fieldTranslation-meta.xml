@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Case Priority --></label>
+    <name>Case_Priority__c</name>
+    <picklistValues>
+        <masterLabel>AP</masterLabel>
+        <translation><!-- AP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>AP Canada</masterLabel>
+        <translation><!-- AP Canada --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>APAC Orders</masterLabel>
+        <translation><!-- APAC Orders --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>AR</masterLabel>
+        <translation><!-- AR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>AR Canada</masterLabel>
+        <translation><!-- AR Canada --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>COA</masterLabel>
+        <translation><!-- COA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Complaints</masterLabel>
+        <translation><!-- Complaints --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Corp-Orders</masterLabel>
+        <translation><!-- Corp-Orders --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CustomerMaster</masterLabel>
+        <translation><!-- CustomerMaster --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>High - Orders</masterLabel>
+        <translation><!-- High - Orders --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IT Servizio Clienti</masterLabel>
+        <translation><!-- IT Servizio Clienti --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IT Support</masterLabel>
+        <translation><!-- IT Support --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Info</masterLabel>
+        <translation><!-- Info --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Info EU</masterLabel>
+        <translation><!-- Info EU --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Logistics</masterLabel>
+        <translation><!-- Logistics --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medium - Returns</masterLabel>
+        <translation><!-- Medium - Returns --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Orders EMEA</masterLabel>
+        <translation><!-- Orders EMEA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Procurement</masterLabel>
+        <translation><!-- Procurement --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Samples</masterLabel>
+        <translation><!-- Samples --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Service Clients</masterLabel>
+        <translation><!-- Service Clients --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sourcing Opportunity</masterLabel>
+        <translation><!-- Sourcing Opportunity --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Spain Orders</masterLabel>
+        <translation><!-- Spain Orders --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>eCommerce</masterLabel>
+        <translation><!-- eCommerce --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

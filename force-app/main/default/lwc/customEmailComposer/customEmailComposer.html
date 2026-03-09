@@ -1,0 +1,235 @@
+<template>
+    <lightning-card title="Email Composer" icon-name="utility:email">
+        <div class="slds-p-around_medium">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+
+            <!-- Step 1: Only show this button initially -->
+            <template if:false={showComposer}>
+                <div class="slds-align_absolute-center">
+                    <lightning-button
+                        variant="brand"
+                        label="Send Email"
+                        onclick={handleOpenComposer}>
+                    </lightning-button>
+                </div>
+            </template>
+
+            <!-- Step 2: Show full layout only after button click -->
+            <template if:true={showComposer}>
+                <lightning-layout multiple-rows>
+
+                    <!-- Header with Close -->
+                    <lightning-layout-item size="12" class="slds-m-bottom_small">
+                        <div class="slds-grid slds-grid_align-spread slds-m-bottom_x-small">
+                            <div class="section-header">Compose Email</div>
+                            <lightning-button-icon
+                                icon-name="utility:close"
+                                alternative-text="Close Composer"
+                                onclick={handleCloseComposer}>
+                            </lightning-button-icon>
+                        </div>
+                    </lightning-layout-item>
+
+                    <!-- Template selector section -->
+                    <lightning-layout-item size="12" class="slds-m-bottom_small">
+                        <div class="slds-box slds-theme_shade">
+                            <div class="section-header">Template</div>
+                            <lightning-combobox
+                                name="template"
+                                label="Email Template (Solcotton)"
+                                placeholder="Select a template from Solcotton folder"
+                                value={selectedTemplateId}
+                                options={templateOptions}
+                                onchange={handleTemplateChange}>
+                            </lightning-combobox>
+
+                            <div class="slds-m-top_small">
+                                <lightning-button
+                                    variant="brand-outline"
+                                    label="Load Template"
+                                    onclick={handleLoadTemplate}
+                                    disabled={isLoadDisabled}>
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+
+                    <!-- Recipient section -->
+                    <lightning-layout-item size="12" class="slds-m-bottom_small">
+                        <div class="slds-box slds-theme_default">
+                            <div class="section-header">Recipients</div>
+
+                            <!-- From Address Dropdown -->
+                            <template if:true={hasFromAddressOptions}>
+                                <lightning-combobox
+                                    class="slds-m-top_small"
+                                    name="fromAddress"
+                                    label="From"
+                                    placeholder="Select sender address"
+                                    value={selectedFromAddressId}
+                                    options={fromAddressOptions}
+                                    onchange={handleFromAddressChange}>
+                                </lightning-combobox>
+                                <div class="slds-form-element__help from-address-hint">
+                                    Select record owner or an org-wide email address
+                                </div>
+                            </template>
+
+                            <!-- To Field with Pills -->
+                            <div class="slds-form-element slds-m-top_small">
+                                <label class="slds-form-element__label">
+                                    <abbr class="slds-required" title="required">*</abbr>
+                                    To
+                                </label>
+                                <div class="email-pill-container slds-form-element__control">
+                                    <div class="email-pill-wrapper">
+                                        <template for:each={toAddresses} for:item="email">
+                                            <span key={email} class="slds-pill slds-pill_link email-pill">
+                                                <span class="slds-pill__label" title={email}>{email}</span>
+                                                <button
+                                                    class="slds-button slds-button_icon slds-button_icon-bare slds-pill__remove"
+                                                    title="Remove"
+                                                    data-email={email}
+                                                    onclick={handleRemoveToAddress}>
+                                                    <lightning-icon
+                                                        icon-name="utility:close"
+                                                        size="x-small"
+                                                        alternative-text="Remove">
+                                                    </lightning-icon>
+                                                </button>
+                                            </span>
+                                        </template>
+                                        <input
+                                            type="email"
+                                            class="email-input slds-input"
+                                            placeholder="Type email and press Enter"
+                                            value={toInputValue}
+                                            oninput={handleToInputChange}
+                                            onkeydown={handleToKeyDown}
+                                            onblur={handleToBlur}>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__help email-hint">
+                                    Press Enter, Tab, or comma to add multiple emails
+                                </div>
+                            </div>
+
+                            <div class="slds-grid slds-wrap slds-m-top_small">
+                                <!-- CC Field with Pills -->
+                                <div class="slds-col slds-size_1-of-2 slds-p-right_x-small">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label">CC</label>
+                                        <div class="email-pill-container slds-form-element__control">
+                                            <div class="email-pill-wrapper">
+                                                <template for:each={ccAddresses} for:item="email">
+                                                    <span key={email} class="slds-pill slds-pill_link email-pill">
+                                                        <span class="slds-pill__label" title={email}>{email}</span>
+                                                        <button
+                                                            class="slds-button slds-button_icon slds-button_icon-bare slds-pill__remove"
+                                                            title="Remove"
+                                                            data-email={email}
+                                                            onclick={handleRemoveCcAddress}>
+                                                            <lightning-icon
+                                                                icon-name="utility:close"
+                                                                size="x-small"
+                                                                alternative-text="Remove">
+                                                            </lightning-icon>
+                                                        </button>
+                                                    </span>
+                                                </template>
+                                                <input
+                                                    type="email"
+                                                    class="email-input slds-input"
+                                                    placeholder="Add CC"
+                                                    value={ccInputValue}
+                                                    oninput={handleCcInputChange}
+                                                    onkeydown={handleCcKeyDown}
+                                                    onblur={handleCcBlur}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- BCC Field with Pills -->
+                                <div class="slds-col slds-size_1-of-2 slds-p-left_x-small">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label">BCC</label>
+                                        <div class="email-pill-container slds-form-element__control">
+                                            <div class="email-pill-wrapper">
+                                                <template for:each={bccAddresses} for:item="email">
+                                                    <span key={email} class="slds-pill slds-pill_link email-pill">
+                                                        <span class="slds-pill__label" title={email}>{email}</span>
+                                                        <button
+                                                            class="slds-button slds-button_icon slds-button_icon-bare slds-pill__remove"
+                                                            title="Remove"
+                                                            data-email={email}
+                                                            onclick={handleRemoveBccAddress}>
+                                                            <lightning-icon
+                                                                icon-name="utility:close"
+                                                                size="x-small"
+                                                                alternative-text="Remove">
+                                                            </lightning-icon>
+                                                        </button>
+                                                    </span>
+                                                </template>
+                                                <input
+                                                    type="email"
+                                                    class="email-input slds-input"
+                                                    placeholder="Add BCC"
+                                                    value={bccInputValue}
+                                                    oninput={handleBccInputChange}
+                                                    onkeydown={handleBccKeyDown}
+                                                    onblur={handleBccBlur}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+
+                    <!-- Subject & body -->
+                    <lightning-layout-item size="12">
+                        <div class="slds-box slds-theme_default">
+                            <div class="section-header">Content</div>
+
+                            <lightning-input
+                                class="slds-m-top_small"
+                                type="text"
+                                label="Subject"
+                                value={subject}
+                                onchange={handleSubjectChange}
+                                required>
+                            </lightning-input>
+
+                            <lightning-input-rich-text
+                                class="slds-m-top_small"
+                                value={body}
+                                label="Body"
+                                onchange={handleBodyChange}>
+                            </lightning-input-rich-text>
+                        </div>
+                    </lightning-layout-item>
+
+                    <!-- Actions -->
+                    <lightning-layout-item size="12" class="slds-m-top_medium slds-text-align_right">
+                        <lightning-button
+                            label="Clear"
+                            variant="neutral"
+                            onclick={handleClear}>
+                        </lightning-button>
+                        <lightning-button
+                            class="slds-m-left_small"
+                            label="Send Email"
+                            variant="brand"
+                            onclick={handleSend}
+                            disabled={isSendDisabled}>
+                        </lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </template>
+        </div>
+    </lightning-card>
+</template>

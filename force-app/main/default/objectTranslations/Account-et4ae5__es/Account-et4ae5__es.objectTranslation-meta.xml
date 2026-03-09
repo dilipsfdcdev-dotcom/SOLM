@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layouts>
+        <layout>Account Layout</layout>
+        <sections>
+            <label><!-- Account Summary --></label>
+            <section>Account Summary</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Account Page Layout BR</layout>
+        <sections>
+            <label><!-- Account Information --></label>
+            <section>Account Information</section>
+        </sections>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Credit Info --></label>
+            <section>Credit Info</section>
+        </sections>
+        <sections>
+            <label><!-- Description Information --></label>
+            <section>Description Information</section>
+        </sections>
+        <sections>
+            <label><!-- Financial Information --></label>
+            <section>Financial Information</section>
+        </sections>
+        <sections>
+            <label><!-- Financials --></label>
+            <section>Financials</section>
+        </sections>
+        <sections>
+            <label><!-- SAP Address Information --></label>
+            <section>SAP Address Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>EMEA Layout</layout>
+        <sections>
+            <label><!-- Billing &amp; Shipping --></label>
+            <section>Billing &amp; Shipping</section>
+        </sections>
+        <sections>
+            <label><!-- Details --></label>
+            <section>Details</section>
+        </sections>
+        <sections>
+            <label><!-- Email Information --></label>
+            <section>Email Information</section>
+        </sections>
+        <sections>
+            <label><!-- Financial Information --></label>
+            <section>Financial Information</section>
+        </sections>
+        <sections>
+            <label><!-- Sector Information --></label>
+            <section>Sector Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>NACA Layout</layout>
+        <sections>
+            <label><!-- Billing &amp; Shipping --></label>
+            <section>Billing &amp; Shipping</section>
+        </sections>
+        <sections>
+            <label><!-- Details --></label>
+            <section>Details</section>
+        </sections>
+        <sections>
+            <label><!-- Financial Information --></label>
+            <section>Financial Information</section>
+        </sections>
+        <sections>
+            <label><!-- SAP Additional Information --></label>
+            <section>SAP Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Sector Information --></label>
+            <section>Sector Information</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Person Account Layout</layout>
+        <layoutType>PersonAccount</layoutType>
+        <sections>
+            <label><!-- Billing &amp; Shipping --></label>
+            <section>Billing &amp; Shipping</section>
+        </sections>
+        <sections>
+            <label><!-- Details --></label>
+            <section>Details</section>
+        </sections>
+        <sections>
+            <label><!-- Financial Information --></label>
+            <section>Financial Information</section>
+        </sections>
+        <sections>
+            <label><!-- Sector Information --></label>
+            <section>Sector Information</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- Child Account --></label>
+        <name>Child_Account</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- SAP Fields --></label>
+        <name>SAP_Fields_EMEA</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Sent to SAP --></label>
+        <name>SAP_Integration_NACA</name>
+    </quickActions>
+    <recordTypes>
+        <label><!-- APAC --></label>
+        <name>APAC</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- EMEA --></label>
+        <name>Account_EMEA</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- North America --></description>
+        <label><!-- NACA --></label>
+        <name>Account_NACA</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Brazil --></label>
+        <name>Brazil</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Supplier --></label>
+        <name>Supplier</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage><!-- Please, indicate the quantity of beds for this Hospital. --></errorMessage>
+        <name>CheckQtyofBeds</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- O preenchimento do campo Cidade de Cobrança é obrigatório. --></errorMessage>
+        <name>CidadeCobrancPreenchidaELookupPreenchido</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- O preenchimento do campo Cidade de Entrega é obrigatório. --></errorMessage>
+        <name>CidadeEntregaPreenchidaELookupPreenchido</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- In order to change Account Owner synchronized with SAP, please confirm it with your Sales Director first. --></errorMessage>
+        <name>Do_not_change_owner_on_SAP_synced_Acc</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Please select a Subtype when Type is Patient or Pharmacy. --></errorMessage>
+        <name>Enforce_Subtype_When_Type_Patient_Or_Pha</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- O nome do cliente deve conter no máximo 80 caracteres. --></errorMessage>
+        <name>NameLength</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Do not use letters in Phone fields. --></errorMessage>
+        <name>No_letters_in_phone_and_mobile_fields</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- É obrigatório informar o CNPJ ou CPF da Conta --></errorMessage>
+        <name>Obriga_CPF_CNPJ</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- É obrigatório o preenchimento dos dados de endereço de cobrança. --></errorMessage>
+        <name>Obriga_Endereco_Cobranca</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Field Other Source cannot be empty when chosen &quot;Other&quot; Account Source. --></errorMessage>
+        <name>Other_Source_needed</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Os campos Cidade de Entrega ou Cidade de Cobrança devem ter no máximo 100 caracteres. --></errorMessage>
+        <name>Valida_Tamanho_Endereco_Cidade</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Os campos Rua de Entrega ou Rua de Cobrança devem ter no máximo 100 caracteres. --></errorMessage>
+        <name>Valida_Tamanho_Endereco_Rua</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Só é permitido inserir números. Max: 20 dígitos. --></errorMessage>
+        <name>Valida_Telefone</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- GoogleMaps --></label>
+        <name>GoogleMaps</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GoogleNews --></label>
+        <name>GoogleNews</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- GoogleSearch --></label>
+        <name>GoogleSearch</name>
+    </webLinks>
+    <webLinks>
+        <label>Volver a suscribirse a Marketing Cloud</label>
+        <name>et4ae5__ExactTarget_Resubscribe</name>
+    </webLinks>
+    <webLinks>
+        <label>Anular suscripción de Marketing Cloud</label>
+        <name>et4ae5__ExactTarget_Unsubscribe</name>
+    </webLinks>
+    <webLinks>
+        <label>Enviar correo electrónico de Marketing Cloud</label>
+        <name>et4ae5__Send_ExactTarget_Email</name>
+    </webLinks>
+    <webLinks>
+        <label>Ver Marketing Cloud Analytics</label>
+        <name>et4ae5__View_ExactTarget_Analytics</name>
+    </webLinks>
+</CustomObjectTranslation>

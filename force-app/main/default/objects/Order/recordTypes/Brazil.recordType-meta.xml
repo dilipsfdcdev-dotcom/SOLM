@@ -125,73 +125,28 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Order_Origin__c</picklist>
+        <values>
+            <fullName>B2C Insujet EU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>B2C Insujet FR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>B2C Insujet PL</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Prazo__c</picklist>
-        <values>
-            <fullName>100%25 prepayment before production</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>100%25 prepayment before shipment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>10d</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>120d</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>14d</fullName>
-            <default>false</default>
-        </values>
         <values>
             <fullName>21</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>28</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>28d</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%25 Prepayment%2C 70%25 COD</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F40</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F45</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F45%2F60</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F45%2F60%2F75</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F60</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F60%2F75</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30%2F60%2F90</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>30d</fullName>
             <default>false</default>
         </values>
         <values>
@@ -204,10 +159,6 @@
         </values>
         <values>
             <fullName>35</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>35d</fullName>
             <default>false</default>
         </values>
         <values>
@@ -235,14 +186,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>45%2F60%2F90</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>45d</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>46</fullName>
             <default>false</default>
         </values>
@@ -259,14 +202,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>50%25 Prepayment%2C 50%25 COD</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>50%25 Prepayment%2C 50%25 Net14-C</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>51</fullName>
             <default>false</default>
         </values>
@@ -280,42 +215,6 @@
         </values>
         <values>
             <fullName>55</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>60%2F90</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>60d</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>75d</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>7d</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>90d</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cash</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Credit Card</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Letter of Credit</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>À vista</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -409,7 +308,7 @@
     <picklistValues>
         <picklist>Status</picklist>
         <values>
-            <fullName>Activated</fullName>
+            <fullName>Authorised</fullName>
             <default>false</default>
         </values>
         <values>
@@ -417,11 +316,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Canceled</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Closed</fullName>
+            <fullName>Delivered</fullName>
             <default>false</default>
         </values>
         <values>
@@ -429,7 +324,23 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Open</fullName>
+            <fullName>Draft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Preparation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Transit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Invoiced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PO</fullName>
             <default>false</default>
         </values>
         <values>
@@ -437,15 +348,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Shipped</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>To Be_ Delivered</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>To be Delivered</fullName>
+            <fullName>To Be_Delivered</fullName>
             <default>false</default>
         </values>
     </picklistValues>

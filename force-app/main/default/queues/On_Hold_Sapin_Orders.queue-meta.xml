@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <email>orders-es@solm.com</email>
+    <name>On-Hold Spain Orders</name>
+    <queueMembers>
+        <users>
+            <user>msanz@solm.com</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>SOL_Millenium_EMEA</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

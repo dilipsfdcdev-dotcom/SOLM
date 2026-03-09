@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Copy_of_My_Accounts</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>SAP_Code__c</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>ACCOUNT.ADDRESS2_CITY</columns>
+    <columns>ACCOUNT.ADDRESS2_STATE</columns>
+    <columns>ACCOUNT.LAST_UPDATE</columns>
+    <columns>ACCOUNT.CREATED_DATE</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>UPDATEDBY_USER.ALIAS</field>
+        <operation>equals</operation>
+        <value>rphag</value>
+    </filters>
+    <filters>
+        <field>ACCOUNT.LAST_UPDATE</field>
+        <operation>equals</operation>
+        <value>4/11/2025 12:00 AM,4/22/2025 12:00 AM</value>
+    </filters>
+    <label>My New Accounts</label>
+</ListView>

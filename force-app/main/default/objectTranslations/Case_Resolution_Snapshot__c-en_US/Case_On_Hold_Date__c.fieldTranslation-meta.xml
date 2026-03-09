@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Date/TIme Case On Hold --></label>
+    <name>Case_On_Hold_Date__c</name>
+</CustomFieldTranslation>

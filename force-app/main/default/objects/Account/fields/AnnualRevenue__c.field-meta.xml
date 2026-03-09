@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AnnualRevenue__c</fullName>
+    <label>Annual Revenue Range</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0 to 5 MM</fullName>
+                <default>false</default>
+                <label>0 to 5 MM</label>
+            </value>
+            <value>
+                <fullName>0 to 10 MM</fullName>
+                <default>false</default>
+                <label>0 to 10 MM</label>
+            </value>
+            <value>
+                <fullName>5 MM to 50 MM</fullName>
+                <default>false</default>
+                <label>5 MM to 50 MM</label>
+            </value>
+            <value>
+                <fullName>10 MM to 25 MM</fullName>
+                <default>false</default>
+                <label>10 MM to 25 MM</label>
+            </value>
+            <value>
+                <fullName>25 MM to 50 MM</fullName>
+                <default>false</default>
+                <label>25 MM to 50 MM</label>
+            </value>
+            <value>
+                <fullName>50 MM to 100 MM</fullName>
+                <default>false</default>
+                <label>50 MM to 100 MM</label>
+            </value>
+            <value>
+                <fullName>+ 100 MM</fullName>
+                <default>false</default>
+                <label>+ 100 MM</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

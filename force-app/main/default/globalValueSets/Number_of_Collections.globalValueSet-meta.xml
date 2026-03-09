@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>0 to 100</fullName>
+        <default>false</default>
+        <label>0 to 100</label>
+    </customValue>
+    <customValue>
+        <fullName>101 to 200</fullName>
+        <default>false</default>
+        <label>101 to 200</label>
+    </customValue>
+    <customValue>
+        <fullName>201 to 300</fullName>
+        <default>false</default>
+        <label>201 to 300</label>
+    </customValue>
+    <customValue>
+        <fullName>301 to 500</fullName>
+        <default>false</default>
+        <label>301 to 500</label>
+    </customValue>
+    <customValue>
+        <fullName>+ 500</fullName>
+        <default>false</default>
+        <label>+ 500</label>
+    </customValue>
+    <masterLabel>Number of Collections</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

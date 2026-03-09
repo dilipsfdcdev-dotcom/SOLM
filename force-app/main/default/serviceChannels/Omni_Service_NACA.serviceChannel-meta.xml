@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServiceChannel xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <capacityModel>STATUS_BASED</capacityModel>
+    <doesCheckCapOnOwnerChange>true</doesCheckCapOnOwnerChange>
+    <doesCheckCapOnStatusChange>true</doesCheckCapOnStatusChange>
+    <doesMinimizeWidgetOnAccept>false</doesMinimizeWidgetOnAccept>
+    <hasAutoAcceptEnabled>false</hasAutoAcceptEnabled>
+    <isInterruptible>false</isInterruptible>
+    <label>Omni Service NACA</label>
+    <relatedEntityType>Case</relatedEntityType>
+    <secondaryRoutingPriorityField>Urgent__c</secondaryRoutingPriorityField>
+    <serviceChannelFieldPriorities>
+        <priority>2</priority>
+        <value xsi:nil="true"/>
+    </serviceChannelFieldPriorities>
+    <serviceChannelFieldPriorities>
+        <priority>1</priority>
+        <value xsi:nil="true"/>
+    </serviceChannelFieldPriorities>
+    <serviceChannelStatusFieldMappings>
+        <type>COMPLETED</type>
+        <value>Assigned</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>COMPLETED</type>
+        <value>Worked</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>COMPLETED</type>
+        <value>On Hold</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>COMPLETED</type>
+        <value>Duplicate</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>COMPLETED</type>
+        <value>Service Restored</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>COMPLETED</type>
+        <value>Closed</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>IN_PROGRESS</type>
+        <value>Escalated</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>IN_PROGRESS</type>
+        <value>New</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>IN_PROGRESS</type>
+        <value>Reopened</value>
+    </serviceChannelStatusFieldMappings>
+    <statusField>Status</statusField>
+</ServiceChannel>

@@ -143,7 +143,7 @@ export default class ForecastingHome extends LightningElement {
             if (result.startsWith('Success')) {
                 this.massResultSuccess = true;
                 this.massUploadResult = result;
-                showNotification('Success', result, 'success');
+                showNotification('Success', 'Upload submitted successfully. Forecasts are being processed in the background.', 'success');
             } else {
                 this.massResultSuccess = false;
                 this.massUploadResult = result;

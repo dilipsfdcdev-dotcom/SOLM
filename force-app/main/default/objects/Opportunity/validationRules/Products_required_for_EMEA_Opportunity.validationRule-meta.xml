@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Products_required_for_EMEA_Opportunity</fullName>
+    <active>true</active>
+    <description>Starting from Proposal stage, Opportunity must include Products.</description>
+    <errorConditionFormula>RecordType.DeveloperName = &quot;Opportunity_EMEA&quot;
+&amp;&amp;
+Number_of_Products__c = 0 
+&amp;&amp;
+(ISPICKVAL( StageName, &apos;Proposal&apos;) || ISPICKVAL( StageName, &apos;In Negotiation&apos;) || ISPICKVAL( StageName, &apos;Results&apos;) || ISPICKVAL( StageName, &apos;Closed Won&apos;))
+&amp;&amp;
+!Is_this_a_recurring_opportunity__c 
+&amp;&amp;
+$Profile.Name != &apos;System Administrator&apos;</errorConditionFormula>
+    <errorMessage>Starting from Proposal stage, Opportunity must include Products.</errorMessage>
+</ValidationRule>

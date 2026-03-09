@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Returns</name>
+    <queueMembers>
+        <users>
+            <user>dbeljung@solm.com</user>
+            <user>mpacheco@solm.com</user>
+            <user>mbailey@sol-m2.com</user>
+            <user>pdhondwad@solm.com</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>Returns</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

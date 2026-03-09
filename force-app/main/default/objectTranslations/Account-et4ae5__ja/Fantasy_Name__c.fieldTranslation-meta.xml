@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Neste campo pode ser inserido o nome fantasia da empresa ou qualquer outro termo que ajude na identificação do cliente. --></help>
+    <label><!-- Fantasy Name --></label>
+    <name>Fantasy_Name__c</name>
+</CustomFieldTranslation>

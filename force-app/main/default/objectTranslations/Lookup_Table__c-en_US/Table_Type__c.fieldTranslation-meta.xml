@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Table Type --></label>
+    <name>Table_Type__c</name>
+    <picklistValues>
+        <masterLabel>GroupCodes</masterLabel>
+        <translation><!-- GroupCodes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IndustryC</masterLabel>
+        <translation><!-- IndustryC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId</masterLabel>
+        <translation><!-- OwnerId --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId_AU</masterLabel>
+        <translation><!-- OwnerId_AU --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId_BR</masterLabel>
+        <translation><!-- OwnerId_BR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId_CA</masterLabel>
+        <translation><!-- OwnerId_CA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId_ES</masterLabel>
+        <translation><!-- OwnerId_ES --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId_FR</masterLabel>
+        <translation><!-- OwnerId_FR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId_HK</masterLabel>
+        <translation><!-- OwnerId_HK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId_IT</masterLabel>
+        <translation><!-- OwnerId_IT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId_PL</masterLabel>
+        <translation><!-- OwnerId_PL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId_SH</masterLabel>
+        <translation><!-- OwnerId_SH --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId_UK</masterLabel>
+        <translation><!-- OwnerId_UK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OwnerId_US</masterLabel>
+        <translation><!-- OwnerId_US --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PBook</masterLabel>
+        <translation><!-- PBook --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PaymentTerms</masterLabel>
+        <translation><!-- PaymentTerms --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RecordTypeId</masterLabel>
+        <translation><!-- RecordTypeId --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UsaStates</masterLabel>
+        <translation><!-- UsaStates --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>dateTime</masterLabel>
+        <translation><!-- dateTime --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

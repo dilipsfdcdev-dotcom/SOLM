@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_BR_Products</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Product__c</columns>
+    <columns>External_Id__c</columns>
+    <columns>Product_Code__c</columns>
+    <columns>Product_SAP_Code__c</columns>
+    <columns>Direct_Enabled__c</columns>
+    <columns>Local_Enabled__c</columns>
+    <columns>Local_Warehouse__c</columns>
+    <columns>Price__c</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Local_Warehouse__c</field>
+        <operation>equals</operation>
+        <value>SMBR.301</value>
+    </filters>
+    <filters>
+        <field>Account__c</field>
+        <operation>contains</operation>
+        <value>dante</value>
+    </filters>
+    <label>All BR Products</label>
+</ListView>

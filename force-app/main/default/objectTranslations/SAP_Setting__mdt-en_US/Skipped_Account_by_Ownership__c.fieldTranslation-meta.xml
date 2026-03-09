@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- List of Owner for whom Accounts should not be transferred to Salesforce. Separated by semicolon. --></help>
+    <label><!-- Skipped Account by Ownership --></label>
+    <name>Skipped_Account_by_Ownership__c</name>
+</CustomFieldTranslation>

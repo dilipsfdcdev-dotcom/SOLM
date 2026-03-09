@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Other_Source_needed</fullName>
+    <active>true</active>
+    <description>when Account Source  - &apos;Other&apos;, field Other Source cannot be empty (EMEA RT)</description>
+    <errorConditionFormula>ISPICKVAL( AccountSource  , &quot;Other&quot;)
+&amp;&amp;  ISBLANK(Other_Source__c) 
+&amp;&amp;  RecordType.DeveloperName  = &quot;Account_EMEA&quot;</errorConditionFormula>
+    <errorDisplayField>Other_Source__c</errorDisplayField>
+    <errorMessage>Field Other Source cannot be empty when chosen &quot;Other&quot; Account Source.</errorMessage>
+</ValidationRule>

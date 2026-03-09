@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>100% Prepayment</fullName>
+        <default>false</default>
+        <label>100% Prepayment</label>
+    </customValue>
+    <customValue>
+        <fullName>100% COD</fullName>
+        <default>false</default>
+        <label>100% COD</label>
+    </customValue>
+    <customValue>
+        <fullName>50% Prepayment, 50% COD</fullName>
+        <default>false</default>
+        <label>50% Prepayment, 50% COD</label>
+    </customValue>
+    <customValue>
+        <fullName>Net14-C</fullName>
+        <default>false</default>
+        <label>Net14-C</label>
+    </customValue>
+    <customValue>
+        <fullName>Net30-C</fullName>
+        <default>false</default>
+        <label>Net30-C</label>
+    </customValue>
+    <customValue>
+        <fullName>Net90-C</fullName>
+        <default>false</default>
+        <label>Net90-C</label>
+    </customValue>
+    <customValue>
+        <fullName>2.15% 30 Net60</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>2.15% 30 Net60</label>
+    </customValue>
+    <customValue>
+        <fullName>2.15% 15 Net30</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>2.15% 15 Net30</label>
+    </customValue>
+    <customValue>
+        <fullName>OLD 90Net-C</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>OLD 90Net-C</label>
+    </customValue>
+    <customValue>
+        <fullName>OLD Net10-V</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>OLD Net10-V</label>
+    </customValue>
+    <customValue>
+        <fullName>OLD Net15-V</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>OLD Net15-V</label>
+    </customValue>
+    <customValue>
+        <fullName>OLD Net30-V</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>OLD Net30-V</label>
+    </customValue>
+    <customValue>
+        <fullName>Net 45-C</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Net 45-C</label>
+    </customValue>
+    <customValue>
+        <fullName>OLD Net60-V</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>OLD Net60-V</label>
+    </customValue>
+    <customValue>
+        <fullName>OLD CIA-C</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>OLD CIA-C</label>
+    </customValue>
+    <customValue>
+        <fullName>OLD 50% CIA-C</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>OLD 50% CIA-C</label>
+    </customValue>
+    <customValue>
+        <fullName>OLD Net 120-V</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>OLD Net 120-V</label>
+    </customValue>
+    <customValue>
+        <fullName>OLD Net70-C</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>OLD Net70-C</label>
+    </customValue>
+    <customValue>
+        <fullName>OLD Net45-V</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>OLD Net45-V</label>
+    </customValue>
+    <customValue>
+        <fullName>Net60-C</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Net60-C</label>
+    </customValue>
+    <customValue>
+        <fullName>90Net-C</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>90Net-C</label>
+    </customValue>
+    <customValue>
+        <fullName>30Net-C</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>30Net-C</label>
+    </customValue>
+    <customValue>
+        <fullName>Credit Card</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Credit Card</label>
+    </customValue>
+    <customValue>
+        <fullName>Net90C</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Net90C</label>
+    </customValue>
+    <description>For deletion</description>
+    <masterLabel>Payment Terms Code</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProductLineReaserchProbability0</fullName>
+    <active>true</active>
+    <description>For Product Lines with Research checked, Probability must be set to 0%.</description>
+    <errorConditionFormula>Research__c 
+&amp;&amp;
+Probability__c !=0</errorConditionFormula>
+    <errorDisplayField>Probability__c</errorDisplayField>
+    <errorMessage>For Product Lines with Reaserch checked, Probability must be set to 0%.</errorMessage>
+</ValidationRule>

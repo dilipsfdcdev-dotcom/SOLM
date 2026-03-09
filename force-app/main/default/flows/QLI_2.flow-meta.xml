@@ -39,6 +39,7 @@
             <label>If GP% Changed</label>
         </rules>
     </decisions>
+    <description>(Depricated)</description>
     <environments>Default</environments>
     <formulas>
         <name>GPDollars</name>
@@ -82,7 +83,7 @@
         <scale>5</scale>
     </formulas>
     <interviewLabel>QLI 2 {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>QLI - Before Insert/Update</label>
+    <label>QLI - Before Insert/Update (Depricated)</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -182,12 +183,6 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Incoterm__c</field>
-            <value>
-                <elementReference>Get_Quote.Incoterm__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>Price_per_Box__c</field>
             <value>
                 <elementReference>PriceperBox</elementReference>
@@ -217,6 +212,12 @@
                 <elementReference>TotalPrice</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>null__NotFound</field>
+            <value>
+                <elementReference>Get_Quote.Incoterm__c</elementReference>
+            </value>
+        </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
@@ -229,5 +230,5 @@
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>
     </start>
-    <status>Obsolete</status>
+    <status>InvalidDraft</status>
 </Flow>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Read</caseAccessLevel>
+    <contactAccessLevel>Edit</contactAccessLevel>
+    <description>EMEA - Iberia</description>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>EMEA Iberia - Local Sales Rep - Gorka</name>
+    <opportunityAccessLevel>Edit</opportunityAccessLevel>
+    <parentRole>EMEA_Iberia_Local_Sales_Manager</parentRole>
+</Role>

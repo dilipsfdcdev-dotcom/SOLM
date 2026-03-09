@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Determines whether the Forecasting feature is enabled for this Account. --></help>
+    <label><!-- Forecasting Enabled --></label>
+    <name>Forecast_Enabled__c</name>
+</CustomFieldTranslation>

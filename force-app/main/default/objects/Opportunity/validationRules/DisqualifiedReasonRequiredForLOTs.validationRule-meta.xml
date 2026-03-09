@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisqualifiedReasonRequiredForLOTs</fullName>
+    <active>true</active>
+    <description>Disqualified Reason is required for disqualified LOT.</description>
+    <errorConditionFormula>RecordType.DeveloperName = &apos;Opportunity_EMEA_LOT&apos;
+&amp;&amp;
+ISPICKVAL(StageName, &apos;Disqualified&apos;)
+&amp;&amp;
+ISBLANK(Disqualified_Reason__c )</errorConditionFormula>
+    <errorDisplayField>Disqualified_Reason__c</errorDisplayField>
+    <errorMessage>Disqualified Reason is required for disqualified LOT.</errorMessage>
+</ValidationRule>

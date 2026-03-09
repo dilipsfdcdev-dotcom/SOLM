@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Payment Terms --></label>
+    <name>Payment_Terms__c</name>
+    <picklistValues>
+        <masterLabel>100% COD</masterLabel>
+        <translation><!-- 100% COD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>100% Prepayment</masterLabel>
+        <translation><!-- 100% Prepayment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>100% prepayment before production</masterLabel>
+        <translation><!-- 100% prepayment before production --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>100% prepayment before shipment</masterLabel>
+        <translation><!-- 100% prepayment before shipment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30% Prepayment, 70% COD</masterLabel>
+        <translation><!-- 30% Prepayment, 70% COD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>30% Prepayment, 70% Net30-C</masterLabel>
+        <translation><!-- 30% Prepayment, 70% Net30-C --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>50% Net30C + 50% Net60-C</masterLabel>
+        <translation><!-- 50% Net30C + 50% Net60-C --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>50% Prepayment, 50% COD</masterLabel>
+        <translation><!-- 50% Prepayment, 50% COD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>80% prepayment, 20% ship</masterLabel>
+        <translation><!-- 80% prepayment, 20% ship --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Letter of Credit</masterLabel>
+        <translation><!-- Letter of Credit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Net120-C</masterLabel>
+        <translation><!-- Net120-C --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Net14-C</masterLabel>
+        <translation><!-- Net14-C --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Net30-C</masterLabel>
+        <translation><!-- Net30-C --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Net45-C</masterLabel>
+        <translation><!-- Net45-C --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Net60-C</masterLabel>
+        <translation><!-- Net60-C --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Net7-C</masterLabel>
+        <translation><!-- Net7-C --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Net90-C</masterLabel>
+        <translation><!-- Net90-C --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Payment at delivery</masterLabel>
+        <translation><!-- Payment at delivery --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

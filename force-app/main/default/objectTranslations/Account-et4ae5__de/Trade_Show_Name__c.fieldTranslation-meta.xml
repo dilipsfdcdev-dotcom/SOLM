@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- If the account source is &quot;Trade Show&quot;, enter the name of the Trade Show in This field --></help>
+    <label><!-- Trade Show Name --></label>
+    <name>Trade_Show_Name__c</name>
+</CustomFieldTranslation>

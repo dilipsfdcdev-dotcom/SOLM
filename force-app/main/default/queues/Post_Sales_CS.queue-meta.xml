@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Solctton post sales team</description>
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <name>Post Sales (CS)</name>
+    <queueMembers>
+        <users>
+            <user>dkumar@solm.com</user>
+            <user>mchabrand@solm.com</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Lead</sobjectType>
+    </queueSobject>
+</Queue>

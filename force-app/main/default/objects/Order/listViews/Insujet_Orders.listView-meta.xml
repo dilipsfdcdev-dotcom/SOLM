@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Insujet_Orders</fullName>
+    <columns>ORDERS.ORDER_NUMBER</columns>
+    <columns>Customer_PO__c</columns>
+    <columns>SALES.ACCOUNT.NAME</columns>
+    <columns>SAP_Code__c</columns>
+    <columns>ORDERS.STATUS</columns>
+    <columns>ORDERS.TOTAL_AMOUNT</columns>
+    <columns>ORDERS.CREATED_DATE</columns>
+    <columns>CREATEDBY_USER.ALIAS</columns>
+    <columns>Document_Number__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ORDER.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Order.Order_EMEA,Order.InsuJet</value>
+    </filters>
+    <filters>
+        <field>Customer_PO__c</field>
+        <operation>contains</operation>
+        <value>FR</value>
+    </filters>
+    <filters>
+        <field>CREATEDBY_USER.ALIAS</field>
+        <operation>equals</operation>
+        <value>Integrat</value>
+    </filters>
+    <label>Insujet Orders</label>
+</ListView>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_required_on_certain_probability</fullName>
+    <active>true</active>
+    <description>If an Opportunity has a Probability vale of 70 or above, then products should be required</description>
+    <errorConditionFormula>Probability  &gt;= 70
+ &amp;&amp;
+ Number_of_Products__c  = 0</errorConditionFormula>
+    <errorMessage>If an Opportunity has a Probability vale of 70 or above, then products are required</errorMessage>
+</ValidationRule>

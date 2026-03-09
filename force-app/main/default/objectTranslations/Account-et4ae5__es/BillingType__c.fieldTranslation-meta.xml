@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Tipo Logradouro Cobrança --></label>
+    <name>BillingType__c</name>
+    <picklistValues>
+        <masterLabel>AL</masterLabel>
+        <translation><!-- AL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>AV</masterLabel>
+        <translation><!-- AV --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BC</masterLabel>
+        <translation><!-- BC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BLV</masterLabel>
+        <translation><!-- BLV --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CAM</masterLabel>
+        <translation><!-- CAM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CAS</masterLabel>
+        <translation><!-- CAS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CMP</masterLabel>
+        <translation><!-- CMP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ESC</masterLabel>
+        <translation><!-- ESC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>EST</masterLabel>
+        <translation><!-- EST --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>JD</masterLabel>
+        <translation><!-- JD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LD</masterLabel>
+        <translation><!-- LD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LRG</masterLabel>
+        <translation><!-- LRG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PAS</masterLabel>
+        <translation><!-- PAS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PC</masterLabel>
+        <translation><!-- PC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PQ</masterLabel>
+        <translation><!-- PQ --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PR</masterLabel>
+        <translation><!-- PR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>R</masterLabel>
+        <translation><!-- R --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RD</masterLabel>
+        <translation><!-- RD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TV</masterLabel>
+        <translation><!-- TV --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>V</masterLabel>
+        <translation><!-- V --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VL</masterLabel>
+        <translation><!-- VL --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <label>Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Informations générales sur InsuJet</fullName>
+                <default>false</default>
+                <label>Informations générales sur InsuJet</label>
+            </value>
+            <value>
+                <fullName>Informations pour professionnels de santé</fullName>
+                <default>false</default>
+                <label>Informations pour professionnels de santé</label>
+            </value>
+            <value>
+                <fullName>Informations concernant ma commande</fullName>
+                <default>false</default>
+                <label>Informations concernant ma commande</label>
+            </value>
+            <value>
+                <fullName>Besoin d&apos;accompagnement pour la prise en main</fullName>
+                <default>false</default>
+                <label>Besoin d&apos;accompagnement pour la prise en main</label>
+            </value>
+            <value>
+                <fullName>Support technique InsuJet</fullName>
+                <default>false</default>
+                <label>Support technique InsuJet</label>
+            </value>
+            <value>
+                <fullName>Partenariats, collaboration ou média</fullName>
+                <default>false</default>
+                <label>Partenariats, collaboration ou média</label>
+            </value>
+            <value>
+                <fullName>Product &amp; Offers</fullName>
+                <default>false</default>
+                <label>Product &amp; Offers</label>
+            </value>
+            <value>
+                <fullName>Account</fullName>
+                <default>false</default>
+                <label>Account</label>
+            </value>
+            <value>
+                <fullName>Order</fullName>
+                <default>false</default>
+                <label>Order</label>
+            </value>
+            <value>
+                <fullName>Payment</fullName>
+                <default>false</default>
+                <label>Payment</label>
+            </value>
+            <value>
+                <fullName>Delivery</fullName>
+                <default>false</default>
+                <label>Delivery</label>
+            </value>
+            <value>
+                <fullName>Loyalty Program</fullName>
+                <default>false</default>
+                <label>Loyalty Program</label>
+            </value>
+            <value>
+                <fullName>Partnerships &amp; Press</fullName>
+                <default>false</default>
+                <label>Partnerships &amp; Press</label>
+            </value>
+            <value>
+                <fullName>Technical Issue</fullName>
+                <default>false</default>
+                <label>Technical Issue</label>
+            </value>
+            <value>
+                <fullName>Other Request</fullName>
+                <default>false</default>
+                <label>Other Request</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

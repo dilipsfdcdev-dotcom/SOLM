@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Children Hospital</fullName>
+        <default>false</default>
+        <label>Children Hospital</label>
+    </customValue>
+    <customValue>
+        <fullName>Critical Access Hospital</fullName>
+        <default>false</default>
+        <label>Critical Access Hospital</label>
+    </customValue>
+    <customValue>
+        <fullName>Department of Defense Hospital</fullName>
+        <default>false</default>
+        <label>Department of Defense Hospital</label>
+    </customValue>
+    <customValue>
+        <fullName>Long Term Acute Care Hospital</fullName>
+        <default>false</default>
+        <label>Long Term Acute Care Hospital</label>
+    </customValue>
+    <customValue>
+        <fullName>Psychiatric Hospital</fullName>
+        <default>false</default>
+        <label>Psychiatric Hospital</label>
+    </customValue>
+    <customValue>
+        <fullName>Religious Non-Medical Health Care Institution</fullName>
+        <default>false</default>
+        <label>Religious Non-Medical Health Care Institution</label>
+    </customValue>
+    <customValue>
+        <fullName>Short Term Acute Care Hospital</fullName>
+        <default>false</default>
+        <label>Short Term Acute Care Hospital</label>
+    </customValue>
+    <customValue>
+        <fullName>VA Hospital</fullName>
+        <default>false</default>
+        <label>VA Hospital</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Rehabilitation Hospital</fullName>
+        <default>false</default>
+        <label>Rehabilitation Hospital</label>
+    </customValue>
+    <masterLabel>Hospital Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

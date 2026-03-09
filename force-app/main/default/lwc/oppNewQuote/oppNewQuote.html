@@ -1,0 +1,43 @@
+<template>
+    <lightning-quick-action-panel header="New Quote">
+        <lightning-record-edit-form object-api-name="Quote">
+            <lightning-spinner alternative-text="Loading" if:true={isLoading}></lightning-spinner>
+            <div class="slds-grid slds-wrap">
+                <template if:true={showEmeaSection}>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Name" value={form.Name} onchange={handleFieldChange}></lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="ExpirationDate" value={form.ExpirationDate} onchange={handleFieldChange} required></lightning-input-field>
+                    </div>
+                </template>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Bill_To_Account__c" value={form.Bill_To_Account__c} 
+                    onchange={handleLookupFieldChange} required></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Ship_To_Account__c" value={form.Ship_To_Account__c} 
+                    onchange={handleLookupFieldChange} required></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="ContactId" value={form.ContactId} onchange={handleContactChange}></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2"></div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Email" value={form.Email} onchange={handleFieldChange}></lightning-input-field>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input-field field-name="Phone" value={form.Phone} onchange={handleFieldChange}></lightning-input-field>
+                </div>
+            </div>
+            
+        </lightning-record-edit-form>
+
+        <div slot="footer">
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+            <lightning-button variant="brand" label="Save" onclick={handleSave} class="slds-m-left_x-small">
+            </lightning-button>
+        </div>
+
+    </lightning-quick-action-panel>
+</template>

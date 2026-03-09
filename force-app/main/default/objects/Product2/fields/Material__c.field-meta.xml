@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Material__c</fullName>
+    <label>Material</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Finished Product</fullName>
+                <default>false</default>
+                <label>Finished Product</label>
+            </value>
+            <value>
+                <fullName>Raw material</fullName>
+                <default>false</default>
+                <label>Raw material</label>
+            </value>
+            <value>
+                <fullName>Semi-finished Product</fullName>
+                <default>false</default>
+                <label>Semi-finished Product</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

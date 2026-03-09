@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Teams Support Queue</name>
+    <queueMembers>
+        <users>
+            <user>dkumar@solm.com</user>
+            <user>agentforce_service_agent@00d8c000004f32b.ext</user>
+            <user>sales_performance_agent@00d8c000004f32b.ext</user>
+            <user>sales_insights_agent@00d8c000004f32b.ext</user>
+            <user>solm_agentforce_service_agent@00d8c000004f32b.ext</user>
+            <user>knowledge_assistant@00d8c000004f32b.ext</user>
+            <user>it_help_desk_agent@00d8c000004f32b1204634876.ext</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>Teams_Support_Queue</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>MessagingSession</sobjectType>
+    </queueSobject>
+</Queue>

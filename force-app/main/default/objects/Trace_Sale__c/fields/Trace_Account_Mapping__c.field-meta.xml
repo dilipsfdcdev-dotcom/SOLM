@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trace_Account_Mapping__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Trace Account Mapping</label>
+    <referenceTo>Trace_Account_Mapping__c</referenceTo>
+    <relationshipLabel>Trace Sales</relationshipLabel>
+    <relationshipName>Trace_Sales</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

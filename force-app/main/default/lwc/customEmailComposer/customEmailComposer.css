@@ -1,0 +1,99 @@
+.section-header {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.slds-box {
+    margin-bottom: 0.75rem;
+}
+
+/* Email pill container styles */
+.email-pill-container {
+    width: 100%;
+}
+
+.email-pill-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    min-height: 2rem;
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    background-color: #fff;
+}
+
+.email-pill-wrapper:focus-within {
+    border-color: #1b96ff;
+    box-shadow: 0 0 3px #1b96ff;
+}
+
+/* Email pill styles */
+.email-pill {
+    display: inline-flex;
+    align-items: center;
+    max-width: 200px;
+    margin: 0.125rem;
+    background-color: #f3f3f3;
+    border: 1px solid #dddbda;
+    border-radius: 15px;
+    padding: 0.125rem 0.5rem;
+}
+
+.email-pill .slds-pill__label {
+    font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px;
+}
+
+.email-pill .slds-pill__remove {
+    margin-left: 0.25rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.email-pill .slds-pill__remove:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+}
+
+/* Email input field inside the pill wrapper */
+.email-input {
+    flex: 1;
+    min-width: 150px;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    outline: none;
+}
+
+.email-input:focus {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.email-input::placeholder {
+    color: #706e6b;
+    font-style: italic;
+}
+
+/* Hint text */
+.email-hint,
+.from-address-hint {
+    font-size: 0.75rem;
+    color: #706e6b;
+    margin-top: 0.25rem;
+}
+
+/* Required asterisk */
+.slds-required {
+    color: #c23934;
+    margin-right: 0.125rem;
+}

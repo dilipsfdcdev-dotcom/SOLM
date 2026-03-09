@@ -1,0 +1,134 @@
+<aura:component controller="CubeRmHelper" implements="force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+
+    <aura:attribute name="recordId" type="string"/>
+    <aura:attribute name="lots" type="cuberm_tc__TenderLot__c[]"/>
+    <aura:attribute name="activeSections" type="list" default="['Opportunity']" />
+    <aura:attribute name="opptyResultOptions" type="list"/>
+    <aura:attribute name="opptyOptions" type="list" default="[{'label': 'Create New', 'value': 'create'}, {'label': 'Choose Existing', 'value': 'select'}]"/>
+    <aura:attribute name="contactOption" type="string" default="create"/>
+    <aura:attribute name="opptyOption" type="string" default="select"/>
+    <aura:attribute name="accountName" type="string"/>
+    <aura:attribute name="accountIds" type="list"/>
+    <aura:attribute name="lotIds" type="list"/>
+    <aura:attribute name="opptyCloseDate" type="Date"/>
+    <aura:attribute name="opptyTenderType" type="string"/>
+    <aura:attribute name="opptyType" type="string"/>
+    <aura:attribute name="opptySubType" type="string"/>
+    <aura:attribute name="opptyName" type="string"/>
+    <aura:attribute name="oppRecordType" type="string"/>
+    <aura:attribute name="opptyId" type="string"/>
+    <aura:attribute name="opptyNameSelected" type="string"/>
+    <aura:attribute name="errors" type="list"/>
+    <aura:attribute name="warnings" type="list"/>
+    <aura:attribute name="showSpinner" type="boolean" default="true"/>
+    <aura:attribute name="showConfirmDialog" type="boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.accountIds}" action="{!c.accountChanged}"/>
+    <aura:handler name="change" value="{!v.opptyId}" action="{!c.opptyChanged}"/>
+    <aura:registerEvent name="appEvent" type="cuberm_tc:RefreshEvent"/>
+
+    <aura:html tag="style">
+        <title></title>
+        .slds-modal__container{
+        width: 70%;
+        max-width: 45rem;
+        }
+    </aura:html>
+    <div style="position: relative; height: 500px;">
+        <div class="slds-modal__header">
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Link to Opportunity</h2>
+        </div>
+        <div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <aura:if isTrue="{!v.warnings.length > 0}">
+                    <div class="prepErrors">
+                        <aura:iteration items="{!v.warnings}" var="warning">
+                            <div>{!warning}</div>
+                        </aura:iteration>
+                    </div>
+                    <aura:set attribute="else">
+                        <aura:if isTrue="{!v.errors.length > 0}">
+                            <div class="validationErrors">
+                                <aura:iteration items="{!v.errors}" var="error">
+                                    <div>{!error}</div>
+                                </aura:iteration>
+                            </div>
+                        </aura:if>
+                        <div class="slds-p-vertical_small" allowMultipleSectionsOpen="true"
+                             activeSectionName="{!v.activeSections}">
+                            <lightning:recordEditForm objectApiName="cuberm_tc__Tender__c" recordId="{!v.recordId}">
+                                <label for="AccountId" title="required"><span style="color: red">*</span>Account</label>
+                                <lightning:inputField aura:id="AccountId" fieldName="MainAccount__c" value="{!v.accountIds}"
+                                                      required="true" variant="label-hidden"/>
+                                <lightning:inputField aura:id="OpptyCurrencyId" fieldName="CurrencyIsoCode" required="true"/>
+                            </lightning:recordEditForm>
+
+                            <lightning:recordEditForm objectApiName="Opportunity" recordTypeId="{!v.oppRecordType}">
+                                <strong>
+                                    <h2 class="slds-m-top_medium">Please check if there is an existing standard opportunity before creating a new Opportunity:</h2>
+                                </strong>
+                                <lightning:radioGroup class="sectionRadioGroup" options="{!v.opptyOptions}"
+                                                      value="{!v.opptyOption}" type="radio"/>
+                                <aura:if isTrue="{!v.opptyOption == 'create'}">
+                                    <lightning:input aura:id="OpptyNameId" label="Opportunity Local Name" value="{!v.opptyName}" required="true"/>
+                                    <aura:set attribute="else">
+                                        <aura:if isTrue="{!v.opptyResultOptions.length > 0}">
+                                            <lightning:input aura:id="OpptyNameSelectedId" label="Opportunity Name" class="selectedOpportunity"
+                                                             value="{!v.opptyNameSelected}" readonly="true" required="true"
+                                                             placeholder="Select opportunity.."/>
+                                            <lightning:radioGroup class="opptyResultOptions slds-box slds-box_xx-small"
+                                                                  options="{!v.opptyResultOptions}" value="{!v.opptyId}"
+                                                                  type="radio"/>
+                                            <aura:set attribute="else">
+                                                <div class="opptyResultOptions">No opportunities found for this account.
+                                                </div>
+                                            </aura:set>
+                                        </aura:if>
+                                    </aura:set>
+                                </aura:if>
+                                <lightning:inputField aura:id="StageNameId" fieldName="StageName"/>
+                                <lightning:inputField aura:id="CloseDateId" fieldName="CloseDate"/>
+                                <lightning:inputField aura:id="OppOwnerId" fieldName="OwnerId"/>
+                            </lightning:recordEditForm>
+                        </div>
+                    </aura:set>
+                </aura:if>
+            </div>
+        </div>
+        <div class="button-container slds-text-align_center slds-m-top_small">
+            <lightning:button aura:id="cancelButtonId" label="Cancel" disabled="true" class="slds-m-vertical_x-small"
+                              onclick="{!c.closeModal}"/>
+            <lightning:button aura:id="saveButtonId" variant="brand" label="Link" class="slds-m-vertical_x-small"
+                              disabled="true" onclick="{!c.saveOppty}"/>
+        </div>
+    </div>
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner variant="brand" size="medium" style="height:790px;"/>
+    </aura:if>
+    <aura:if isTrue="{!v.showConfirmDialog}">
+        <!--Modal Box Start-->
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open" aria-modal="true">
+            <div role="dialog" class="slds-modal slds-fade-in-open" style="background: rgba(0,0,0,0.3);height:790px;margin:auto;">
+                <div class="slds-modal__container" style="padding: 0 1rem;">
+                    <!--Modal Box Header Start-->
+                    <header class="slds-modal__header">
+                        <h1 class="slds-text-heading--medium">Confirmation</h1>
+                    </header>
+                    <!--Modal Box Header End-->
+
+                    <!--Modal Box Content Start-->
+                    <div class="slds-modal__content slds-p-around--medium">
+                        <center><b>You have selected to update an existing opportunity. Tender details of the existing opportunity will be overwritten. Do you want to proceed?</b></center>
+                        <!--Modal Box Button Start-->
+                        <div style="text-align:center;padding:15px;">
+                            <lightning:button name='No' label='No' onclick='{!c.handleConfirmDialogNo}'/>
+                            <lightning:button variant="brand" name='Yes' label='Yes' onclick='{!c.handleConfirmDialogYes}'/>
+                        </div>
+                    </div>
+                    <!--Modal Box Content End-->
+                </div>
+            </div>
+        </section>
+    </aura:if>
+</aura:component>

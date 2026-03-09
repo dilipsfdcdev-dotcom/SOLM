@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>EMEA_Lead_Read</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EMEA Lead Read</label>
+        <sharedTo>
+            <group>EMEA_Lead_Read_Only</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EMEA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EMEA_Lead_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>EMEA Lead Write</label>
+        <sharedTo>
+            <group>EMEA_Lead_Write</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EMEA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>InsuJet_Lead_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>InsuJet Lead Write</label>
+        <sharedTo>
+            <group>InsuJet</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>InsuJet</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>NACA_Lead_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>NACA Lead - Read Only</label>
+        <sharedTo>
+            <group>NACA_Lead_Read_Only</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NACA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ShareLeadtoCountryNACA</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>VP sharing rule create to share all contry leads with all country users</description>
+        <label>ShareLeadtoCountryNACA</label>
+        <sharedTo>
+            <roleAndSubordinates>NACA</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>NACA</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Uploaded_leads_access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Uploaded leads access</label>
+        <sharedTo>
+            <roleAndSubordinates>US</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>equals</operation>
+            <value>0058c000009wZLtAAM</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Canada_Lead_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Canada Lead Read Only</label>
+        <sharedTo>
+            <roleAndSubordinates>Canada</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>Canada</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Corporate_Lead_Read</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Grants read access to all leads.</description>
+        <label>Corporate Lead Read</label>
+        <sharedTo>
+            <roleAndSubordinates>Corporate</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>CEO</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>EMEA_Iberia_Special_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Special sharing rule dedicated for EMEA Iberia team.</description>
+        <label>EMEA Iberia Special Rule</label>
+        <sharedTo>
+            <role>EMEA_Iberia_Local_Sales_Rep</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>EMEA_Iberia_Local_Sales_Manager</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Nicolas_and_Ivan</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Rule to Share edit access on Nicolas&apos;s records</description>
+        <label>Nicolas and Ivan</label>
+        <sharedTo>
+            <role>EMEA_local_Sales_Nicolas_Team</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>EMEA_Local_Sales_Manager_Nicolas</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>US_Acute_Leads_Read_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>US Acute Leads Read Access</label>
+        <sharedTo>
+            <group>US_Acute_Lead_Read_Access</group>
+        </sharedTo>
+        <sharedFrom>
+            <queue>Lead_Waiting_for_Owner</queue>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>US_Lead_Share_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>US Lead Share Read Only</label>
+        <sharedTo>
+            <roleAndSubordinates>US</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>US</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

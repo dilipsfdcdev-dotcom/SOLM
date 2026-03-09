@@ -1,0 +1,70 @@
+<aura:component controller="CubeRmHelper" implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="tenderId" type="string" access="global"/>
+    <aura:attribute name="showQualifySpinner" type="boolean" default="true"/>
+    <aura:attribute name="reminderDate" type="Date" />
+    
+    <aura:registerEvent name="appEvent" type="cuberm_tc:RefreshEvent"/>
+    <aura:html tag="style">
+        .slds-modal__container{
+        width: 70%;
+        max-width: 90rem;
+        }
+    </aura:html>
+    <div style="position: relative; height: 460px;">
+        <header class="slds-modal__header">
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Qualify</h2>
+        </header>
+        <div>
+            <div style="overflow: auto;">
+                <lightning:recordEditForm objectApiName="cuberm_tc__Tender__c" onload="{!c.handleLoad}"  recordId="{!v.tenderId}">
+                    <div class="slds-modal__content slds-p-horizontal_medium" id="modal-content-id-1">
+                        <lightning:messages />
+                        <div class="slds-grid slds-gutters" style="margin-top: 3.5%;"> 
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning:messages /> 
+                                <lightning:inputField aura:id="AccountId" fieldName="MainAccount__c" variant="label-inline"/>
+                                <lightning:inputField aura:id="PricebookId" fieldName="PriceBook__c" variant="label-inline"/>
+                                <lightning:inputField aura:id="SalesRepId"  fieldName="SalesRep__c" variant="label-inline"/>
+                                <lightning:inputField aura:id="DocumentationCompletionDateId" fieldName="DocumentationCompletionDate__c" variant="label-inline"/>
+                                <lightning:inputField aura:id="DocumentationCompletionDateReminderId" fieldName="DocumentationCompletionDateReminder__c" variant="label-inline"/>
+                                <lightning:inputField aura:id="QuestionsDeadlineId" fieldName="QuestionsDeadline__c" variant="label-inline"/>
+                                <lightning:inputField aura:id="QuestionsDeadlineReminderId" fieldName="QuestionsDeadlineReminder__c" variant="label-inline"/>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                                    <div class="slds-col slds-size_3-of-12">
+                                        <label class="slds-text-body_small" for="SamplesDeliveryDeadlineId">Samples Delivery Deadline</label>
+                                    </div>
+                                    <div class="slds-col slds-size_9-of-12">
+                                        <div class="slds-grid slds-gutters">
+                                            <div class="slds-col slds-size_1-of-12">
+                                                <lightning:inputField aura:id="SamplesNeededCheckboxId"
+                                                                      fieldName="SamplesNeeded__c"
+                                                                      variant="label-hidden"/>
+                                            </div>
+                                            <div class="slds-col slds-size_11-of-12">
+                                                <lightning:inputField aura:id="SamplesDeliveryDateDeadlineId"
+                                                                      fieldName="SamplesDeliveryDeadline__c"
+                                                                      variant="label-hidden"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <lightning:inputField aura:id="SamplesDeliveryDeadlineReminderId" fieldName="SamplesDeliveryDeadline_Reminder__c" variant="label-inline"/>
+                                <lightning:inputField aura:id="SubmissionDeadlineId" fieldName="SubmissionDeadline__c" variant="label-inline" onchange="{!c.handleSubmissionDeadline}"/>
+                                <lightning:inputField aura:id="SubmissionDeadlineReminderId" disabled="true" value="{!v.reminderDate}" fieldName="SubmissionDeadlineReminder__c" variant="label-inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-container slds-text-align_center slds-m-top_small" style="border-top: 2px solid rgb(221, 219, 218);">
+                        <lightning:button class="slds-m-vertical_x-small" label="Cancel" onclick="{!c.closeQuickAction}"/>
+                        <lightning:button class="slds-m-vertical_x-small" label="Submit" variant="brand" onclick="{!c.submitData}"/>
+                    </div>
+                </lightning:recordEditForm>
+            </div>
+        </div>
+        <aura:if isTrue="{!v.showQualifySpinner}">
+            <lightning:spinner variant="brand" size="small"/>
+        </aura:if>
+    </div>
+</aura:component>

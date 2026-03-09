@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Buying Group</fullName>
+        <default>false</default>
+        <label>Buying Group</label>
+    </customValue>
+    <customValue>
+        <fullName>City Hall</fullName>
+        <default>false</default>
+        <label>City Hall</label>
+    </customValue>
+    <customValue>
+        <fullName>Cosmetic Surgery</fullName>
+        <default>false</default>
+        <label>Cosmetic Surgery</label>
+    </customValue>
+    <customValue>
+        <fullName>Dental</fullName>
+        <default>false</default>
+        <label>Dental</label>
+    </customValue>
+    <customValue>
+        <fullName>Distributor</fullName>
+        <default>false</default>
+        <label>Distributor</label>
+    </customValue>
+    <customValue>
+        <fullName>Drug Chains</fullName>
+        <default>false</default>
+        <label>Drug Chains</label>
+    </customValue>
+    <customValue>
+        <fullName>Estate</fullName>
+        <default>false</default>
+        <label>Estate</label>
+    </customValue>
+    <customValue>
+        <fullName>Federal</fullName>
+        <default>false</default>
+        <label>Federal</label>
+    </customValue>
+    <customValue>
+        <fullName>GP</fullName>
+        <default>false</default>
+        <label>GP</label>
+    </customValue>
+    <customValue>
+        <fullName>Health Centre</fullName>
+        <default>false</default>
+        <label>Health Centre</label>
+    </customValue>
+    <customValue>
+        <fullName>Health System</fullName>
+        <default>false</default>
+        <label>Health System</label>
+    </customValue>
+    <customValue>
+        <fullName>Hospital</fullName>
+        <default>false</default>
+        <label>Hospital</label>
+    </customValue>
+    <customValue>
+        <fullName>Hospital Distributor</fullName>
+        <default>false</default>
+        <label>Hospital Distributor</label>
+    </customValue>
+    <customValue>
+        <fullName>Kit manufacturer</fullName>
+        <default>false</default>
+        <label>Kit manufacturer</label>
+    </customValue>
+    <customValue>
+        <fullName>Lab</fullName>
+        <default>false</default>
+        <label>Lab</label>
+    </customValue>
+    <customValue>
+        <fullName>Market Place</fullName>
+        <default>false</default>
+        <label>Market Place</label>
+    </customValue>
+    <customValue>
+        <fullName>OEM</fullName>
+        <default>false</default>
+        <label>OEM</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Pharmaceutical Company</fullName>
+        <default>false</default>
+        <label>Pharmaceutical Company</label>
+    </customValue>
+    <customValue>
+        <fullName>Pharmacy</fullName>
+        <default>false</default>
+        <label>Pharmacy</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail Distributor</fullName>
+        <default>false</default>
+        <label>Retail Distributor</label>
+    </customValue>
+    <customValue>
+        <fullName>Specialist Clinic</fullName>
+        <default>false</default>
+        <label>Specialist Clinic</label>
+    </customValue>
+    <customValue>
+        <fullName>Specialist Facility</fullName>
+        <default>false</default>
+        <label>Specialist Facility</label>
+    </customValue>
+    <customValue>
+        <fullName>Vet Clinic</fullName>
+        <default>false</default>
+        <label>Vet Clinic</label>
+    </customValue>
+    <customValue>
+        <fullName>Vet Distributor</fullName>
+        <default>false</default>
+        <label>Vet Distributor</label>
+    </customValue>
+    <customValue>
+        <fullName>Company-Pharma</fullName>
+        <default>false</default>
+        <label>Company-Pharma</label>
+    </customValue>
+    <customValue>
+        <fullName>Company-MedDev</fullName>
+        <default>false</default>
+        <label>Company-MedDev</label>
+    </customValue>
+    <customValue>
+        <fullName>OEM-B2B-bulk</fullName>
+        <default>false</default>
+        <label>OEM-B2B-bulk</label>
+    </customValue>
+    <customValue>
+        <fullName>Distr-Hospital</fullName>
+        <default>false</default>
+        <label>Distr-Hospital</label>
+    </customValue>
+    <customValue>
+        <fullName>Distr-Retail</fullName>
+        <default>false</default>
+        <label>Distr-Retail</label>
+    </customValue>
+    <customValue>
+        <fullName>Distr-Other</fullName>
+        <default>false</default>
+        <label>Distr-Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Distr-Lab</fullName>
+        <default>false</default>
+        <label>Distr-Lab</label>
+    </customValue>
+    <customValue>
+        <fullName>Distr-VET</fullName>
+        <default>false</default>
+        <label>Distr-VET</label>
+    </customValue>
+    <customValue>
+        <fullName>GPO</fullName>
+        <default>false</default>
+        <label>GPO</label>
+    </customValue>
+    <customValue>
+        <fullName>IDN</fullName>
+        <default>false</default>
+        <label>IDN</label>
+    </customValue>
+    <customValue>
+        <fullName>State/Regional</fullName>
+        <default>false</default>
+        <label>State/Regional</label>
+    </customValue>
+    <customValue>
+        <fullName>Hosp-Public/MOH</fullName>
+        <default>false</default>
+        <label>Hosp-Public/MOH</label>
+    </customValue>
+    <customValue>
+        <fullName>Hosp-Private</fullName>
+        <default>false</default>
+        <label>Hosp-Private</label>
+    </customValue>
+    <customValue>
+        <fullName>Acute Care</fullName>
+        <default>false</default>
+        <label>Acute Care</label>
+    </customValue>
+    <customValue>
+        <fullName>Long Term Care</fullName>
+        <default>false</default>
+        <label>Long Term Care</label>
+    </customValue>
+    <customValue>
+        <fullName>RTC</fullName>
+        <default>false</default>
+        <label>RTC</label>
+    </customValue>
+    <customValue>
+        <fullName>Hosp-Military</fullName>
+        <default>false</default>
+        <label>Hosp-Military</label>
+    </customValue>
+    <customValue>
+        <fullName>Home Care</fullName>
+        <default>false</default>
+        <label>Home Care</label>
+    </customValue>
+    <customValue>
+        <fullName>Lab-Public</fullName>
+        <default>false</default>
+        <label>Lab-Public</label>
+    </customValue>
+    <customValue>
+        <fullName>Lab-Private</fullName>
+        <default>false</default>
+        <label>Lab-Private</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail-Pharma</fullName>
+        <default>false</default>
+        <label>Retail-Pharma</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail-MassMark</fullName>
+        <default>false</default>
+        <label>Retail-MassMark</label>
+    </customValue>
+    <customValue>
+        <fullName>Retail-E-comm</fullName>
+        <default>false</default>
+        <label>Retail-E-comm</label>
+    </customValue>
+    <customValue>
+        <fullName>NGO</fullName>
+        <default>false</default>
+        <label>NGO</label>
+    </customValue>
+    <customValue>
+        <fullName>Private buyer</fullName>
+        <default>false</default>
+        <label>Private buyer</label>
+    </customValue>
+    <masterLabel>Organization Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

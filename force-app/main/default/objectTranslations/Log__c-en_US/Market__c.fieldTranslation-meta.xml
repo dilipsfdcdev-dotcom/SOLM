@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Market --></label>
+    <name>Market__c</name>
+    <picklistValues>
+        <masterLabel>EMEA</masterLabel>
+        <translation><!-- EMEA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>NACA</masterLabel>
+        <translation><!-- NACA --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

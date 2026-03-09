@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Solcotton_Form_Submissions_FR</fullName>
+    <booleanFilter>1 OR 2</booleanFilter>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Lead__c</columns>
+    <columns>Category__c</columns>
+    <columns>Subject__c</columns>
+    <columns>Message__c</columns>
+    <columns>Country__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>Email__c</columns>
+    <columns>Form_Origin__c</columns>
+    <columns>Form_Source__c</columns>
+    <columns>Language__c</columns>
+    <columns>Phone__c</columns>
+    <columns>Submission_Date__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Form_Origin__c</field>
+        <operation>equals</operation>
+        <value>Solcotton FR Contact Form</value>
+    </filters>
+    <filters>
+        <field>Form_Origin__c</field>
+        <operation>equals</operation>
+        <value>Solcotton ENG Contact Form</value>
+    </filters>
+    <label>Solcotton Form Submissions</label>
+    <sharedTo>
+        <group>SolCotton</group>
+    </sharedTo>
+</ListView>

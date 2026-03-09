@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help>
+        <!-- Tipo de Conta.
+Você precisa mudar este campo para &quot;Customer&quot; para que o cadastro seja integrado para o SAP. Caso selecione &quot;Prospect&quot;, o cadastro existirá apenas no CRM -->
+    </help>
+    <label><!-- Type --></label>
+    <name>Type__c</name>
+    <picklistValues>
+        <masterLabel>Customer</masterLabel>
+        <translation><!-- Customer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Prospect</masterLabel>
+        <translation><!-- Prospect --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- List of user ids for who trigger logic will be bypassed. Separated by semicolon --></help>
+    <label><!-- User bypass --></label>
+    <name>User_bypass__c</name>
+</CustomFieldTranslation>

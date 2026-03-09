@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Territory --></label>
+    <name>Territory__c</name>
+    <picklistValues>
+        <masterLabel>Midwest</masterLabel>
+        <translation><!-- Midwest --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Northeast</masterLabel>
+        <translation><!-- Northeast --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>South</masterLabel>
+        <translation><!-- South --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Southeast</masterLabel>
+        <translation><!-- Southeast --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>West</masterLabel>
+        <translation><!-- West --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

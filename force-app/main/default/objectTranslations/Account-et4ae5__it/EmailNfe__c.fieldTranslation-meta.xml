@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- E-mail que será enviada a Nota Fiscal após o faturamento do pedido. --></help>
+    <label><!-- Email Nfe --></label>
+    <name>EmailNfe__c</name>
+</CustomFieldTranslation>

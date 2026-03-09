@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BU_Selection_Required</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    RecordType.DeveloperName = &quot;Opportunity_NACA&quot;,
+    NOT(
+        OR(
+            BU01_Injection_and_Pharma__c,
+            BU02_Diagnostics__c,
+            BU03_Diabetes_Care__c,
+            BU04_Vascular_Infusion__c,
+            BU05_Oncology__c,
+            BU06_Injection_Prevention__c,
+            BU07_Kitting__c,
+            BU08_Advanced_Wound_Care__c,
+            BU09_Medical_Supplies__c,
+            BU10_SolCotton__c
+        )
+    )
+)</errorConditionFormula>
+    <errorMessage>Please select at least one Business Unit.</errorMessage>
+</ValidationRule>

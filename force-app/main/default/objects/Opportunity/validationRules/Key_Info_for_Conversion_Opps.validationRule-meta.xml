@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Key_Info_for_Conversion_Opps</fullName>
+    <active>true</active>
+    <errorConditionFormula>(
+ (Conversion_Opportunity__c) &amp;&amp; 
+ (Probability &gt;= 0.7) &amp;&amp;
+(
+ (Number_of_Products__c  == 0 ) ||  
+ (ISPICKVAL( Frequency__c , &apos;&apos; )) ||  
+ (ISBLANK(Target_Convert_Date__c)) 
+)
+)</errorConditionFormula>
+    <errorMessage>Conversion opportunities should have the following information
+
+1.) Products need to be added to Opportunity.
+2.) Target Conversion date must be entered.
+3.) Frequency for product quantities must be specified.</errorMessage>
+</ValidationRule>

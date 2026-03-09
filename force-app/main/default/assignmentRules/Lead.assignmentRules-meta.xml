@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignmentRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignmentRule>
+        <fullName>InsuJet</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <assignedTo>apicot@solm.com</assignedTo>
+            <assignedToType>User</assignedToType>
+            <criteriaItems>
+                <field>Lead.Lead_Origin__c</field>
+                <operation>equals</operation>
+                <value>B2C Insujet FR Contact Form</value>
+            </criteriaItems>
+        </ruleEntry>
+    </assignmentRule>
+    <assignmentRule>
+        <fullName>sol-m%2Ecom Leads</fullName>
+        <active>false</active>
+        <ruleEntry>
+            <assignedTo>Open_Lead_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND(ISNEW(), ISPICKVAL(LeadSource,&apos;sol-m.com&apos;))</formula>
+            <template>unfiled$public/LeadsNewassignmentnotificationSAMPLE</template>
+        </ruleEntry>
+    </assignmentRule>
+</AssignmentRules>

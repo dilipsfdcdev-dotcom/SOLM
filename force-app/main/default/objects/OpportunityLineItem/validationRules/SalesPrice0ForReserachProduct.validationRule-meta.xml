@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SalesPrice0ForReserachProduct</fullName>
+    <active>true</active>
+    <errorConditionFormula>Research__c 
+&amp;&amp; 
+UnitPrice != 0</errorConditionFormula>
+    <errorDisplayField>TotalPrice</errorDisplayField>
+    <errorMessage>For research Products, Total Price must be 0.  (Sales Price = 0)</errorMessage>
+</ValidationRule>

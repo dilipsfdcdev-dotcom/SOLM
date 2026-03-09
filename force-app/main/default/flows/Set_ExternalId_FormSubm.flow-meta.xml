@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>Send email to create automatic case</description>
+        <name>SendEmail</name>
+        <label>SendEmail</label>
+        <locationX>1084</locationX>
+        <locationY>321</locationY>
+        <actionName>emailSimple</actionName>
+        <actionType>emailSimple</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>emailAddresses</name>
+            <value>
+                <stringValue>dkumar@solm.com,serviceclients@sol-m.com</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>senderType</name>
+            <value>
+                <stringValue>CurrentUser</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>composeEmailContent</name>
+            <value>
+                <stringValue>True</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailSubject</name>
+            <value>
+                <elementReference>$Record.Subject__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>emailBody</name>
+            <value>
+                <stringValue>&lt;p&gt;Hello Team,&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;A form submission from Shopify - Insujet Created with type &quot;Informations concernant ma commande&quot;.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Message:&lt;/p&gt;&lt;p&gt;{!$Record.Message__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Sender Email:&lt;/p&gt;&lt;p&gt;{!$Record.Email__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Regards,&amp;nbsp;&amp;nbsp;&lt;/p&gt;&lt;p&gt;SOL-M.&lt;/p&gt;</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>sendRichBody</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>useLineBreaks</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <nameSegment>emailSimple</nameSegment>
+        <offset>0</offset>
+        <versionString>1.0.1</versionString>
+    </actionCalls>
+    <apiVersion>63.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <decisions>
+        <description>Cases for Submissions of type &quot;Question concernant ma commande&quot;</description>
+        <name>Check_Type</name>
+        <label>Check Type</label>
+        <locationX>921</locationX>
+        <locationY>336</locationY>
+        <defaultConnectorLabel>Don´t Create</defaultConnectorLabel>
+        <rules>
+            <name>Create</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Category__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Informations concernant ma commande</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SendEmail</targetReference>
+            </connector>
+            <label>Create</label>
+        </rules>
+    </decisions>
+    <description>Updates the ShopifyId field with the record id for new records and also sends email based on category type</description>
+    <environments>Default</environments>
+    <interviewLabel>Set_ExternalId_FormSubm {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Set Shopify Id and Create Case</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Upd_ShopifyId</name>
+        <label>Upd ShopifyId</label>
+        <locationX>745</locationX>
+        <locationY>335</locationY>
+        <connector>
+            <targetReference>Check_Type</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ShopifyId__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>619</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Upd_ShopifyId</targetReference>
+        </connector>
+        <object>Form_Submission__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

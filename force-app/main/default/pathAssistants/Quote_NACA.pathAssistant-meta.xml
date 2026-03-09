@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Quote</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Quote NACA</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px; font-family: Arial;&quot;&gt;The quote was approved by the client and now needs to be converted into an Order. &lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Approved</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px; font-family: Arial;&quot;&gt;This is just a draft - it wasn&amp;#39;t shown outside of Sol-Millennium. It&amp;#39;s your playground!&lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Draft</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px; font-family: Arial;&quot;&gt;Client is currently reviewing the quote and we are awaiting some feedback. &lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>In Revision</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px; font-family: Arial;&quot;&gt;This quote was presented to the client - send via email or shown in a meeting. &lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Presented</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;span style=&quot;font-size: 13px; font-family: Arial;&quot;&gt;The quote was rejected byt the client. Remember to ask for a rejection reason!&lt;/span&gt;&lt;/p&gt;</info>
+        <picklistValueName>Rejected</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Quote_NACA</recordTypeName>
+</PathAssistant>

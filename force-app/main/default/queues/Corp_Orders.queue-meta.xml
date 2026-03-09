@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Corp-Orders</name>
+    <queueMembers>
+        <users>
+            <user>agao@sol-m.com</user>
+            <user>czhang@solm.com</user>
+            <user>dbeljung@solm.com</user>
+            <user>isutar@solm.com</user>
+            <user>mbailey@sol-m2.com</user>
+            <user>pdhondwad@solm.com</user>
+            <user>redmondson@solm.com</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>Corp_Orders</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Animal Health</fullName>
+        <default>false</default>
+        <label>Animal Health</label>
+    </customValue>
+    <customValue>
+        <fullName>Diabetes Care</fullName>
+        <default>false</default>
+        <label>Diabetes Care</label>
+    </customValue>
+    <customValue>
+        <fullName>Gloves</fullName>
+        <default>false</default>
+        <label>Gloves</label>
+    </customValue>
+    <customValue>
+        <fullName>Hygiene Products</fullName>
+        <default>false</default>
+        <label>Hygiene Products</label>
+    </customValue>
+    <customValue>
+        <fullName>Infusion</fullName>
+        <default>false</default>
+        <label>Infusion</label>
+    </customValue>
+    <customValue>
+        <fullName>Injection</fullName>
+        <default>false</default>
+        <label>Injection</label>
+    </customValue>
+    <customValue>
+        <fullName>Medical Electronics</fullName>
+        <default>false</default>
+        <label>Medical Electronics</label>
+    </customValue>
+    <customValue>
+        <fullName>Medical System</fullName>
+        <default>false</default>
+        <label>Medical System</label>
+    </customValue>
+    <customValue>
+        <fullName>Medication Preparation</fullName>
+        <default>false</default>
+        <label>Medication Preparation</label>
+    </customValue>
+    <customValue>
+        <fullName>Oral, Enteral &amp; Irrigation Admin</fullName>
+        <default>false</default>
+        <label>Oral, Enteral &amp; Irrigation Admin</label>
+    </customValue>
+    <customValue>
+        <fullName>Protective Apparel</fullName>
+        <default>false</default>
+        <label>Protective Apparel</label>
+    </customValue>
+    <customValue>
+        <fullName>Regional Anesthesia</fullName>
+        <default>false</default>
+        <label>Regional Anesthesia</label>
+    </customValue>
+    <customValue>
+        <fullName>Sample Collection</fullName>
+        <default>false</default>
+        <label>Sample Collection</label>
+    </customValue>
+    <customValue>
+        <fullName>NEW PRODUCT</fullName>
+        <default>false</default>
+        <label>NEW PRODUCT</label>
+    </customValue>
+    <masterLabel>Category</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

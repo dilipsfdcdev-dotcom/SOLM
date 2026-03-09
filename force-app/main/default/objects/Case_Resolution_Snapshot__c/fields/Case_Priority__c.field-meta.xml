@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Priority__c</fullName>
+    <label>Case Priority</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Medium - Returns</fullName>
+                <default>false</default>
+                <label>Medium - Returns</label>
+            </value>
+            <value>
+                <fullName>High - Orders</fullName>
+                <default>false</default>
+                <label>High - Orders</label>
+            </value>
+            <value>
+                <fullName>Samples</fullName>
+                <default>false</default>
+                <label>Samples</label>
+            </value>
+            <value>
+                <fullName>Corp-Orders</fullName>
+                <default>false</default>
+                <label>Corp-Orders</label>
+            </value>
+            <value>
+                <fullName>eCommerce</fullName>
+                <default>false</default>
+                <label>eCommerce</label>
+            </value>
+            <value>
+                <fullName>COA</fullName>
+                <default>false</default>
+                <label>COA</label>
+            </value>
+            <value>
+                <fullName>Complaints</fullName>
+                <default>false</default>
+                <label>Complaints</label>
+            </value>
+            <value>
+                <fullName>AP</fullName>
+                <default>false</default>
+                <label>AP</label>
+            </value>
+            <value>
+                <fullName>AR</fullName>
+                <default>false</default>
+                <label>AR</label>
+            </value>
+            <value>
+                <fullName>CustomerMaster</fullName>
+                <default>false</default>
+                <label>CustomerMaster</label>
+            </value>
+            <value>
+                <fullName>Logistics</fullName>
+                <default>false</default>
+                <label>Logistics</label>
+            </value>
+            <value>
+                <fullName>Procurement</fullName>
+                <default>false</default>
+                <label>Procurement</label>
+            </value>
+            <value>
+                <fullName>Info</fullName>
+                <default>false</default>
+                <label>Info</label>
+            </value>
+            <value>
+                <fullName>IT Support</fullName>
+                <default>false</default>
+                <label>IT Support</label>
+            </value>
+            <value>
+                <fullName>Info EU</fullName>
+                <default>false</default>
+                <label>Info EU</label>
+            </value>
+            <value>
+                <fullName>Orders EMEA</fullName>
+                <default>false</default>
+                <label>Orders EMEA</label>
+            </value>
+            <value>
+                <fullName>APAC Orders</fullName>
+                <default>false</default>
+                <label>APAC Orders</label>
+            </value>
+            <value>
+                <fullName>AP Canada</fullName>
+                <default>false</default>
+                <label>AP Canada</label>
+            </value>
+            <value>
+                <fullName>AR Canada</fullName>
+                <default>false</default>
+                <label>AR Canada</label>
+            </value>
+            <value>
+                <fullName>Service Clients</fullName>
+                <default>false</default>
+                <label>Service Clients</label>
+            </value>
+            <value>
+                <fullName>Sourcing Opportunity</fullName>
+                <default>false</default>
+                <label>Sourcing Opportunity</label>
+            </value>
+            <value>
+                <fullName>Spain Orders</fullName>
+                <default>false</default>
+                <label>Spain Orders</label>
+            </value>
+            <value>
+                <fullName>IT Servizio Clienti</fullName>
+                <default>false</default>
+                <label>IT Servizio Clienti</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

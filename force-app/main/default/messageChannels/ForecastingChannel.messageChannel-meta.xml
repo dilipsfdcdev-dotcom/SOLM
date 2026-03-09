@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Message Channel to pass events in Forecasting app</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>This is the name of action</description>
+        <fieldName>actionName</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>This is the value</description>
+        <fieldName>data</fieldName>
+    </lightningMessageFields>
+    <masterLabel>ForecastingChannel</masterLabel>
+</LightningMessageChannel>

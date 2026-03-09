@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Add other Product Line name if you have chosen Other option. --></help>
+    <label><!-- Other Line --></label>
+    <name>Other_Line__c</name>
+</CustomFieldTranslation>

@@ -177,6 +177,16 @@
                 <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>displayOption</name>
+                    <value>BOTH</value>
+                </componentInstanceProperties>
+                <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
+                <identifier>runtime_sales_merge_mergeCandidatesPreviewCard</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>Facet-862325b9-f732-4fe5-873f-6eebed509b24</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -215,6 +225,58 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>generativeAIDisclaimer</name>
+                    <value>This tool uses generative AI. Review responses to ensure they&apos;re accurate, valid, and harmless before you use them.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>generativeAIHeaderLabel</name>
+                    <value>Einstein Summary</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>generativeAIPromptTemplateName</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>SvcInovtEinsteinEngmtDtl__genEngmtSum</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>einstein_gpt__summarizeAccountDefault</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Slack__ExecutiveBriefPromptTemplate</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Account_Summary</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>runtime_industries_clm__ClauseExtraction</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>generativeAIPromptTemplateType</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>einstein_gpt__fieldCompletion</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>einstein_gpt__recordSummary</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>einstein_gpt__flex</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>isCachingEnabled</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentName>industries_common:generateSummaryWrapper</componentName>
+                <identifier>industries_common_generateSummaryWrapper</identifier>
             </componentInstance>
         </itemInstances>
         <name>rightcol</name>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Created_for_Order_SAP_synchronization</fullName>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>SAP_Code__c</columns>
+    <columns>PRODUCT2.CUSTOMER_PRODUCT_ID</columns>
+    <columns>PRODUCT2.DESCRIPTION</columns>
+    <columns>PRODUCT2.FAMILY</columns>
+    <columns>PRODUCT2.CREATED_DATE</columns>
+    <columns>PRODUCT2.LAST_UPDATE</columns>
+    <columns>PRODUCT2.ACTIVE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>PRODUCT2.DESCRIPTION</field>
+        <operation>equals</operation>
+        <value>Created for Order SAP synchronization purposes.</value>
+    </filters>
+    <label>Created for Order SAP synchronization</label>
+    <sharedTo>
+        <group>Products_Order_Sync_Created</group>
+    </sharedTo>
+</ListView>

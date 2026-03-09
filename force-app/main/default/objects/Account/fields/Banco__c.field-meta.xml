@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Banco__c</fullName>
+    <label>Banco</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>INITABRL5204BOE</fullName>
+                <default>true</default>
+                <label>Itau</label>
+            </value>
+            <value>
+                <fullName>CB_Itau_CG</fullName>
+                <default>false</default>
+                <label>Itau CG</label>
+            </value>
+            <value>
+                <fullName>INITABRL4729</fullName>
+                <default>false</default>
+                <label>Itau TRF</label>
+            </value>
+            <value>
+                <fullName>INBDBBRL0089</fullName>
+                <default>false</default>
+                <label>Banco do Brasil TRF</label>
+            </value>
+            <value>
+                <fullName>OUTITABRL4729</fullName>
+                <default>false</default>
+                <label>OUTITABRL4729</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <alerts>
+        <fullName>Notification_For_Conversion_Opportunity</fullName>
+        <ccEmails>Procurment@sol-m.com</ccEmails>
+        <description>Notification For Conversion Opportunity</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>rphagura@solm.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderType>DefaultWorkflowUser</senderType>
+        <template>unfiled$public/Conversion_Opportunity_Template</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_For_Conversion_Opportunity_Forcasting</fullName>
+        <description>Notification For Conversion Opportunity Forcasting 70%</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>rphagura@solm.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>support@sol-m.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Conversion_Opportunity_Forcasting</template>
+    </alerts>
+    <alerts>
+        <fullName>Notification_For_Conversion_Opportunity_Forcasting_90</fullName>
+        <description>Notification For Conversion Opportunity Forcasting 90%</description>
+        <protected>false</protected>
+        <recipients>
+            <recipient>dsingh@sol-m.com</recipient>
+            <type>user</type>
+        </recipients>
+        <recipients>
+            <recipient>rphagura@solm.com</recipient>
+            <type>user</type>
+        </recipients>
+        <senderAddress>support@sol-m.com</senderAddress>
+        <senderType>OrgWideEmailAddress</senderType>
+        <template>unfiled$public/Conversion_Opportunity_Forcasting_90</template>
+    </alerts>
+</Workflow>

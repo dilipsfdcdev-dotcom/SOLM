@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Deve ser incluído com os pontos e traços (Ex: 00.000.000/0001-00) --></help>
+    <label><!-- CNPJ --></label>
+    <name>CNPJ__c</name>
+</CustomFieldTranslation>

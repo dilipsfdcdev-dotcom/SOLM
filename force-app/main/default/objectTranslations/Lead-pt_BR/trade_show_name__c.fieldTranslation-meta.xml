@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Add here the Trade Show name if you have chosen the &quot;Trade Show&quot; as the Lead Source. --></help>
+    <label><!-- Trade Show Name --></label>
+    <name>trade_show_name__c</name>
+</CustomFieldTranslation>

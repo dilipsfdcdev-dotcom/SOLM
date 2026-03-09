@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Solcotton Category --></label>
+    <name>Solcotton_Category__c</name>
+    <picklistValues>
+        <masterLabel>Account</masterLabel>
+        <translation><!-- Account --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Delivery</masterLabel>
+        <translation><!-- Delivery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Loyalty Program</masterLabel>
+        <translation><!-- Loyalty Program --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Order</masterLabel>
+        <translation><!-- Order --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other Request</masterLabel>
+        <translation><!-- Other Request --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Partnerships &amp; Press</masterLabel>
+        <translation><!-- Partnerships &amp; Press --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Payment</masterLabel>
+        <translation><!-- Payment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Product &amp; Offers</masterLabel>
+        <translation><!-- Product &amp; Offers --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Technical Issue</masterLabel>
+        <translation><!-- Technical Issue --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

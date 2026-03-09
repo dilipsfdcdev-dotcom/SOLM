@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Forecast</fullName>
+    <columns>CREATED_DATE</columns>
+    <columns>NAME</columns>
+    <columns>Market__c</columns>
+    <columns>Object_Type__c</columns>
+    <columns>Area__c</columns>
+    <columns>Error_Message__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Object_Type__c</field>
+        <operation>equals</operation>
+        <value>Forecast</value>
+    </filters>
+    <label>Forecast</label>
+</ListView>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <email>pomoc@obsluga.biz</email>
+    <name>IT Omega</name>
+    <queueMembers>
+        <users>
+            <user>jaroslaw.stawczyk@solm.com</user>
+            <user>michal.chorlowski@sol-m.com</user>
+            <user>michal.ojrowski@solm.com</user>
+            <user>rafal.ojrowski@sol-m.com</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

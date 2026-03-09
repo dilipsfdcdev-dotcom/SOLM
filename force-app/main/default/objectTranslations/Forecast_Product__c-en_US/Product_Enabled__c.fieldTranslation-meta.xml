@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Product is enabled if any of shipments methods is enabled. --></help>
+    <label><!-- Product Enabled --></label>
+    <name>Product_Enabled__c</name>
+</CustomFieldTranslation>

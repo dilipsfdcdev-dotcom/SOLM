@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subtype__c</fullName>
+    <label>Subtype</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Type</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Corporate Pharmacy</fullName>
+                <default>false</default>
+                <label>Corporate Pharmacy</label>
+            </value>
+            <value>
+                <fullName>Independent Pharmacy</fullName>
+                <default>false</default>
+                <label>Independent Pharmacy</label>
+            </value>
+            <value>
+                <fullName>Compounding Pharmacy</fullName>
+                <default>false</default>
+                <label>Compounding Pharmacy</label>
+            </value>
+            <value>
+                <fullName>Hospital Pharmacy</fullName>
+                <default>false</default>
+                <label>Hospital Pharmacy</label>
+            </value>
+            <value>
+                <fullName>LTC Pharmacy</fullName>
+                <default>false</default>
+                <label>LTC Pharmacy</label>
+            </value>
+            <value>
+                <fullName>Specialty Pharmacy</fullName>
+                <default>false</default>
+                <label>Specialty Pharmacy</label>
+            </value>
+            <value>
+                <fullName>E-Commerce</fullName>
+                <default>false</default>
+                <label>E-Commerce</label>
+            </value>
+            <value>
+                <fullName>Testimonial Patient</fullName>
+                <default>false</default>
+                <label>Testimonial Patient</label>
+            </value>
+            <value>
+                <fullName>Clinic Study Patient</fullName>
+                <default>false</default>
+                <label>Clinic Study Patient</label>
+            </value>
+            <value>
+                <fullName>Corporate Head Office (Pharmacy)</fullName>
+                <default>false</default>
+                <label>Corporate Head Office (Pharmacy)</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Patient</controllingFieldValue>
+            <valueName>Testimonial Patient</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Patient</controllingFieldValue>
+            <valueName>Clinic Study Patient</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pharmacy</controllingFieldValue>
+            <valueName>Corporate Pharmacy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pharmacy</controllingFieldValue>
+            <valueName>Independent Pharmacy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pharmacy</controllingFieldValue>
+            <valueName>Compounding Pharmacy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pharmacy</controllingFieldValue>
+            <valueName>Hospital Pharmacy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pharmacy</controllingFieldValue>
+            <valueName>LTC Pharmacy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pharmacy</controllingFieldValue>
+            <valueName>Specialty Pharmacy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pharmacy</controllingFieldValue>
+            <valueName>E-Commerce</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pharmacy</controllingFieldValue>
+            <valueName>Corporate Head Office (Pharmacy)</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

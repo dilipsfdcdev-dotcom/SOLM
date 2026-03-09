@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AutoResponseRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <autoResponseRule>
+        <fullName>InsuJet</fullName>
+        <active>false</active>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Lead.Lead_Origin__c</field>
+                <operation>equals</operation>
+                <value>B2C Insujet FR Contact Form</value>
+            </criteriaItems>
+            <senderEmail>contact@insujet.fr</senderEmail>
+            <senderName>InsuJet</senderName>
+            <template>Insujet/InsuJet_Contact_Form_Thank_You</template>
+        </ruleEntry>
+    </autoResponseRule>
+</AutoResponseRules>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Caso seja &quot;Sim&quot;, solicite a documentação que comprove o regime e anexe na conta após criar. --></help>
+    <label><!-- Regime Especial --></label>
+    <name>RegimeEspecial__c</name>
+    <picklistValues>
+        <masterLabel>Não</masterLabel>
+        <translation><!-- Não --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sim</masterLabel>
+        <translation><!-- Sim --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

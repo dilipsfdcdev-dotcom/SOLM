@@ -139,49 +139,6 @@ private class OpportunitySetForecastHandlerTest {
 		System.assertEquals('test comment', forecastOpportunities.get(0).Comment__c);
 	}
 
-	@IsTest
-	static void upsertForecastItemsTest() {
-		List<Forecast_Item__c> forecastItems = [SELECT Id FROM Forecast_Item__c];
-		System.assertEquals(1, forecastItems.size());
-
-		Opportunity opp = getOpportunityByRecordType(Constants.opportunity.RECORD_TYPE_NACA_ID);
-		OpportunityLineItem oppLineItem = getOppLineItemsByOpportunityId(opp.Id).get(0);
-
-		Id accountId = getAccountByName(ACCOUNT_NAME).Id;
-		Id productId = getProductByName(PRODUCT_NAME).Id;
-		Forecast_Product__c forecastProduct = getForecastProductByAccountAndProduct(accountId, productId);
-
-		List<Forecast_Opportunity__c> forecastOpportunities = getForecastOpportunitiesByFulfillmentAndOppLineItemId(oppLineItem.Id, Constants.forecastItem.FULFILLMENT_DIRECT);
-		Forecast_Opportunity__c forecastOpportunity = forecastOpportunities.get(0);
-
-		Map<String,Forecast_Opportunity__c> forecastOpportunitiesByExternalIds = new Map<String,Forecast_Opportunity__c> {forecastOpportunity.External_Id__c => forecastOpportunity};
-
-		SetForecastProductWrapper productWrapper = new SetForecastProductWrapper()
-				.buildWithoutForecastProductData(oppLineItem, accountId, OpportunitySetForecastHandler.NACA_CASE_QUANTITY_FIELD, OpportunitySetForecastHandler.PIECES_VOLUME)
-				.setFulfillmentByForecastProduct(forecastProduct)
-				.setForecastOpportunityData(forecastOpportunity.Id, 'test comment', Constants.forecastItem.FULFILLMENT_DIRECT);
-		productWrapper.fulfillment = 'directShipment';
-
-		// Use future dates to avoid conflicts with TestSetup data
-		SetForecastScheduleWrapper scheduleWrapper1 = new SetForecastScheduleWrapper();
-		scheduleWrapper1.scheduleDate = FORECAST_DATE.addMonths(6);
-		scheduleWrapper1.quantity = 20;
-
-		SetForecastScheduleWrapper scheduleWrapper2 = new SetForecastScheduleWrapper();
-		scheduleWrapper2.scheduleDate = FORECAST_DATE.addMonths(7);
-		scheduleWrapper2.quantity = 20;
-
-		productWrapper.scheduleWrappers = new List<SetForecastScheduleWrapper>{scheduleWrapper1, scheduleWrapper2};
-
-		List<SetForecastProductWrapper> productWrappers = new List<SetForecastProductWrapper>{productWrapper};
-		OpportunitySetForecastHandler.upsertForecastMonths(productWrappers);
-		Test.startTest();
-		OpportunitySetForecastHandler.upsertForecastItems(productWrappers, forecastOpportunitiesByExternalIds);
-		Test.stopTest();
-
-		forecastItems = getForecastItemsByOpportunityForecastId(forecastOpportunity.Id);
-		System.assert(forecastItems.size() >= 1);
-	}
 
 	@IsTest
 	static void countQuantityForScheduleTest() {

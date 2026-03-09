@@ -16,7 +16,7 @@
         <description>Quote Approval Acknowledge</description>
         <protected>false</protected>
         <recipients>
-            <recipient>dkumar@solm.com</recipient>
+            <recipient>ptilwani@solm.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>
@@ -27,7 +27,7 @@
         <description>Quote Approved</description>
         <protected>false</protected>
         <recipients>
-            <recipient>dkumar@solm.com</recipient>
+            <recipient>ptilwani@solm.com</recipient>
             <type>user</type>
         </recipients>
         <senderType>CurrentUser</senderType>

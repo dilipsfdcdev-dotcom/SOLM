@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_letters_in_phone_and_mobile_fields</fullName>
+    <active>true</active>
+    <errorConditionFormula>REGEX( Phone , &quot;(?=.*[a-zA-Z]).*$&quot;)
+|| REGEX( AssistantPhone , &quot;(?=.*[a-zA-Z]).*$&quot;)
+|| REGEX( HomePhone , &quot;(?=.*[a-zA-Z]).*$&quot;)
+|| REGEX( OtherPhone , &quot;(?=.*[a-zA-Z]).*$&quot;)
+|| REGEX( MobilePhone , &quot;(?=.*[a-zA-Z]).*$&quot;)</errorConditionFormula>
+    <errorMessage>Do not use letters in Phone and Mobile fields.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Copy_of_All_Open_Opportunities</fullName>
+    <columns>OPPORTUNITY.NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>OPPORTUNITY.STAGE_NAME</columns>
+    <columns>OPPORTUNITY.PROBABILITY</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <columns>CORE.USERS.FULL_NAME</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>OPPORTUNITY.STAGE_NAME</field>
+        <operation>notEqual</operation>
+        <value>Closed Won,Closed Lost</value>
+    </filters>
+    <filters>
+        <field>Owner_Role__c</field>
+        <operation>notContain</operation>
+        <value>Canada</value>
+    </filters>
+    <filters>
+        <field>Owner_Role__c</field>
+        <operation>notContain</operation>
+        <value>Corporate</value>
+    </filters>
+    <filters>
+        <field>Record_Type__c</field>
+        <operation>contains</operation>
+        <value>NACA</value>
+    </filters>
+    <label>All Open Opportunities US</label>
+    <sharedTo>
+        <role>Business_Team</role>
+        <role>CEO</role>
+        <roleAndSubordinates>US</roleAndSubordinates>
+    </sharedTo>
+</ListView>

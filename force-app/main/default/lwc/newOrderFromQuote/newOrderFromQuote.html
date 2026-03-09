@@ -1,0 +1,9 @@
+<template>
+    <lightning-spinner alternative-text="Loading" if:true={isLoading}></lightning-spinner>
+
+    <lightning-card title="Generate Order">
+        <div class="slds-align_absolute-center">
+            <lightning-button variant="brand-outline" label="Generate Order" onclick={generateOrder}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

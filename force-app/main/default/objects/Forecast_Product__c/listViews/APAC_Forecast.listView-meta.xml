@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>APAC_Forecast</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Account_SAP_Code__c</columns>
+    <columns>Product__c</columns>
+    <columns>Product_Code__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Account_SAP_Code__c</field>
+        <operation>startsWith</operation>
+        <value>CAU,CSH,CHK</value>
+    </filters>
+    <label>APAC Forecast</label>
+    <sharedTo>
+        <role>IT_Technician</role>
+    </sharedTo>
+</ListView>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Organization_Type__c</fullName>
+    <inlineHelpText>This field informs about specific type of organization - e.g. hospital, pharmacy, lab.</inlineHelpText>
+    <label>Organization Type (Segment)</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Organization_Type</valueSetName>
+    </valueSet>
+</CustomField>

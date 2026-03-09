@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SAP_integration_compliance__c</fullName>
+    <formula>IF(
+AND(
+RecordType.Name = &apos;NACA&apos;,
+TEXT(Payment_Terms__c) != null,
+TEXT(Incoterms__c) != null,
+TEXT(Sector__c) != null,
+TEXT(Organization_Type__c) != null,
+Federal_Tax_Id_Number__c != null,
+BillingStreet != null,
+BillingCity != null,
+BillingPostalCode != null,
+ShippingStreet != null,
+ShippingCity != null,
+ShippingPostalCode != null,
+Billing_Contact_Name__c != null,
+Billing_Email__c != null,
+Billing_Phone__c != null,
+Shipping_Contact_Name__c != null,
+Shipping_Email__c != null,
+Shipping_Phone__c != null
+),
+TRUE,
+IF(
+AND (
+      RecordType.Name = &apos;Brazil&apos;,
+      TEXT(Type__c) = &apos;Customer&apos;,
+      TEXT(StatusAprovacao__c) = &apos;Aprovado&apos;
+    ),
+TRUE,
+IF(RecordType.Name = &apos;APAC&apos;,
+TRUE,
+IF(RecordType.Name = &apos;EMEA&apos;,
+TRUE,
+FALSE))))</formula>
+    <inlineHelpText>In order to integrate Account with SAP, some fields must be filled. List of required fields is available in Sent to SAP quick action.</inlineHelpText>
+    <label>SAP integration compliance</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Forecast_Opportunity__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Forecast Opportunity</label>
+    <referenceTo>Forecast_Opportunity__c</referenceTo>
+    <relationshipLabel>Forecast Adjustments</relationshipLabel>
+    <relationshipName>Forecast_Adjustments</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

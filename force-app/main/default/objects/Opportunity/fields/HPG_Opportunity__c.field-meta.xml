@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HPG_Opportunity__c</fullName>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>If this Opportunity is related to the HPG Contract, please mark this checkbox</inlineHelpText>
+    <label>HPG Opportunity</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>eCommerce</name>
+    <queueMembers>
+        <users>
+            <user>cschneider@solm.com</user>
+            <user>mapger@solm.com</user>
+        </users>
+    </queueMembers>
+    <queueRoutingConfig>eCommerce</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Sub-Setor --></label>
+    <name>SubSetor__c</name>
+    <picklistValues>
+        <masterLabel>Amostra</masterLabel>
+        <translation><!-- Amostra --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Central de Compras</masterLabel>
+        <translation><!-- Central de Compras --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Clínica Particular</masterLabel>
+        <translation><!-- Clínica Particular --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Clínica Veterinária</masterLabel>
+        <translation><!-- Clínica Veterinária --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cosmetic Surgery</masterLabel>
+        <translation><!-- Cosmetic Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dental</masterLabel>
+        <translation><!-- Dental --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Distribuidor</masterLabel>
+        <translation><!-- Distribuidor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>E-Commerce</masterLabel>
+        <translation><!-- E-Commerce --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Estadual</masterLabel>
+        <translation><!-- Estadual --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Farmácia</masterLabel>
+        <translation><!-- Farmácia --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Federal</masterLabel>
+        <translation><!-- Federal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GP</masterLabel>
+        <translation><!-- GP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Health Centre</masterLabel>
+        <translation><!-- Health Centre --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hospital</masterLabel>
+        <translation><!-- Hospital --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hospital Distributor</masterLabel>
+        <translation><!-- Hospital Distributor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hospital Privado</masterLabel>
+        <translation><!-- Hospital Privado --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hospital Público</masterLabel>
+        <translation><!-- Hospital Público --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Integração CRM</masterLabel>
+        <translation><!-- Integração CRM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Kit manufacturer</masterLabel>
+        <translation><!-- Kit manufacturer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Laboratório</masterLabel>
+        <translation><!-- Laboratório --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Laboratório Privado</masterLabel>
+        <translation><!-- Laboratório Privado --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Laboratório Público</masterLabel>
+        <translation><!-- Laboratório Público --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Market Place</masterLabel>
+        <translation><!-- Market Place --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Material</masterLabel>
+        <translation><!-- Material --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Municipal</masterLabel>
+        <translation><!-- Municipal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OEM</masterLabel>
+        <translation><!-- OEM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pessoa Física</masterLabel>
+        <translation><!-- Pessoa Física --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Produto</masterLabel>
+        <translation><!-- Produto --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rede Farmácia</masterLabel>
+        <translation><!-- Rede Farmácia --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rede de Farmácias</masterLabel>
+        <translation><!-- Rede de Farmácias --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Retail Distributor</masterLabel>
+        <translation><!-- Retail Distributor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Serviço</masterLabel>
+        <translation><!-- Serviço --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Specialist facility</masterLabel>
+        <translation><!-- Specialist facility --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Transportador</masterLabel>
+        <translation><!-- Transportador --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vet Distributor</masterLabel>
+        <translation><!-- Vet Distributor --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

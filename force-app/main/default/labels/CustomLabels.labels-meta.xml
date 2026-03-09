@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Disable_Forecasting_Confirmation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disable Forecasting Confirmation</shortDescription>
+        <value>Are you sure you want to disable Forecasting on the Account?</value>
+    </labels>
+    <labels>
+        <fullName>Executive_Email_Addresses</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Executive_Email_Addresses</shortDescription>
+        <value>dkumar@solm.com;exec@test.com;other@test.com;pmlodecki@solm.com;llin@solm.com;sbugaieski@solm.com;mliu@solm.com;</value>
+    </labels>
+    <labels>
+        <fullName>IntegratorId</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Integrator Id</shortDescription>
+        <value>0058c000009w6rb</value>
+    </labels>
+    <labels>
+        <fullName>No_forecasting_for_opp_products_enabled</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No forecasting for opp products enabled</shortDescription>
+        <value>Base Forecasting is not enabled for any of the Opportunity products.</value>
+    </labels>
+    <labels>
+        <fullName>Task_completion_notification_title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task completion notification title</shortDescription>
+        <value>Task assigned by You was completed</value>
+    </labels>
+</CustomLabels>

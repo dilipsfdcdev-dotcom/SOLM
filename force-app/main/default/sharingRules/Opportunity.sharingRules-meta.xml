@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>EMEA_Opp_Visibility</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EMEA Opp Visibility</label>
+        <sharedTo>
+            <group>EMEA_Sales_Ops</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EMEA Tender LOT,EMEA Opportunity Tender,EMEA Opportunity</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Isabel_and_Martha</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Isabel and Martha</label>
+        <sharedTo>
+            <role>EMEA_Local_Sales_Rep_Martha</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>equals</operation>
+            <value>0058c00000D2LZYAA3</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Jeremy_and_Audrey_opportunity_sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Jeremy and Audrey opportunity sharing</label>
+        <sharedTo>
+            <role>EMEA_Local_Sales_Charlotte</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>equals</operation>
+            <value>0058c00000Dj0u2AAB</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Nicolas_view</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Nicolas view</label>
+        <sharedTo>
+            <role>EMEA_Local_Sales_Manager_Nicolas</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EMEA Tender LOT,EMEA Opportunity Tender,EMEA Opportunity</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Spanish_Team_sharing_rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Spanish Team sharing rule</label>
+        <sharedTo>
+            <role>EMEA_Local_Sales_Rep_Martha</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>OwnerId</field>
+            <operation>equals</operation>
+            <value>0058c00000DlR0YAAV</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Canada_all_Opp_visibility</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Canada all Opp visibility</label>
+        <sharedTo>
+            <group>Canada_All_Opps_Read_Only</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Canada_All_Opps_Read_Only</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Gina_team_opp_share</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Gina team opp share</label>
+        <sharedTo>
+            <role>US_ACS_Gina_Team</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>US_Sales_Acute_Care_Region_Manager_Gina</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>ME_Team_opp_share</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>ME Team opp share</label>
+        <sharedTo>
+            <role>EMEA_Local_Sales_Manager_Mahmoud</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>EMEA_Local_Sales_Manager_Mah</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Nicolas_and_Ivan</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Rule to Share edit access on Nicolas&apos;s records</description>
+        <label>Nicolas and Ivan</label>
+        <sharedTo>
+            <role>EMEA_local_Sales_Nicolas_Team</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>EMEA_Local_Sales_Manager_Nicolas</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Q_team_opp_share</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Q team opp share</label>
+        <sharedTo>
+            <role>US_Inside_Sales_Rep</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>US_Inside_Sales_Manager</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

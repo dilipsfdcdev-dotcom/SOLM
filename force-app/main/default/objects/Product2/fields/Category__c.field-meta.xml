@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <label>Category</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Animal Health</fullName>
+                <default>false</default>
+                <label>Animal Health</label>
+            </value>
+            <value>
+                <fullName>Diabetes Care</fullName>
+                <default>false</default>
+                <label>Diabetes Care</label>
+            </value>
+            <value>
+                <fullName>Gloves</fullName>
+                <default>false</default>
+                <label>Gloves</label>
+            </value>
+            <value>
+                <fullName>Hygiene Products</fullName>
+                <default>false</default>
+                <label>Hygiene Products</label>
+            </value>
+            <value>
+                <fullName>Infusion</fullName>
+                <default>false</default>
+                <label>Infusion</label>
+            </value>
+            <value>
+                <fullName>Injection</fullName>
+                <default>false</default>
+                <label>Injection</label>
+            </value>
+            <value>
+                <fullName>Lab Supplies</fullName>
+                <default>false</default>
+                <label>Lab Supplies</label>
+            </value>
+            <value>
+                <fullName>Medical Electronic</fullName>
+                <default>false</default>
+                <label>Medical Electronic</label>
+            </value>
+            <value>
+                <fullName>Medical Supplies</fullName>
+                <default>false</default>
+                <label>Medical Supplies</label>
+            </value>
+            <value>
+                <fullName>Medical System</fullName>
+                <default>false</default>
+                <label>Medical System</label>
+            </value>
+            <value>
+                <fullName>Medication Preparation</fullName>
+                <default>false</default>
+                <label>Medication Preparation</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Oral, Enteral and Irrigation Administration</fullName>
+                <default>false</default>
+                <label>Oral, Enteral and Irrigation Administration</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Pharma System</fullName>
+                <default>false</default>
+                <label>Pharma System</label>
+            </value>
+            <value>
+                <fullName>Protective Apparel</fullName>
+                <default>false</default>
+                <label>Protective Apparel</label>
+            </value>
+            <value>
+                <fullName>Regional Anesthesia</fullName>
+                <default>false</default>
+                <label>Regional Anesthesia</label>
+            </value>
+            <value>
+                <fullName>Respiratory Supplies &amp; Devices</fullName>
+                <default>false</default>
+                <label>Respiratory Supplies &amp; Devices</label>
+            </value>
+            <value>
+                <fullName>Sample collection</fullName>
+                <default>false</default>
+                <label>Sample collection</label>
+            </value>
+            <value>
+                <fullName>NEW PRODUCT</fullName>
+                <default>false</default>
+                <label>NEW PRODUCT</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

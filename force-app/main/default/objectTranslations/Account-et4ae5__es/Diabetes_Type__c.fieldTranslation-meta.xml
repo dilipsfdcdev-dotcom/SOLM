@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Diabetes Type --></label>
+    <name>Diabetes_Type__c</name>
+    <picklistValues>
+        <masterLabel>DT1</masterLabel>
+        <translation><!-- DT1 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DT2</masterLabel>
+        <translation><!-- DT2 --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

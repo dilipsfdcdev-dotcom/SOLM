@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Steps_After_Opp_Lost</fullName>
+    <active>true</active>
+    <description>If an Opportunity is deemed &quot;Closed Lost&quot; then the &quot;Why We Lost&quot; and &quot;Next Steps&quot; fields are required.</description>
+    <errorConditionFormula>AND(
+    Region__c &lt;&gt; &quot;Brazil&quot;,
+    ISPICKVAL(StageName, &quot;Closed Lost&quot;),
+    ISBLANK(NextStep)
+)</errorConditionFormula>
+    <errorDisplayField>NextStep</errorDisplayField>
+    <errorMessage>For lost opportunities, the &quot;Next Steps&quot; field is required.</errorMessage>
+</ValidationRule>
