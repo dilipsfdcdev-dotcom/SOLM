@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>SolM__GetCasesByContactId</members>
-        <members>SolM__SearchCases</members>
-        <members>SolM__GetOverdueCases</members>
-        <members>SolM__CreateCase</members>
-        <members>SolM__UpdateCase</members>
-        <members>SolM__AddCaseComment</members>
-        <members>SolM__CloseCase</members>
-        <members>SolM__FindSimilarCases</members>
-        <members>SolM__GetCaseSummary</members>
-        <members>SolM__GetUrgentCases</members>
+        <members>GetCasesByContactId</members>
+        <members>SearchCases</members>
+        <members>GetOverdueCases</members>
+        <members>CreateCase</members>
+        <members>UpdateCase</members>
+        <members>AddCaseComment</members>
+        <members>CloseCase</members>
+        <members>FindSimilarCases</members>
+        <members>GetCaseSummary</members>
+        <members>GetUrgentCases</members>
         <name>Flow</name>
     </types>
     <version>65.0</version>

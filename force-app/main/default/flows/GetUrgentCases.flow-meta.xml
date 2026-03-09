@@ -7,14 +7,14 @@
     <status>Active</status>
 
     <variables>
-        <n>contactId</n>
+        <name>contactId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>urgentCaseList</n>
+        <name>urgentCaseList</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -22,7 +22,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>criticalCases</n>
+        <name>criticalCases</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -30,7 +30,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>highCases</n>
+        <name>highCases</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -38,7 +38,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>urgentCount</n>
+        <name>urgentCount</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -54,7 +54,7 @@
     </start>
 
     <recordLookups>
-        <n>Get_Critical_Cases</n>
+        <name>Get_Critical_Cases</name>
         <label>Get Critical Open Cases</label>
         <locationX>200</locationX>
         <locationY>150</locationY>
@@ -93,7 +93,7 @@
     </recordLookups>
 
     <recordLookups>
-        <n>Get_High_Cases</n>
+        <name>Get_High_Cases</name>
         <label>Get High Priority Open Cases</label>
         <locationX>400</locationX>
         <locationY>150</locationY>
@@ -133,7 +133,7 @@
 
     <!-- Merge collections: add criticalCases to urgentCaseList, then highCases -->
     <loops>
-        <n>Combine_Urgent_Lists</n>
+        <name>Combine_Urgent_Lists</name>
         <label>Add Critical Cases to Urgent List</label>
         <locationX>600</locationX>
         <locationY>150</locationY>
@@ -143,7 +143,7 @@
         <noMoreValuesConnector><targetReference>Loop_High_Cases</targetReference></noMoreValuesConnector>
     </loops>
     <assignments>
-        <n>Add_Critical_To_List</n>
+        <name>Add_Critical_To_List</name>
         <label>Add Critical Case to Output</label>
         <locationX>800</locationX>
         <locationY>150</locationY>
@@ -155,7 +155,7 @@
         <connector><targetReference>Combine_Urgent_Lists</targetReference></connector>
     </assignments>
     <loops>
-        <n>Loop_High_Cases</n>
+        <name>Loop_High_Cases</name>
         <label>Add High Cases to Urgent List</label>
         <locationX>600</locationX>
         <locationY>350</locationY>
@@ -165,7 +165,7 @@
         <noMoreValuesConnector><targetReference>Set_Urgent_Count</targetReference></noMoreValuesConnector>
     </loops>
     <assignments>
-        <n>Add_High_To_List</n>
+        <name>Add_High_To_List</name>
         <label>Add High Case to Output</label>
         <locationX>800</locationX>
         <locationY>350</locationY>
@@ -178,7 +178,7 @@
     </assignments>
 
     <assignments>
-        <n>Set_Urgent_Count</n>
+        <name>Set_Urgent_Count</name>
         <label>Set Urgent Count</label>
         <locationX>1000</locationX>
         <locationY>350</locationY>

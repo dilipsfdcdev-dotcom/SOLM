@@ -7,35 +7,35 @@
     <status>Active</status>
 
     <variables>
-        <n>caseId</n>
+        <name>caseId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>resolutionSummary</n>
+        <name>resolutionSummary</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>rootCause</n>
+        <name>rootCause</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>closureNotes</n>
+        <name>closureNotes</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>caseRecord</n>
+        <name>caseRecord</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -43,7 +43,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>isSuccess</n>
+        <name>isSuccess</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -51,7 +51,7 @@
         <value><booleanValue>false</booleanValue></value>
     </variables>
     <variables>
-        <n>errorMessage</n>
+        <name>errorMessage</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -65,14 +65,14 @@
     </start>
 
     <decisions>
-        <n>Validate_Close_Inputs</n>
+        <name>Validate_Close_Inputs</name>
         <label>Validate Required Inputs</label>
         <locationX>200</locationX>
         <locationY>150</locationY>
         <defaultConnectorLabel>Invalid Inputs</defaultConnectorLabel>
         <defaultConnector><targetReference>Set_Validation_Error</targetReference></defaultConnector>
         <rules>
-            <n>Inputs_Valid</n>
+            <name>Inputs_Valid</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>caseId</leftValueReference>
@@ -95,7 +95,7 @@
     </decisions>
 
     <recordLookups>
-        <n>Fetch_Case_To_Close</n>
+        <name>Fetch_Case_To_Close</name>
         <label>Fetch Case to Close</label>
         <locationX>400</locationX>
         <locationY>150</locationY>
@@ -119,14 +119,14 @@
     </recordLookups>
 
     <decisions>
-        <n>Check_Already_Closed</n>
+        <name>Check_Already_Closed</name>
         <label>Is Case Already Closed?</label>
         <locationX>600</locationX>
         <locationY>150</locationY>
         <defaultConnectorLabel>Not Closed - Proceed</defaultConnectorLabel>
         <defaultConnector><targetReference>Assign_Close_Fields</targetReference></defaultConnector>
         <rules>
-            <n>Already_Closed</n>
+            <name>Already_Closed</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>caseRecord.Status</leftValueReference>
@@ -139,7 +139,7 @@
     </decisions>
 
     <assignments>
-        <n>Assign_Close_Fields</n>
+        <name>Assign_Close_Fields</name>
         <label>Set Closure Fields on Case</label>
         <locationX>800</locationX>
         <locationY>150</locationY>
@@ -159,7 +159,7 @@
     </assignments>
 
     <recordUpdates>
-        <n>Close_Case_Record</n>
+        <name>Close_Case_Record</name>
         <label>Close Case Record</label>
         <locationX>1000</locationX>
         <locationY>150</locationY>
@@ -170,14 +170,14 @@
 
     <!-- Add a closure comment with full resolution + root cause + notes -->
     <variables>
-        <n>resolutionComment</n>
+        <name>resolutionComment</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>newClosureComment</n>
+        <name>newClosureComment</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -186,7 +186,7 @@
     </variables>
 
     <assignments>
-        <n>Add_Resolution_Comment</n>
+        <name>Add_Resolution_Comment</name>
         <label>Build Resolution Comment Text</label>
         <locationX>1200</locationX>
         <locationY>150</locationY>
@@ -219,7 +219,7 @@
     </assignments>
 
     <recordCreates>
-        <n>Create_Closure_Comment</n>
+        <name>Create_Closure_Comment</name>
         <label>Create Closure Comment</label>
         <locationX>1400</locationX>
         <locationY>150</locationY>
@@ -229,7 +229,7 @@
     </recordCreates>
 
     <assignments>
-        <n>Set_Close_Success</n>
+        <name>Set_Close_Success</name>
         <label>Set Close Success</label>
         <locationX>1600</locationX>
         <locationY>150</locationY>
@@ -241,7 +241,7 @@
     </assignments>
 
     <assignments>
-        <n>Set_Validation_Error</n>
+        <name>Set_Validation_Error</name>
         <label>Set Validation Error</label>
         <locationX>200</locationX>
         <locationY>400</locationY>
@@ -252,7 +252,7 @@
         </assignmentItems>
     </assignments>
     <assignments>
-        <n>Set_Already_Closed_Error</n>
+        <name>Set_Already_Closed_Error</name>
         <label>Set Already Closed Error</label>
         <locationX>600</locationX>
         <locationY>400</locationY>
@@ -263,7 +263,7 @@
         </assignmentItems>
     </assignments>
     <assignments>
-        <n>Set_Fetch_Error</n>
+        <name>Set_Fetch_Error</name>
         <label>Set Fetch Error</label>
         <locationX>400</locationX>
         <locationY>400</locationY>
@@ -274,7 +274,7 @@
         </assignmentItems>
     </assignments>
     <assignments>
-        <n>Set_Close_Error</n>
+        <name>Set_Close_Error</name>
         <label>Set Close Error</label>
         <locationX>1000</locationX>
         <locationY>400</locationY>

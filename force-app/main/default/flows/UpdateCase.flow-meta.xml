@@ -7,35 +7,35 @@
     <status>Active</status>
 
     <variables>
-        <n>caseId</n>
+        <name>caseId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>status</n>
+        <name>status</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>priority</n>
+        <name>priority</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>description</n>
+        <name>description</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>caseRecord</n>
+        <name>caseRecord</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -43,7 +43,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>isSuccess</n>
+        <name>isSuccess</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -51,7 +51,7 @@
         <value><booleanValue>false</booleanValue></value>
     </variables>
     <variables>
-        <n>errorMessage</n>
+        <name>errorMessage</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -65,14 +65,14 @@
     </start>
 
     <decisions>
-        <n>Validate_CaseId</n>
+        <name>Validate_CaseId</name>
         <label>Validate CaseId</label>
         <locationX>200</locationX>
         <locationY>150</locationY>
         <defaultConnectorLabel>Missing CaseId</defaultConnectorLabel>
         <defaultConnector><targetReference>Set_CaseId_Error</targetReference></defaultConnector>
         <rules>
-            <n>CaseId_Valid</n>
+            <name>CaseId_Valid</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>caseId</leftValueReference>
@@ -85,7 +85,7 @@
     </decisions>
 
     <recordLookups>
-        <n>Get_Existing_Case</n>
+        <name>Get_Existing_Case</name>
         <label>Get Existing Case</label>
         <locationX>400</locationX>
         <locationY>150</locationY>
@@ -111,14 +111,14 @@
 
     <!-- Conditionally update Status -->
     <decisions>
-        <n>Check_Status_Update</n>
+        <name>Check_Status_Update</name>
         <label>Update Status?</label>
         <locationX>600</locationX>
         <locationY>150</locationY>
         <defaultConnectorLabel>No Status Update</defaultConnectorLabel>
         <defaultConnector><targetReference>Check_Priority_Update</targetReference></defaultConnector>
         <rules>
-            <n>Has_Status</n>
+            <name>Has_Status</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>status</leftValueReference>
@@ -135,7 +135,7 @@
         </rules>
     </decisions>
     <assignments>
-        <n>Assign_Status</n>
+        <name>Assign_Status</name>
         <label>Assign Status</label>
         <locationX>800</locationX>
         <locationY>50</locationY>
@@ -148,14 +148,14 @@
     </assignments>
 
     <decisions>
-        <n>Check_Priority_Update</n>
+        <name>Check_Priority_Update</name>
         <label>Update Priority?</label>
         <locationX>800</locationX>
         <locationY>200</locationY>
         <defaultConnectorLabel>No Priority Update</defaultConnectorLabel>
         <defaultConnector><targetReference>Check_Description_Update</targetReference></defaultConnector>
         <rules>
-            <n>Has_Priority</n>
+            <name>Has_Priority</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>priority</leftValueReference>
@@ -172,7 +172,7 @@
         </rules>
     </decisions>
     <assignments>
-        <n>Assign_Priority</n>
+        <name>Assign_Priority</name>
         <label>Assign Priority</label>
         <locationX>1000</locationX>
         <locationY>100</locationY>
@@ -185,14 +185,14 @@
     </assignments>
 
     <decisions>
-        <n>Check_Description_Update</n>
+        <name>Check_Description_Update</name>
         <label>Update Description?</label>
         <locationX>1000</locationX>
         <locationY>300</locationY>
         <defaultConnectorLabel>No Description Update</defaultConnectorLabel>
         <defaultConnector><targetReference>Save_Case_Record</targetReference></defaultConnector>
         <rules>
-            <n>Has_Description</n>
+            <name>Has_Description</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>description</leftValueReference>
@@ -209,7 +209,7 @@
         </rules>
     </decisions>
     <assignments>
-        <n>Assign_Description</n>
+        <name>Assign_Description</name>
         <label>Assign Description</label>
         <locationX>1200</locationX>
         <locationY>200</locationY>
@@ -222,7 +222,7 @@
     </assignments>
 
     <recordUpdates>
-        <n>Save_Case_Record</n>
+        <name>Save_Case_Record</name>
         <label>Save Updated Case</label>
         <locationX>1200</locationX>
         <locationY>400</locationY>
@@ -232,7 +232,7 @@
     </recordUpdates>
 
     <assignments>
-        <n>Set_Update_Success</n>
+        <name>Set_Update_Success</name>
         <label>Set Success</label>
         <locationX>1400</locationX>
         <locationY>400</locationY>
@@ -243,7 +243,7 @@
         </assignmentItems>
     </assignments>
     <assignments>
-        <n>Set_CaseId_Error</n>
+        <name>Set_CaseId_Error</name>
         <label>Set CaseId Error</label>
         <locationX>200</locationX>
         <locationY>350</locationY>
@@ -254,7 +254,7 @@
         </assignmentItems>
     </assignments>
     <assignments>
-        <n>Set_Lookup_Error</n>
+        <name>Set_Lookup_Error</name>
         <label>Set Lookup Error</label>
         <locationX>400</locationX>
         <locationY>350</locationY>
@@ -265,7 +265,7 @@
         </assignmentItems>
     </assignments>
     <assignments>
-        <n>Set_Update_Error</n>
+        <name>Set_Update_Error</name>
         <label>Set Update Error</label>
         <locationX>1200</locationX>
         <locationY>600</locationY>

@@ -7,49 +7,49 @@
     <status>Active</status>
 
     <variables>
-        <n>contactId</n>
+        <name>contactId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>keyword</n>
+        <name>keyword</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>statusFilter</n>
+        <name>statusFilter</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>priorityFilter</n>
+        <name>priorityFilter</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>dateFrom</n>
+        <name>dateFrom</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>dateTo</n>
+        <name>dateTo</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>caseList</n>
+        <name>caseList</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -57,7 +57,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>resultCount</n>
+        <name>resultCount</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -65,7 +65,7 @@
         <isOutput>true</isOutput>
     </variables>
     <variables>
-        <n>soqlQuery</n>
+        <name>soqlQuery</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -86,7 +86,7 @@
 
     <!-- DECISION: Which filters are active? -->
     <decisions>
-        <n>Build_Base_Filter</n>
+        <name>Build_Base_Filter</name>
         <label>Determine Filter Combination</label>
         <locationX>200</locationX>
         <locationY>150</locationY>
@@ -95,7 +95,7 @@
             <targetReference>Search_Contact_Only</targetReference>
         </defaultConnector>
         <rules>
-            <n>Has_Status_And_Priority</n>
+            <name>Has_Status_And_Priority</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>statusFilter</leftValueReference>
@@ -111,7 +111,7 @@
             <label>Status AND Priority Provided</label>
         </rules>
         <rules>
-            <n>Has_Status_Only</n>
+            <name>Has_Status_Only</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>statusFilter</leftValueReference>
@@ -122,7 +122,7 @@
             <label>Status Only</label>
         </rules>
         <rules>
-            <n>Has_Priority_Only</n>
+            <name>Has_Priority_Only</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>priorityFilter</leftValueReference>
@@ -136,7 +136,7 @@
 
     <!-- RECORD LOOKUP: Contact Only (all cases) -->
     <recordLookups>
-        <n>Search_Contact_Only</n>
+        <name>Search_Contact_Only</name>
         <label>Search - All Cases for Contact</label>
         <locationX>50</locationX>
         <locationY>350</locationY>
@@ -167,7 +167,7 @@
 
     <!-- RECORD LOOKUP: Status AND Priority -->
     <recordLookups>
-        <n>Search_Status_And_Priority</n>
+        <name>Search_Status_And_Priority</name>
         <label>Search - Status and Priority</label>
         <locationX>250</locationX>
         <locationY>350</locationY>
@@ -206,7 +206,7 @@
 
     <!-- RECORD LOOKUP: Status Only -->
     <recordLookups>
-        <n>Search_Status_Only</n>
+        <name>Search_Status_Only</name>
         <label>Search - Status Only</label>
         <locationX>450</locationX>
         <locationY>350</locationY>
@@ -240,7 +240,7 @@
 
     <!-- RECORD LOOKUP: Priority Only -->
     <recordLookups>
-        <n>Search_Priority_Only</n>
+        <name>Search_Priority_Only</name>
         <label>Search - Priority Only</label>
         <locationX>650</locationX>
         <locationY>350</locationY>
@@ -273,7 +273,7 @@
     </recordLookups>
 
     <assignments>
-        <n>Set_Result_Count</n>
+        <name>Set_Result_Count</name>
         <label>Set Result Count</label>
         <locationX>400</locationX>
         <locationY>550</locationY>

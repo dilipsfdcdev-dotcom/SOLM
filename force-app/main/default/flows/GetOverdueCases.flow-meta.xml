@@ -7,14 +7,14 @@
     <status>Active</status>
 
     <variables>
-        <n>contactId</n>
+        <name>contactId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>daysOpen</n>
+        <name>daysOpen</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -23,7 +23,7 @@
         <value><numberValue>7</numberValue></value>
     </variables>
     <variables>
-        <n>overdueCaseList</n>
+        <name>overdueCaseList</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -31,14 +31,14 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>cutoffDate</n>
+        <name>cutoffDate</name>
         <dataType>DateTime</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>daysAsNegative</n>
+        <name>daysAsNegative</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -54,7 +54,7 @@
 
     <!-- Calculate cutoff date = TODAY minus daysOpen -->
     <assignments>
-        <n>Negate_Days</n>
+        <name>Negate_Days</name>
         <label>Negate Days for Subtraction</label>
         <locationX>200</locationX>
         <locationY>150</locationY>
@@ -67,7 +67,7 @@
     </assignments>
 
     <assignments>
-        <n>Calculate_Cutoff</n>
+        <name>Calculate_Cutoff</name>
         <label>Calculate Cutoff Date</label>
         <locationX>400</locationX>
         <locationY>150</locationY>
@@ -83,7 +83,7 @@
     <!-- RECORD LOOKUP: Open cases older than cutoff using formula -->
     <!-- Formula Resource: cutoffDateFormula = NOW() - (daysOpen / 1) — add in Flow Builder -->
     <recordLookups>
-        <n>Get_Overdue_Cases</n>
+        <name>Get_Overdue_Cases</name>
         <label>Get Overdue Open Cases</label>
         <locationX>600</locationX>
         <locationY>150</locationY>

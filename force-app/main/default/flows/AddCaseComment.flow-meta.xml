@@ -7,21 +7,21 @@
     <status>Active</status>
 
     <variables>
-        <n>caseId</n>
+        <name>caseId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>commentBody</n>
+        <name>commentBody</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>isPublic</n>
+        <name>isPublic</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
@@ -29,14 +29,14 @@
         <value><booleanValue>true</booleanValue></value>
     </variables>
     <variables>
-        <n>commentId</n>
+        <name>commentId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>true</isOutput>
     </variables>
     <variables>
-        <n>isSuccess</n>
+        <name>isSuccess</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -44,14 +44,14 @@
         <value><booleanValue>false</booleanValue></value>
     </variables>
     <variables>
-        <n>errorMessage</n>
+        <name>errorMessage</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>true</isOutput>
     </variables>
     <variables>
-        <n>newComment</n>
+        <name>newComment</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -66,14 +66,14 @@
     </start>
 
     <decisions>
-        <n>Validate_Inputs</n>
+        <name>Validate_Inputs</name>
         <label>Validate Inputs</label>
         <locationX>200</locationX>
         <locationY>150</locationY>
         <defaultConnectorLabel>Missing Required Fields</defaultConnectorLabel>
         <defaultConnector><targetReference>Set_Validation_Error</targetReference></defaultConnector>
         <rules>
-            <n>Inputs_Valid</n>
+            <name>Inputs_Valid</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>caseId</leftValueReference>
@@ -96,7 +96,7 @@
     </decisions>
 
     <assignments>
-        <n>Assign_Comment_Fields</n>
+        <name>Assign_Comment_Fields</name>
         <label>Assign Comment Fields</label>
         <locationX>400</locationX>
         <locationY>150</locationY>
@@ -119,7 +119,7 @@
     </assignments>
 
     <recordCreates>
-        <n>Create_Comment</n>
+        <name>Create_Comment</name>
         <label>Create Case Comment</label>
         <locationX>600</locationX>
         <locationY>150</locationY>
@@ -130,7 +130,7 @@
     </recordCreates>
 
     <assignments>
-        <n>Set_Success</n>
+        <name>Set_Success</name>
         <label>Set Success</label>
         <locationX>800</locationX>
         <locationY>150</locationY>
@@ -147,7 +147,7 @@
     </assignments>
 
     <assignments>
-        <n>Set_Validation_Error</n>
+        <name>Set_Validation_Error</name>
         <label>Set Validation Error</label>
         <locationX>200</locationX>
         <locationY>350</locationY>
@@ -158,7 +158,7 @@
         </assignmentItems>
     </assignments>
     <assignments>
-        <n>Set_Create_Error</n>
+        <name>Set_Create_Error</name>
         <label>Set Create Error</label>
         <locationX>600</locationX>
         <locationY>350</locationY>

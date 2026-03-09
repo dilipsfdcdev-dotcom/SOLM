@@ -8,28 +8,28 @@
 
     <!-- INPUTS -->
     <variables>
-        <n>contactId</n>
+        <name>contactId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>subject</n>
+        <name>subject</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>description</n>
+        <name>description</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>priority</n>
+        <name>priority</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
@@ -37,14 +37,14 @@
         <value><stringValue>Medium</stringValue></value>
     </variables>
     <variables>
-        <n>type</n>
+        <name>type</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>origin</n>
+        <name>origin</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
@@ -52,7 +52,7 @@
         <value><stringValue>Messaging</stringValue></value>
     </variables>
     <variables>
-        <n>status</n>
+        <name>status</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
@@ -62,7 +62,7 @@
 
     <!-- OUTPUTS -->
     <variables>
-        <n>caseRecord</n>
+        <name>caseRecord</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -70,28 +70,28 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>caseNumber</n>
+        <name>caseNumber</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>true</isOutput>
     </variables>
     <variables>
-        <n>caseId</n>
+        <name>caseId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>true</isOutput>
     </variables>
     <variables>
-        <n>errorMessage</n>
+        <name>errorMessage</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>true</isOutput>
     </variables>
     <variables>
-        <n>isSuccess</n>
+        <name>isSuccess</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -101,7 +101,7 @@
 
     <!-- INTERNAL variable for new case record -->
     <variables>
-        <n>newCase</n>
+        <name>newCase</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -117,14 +117,14 @@
 
     <!-- DECISION: Validate required fields -->
     <decisions>
-        <n>Validate_Required_Fields</n>
+        <name>Validate_Required_Fields</name>
         <label>Validate Required Fields</label>
         <locationX>200</locationX>
         <locationY>150</locationY>
         <defaultConnectorLabel>Validation Failed</defaultConnectorLabel>
         <defaultConnector><targetReference>Set_Validation_Error</targetReference></defaultConnector>
         <rules>
-            <n>Fields_Valid</n>
+            <name>Fields_Valid</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>contactId</leftValueReference>
@@ -153,7 +153,7 @@
 
     <!-- ASSIGNMENT: Populate case fields -->
     <assignments>
-        <n>Assign_Case_Fields</n>
+        <name>Assign_Case_Fields</name>
         <label>Assign Case Fields</label>
         <locationX>400</locationX>
         <locationY>150</locationY>
@@ -197,7 +197,7 @@
 
     <!-- RECORD CREATE -->
     <recordCreates>
-        <n>Create_Case_Record</n>
+        <name>Create_Case_Record</name>
         <label>Create Case Record</label>
         <locationX>600</locationX>
         <locationY>150</locationY>
@@ -209,7 +209,7 @@
 
     <!-- RECORD LOOKUP: Fetch created case to return full record + case number -->
     <recordLookups>
-        <n>Get_Created_Case</n>
+        <name>Get_Created_Case</name>
         <label>Get Created Case Record</label>
         <locationX>800</locationX>
         <locationY>150</locationY>
@@ -237,7 +237,7 @@
     </recordLookups>
 
     <assignments>
-        <n>Set_Output_Variables</n>
+        <name>Set_Output_Variables</name>
         <label>Set Output Variables</label>
         <locationX>1000</locationX>
         <locationY>150</locationY>
@@ -259,7 +259,7 @@
     </assignments>
 
     <assignments>
-        <n>Set_Validation_Error</n>
+        <name>Set_Validation_Error</name>
         <label>Set Validation Error</label>
         <locationX>200</locationX>
         <locationY>350</locationY>
@@ -271,7 +271,7 @@
     </assignments>
 
     <assignments>
-        <n>Set_Create_Error</n>
+        <name>Set_Create_Error</name>
         <label>Set Create Error</label>
         <locationX>600</locationX>
         <locationY>350</locationY>

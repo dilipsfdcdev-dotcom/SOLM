@@ -7,21 +7,21 @@
     <status>Active</status>
 
     <variables>
-        <n>keyword</n>
+        <name>keyword</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>caseType</n>
+        <name>caseType</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>includeResolutions</n>
+        <name>includeResolutions</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
@@ -29,7 +29,7 @@
         <value><booleanValue>true</booleanValue></value>
     </variables>
     <variables>
-        <n>similarCaseList</n>
+        <name>similarCaseList</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -37,7 +37,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>matchCount</n>
+        <name>matchCount</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -52,14 +52,14 @@
     </start>
 
     <decisions>
-        <n>Route_Search_Type</n>
+        <name>Route_Search_Type</name>
         <label>Route by Search Parameters</label>
         <locationX>200</locationX>
         <locationY>150</locationY>
         <defaultConnectorLabel>Search All Open Cases</defaultConnectorLabel>
         <defaultConnector><targetReference>Search_All_Open</targetReference></defaultConnector>
         <rules>
-            <n>Type_And_Keyword</n>
+            <name>Type_And_Keyword</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>caseType</leftValueReference>
@@ -78,7 +78,7 @@
 
     <!-- Search by Type — returns all cases of that type for pattern detection -->
     <recordLookups>
-        <n>Search_By_Type</n>
+        <name>Search_By_Type</name>
         <label>Search By Type</label>
         <locationX>400</locationX>
         <locationY>150</locationY>
@@ -108,7 +108,7 @@
 
     <!-- Search All Open Cases (fallback — agent will filter by keyword in reasoning) -->
     <recordLookups>
-        <n>Search_All_Open</n>
+        <name>Search_All_Open</name>
         <label>Search All Open Cases</label>
         <locationX>100</locationX>
         <locationY>350</locationY>
@@ -137,7 +137,7 @@
     </recordLookups>
 
     <assignments>
-        <n>Count_Results</n>
+        <name>Count_Results</name>
         <label>Count Results</label>
         <locationX>600</locationX>
         <locationY>300</locationY>

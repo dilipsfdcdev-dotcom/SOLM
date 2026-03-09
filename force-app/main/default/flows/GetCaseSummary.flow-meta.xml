@@ -7,7 +7,7 @@
     <status>Active</status>
 
     <variables>
-        <n>contactId</n>
+        <name>contactId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
@@ -16,7 +16,7 @@
 
     <!-- Output counts per status -->
     <variables>
-        <n>countNew</n>
+        <name>countNew</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -25,7 +25,7 @@
         <value><numberValue>0</numberValue></value>
     </variables>
     <variables>
-        <n>countOpen</n>
+        <name>countOpen</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -34,7 +34,7 @@
         <value><numberValue>0</numberValue></value>
     </variables>
     <variables>
-        <n>countInProgress</n>
+        <name>countInProgress</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -43,7 +43,7 @@
         <value><numberValue>0</numberValue></value>
     </variables>
     <variables>
-        <n>countWaiting</n>
+        <name>countWaiting</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -52,7 +52,7 @@
         <value><numberValue>0</numberValue></value>
     </variables>
     <variables>
-        <n>countEscalated</n>
+        <name>countEscalated</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -61,7 +61,7 @@
         <value><numberValue>0</numberValue></value>
     </variables>
     <variables>
-        <n>countClosed</n>
+        <name>countClosed</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -71,7 +71,7 @@
     </variables>
     <!-- Priority counts -->
     <variables>
-        <n>countCritical</n>
+        <name>countCritical</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -80,7 +80,7 @@
         <value><numberValue>0</numberValue></value>
     </variables>
     <variables>
-        <n>countHigh</n>
+        <name>countHigh</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -89,7 +89,7 @@
         <value><numberValue>0</numberValue></value>
     </variables>
     <variables>
-        <n>countMedium</n>
+        <name>countMedium</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -98,7 +98,7 @@
         <value><numberValue>0</numberValue></value>
     </variables>
     <variables>
-        <n>countLow</n>
+        <name>countLow</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -107,7 +107,7 @@
         <value><numberValue>0</numberValue></value>
     </variables>
     <variables>
-        <n>totalOpen</n>
+        <name>totalOpen</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -118,7 +118,7 @@
 
     <!-- Collections for each status bucket -->
     <variables>
-        <n>newCases</n>
+        <name>newCases</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -126,7 +126,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>openCases</n>
+        <name>openCases</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -134,7 +134,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>inProgressCases</n>
+        <name>inProgressCases</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -142,7 +142,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>waitingCases</n>
+        <name>waitingCases</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -150,7 +150,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>escalatedCases</n>
+        <name>escalatedCases</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -158,7 +158,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>closedCases</n>
+        <name>closedCases</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -173,7 +173,7 @@
     </start>
 
     <recordLookups>
-        <n>Get_New_Cases</n>
+        <name>Get_New_Cases</name>
         <label>Get New Cases</label>
         <locationX>200</locationX><locationY>150</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
@@ -188,7 +188,7 @@
     </recordLookups>
 
     <recordLookups>
-        <n>Get_Open_Cases</n>
+        <name>Get_Open_Cases</name>
         <label>Get Open Cases</label>
         <locationX>400</locationX><locationY>150</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
@@ -203,7 +203,7 @@
     </recordLookups>
 
     <recordLookups>
-        <n>Get_InProgress_Cases</n>
+        <name>Get_InProgress_Cases</name>
         <label>Get In Progress Cases</label>
         <locationX>600</locationX><locationY>150</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
@@ -218,7 +218,7 @@
     </recordLookups>
 
     <recordLookups>
-        <n>Get_Waiting_Cases</n>
+        <name>Get_Waiting_Cases</name>
         <label>Get Waiting on Customer Cases</label>
         <locationX>800</locationX><locationY>150</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
@@ -233,7 +233,7 @@
     </recordLookups>
 
     <recordLookups>
-        <n>Get_Escalated_Cases</n>
+        <name>Get_Escalated_Cases</name>
         <label>Get Escalated Cases</label>
         <locationX>1000</locationX><locationY>150</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
@@ -248,7 +248,7 @@
     </recordLookups>
 
     <recordLookups>
-        <n>Get_Closed_Cases</n>
+        <name>Get_Closed_Cases</name>
         <label>Get Closed Cases</label>
         <locationX>1200</locationX><locationY>150</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
@@ -263,7 +263,7 @@
     </recordLookups>
 
     <assignments>
-        <n>Assign_All_Counts</n>
+        <name>Assign_All_Counts</name>
         <label>Assign All Counts</label>
         <locationX>1400</locationX><locationY>150</locationY>
         <assignmentItems>
