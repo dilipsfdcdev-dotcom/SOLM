@@ -11,21 +11,17 @@ system:
     instructions: "You are SolM IT Helpdesk Service Agent — a professional, helpful, and concise assistant providing comprehensive end-to-end case management for internal employees and external customers. Format case details in clean, readable structures. Always confirm destructive actions like closing or reassigning a case before proceeding. When collecting information for case creation or closure, ask ONE field at a time. Use the authenticated user's contact information automatically via the ContactId session variable. Never fabricate case numbers, statuses, or details. When displaying cases, use formatted tables or lists with Case Number, Subject, Status, Priority, and relevant dates."
 
 variables:
-    EndUserId:
-        type: linked string
-        source: "@MessagingSession.MessagingEndUserId"
+    EndUserId: linked string
+        source: @MessagingSession.MessagingEndUserId
         description: "This variable may also be referred to as MessagingEndUser Id"
-    RoutableId:
-        type: linked string
-        source: "@MessagingSession.Id"
+    RoutableId: linked string
+        source: @MessagingSession.Id
         description: "This variable may also be referred to as MessagingSession Id"
-    ContactId:
-        type: linked string
-        source: "@MessagingEndUser.ContactId"
+    ContactId: linked string
+        source: @MessagingEndUser.ContactId
         description: "This variable may also be referred to as MessagingEndUser ContactId"
-    EndUserLanguage:
-        type: linked string
-        source: "@MessagingSession.EndUserLanguage"
+    EndUserLanguage: linked string
+        source: @MessagingSession.EndUserLanguage
         description: "This variable may also be referred to as MessagingSession EndUserLanguage"
 
 language:
@@ -152,37 +148,27 @@ topic case_inquiry_search:
             target: "apex://ITHelpdesk_GetCase"
             inputs:
                 contactId:
-                    type: string
-                    description: "The ContactId of the authenticated user."
                     label: "Contact Id"
-                    is_required: True
-                    is_user_input: False
-                    value: "@variables.ContactId"
+                    description: "The ContactId of the authenticated user."
+                    source: "@variables.ContactId"
+                    visibility: hidden
                 caseNumber:
-                    type: string
-                    description: "The case number provided by the customer."
                     label: "Case Number"
-                    is_required: True
-                    is_user_input: True
+                    description: "The case number provided by the customer."
+                    visibility: visible
             outputs:
                 caseRecord:
-                    type: object
-                    description: "The case record found."
                     label: "Case Record"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "The case record found."
+                    visibility: visible
                 isFound:
-                    type: boolean
-                    description: "Whether a matching case was found."
                     label: "Is Found"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether a matching case was found."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
         ITHelpdesk_GetCasesByContact:
             description: "Returns all cases linked to the authenticated user's contact."
@@ -193,43 +179,31 @@ topic case_inquiry_search:
             target: "apex://ITHelpdesk_GetCasesByContact"
             inputs:
                 contactId:
-                    type: string
-                    description: "The ContactId of the authenticated user."
                     label: "Contact Id"
-                    is_required: True
-                    is_user_input: False
-                    value: "@variables.ContactId"
+                    description: "The ContactId of the authenticated user."
+                    source: "@variables.ContactId"
+                    visibility: hidden
             outputs:
                 caseList:
-                    type: list[object]
-                    description: "List of case records."
                     label: "Case List"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "List of case records."
+                    visibility: visible
                 totalCount:
-                    type: integer
-                    description: "Total number of cases."
                     label: "Total Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Total number of cases."
+                    visibility: visible
                 openCount:
-                    type: integer
-                    description: "Number of open cases."
                     label: "Open Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Number of open cases."
+                    visibility: visible
                 closedCount:
-                    type: integer
-                    description: "Number of closed cases."
                     label: "Closed Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Number of closed cases."
+                    visibility: visible
                 message:
-                    type: string
-                    description: "Summary message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Summary message."
+                    visibility: visible
 
         ITHelpdesk_SearchCases:
             description: "Search cases by keyword, status, priority, or date range."
@@ -240,61 +214,43 @@ topic case_inquiry_search:
             target: "apex://ITHelpdesk_SearchCases"
             inputs:
                 contactId:
-                    type: string
-                    description: "ContactId of the user."
                     label: "Contact Id"
-                    is_required: True
-                    is_user_input: False
-                    value: "@variables.ContactId"
+                    description: "ContactId of the user."
+                    source: "@variables.ContactId"
+                    visibility: hidden
                 keyword:
-                    type: string
-                    description: "Search keyword for subject or description."
                     label: "Keyword"
-                    is_required: False
-                    is_user_input: True
+                    description: "Search keyword for subject or description."
+                    visibility: visible
                 statusFilter:
-                    type: string
-                    description: "Filter by status: New, Open, In Progress, Escalated, Waiting on Customer, Closed."
                     label: "Status Filter"
-                    is_required: False
-                    is_user_input: True
+                    description: "Filter by status: New, Open, In Progress, Escalated, Waiting on Customer, Closed."
+                    visibility: visible
                 priorityFilter:
-                    type: string
-                    description: "Filter by priority: Critical, High, Medium, Low."
                     label: "Priority Filter"
-                    is_required: False
-                    is_user_input: True
+                    description: "Filter by priority: Critical, High, Medium, Low."
+                    visibility: visible
                 dateFrom:
-                    type: string
-                    description: "Start date (YYYY-MM-DD)."
                     label: "Date From"
-                    is_required: False
-                    is_user_input: True
+                    description: "Start date (YYYY-MM-DD)."
+                    visibility: visible
                 dateTo:
-                    type: string
-                    description: "End date (YYYY-MM-DD)."
                     label: "Date To"
-                    is_required: False
-                    is_user_input: True
+                    description: "End date (YYYY-MM-DD)."
+                    visibility: visible
             outputs:
                 caseList:
-                    type: list[object]
-                    description: "Filtered list of case records."
                     label: "Case List"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Filtered list of case records."
+                    visibility: visible
                 resultCount:
-                    type: integer
-                    description: "Number of results."
                     label: "Result Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Number of results."
+                    visibility: visible
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
         ITHelpdesk_GetOverdueCases:
             description: "Returns cases open longer than a specified number of days."
@@ -305,38 +261,27 @@ topic case_inquiry_search:
             target: "apex://ITHelpdesk_GetOverdueCases"
             inputs:
                 contactId:
-                    type: string
-                    description: "ContactId of the user."
                     label: "Contact Id"
-                    is_required: True
-                    is_user_input: False
-                    value: "@variables.ContactId"
+                    description: "ContactId of the user."
+                    source: "@variables.ContactId"
+                    visibility: hidden
                 daysOpen:
-                    type: integer
-                    description: "Number of days a case must be open to be considered overdue."
                     label: "Days Open"
-                    is_required: False
-                    is_user_input: True
-                    default_value: 7
+                    description: "Number of days a case must be open to be considered overdue. Default is 7."
+                    visibility: visible
             outputs:
                 overdueCaseList:
-                    type: list[object]
-                    description: "List of overdue case records."
                     label: "Overdue Case List"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "List of overdue case records."
+                    visibility: visible
                 overdueCount:
-                    type: integer
-                    description: "Number of overdue cases."
                     label: "Overdue Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Number of overdue cases."
+                    visibility: visible
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
 
 # ═══════════════════════════════════════════════════════
@@ -375,75 +320,51 @@ topic case_creation:
             target: "apex://ITHelpdesk_CreateCase"
             inputs:
                 contactId:
-                    type: string
-                    description: "ContactId of the authenticated user."
                     label: "Contact Id"
-                    is_required: True
-                    is_user_input: False
-                    value: "@variables.ContactId"
+                    description: "ContactId of the authenticated user."
+                    source: "@variables.ContactId"
+                    visibility: hidden
                 subject:
-                    type: string
-                    description: "Brief title or subject of the case."
                     label: "Subject"
-                    is_required: True
-                    is_user_input: True
+                    description: "Brief title or subject of the case."
+                    visibility: visible
                 description:
-                    type: string
-                    description: "Detailed description of the issue."
                     label: "Description"
-                    is_required: True
-                    is_user_input: True
+                    description: "Detailed description of the issue."
+                    visibility: visible
                 priority:
-                    type: string
-                    description: "Case priority: Critical, High, Medium, Low."
                     label: "Priority"
-                    is_required: False
-                    is_user_input: True
-                    default_value: "Medium"
+                    description: "Case priority: Critical, High, Medium, Low. Default is Medium."
+                    visibility: visible
                 caseType:
-                    type: string
-                    description: "Case type: Hardware, Software, Network, Access/Permissions, Email, Other."
                     label: "Type"
-                    is_required: False
-                    is_user_input: True
+                    description: "Case type: Hardware, Software, Network, Access/Permissions, Email, Other."
+                    visibility: visible
                 origin:
-                    type: string
-                    description: "Origin of the case. Auto-set to Messaging."
                     label: "Origin"
-                    is_required: False
-                    is_user_input: False
-                    default_value: "Messaging"
+                    description: "Origin of the case. Auto-set to Messaging."
+                    visibility: hidden
             outputs:
                 caseRecord:
-                    type: object
-                    description: "The newly created case record."
                     label: "Case Record"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "The newly created case record."
+                    visibility: visible
                 caseNumber:
-                    type: string
-                    description: "The generated case number."
                     label: "Case Number"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "The generated case number."
+                    visibility: visible
                 caseId:
-                    type: string
-                    description: "The Salesforce Id of the new case."
                     label: "Case Id"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "The Salesforce Id of the new case."
+                    visibility: hidden
                 isSuccess:
-                    type: boolean
-                    description: "Whether the case was created successfully."
                     label: "Is Success"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether the case was created successfully."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
 
 # ═══════════════════════════════════════════════════════
@@ -492,37 +413,27 @@ topic case_updates:
             target: "apex://ITHelpdesk_GetCase"
             inputs:
                 contactId:
-                    type: string
-                    description: "The ContactId of the authenticated user."
                     label: "Contact Id"
-                    is_required: True
-                    is_user_input: False
-                    value: "@variables.ContactId"
+                    description: "The ContactId of the authenticated user."
+                    source: "@variables.ContactId"
+                    visibility: hidden
                 caseNumber:
-                    type: string
-                    description: "The case number."
                     label: "Case Number"
-                    is_required: True
-                    is_user_input: True
+                    description: "The case number."
+                    visibility: visible
             outputs:
                 caseRecord:
-                    type: object
-                    description: "The case record."
                     label: "Case Record"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "The case record."
+                    visibility: visible
                 isFound:
-                    type: boolean
-                    description: "Whether found."
                     label: "Is Found"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether found."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
         ITHelpdesk_UpdateCase:
             description: "Updates one or more fields on an existing case."
@@ -533,60 +444,42 @@ topic case_updates:
             target: "apex://ITHelpdesk_UpdateCase"
             inputs:
                 caseId:
-                    type: string
-                    description: "Salesforce record Id of the case."
                     label: "Case Id"
-                    is_required: True
-                    is_user_input: False
+                    description: "Salesforce record Id of the case."
+                    visibility: hidden
                 status:
-                    type: string
-                    description: "New status: New, Open, In Progress, Escalated, Waiting on Customer."
                     label: "Status"
-                    is_required: False
-                    is_user_input: True
+                    description: "New status: New, Open, In Progress, Escalated, Waiting on Customer."
+                    visibility: visible
                 priority:
-                    type: string
-                    description: "New priority: Critical, High, Medium, Low."
                     label: "Priority"
-                    is_required: False
-                    is_user_input: True
+                    description: "New priority: Critical, High, Medium, Low."
+                    visibility: visible
                 description:
-                    type: string
-                    description: "Updated description."
                     label: "Description"
-                    is_required: False
-                    is_user_input: True
+                    description: "Updated description."
+                    visibility: visible
                 caseType:
-                    type: string
-                    description: "Updated type."
                     label: "Type"
-                    is_required: False
-                    is_user_input: True
+                    description: "Updated type."
+                    visibility: visible
                 subject:
-                    type: string
-                    description: "Updated subject."
                     label: "Subject"
-                    is_required: False
-                    is_user_input: True
+                    description: "Updated subject."
+                    visibility: visible
             outputs:
                 caseRecord:
-                    type: object
-                    description: "The updated case record."
                     label: "Case Record"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "The updated case record."
+                    visibility: visible
                 isSuccess:
-                    type: boolean
-                    description: "Whether the update succeeded."
                     label: "Is Success"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether the update succeeded."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
         ITHelpdesk_AddComment:
             description: "Adds a comment to an existing case."
@@ -597,43 +490,30 @@ topic case_updates:
             target: "apex://ITHelpdesk_AddComment"
             inputs:
                 caseId:
-                    type: string
-                    description: "Salesforce record Id of the case."
                     label: "Case Id"
-                    is_required: True
-                    is_user_input: False
+                    description: "Salesforce record Id of the case."
+                    visibility: hidden
                 commentBody:
-                    type: string
-                    description: "The comment text."
                     label: "Comment"
-                    is_required: True
-                    is_user_input: True
+                    description: "The comment text."
+                    visibility: visible
                 isPublic:
-                    type: boolean
-                    description: "Whether the comment is visible to the customer. Default: True."
                     label: "Is Public"
-                    is_required: False
-                    is_user_input: False
-                    default_value: True
+                    description: "Whether the comment is visible to the customer. Default is true."
+                    visibility: hidden
             outputs:
                 commentId:
-                    type: string
-                    description: "Id of the created comment."
                     label: "Comment Id"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Id of the created comment."
+                    visibility: hidden
                 isSuccess:
-                    type: boolean
-                    description: "Whether the comment was added."
                     label: "Is Success"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether the comment was added."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
 
 # ═══════════════════════════════════════════════════════
@@ -675,37 +555,27 @@ topic case_closure:
             target: "apex://ITHelpdesk_GetCase"
             inputs:
                 contactId:
-                    type: string
-                    description: "The ContactId of the authenticated user."
                     label: "Contact Id"
-                    is_required: True
-                    is_user_input: False
-                    value: "@variables.ContactId"
+                    description: "The ContactId of the authenticated user."
+                    source: "@variables.ContactId"
+                    visibility: hidden
                 caseNumber:
-                    type: string
-                    description: "The case number."
                     label: "Case Number"
-                    is_required: True
-                    is_user_input: True
+                    description: "The case number."
+                    visibility: visible
             outputs:
                 caseRecord:
-                    type: object
-                    description: "The case record."
                     label: "Case Record"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "The case record."
+                    visibility: visible
                 isFound:
-                    type: boolean
-                    description: "Whether found."
                     label: "Is Found"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether found."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
         ITHelpdesk_CloseCase:
             description: "Closes a case with a resolution summary and optional root cause and notes."
@@ -716,48 +586,34 @@ topic case_closure:
             target: "apex://ITHelpdesk_CloseCase"
             inputs:
                 caseId:
-                    type: string
-                    description: "Salesforce record Id of the case to close."
                     label: "Case Id"
-                    is_required: True
-                    is_user_input: False
+                    description: "Salesforce record Id of the case to close."
+                    visibility: hidden
                 resolutionSummary:
-                    type: string
-                    description: "Summary of how the issue was resolved."
                     label: "Resolution Summary"
-                    is_required: True
-                    is_user_input: True
+                    description: "Summary of how the issue was resolved."
+                    visibility: visible
                 rootCause:
-                    type: string
-                    description: "Root cause of the issue."
                     label: "Root Cause"
-                    is_required: False
-                    is_user_input: True
+                    description: "Root cause of the issue."
+                    visibility: visible
                 closureNotes:
-                    type: string
-                    description: "Additional closure notes."
                     label: "Closure Notes"
-                    is_required: False
-                    is_user_input: True
+                    description: "Additional closure notes."
+                    visibility: visible
             outputs:
                 caseRecord:
-                    type: object
-                    description: "The closed case record."
                     label: "Case Record"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "The closed case record."
+                    visibility: visible
                 isSuccess:
-                    type: boolean
-                    description: "Whether the case was closed."
                     label: "Is Success"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether the case was closed."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
 
 # ═══════════════════════════════════════════════════════
@@ -796,37 +652,27 @@ topic case_reassignment:
             target: "apex://ITHelpdesk_GetCase"
             inputs:
                 contactId:
-                    type: string
-                    description: "The ContactId of the authenticated user."
                     label: "Contact Id"
-                    is_required: True
-                    is_user_input: False
-                    value: "@variables.ContactId"
+                    description: "The ContactId of the authenticated user."
+                    source: "@variables.ContactId"
+                    visibility: hidden
                 caseNumber:
-                    type: string
-                    description: "The case number."
                     label: "Case Number"
-                    is_required: True
-                    is_user_input: True
+                    description: "The case number."
+                    visibility: visible
             outputs:
                 caseRecord:
-                    type: object
-                    description: "The case record."
                     label: "Case Record"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "The case record."
+                    visibility: visible
                 isFound:
-                    type: boolean
-                    description: "Whether found."
                     label: "Is Found"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether found."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
         ITHelpdesk_ReassignCase:
             description: "Reassigns a case to a different user or queue."
@@ -837,42 +683,30 @@ topic case_reassignment:
             target: "apex://ITHelpdesk_ReassignCase"
             inputs:
                 caseId:
-                    type: string
-                    description: "Salesforce record Id of the case."
                     label: "Case Id"
-                    is_required: True
-                    is_user_input: False
+                    description: "Salesforce record Id of the case."
+                    visibility: hidden
                 newOwnerId:
-                    type: string
-                    description: "User Id or Queue Id to reassign to."
                     label: "New Owner Id"
-                    is_required: False
-                    is_user_input: True
+                    description: "User Id or Queue Id to reassign to."
+                    visibility: visible
                 queueName:
-                    type: string
-                    description: "Queue developer name (e.g. Support, IT_Omega, Service_Clients)."
                     label: "Queue Name"
-                    is_required: False
-                    is_user_input: True
+                    description: "Queue developer name (e.g. Support, IT_Omega, Service_Clients)."
+                    visibility: visible
             outputs:
                 caseRecord:
-                    type: object
-                    description: "The reassigned case record."
                     label: "Case Record"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "The reassigned case record."
+                    visibility: visible
                 isSuccess:
-                    type: boolean
-                    description: "Whether the reassignment succeeded."
                     label: "Is Success"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether the reassignment succeeded."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
 
 # ═══════════════════════════════════════════════════════
@@ -911,37 +745,27 @@ topic case_history:
             target: "apex://ITHelpdesk_GetCase"
             inputs:
                 contactId:
-                    type: string
-                    description: "The ContactId of the authenticated user."
                     label: "Contact Id"
-                    is_required: True
-                    is_user_input: False
-                    value: "@variables.ContactId"
+                    description: "The ContactId of the authenticated user."
+                    source: "@variables.ContactId"
+                    visibility: hidden
                 caseNumber:
-                    type: string
-                    description: "The case number."
                     label: "Case Number"
-                    is_required: True
-                    is_user_input: True
+                    description: "The case number."
+                    visibility: visible
             outputs:
                 caseRecord:
-                    type: object
-                    description: "The case record."
                     label: "Case Record"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "The case record."
+                    visibility: visible
                 isFound:
-                    type: boolean
-                    description: "Whether found."
                     label: "Is Found"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether found."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
         ITHelpdesk_GetCaseHistory:
             description: "Retrieves comments and field-change history for a case."
@@ -952,42 +776,30 @@ topic case_history:
             target: "apex://ITHelpdesk_GetCaseHistory"
             inputs:
                 caseId:
-                    type: string
-                    description: "Salesforce record Id of the case."
                     label: "Case Id"
-                    is_required: True
-                    is_user_input: False
+                    description: "Salesforce record Id of the case."
+                    visibility: hidden
             outputs:
                 historySummary:
-                    type: string
-                    description: "Formatted field-change history."
                     label: "History Summary"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Formatted field-change history."
+                    visibility: visible
                 commentCount:
-                    type: integer
-                    description: "Number of comments."
                     label: "Comment Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Number of comments."
+                    visibility: visible
                 historyCount:
-                    type: integer
-                    description: "Number of history records."
                     label: "History Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Number of history records."
+                    visibility: visible
                 isSuccess:
-                    type: boolean
-                    description: "Whether retrieval succeeded."
                     label: "Is Success"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether retrieval succeeded."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
 
 # ═══════════════════════════════════════════════════════
@@ -1025,49 +837,34 @@ topic related_case_intelligence:
             target: "apex://ITHelpdesk_FindSimilarCases"
             inputs:
                 keyword:
-                    type: string
-                    description: "Keyword to match against subject or description."
                     label: "Keyword"
-                    is_required: False
-                    is_user_input: True
+                    description: "Keyword to match against subject or description."
+                    visibility: visible
                 caseType:
-                    type: string
-                    description: "Case type: Hardware, Software, Network, Access/Permissions, Email, Other."
                     label: "Case Type"
-                    is_required: False
-                    is_user_input: True
+                    description: "Case type: Hardware, Software, Network, Access/Permissions, Email, Other."
+                    visibility: visible
                 includeResolutions:
-                    type: boolean
-                    description: "Whether to include resolution notes from closed cases."
                     label: "Include Resolutions"
-                    is_required: False
-                    is_user_input: False
-                    default_value: True
+                    description: "Whether to include resolution notes from closed cases."
+                    visibility: hidden
             outputs:
                 similarCaseList:
-                    type: list[object]
-                    description: "List of similar case records."
                     label: "Similar Case List"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "List of similar case records."
+                    visibility: visible
                 resultCount:
-                    type: integer
-                    description: "Number of similar cases found."
                     label: "Result Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Number of similar cases found."
+                    visibility: visible
                 hasPattern:
-                    type: boolean
-                    description: "Whether a pattern (3+ similar cases) was detected."
                     label: "Has Pattern"
-                    is_displayable: False
-                    is_used_by_planner: True
+                    description: "Whether a pattern (3+ similar cases) was detected."
+                    visibility: hidden
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
 
 # ═══════════════════════════════════════════════════════
@@ -1111,85 +908,59 @@ topic reporting_summaries:
             target: "apex://ITHelpdesk_GetCaseSummary"
             inputs:
                 contactId:
-                    type: string
-                    description: "ContactId of the authenticated user."
                     label: "Contact Id"
-                    is_required: True
-                    is_user_input: False
-                    value: "@variables.ContactId"
+                    description: "ContactId of the authenticated user."
+                    source: "@variables.ContactId"
+                    visibility: hidden
             outputs:
                 totalCases:
-                    type: integer
-                    description: "Total number of cases."
                     label: "Total Cases"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Total number of cases."
+                    visibility: visible
                 newCount:
-                    type: integer
-                    description: "Cases with New status."
                     label: "New Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Cases with New status."
+                    visibility: visible
                 openCount:
-                    type: integer
-                    description: "Cases with Open status."
                     label: "Open Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Cases with Open status."
+                    visibility: visible
                 inProgressCount:
-                    type: integer
-                    description: "Cases In Progress."
                     label: "In Progress Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Cases In Progress."
+                    visibility: visible
                 escalatedCount:
-                    type: integer
-                    description: "Escalated cases."
                     label: "Escalated Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Escalated cases."
+                    visibility: visible
                 waitingCount:
-                    type: integer
-                    description: "Cases Waiting on Customer."
                     label: "Waiting Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Cases Waiting on Customer."
+                    visibility: visible
                 closedCount:
-                    type: integer
-                    description: "Closed cases."
                     label: "Closed Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Closed cases."
+                    visibility: visible
                 criticalHighCount:
-                    type: integer
-                    description: "Critical + High priority cases."
                     label: "Critical/High Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Critical + High priority cases."
+                    visibility: visible
                 mediumCount:
-                    type: integer
-                    description: "Medium priority cases."
                     label: "Medium Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Medium priority cases."
+                    visibility: visible
                 lowCount:
-                    type: integer
-                    description: "Low priority cases."
                     label: "Low Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Low priority cases."
+                    visibility: visible
                 recentOpenCases:
-                    type: list[object]
-                    description: "5 most recent open cases."
                     label: "Recent Open Cases"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "5 most recent open cases."
+                    visibility: visible
                 message:
-                    type: string
-                    description: "Summary message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Summary message."
+                    visibility: visible
 
         ITHelpdesk_GetUrgentCases:
             description: "Returns open Critical and High priority cases."
@@ -1200,31 +971,23 @@ topic reporting_summaries:
             target: "apex://ITHelpdesk_GetUrgentCases"
             inputs:
                 contactId:
-                    type: string
-                    description: "ContactId of the authenticated user."
                     label: "Contact Id"
-                    is_required: True
-                    is_user_input: False
-                    value: "@variables.ContactId"
+                    description: "ContactId of the authenticated user."
+                    source: "@variables.ContactId"
+                    visibility: hidden
             outputs:
                 urgentCaseList:
-                    type: list[object]
-                    description: "List of urgent cases."
                     label: "Urgent Case List"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "List of urgent cases."
+                    visibility: visible
                 urgentCount:
-                    type: integer
-                    description: "Number of urgent cases."
                     label: "Urgent Count"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Number of urgent cases."
+                    visibility: visible
                 message:
-                    type: string
-                    description: "Result message."
                     label: "Message"
-                    is_displayable: True
-                    is_used_by_planner: True
+                    description: "Result message."
+                    visibility: visible
 
 
 # ═══════════════════════════════════════════════════════
