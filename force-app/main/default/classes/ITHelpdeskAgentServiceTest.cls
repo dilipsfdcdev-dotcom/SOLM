@@ -331,7 +331,7 @@ private class ITHelpdeskAgentServiceTest {
         ITHelpdesk_CreateCase.Input inp = new ITHelpdesk_CreateCase.Input();
         inp.contactId = con.Id;
         inp.subject = 'Keyboard broken';
-        inp.description = 'Space bar does not work';
+        inp.caseDescription = 'Space bar does not work';
         inp.priority = 'High';
         inp.caseType = 'Hardware';
 

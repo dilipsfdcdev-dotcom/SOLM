@@ -11,8 +11,8 @@ public with sharing class ITHelpdesk_CreateCase {
         @InvocableVariable(label='Subject' required=true)
         public String subject;
 
-        @InvocableVariable(label='Description' required=true)
-        public String description;
+        @InvocableVariable(label='Case Description' required=true)
+        public String caseDescription;
 
         @InvocableVariable(label='Priority')
         public String priority;
@@ -50,7 +50,7 @@ public with sharing class ITHelpdesk_CreateCase {
             Output out = new Output();
             try {
                 Case created = ITHelpdeskAgentService.createCase(
-                    inp.contactId, inp.subject, inp.description,
+                    inp.contactId, inp.subject, inp.caseDescription,
                     inp.priority, inp.caseType, inp.origin
                 );
                 out.caseRecord = created;

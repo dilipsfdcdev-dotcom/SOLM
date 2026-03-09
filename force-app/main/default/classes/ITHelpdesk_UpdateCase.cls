@@ -14,8 +14,8 @@ public with sharing class ITHelpdesk_UpdateCase {
         @InvocableVariable(label='Priority')
         public String priority;
 
-        @InvocableVariable(label='Description')
-        public String description;
+        @InvocableVariable(label='Case Description')
+        public String caseDescription;
 
         @InvocableVariable(label='Type')
         public String caseType;
@@ -45,7 +45,7 @@ public with sharing class ITHelpdesk_UpdateCase {
             try {
                 Case updated = ITHelpdeskAgentService.updateCase(
                     inp.caseId, inp.status, inp.priority,
-                    inp.description, inp.caseType, inp.subject
+                    inp.caseDescription, inp.caseType, inp.subject
                 );
                 if (updated != null) {
                     out.caseRecord = updated;
