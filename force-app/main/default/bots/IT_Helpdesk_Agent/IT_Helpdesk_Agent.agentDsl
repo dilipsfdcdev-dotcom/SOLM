@@ -156,7 +156,7 @@ topic identify_user:
             go_to_topic_selector: @utils.transition to @topic.topic_selector
                 description: "Return to the main topic selector after successful user identification."
 
-    after_reasoning: ->
+    after_reasoning:->
         if @variables.resolvedContactId == "" and @variables.userEmail != "":
             run @actions.resolve_contact
                 with email=@variables.userEmail
