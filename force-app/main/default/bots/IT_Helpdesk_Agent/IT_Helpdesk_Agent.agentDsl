@@ -53,11 +53,6 @@ language:
 knowledge:
     citations_enabled: False
 
-connection messaging:
-    escalation_message: "One moment while I connect you to a live agent."
-    outbound_route_type: "OmniChannelFlow"
-    outbound_route_name: "IT_Helpdesk_Escalation_Flow"
-
 
 start_agent topic_selector:
     description: "Welcome the user and route to the appropriate topic based on their intent."
