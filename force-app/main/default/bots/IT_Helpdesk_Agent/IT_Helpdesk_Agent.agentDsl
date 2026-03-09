@@ -118,7 +118,6 @@ start_agent topic_selector:
     actions:
         resolve_contact:
             description: "Looks up a Contact record by email address and returns the ContactId and name."
-            target: "apex://ITHelpdesk_GetContactByEmail"
             inputs:
                 sessionContactId: string
                     description: "Session Contact Id if already known from the messaging session."
@@ -133,6 +132,7 @@ start_agent topic_selector:
                     description: "Whether a Contact was found."
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_GetContactByEmail"
 
 
 topic identify_user:
@@ -160,7 +160,6 @@ topic case_inquiry_search:
     actions:
         get_case:
             description: "Returns a case matching the given case number for the authenticated user."
-            target: "apex://ITHelpdesk_GetCase"
             inputs:
                 contactId: string
                     description: "The ContactId of the authenticated user."
@@ -174,10 +173,10 @@ topic case_inquiry_search:
                     description: "Whether a matching case was found."
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_GetCase"
 
         get_cases_by_contact:
             description: "Returns all cases linked to the authenticated user's contact with open and closed counts."
-            target: "apex://ITHelpdesk_GetCasesByContact"
             inputs:
                 contactId: string
                     description: "The ContactId of the authenticated user."
@@ -193,10 +192,10 @@ topic case_inquiry_search:
                     description: "Number of closed cases."
                 message: string
                     description: "Summary message."
+            target: "apex://ITHelpdesk_GetCasesByContact"
 
         search_cases:
             description: "Search cases by keyword, status, priority, or date range."
-            target: "apex://ITHelpdesk_SearchCases"
             inputs:
                 contactId: string
                     description: "ContactId of the user."
@@ -218,10 +217,10 @@ topic case_inquiry_search:
                     description: "Number of results."
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_SearchCases"
 
         get_overdue_cases:
             description: "Returns cases that have been open longer than a specified number of days."
-            target: "apex://ITHelpdesk_GetOverdueCases"
             inputs:
                 contactId: string
                     description: "ContactId of the user."
@@ -235,6 +234,7 @@ topic case_inquiry_search:
                     description: "Number of overdue cases."
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_GetOverdueCases"
 
     reasoning:
         instructions: |
@@ -279,7 +279,6 @@ topic case_creation:
     actions:
         create_case:
             description: "Creates a new support case and assigns it to the Support queue."
-            target: "apex://ITHelpdesk_CreateCase"
             require_user_confirmation: True
             inputs:
                 contactId: string
@@ -310,6 +309,7 @@ topic case_creation:
                     filter_from_agent: True
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_CreateCase"
 
     reasoning:
         instructions: |
@@ -344,7 +344,6 @@ topic case_updates:
     actions:
         get_case:
             description: "Returns a case matching the given case number for the contact."
-            target: "apex://ITHelpdesk_GetCase"
             inputs:
                 contactId: string
                     description: "The ContactId of the authenticated user."
@@ -358,10 +357,10 @@ topic case_updates:
                     description: "Whether found."
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_GetCase"
 
         update_case:
             description: "Updates one or more fields on an existing case."
-            target: "apex://ITHelpdesk_UpdateCase"
             require_user_confirmation: True
             inputs:
                 caseId: string
@@ -386,10 +385,10 @@ topic case_updates:
                     filter_from_agent: True
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_UpdateCase"
 
         add_comment:
             description: "Adds a comment to an existing case."
-            target: "apex://ITHelpdesk_AddComment"
             require_user_confirmation: True
             inputs:
                 caseId: string
@@ -409,6 +408,7 @@ topic case_updates:
                     filter_from_agent: True
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_AddComment"
 
     reasoning:
         instructions: |
@@ -453,7 +453,6 @@ topic case_closure:
     actions:
         get_case:
             description: "Returns a case matching the given case number for the contact."
-            target: "apex://ITHelpdesk_GetCase"
             inputs:
                 contactId: string
                     description: "The ContactId of the authenticated user."
@@ -467,10 +466,10 @@ topic case_closure:
                     description: "Whether found."
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_GetCase"
 
         close_case:
             description: "Closes a case with a resolution summary and optional root cause and notes."
-            target: "apex://ITHelpdesk_CloseCase"
             require_user_confirmation: True
             inputs:
                 caseId: string
@@ -492,6 +491,7 @@ topic case_closure:
                     filter_from_agent: True
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_CloseCase"
 
     reasoning:
         instructions: |
@@ -527,7 +527,6 @@ topic case_reassignment:
     actions:
         get_case:
             description: "Returns a case matching the given case number for the contact."
-            target: "apex://ITHelpdesk_GetCase"
             inputs:
                 contactId: string
                     description: "The ContactId of the authenticated user."
@@ -541,10 +540,10 @@ topic case_reassignment:
                     description: "Whether found."
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_GetCase"
 
         reassign_case:
             description: "Reassigns a case to a different user or queue."
-            target: "apex://ITHelpdesk_ReassignCase"
             require_user_confirmation: True
             inputs:
                 caseId: string
@@ -563,6 +562,7 @@ topic case_reassignment:
                     filter_from_agent: True
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_ReassignCase"
 
     reasoning:
         instructions: |
@@ -593,7 +593,6 @@ topic case_history:
     actions:
         get_case:
             description: "Returns a case matching the given case number for the contact."
-            target: "apex://ITHelpdesk_GetCase"
             inputs:
                 contactId: string
                     description: "The ContactId of the authenticated user."
@@ -607,10 +606,10 @@ topic case_history:
                     description: "Whether found."
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_GetCase"
 
         get_case_history:
             description: "Retrieves comments and field-change history for a case."
-            target: "apex://ITHelpdesk_GetCaseHistory"
             inputs:
                 caseId: string
                     description: "Salesforce record Id of the case."
@@ -627,6 +626,7 @@ topic case_history:
                     filter_from_agent: True
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_GetCaseHistory"
 
     reasoning:
         instructions: |
@@ -656,7 +656,6 @@ topic related_case_intelligence:
     actions:
         find_similar_cases:
             description: "Finds cases similar to the user's issue across all contacts by keyword or type."
-            target: "apex://ITHelpdesk_FindSimilarCases"
             inputs:
                 keyword: string
                     description: "Keyword to match against subject or description."
@@ -674,6 +673,7 @@ topic related_case_intelligence:
                     description: "Whether a pattern (3+ similar cases) was detected."
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_FindSimilarCases"
 
     reasoning:
         instructions: |
@@ -698,7 +698,6 @@ topic reporting_summaries:
     actions:
         get_case_summary:
             description: "Returns aggregated case counts by status and priority for the user."
-            target: "apex://ITHelpdesk_GetCaseSummary"
             inputs:
                 contactId: string
                     description: "ContactId of the authenticated user."
@@ -728,10 +727,10 @@ topic reporting_summaries:
                     complex_data_type_name: "lightning__recordInfoType"
                 message: string
                     description: "Summary message."
+            target: "apex://ITHelpdesk_GetCaseSummary"
 
         get_urgent_cases:
             description: "Returns open Critical and High priority cases that need immediate attention."
-            target: "apex://ITHelpdesk_GetUrgentCases"
             inputs:
                 contactId: string
                     description: "ContactId of the authenticated user."
@@ -743,6 +742,7 @@ topic reporting_summaries:
                     description: "Number of urgent cases."
                 message: string
                     description: "Result message."
+            target: "apex://ITHelpdesk_GetUrgentCases"
 
     reasoning:
         instructions: |
