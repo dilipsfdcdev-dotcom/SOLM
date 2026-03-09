@@ -100,6 +100,7 @@ topic case_inquiry_search:
             outputs:
                 caseRecord: object
                     description: "The case record found."
+                    complex_data_type_name: "Case"
                 isFound: boolean
                     description: "Whether a matching case was found."
                 message: string
@@ -223,6 +224,7 @@ topic case_creation:
             outputs:
                 caseRecord: object
                     description: "The newly created case record."
+                    complex_data_type_name: "Case"
                 caseNumber: string
                     description: "The generated case number."
                 caseId: string
@@ -275,6 +277,7 @@ topic case_updates:
             outputs:
                 caseRecord: object
                     description: "The case record."
+                    complex_data_type_name: "Case"
                 isFound: boolean
                     description: "Whether found."
                 message: string
@@ -301,6 +304,7 @@ topic case_updates:
             outputs:
                 caseRecord: object
                     description: "The updated case record."
+                    complex_data_type_name: "Case"
                 isSuccess: boolean
                     description: "Whether the update succeeded."
                     filter_from_agent: True
@@ -380,6 +384,7 @@ topic case_closure:
             outputs:
                 caseRecord: object
                     description: "The case record."
+                    complex_data_type_name: "Case"
                 isFound: boolean
                     description: "Whether found."
                 message: string
@@ -403,6 +408,7 @@ topic case_closure:
             outputs:
                 caseRecord: object
                     description: "The closed case record."
+                    complex_data_type_name: "Case"
                 isSuccess: boolean
                     description: "Whether the case was closed."
                     filter_from_agent: True
@@ -450,6 +456,7 @@ topic case_reassignment:
             outputs:
                 caseRecord: object
                     description: "The case record."
+                    complex_data_type_name: "Case"
                 isFound: boolean
                     description: "Whether found."
                 message: string
@@ -470,6 +477,7 @@ topic case_reassignment:
             outputs:
                 caseRecord: object
                     description: "The reassigned case record."
+                    complex_data_type_name: "Case"
                 isSuccess: boolean
                     description: "Whether the reassignment succeeded."
                     filter_from_agent: True
@@ -512,6 +520,7 @@ topic case_history:
             outputs:
                 caseRecord: object
                     description: "The case record."
+                    complex_data_type_name: "Case"
                 isFound: boolean
                     description: "Whether found."
                 message: string
@@ -676,6 +685,5 @@ topic escalation:
             Never block or discourage escalation if user requests it.
 
         actions:
-            escalate_to_human:
+            escalate_to_human: @utils.escalate
                 description: "Escalate to a live human agent."
-                action: "@utils.escalate"
