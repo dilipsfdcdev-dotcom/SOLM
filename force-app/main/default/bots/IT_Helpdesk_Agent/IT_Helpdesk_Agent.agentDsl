@@ -133,7 +133,7 @@ topic identify_user:
         actions:
             resolve_contact: @actions.resolve_contact
                 with sessionContactId=@variables.ContactId
-                with email=@variables.userEmail
+                with email=...
                 set @variables.resolvedContactId = @outputs.contactId
 
 
