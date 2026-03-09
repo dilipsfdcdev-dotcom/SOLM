@@ -55,26 +55,24 @@ start_agent topic_selector:
     description: "Welcome the user and route to the appropriate topic based on their intent."
 
     reasoning:
-        instructions:->
-            | Analyze the user's message and conversation history to route to the correct topic.
-            | IMPORTANT — IDENTITY CHECK FIRST:
-            if @variables.ContactId:
-                | The user is already identified (ContactId: {!@variables.ContactId}). Route directly to the appropriate topic.
-            else:
-                | The user has NOT been identified yet. Route to identify_user FIRST before any case operation.
-                | Exception: If the user wants to escalate to a live agent, route directly to escalation (no identity needed).
-            | If the user just says hi or a greeting, respond with a friendly welcome and list what you can help with.
-            | If the user provides a case number directly, route to case_inquiry_search (after identity check).
-            | Route based on the following intent mapping:
-            | - Lookup, check status, search, find cases → case_inquiry_search
-            | - Create, log, open, raise, submit a new case → case_creation
-            | - Update, edit, change status/priority, add comments → case_updates
-            | - Close, resolve, mark done → case_closure
-            | - Reassign, transfer, change owner → case_reassignment
-            | - History, audit trail, activity log → case_history
-            | - Similar cases, related issues, known solutions → related_case_intelligence
-            | - Summaries, reports, workload, statistics → reporting_summaries
-            | - Speak to human, live agent, escalate → escalation
+        instructions: |
+            Analyze the user's message and conversation history to route to the correct topic.
+            IMPORTANT — IDENTITY CHECK FIRST:
+            If ContactId ({!@variables.ContactId}) is already set, route directly to the appropriate topic.
+            If ContactId is NOT set, route to identify_user FIRST before any case operation.
+            Exception: If the user wants to escalate to a live agent, route directly to escalation (no identity needed).
+            If the user just says hi or a greeting, respond with a friendly welcome and list what you can help with.
+            If the user provides a case number directly, route to case_inquiry_search (after identity check).
+            Route based on the following intent mapping:
+            - Lookup, check status, search, find cases → case_inquiry_search
+            - Create, log, open, raise, submit a new case → case_creation
+            - Update, edit, change status/priority, add comments → case_updates
+            - Close, resolve, mark done → case_closure
+            - Reassign, transfer, change owner → case_reassignment
+            - History, audit trail, activity log → case_history
+            - Similar cases, related issues, known solutions → related_case_intelligence
+            - Summaries, reports, workload, statistics → reporting_summaries
+            - Speak to human, live agent, escalate → escalation
 
         actions:
             go_to_identify_user: @utils.transition to @topic.identify_user
@@ -121,19 +119,14 @@ topic identify_user:
                     description: "Result message."
 
     reasoning:
-        instructions:->
-            if @variables.ContactId:
-                | The user is already identified with ContactId {!@variables.ContactId}. No further identification needed.
-                | Proceed to help the user with their request.
-            else:
-                if @variables.userEmail:
-                    | The user's email is {!@variables.userEmail}. Use get_contact_by_email to look up their Contact record.
-                else:
-                    | The user has not been identified yet. Ask for their email address:
-                    | "To get started, could you please provide your email address so I can look up your account?"
-                    | Validate the email format before calling get_contact_by_email.
-            | Once the Contact is found, greet the user by name and proceed to help with their request.
-            | If no Contact is found, say: "I couldn't find an account with that email. Please double-check or I can connect you with a live agent."
+        instructions: |
+            Identify the user before any case operations can proceed.
+            If ContactId is already set via {!@variables.ContactId}, the user is already identified — proceed to help with their request.
+            If ContactId is NOT set but userEmail is available via {!@variables.userEmail}, call get_contact_by_email to look up the Contact.
+            If neither ContactId nor userEmail is available, ask the user: "To get started, could you please provide your email address so I can look up your account?"
+            Validate the email format before calling get_contact_by_email.
+            Once the Contact is found, greet the user by name and proceed to help with their request.
+            If no Contact is found, say: "I couldn't find an account with that email. Please double-check or I can connect you with a live agent."
 
         actions:
             get_contact_by_email: @actions.get_contact_by_email
