@@ -749,6 +749,80 @@ private class ITHelpdeskAgentServiceTest {
 
 
     // ═══════════════════════════════════════════════════════════════
+    // 14. getContactByEmail
+    // ═══════════════════════════════════════════════════════════════
+
+    @isTest
+    static void testGetContactByEmail_Found() {
+        Test.startTest();
+        Contact result = ITHelpdeskAgentService.getContactByEmail('testuser@ithelpdesk.test');
+        Test.stopTest();
+
+        System.assertNotEquals(null, result, 'Contact should be found');
+        System.assertEquals('Test', result.FirstName);
+        System.assertEquals('User', result.LastName);
+    }
+
+    @isTest
+    static void testGetContactByEmail_NotFound() {
+        Test.startTest();
+        Contact result = ITHelpdeskAgentService.getContactByEmail('nonexistent@nowhere.test');
+        Test.stopTest();
+
+        System.assertEquals(null, result, 'Contact should not be found');
+    }
+
+    @isTest
+    static void testGetContactByEmail_BlankEmail() {
+        Test.startTest();
+        Contact result = ITHelpdeskAgentService.getContactByEmail('');
+        Test.stopTest();
+
+        System.assertEquals(null, result, 'Should return null for blank email');
+    }
+
+    @isTest
+    static void testGetContactByEmail_NullEmail() {
+        Test.startTest();
+        Contact result = ITHelpdeskAgentService.getContactByEmail(null);
+        Test.stopTest();
+
+        System.assertEquals(null, result, 'Should return null for null email');
+    }
+
+    @isTest
+    static void testGetContactByEmailInvocable_Found() {
+        ITHelpdesk_GetContactByEmail.Input inp = new ITHelpdesk_GetContactByEmail.Input();
+        inp.email = 'testuser@ithelpdesk.test';
+
+        Test.startTest();
+        List<ITHelpdesk_GetContactByEmail.Output> results = ITHelpdesk_GetContactByEmail.execute(
+            new List<ITHelpdesk_GetContactByEmail.Input>{ inp }
+        );
+        Test.stopTest();
+
+        System.assertEquals(true, results[0].isFound);
+        System.assertNotEquals(null, results[0].contactId);
+        System.assertEquals('Test User', results[0].contactName);
+    }
+
+    @isTest
+    static void testGetContactByEmailInvocable_NotFound() {
+        ITHelpdesk_GetContactByEmail.Input inp = new ITHelpdesk_GetContactByEmail.Input();
+        inp.email = 'nobody@nowhere.test';
+
+        Test.startTest();
+        List<ITHelpdesk_GetContactByEmail.Output> results = ITHelpdesk_GetContactByEmail.execute(
+            new List<ITHelpdesk_GetContactByEmail.Input>{ inp }
+        );
+        Test.stopTest();
+
+        System.assertEquals(false, results[0].isFound);
+        System.assertEquals(null, results[0].contactId);
+    }
+
+
+    // ═══════════════════════════════════════════════════════════════
     //  Helper method tests
     // ═══════════════════════════════════════════════════════════════
 

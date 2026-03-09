@@ -16,6 +16,7 @@
         <members>ITHelpdesk_GetUrgentCases</members>
         <members>ITHelpdesk_ReassignCase</members>
         <members>ITHelpdesk_GetCaseHistory</members>
+        <members>ITHelpdesk_GetContactByEmail</members>
         <name>ApexClass</name>
     </types>
     <types>

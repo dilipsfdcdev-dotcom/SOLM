@@ -23,6 +23,7 @@
  *   getUrgentCases        – Critical/High priority open cases
  *   reassignCase          – Reassign a case to a different owner or queue
  *   getCaseHistory        – Retrieve comments and field-change history
+ *   getContactByEmail     – Look up a Contact by email address
  */
 public with sharing class ITHelpdeskAgentService {
 
@@ -415,6 +416,24 @@ public with sharing class ITHelpdeskAgentService {
         }
         data.historySummary = String.isNotBlank(summary) ? summary : 'No field history recorded.';
         return data;
+    }
+
+
+    // ═══════════════════════════════════════════════════════════════
+    // 14. GET CONTACT BY EMAIL
+    // ═══════════════════════════════════════════════════════════════
+
+    public static Contact getContactByEmail(String email) {
+        if (String.isBlank(email)) {
+            return null;
+        }
+        List<Contact> contacts = [
+            SELECT Id, FirstName, LastName, Name, Email, AccountId
+            FROM Contact
+            WHERE Email = :email
+            LIMIT 1
+        ];
+        return contacts.isEmpty() ? null : contacts[0];
     }
 
 
