@@ -33,8 +33,6 @@ variables:
     EndUserLanguage: linked string
         source: @MessagingSession.EndUserLanguage
         description: "This variable may also be referred to as MessagingSession EndUserLanguage"
-    userEmail: mutable string = ""
-        description: "Stores the user's email address used to look up their Contact record. Obtained from Teams session or by asking the user."
     resolvedContactId: mutable string = ""
         description: "The resolved ContactId used for all case operations. Populated by the identify_user topic — either from the session ContactId or from email lookup."
     caseId: mutable string = ""
@@ -122,19 +120,24 @@ topic identify_user:
 
     reasoning:
         instructions: |
-            Identify the user before any case operations can proceed.
-            If ContactId is already available from the session ({!@variables.ContactId}), call resolve_contact with contactId to verify and pass it through.
-            If ContactId is NOT available, check if userEmail ({!@variables.userEmail}) is set and call resolve_contact with the email.
-            If neither is available, ask the user: "To get started, could you please provide your email address so I can look up your account?"
-            Validate the email format before calling resolve_contact.
-            Once the Contact is found, greet the user by name and proceed to help with their request.
-            If no Contact is found, say: "I couldn't find an account with that email. Please double-check or I can connect you with a live agent."
+            Your goal is to identify the user so case operations can proceed.
+            STEP 1: Check if the session already has a ContactId ({!@variables.ContactId}).
+              - If it is NOT empty, call resolve_contact with sessionContactId set to that value to verify it.
+              - If it IS empty, go to Step 2.
+            STEP 2: Ask the user for their email address: "To get started, could you please provide your email address so I can look up your account?"
+            STEP 3: Once the user provides their email, call resolve_contact with the email parameter set to the email address the user just provided.
+            STEP 4: Check the result:
+              - If isFound is true, greet the user by name using contactName and then route back to topic_selector to handle their original request.
+              - If isFound is false, say: "I couldn't find an account with that email. Please double-check the address or I can connect you with a live agent."
+              - If the user wants to try a different email, go back to Step 2.
 
         actions:
             resolve_contact: @actions.resolve_contact
                 with sessionContactId=@variables.ContactId
                 with email=...
                 set @variables.resolvedContactId = @outputs.contactId
+            go_to_topic_selector: @utils.transition to @topic.topic_selector
+                description: "Return to the main topic selector after successful user identification."
 
 
 topic case_inquiry_search:
