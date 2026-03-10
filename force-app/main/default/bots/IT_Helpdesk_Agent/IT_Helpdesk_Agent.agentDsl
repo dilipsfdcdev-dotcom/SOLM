@@ -17,6 +17,7 @@ system:
       - Always route to the identify_user topic first. It will resolve identity from email lookup.
       - If no email is available, ask the user for their email address.
       - If no User is found, offer to connect them with a live agent.
+      KNOWLEDGE-FIRST APPROACH: When a user asks a troubleshooting, how-to, or general IT question, ALWAYS search the knowledge library first before offering to create a case. Provide guidance from knowledge articles, ask if it was helpful, and only offer case creation if the knowledge did not resolve the issue.
       Never fabricate case numbers, statuses, or details.
       When displaying cases, use formatted tables or lists with Case Number, Subject, Status, Priority, and relevant dates.
 
@@ -51,7 +52,9 @@ language:
    additional_locales: "en_AU,fr,de,it,es_MX,ja,zh_TW,zh_CN"
 
 knowledge:
-   citations_enabled: False
+    rag_feature_config_id: "ARFPC_1JDP80000000ZKLOA2"
+    citations_enabled: True
+    citations_url: ""
 
 
 start_agent topic_selector:
@@ -76,6 +79,7 @@ start_agent topic_selector:
            In that case, inform the user that no account was found and ask them to try a different email or offer to connect them with a live agent.
            If the user just says hi or a greeting, respond with a friendly welcome and list what you can help with.
            Route based on the following intent mapping:
+           - Troubleshoot, how to, fix, resolve an issue, diagnose, help with a problem, technical question, error, performance issue → use {!@actions.go_to_knowledge_assistance}
            - Lookup, check status, search, find cases → use {!@actions.go_to_case_inquiry_search}
            - Create, log, open, raise, submit a new case → use {!@actions.go_to_case_creation}
            - Update, edit, change status/priority, add comments → use {!@actions.go_to_case_updates}
@@ -88,6 +92,9 @@ start_agent topic_selector:
 
       actions:
          resolve_user: @actions.resolve_user
+         go_to_knowledge_assistance: @utils.transition to @topic.knowledge_assistance
+            description: "Route when user asks a troubleshooting, how-to, diagnostic, or general IT question. Check knowledge library first before creating a case."
+            available when @variables.resolvedUserId != ""
          go_to_case_inquiry_search: @utils.transition to @topic.case_inquiry_search
             description: "Route when user wants to look up, check status, search, or find cases."
             available when @variables.resolvedUserId != ""
@@ -802,6 +809,33 @@ topic reporting_summaries:
          get_urgent_cases: @actions.get_urgent_cases
             description: "Return open Critical and High priority cases needing immediate attention."
             with userId=@variables.resolvedUserId
+
+
+topic knowledge_assistance:
+   description: "Search the knowledge library to answer troubleshooting, how-to, and general IT questions. Provide guidance from knowledge articles before offering to create a case."
+
+   reasoning:
+      instructions: |
+         The user has asked a troubleshooting, how-to, or general IT question.
+         IMPORTANT: You MUST first search the knowledge library to find relevant articles and guidance.
+         Use the grounded knowledge available to you (RAG/knowledge base) to answer the user's question.
+         Step 1: Search the knowledge library for articles matching the user's question and present the findings.
+         Step 2: Provide a clear, structured answer based on the knowledge articles found. Include citations where available.
+         Step 3: After providing the answer, ask: "Was this information helpful in resolving your issue?"
+         Step 4: If the user says YES — respond with "Great! Let me know if you need anything else."
+         Step 5: If the user says NO or needs more help — offer the following options:
+            - "Would you like me to create a support case for this issue so our team can assist you further?"
+            - "Or would you like to speak with a live agent?"
+         Step 6: If user wants to create a case, use {!@actions.go_to_case_creation}.
+         Step 7: If user wants a live agent, use {!@actions.go_to_live_agent_transfer}.
+         If no knowledge articles are found, inform the user: "I couldn't find specific guidance in our knowledge base for this issue." Then offer to create a case or connect with a live agent.
+
+      actions:
+         go_to_case_creation: @utils.transition to @topic.case_creation
+            description: "Route to case creation when the knowledge article did not resolve the user's issue."
+            available when @variables.resolvedUserId != ""
+         go_to_live_agent_transfer: @utils.transition to @topic.live_agent_transfer
+            description: "Route to live agent when the user wants human assistance after knowledge lookup."
 
 
 topic live_agent_transfer:
