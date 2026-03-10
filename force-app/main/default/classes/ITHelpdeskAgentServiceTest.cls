@@ -4,25 +4,11 @@ private class ITHelpdeskAgentServiceTest {
     // ─── Test Setup ──────────────────────────────────────────────
     @testSetup
     static void setupData() {
-        // Create Account
-        Account acc = new Account(Name = 'IT Helpdesk Test Account');
-        insert acc;
-
-        // Create Contact
-        Contact con = new Contact(
-            FirstName = 'Test',
-            LastName  = 'User',
-            Email     = 'testuser@ithelpdesk.test',
-            AccountId = acc.Id
-        );
-        insert con;
-
-        // Create a variety of cases for the contact
+        // Cases are owned by the running user by default (OwnerId = UserInfo.getUserId())
         List<Case> cases = new List<Case>();
 
         // Case 1 - New / Critical
         cases.add(new Case(
-            ContactId   = con.Id,
             Subject     = 'VPN not connecting',
             Description = 'Unable to connect to VPN from home office',
             Priority    = 'Critical',
@@ -33,7 +19,6 @@ private class ITHelpdeskAgentServiceTest {
 
         // Case 2 - Open / High
         cases.add(new Case(
-            ContactId   = con.Id,
             Subject     = 'Laptop screen flickering',
             Description = 'Screen flickers intermittently on docking station',
             Priority    = 'High',
@@ -44,7 +29,6 @@ private class ITHelpdeskAgentServiceTest {
 
         // Case 3 - In Progress / Medium
         cases.add(new Case(
-            ContactId   = con.Id,
             Subject     = 'Need Outlook add-in installed',
             Description = 'Request to install CRM Outlook add-in',
             Priority    = 'Medium',
@@ -55,7 +39,6 @@ private class ITHelpdeskAgentServiceTest {
 
         // Case 4 - Closed / Low
         cases.add(new Case(
-            ContactId   = con.Id,
             Subject     = 'Password reset request',
             Description = 'Need password reset for HR portal',
             Priority    = 'Low',
@@ -66,7 +49,6 @@ private class ITHelpdeskAgentServiceTest {
 
         // Case 5 - Waiting on Customer / Medium
         cases.add(new Case(
-            ContactId   = con.Id,
             Subject     = 'Email delivery delayed',
             Description = 'Outbound emails are delayed by 2 hours',
             Priority    = 'Medium',
@@ -79,8 +61,8 @@ private class ITHelpdeskAgentServiceTest {
     }
 
     // ─── Helpers ─────────────────────────────────────────────────
-    static Contact getTestContact() {
-        return [SELECT Id FROM Contact WHERE Email = 'testuser@ithelpdesk.test' LIMIT 1];
+    static String getTestUserId() {
+        return UserInfo.getUserId();
     }
 
     static Case getTestCase(String subject) {
@@ -94,11 +76,11 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testGetCaseByCaseNumber_Found() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
         Case vpnCase = getTestCase('VPN not connecting');
 
         Test.startTest();
-        Case result = ITHelpdeskAgentService.getCaseByCaseNumber(con.Id, vpnCase.CaseNumber);
+        Case result = ITHelpdeskAgentService.getCaseByCaseNumber(userId, vpnCase.CaseNumber);
         Test.stopTest();
 
         System.assertNotEquals(null, result, 'Case should be found');
@@ -107,10 +89,10 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testGetCaseByCaseNumber_NotFound() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         Test.startTest();
-        Case result = ITHelpdeskAgentService.getCaseByCaseNumber(con.Id, '99999999');
+        Case result = ITHelpdeskAgentService.getCaseByCaseNumber(userId, '99999999');
         Test.stopTest();
 
         System.assertEquals(null, result, 'Case should not be found');
@@ -118,11 +100,11 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testGetCaseInvocable() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
         Case vpnCase = getTestCase('VPN not connecting');
 
         ITHelpdesk_GetCase.Input inp = new ITHelpdesk_GetCase.Input();
-        inp.contactId = con.Id;
+        inp.userId = userId;
         inp.caseNumber = vpnCase.CaseNumber;
 
         Test.startTest();
@@ -136,26 +118,26 @@ private class ITHelpdeskAgentServiceTest {
 
 
     // ═══════════════════════════════════════════════════════════════
-    //  2. getCasesByContactId
+    //  2. getCasesByOwnerId
     // ═══════════════════════════════════════════════════════════════
 
     @isTest
-    static void testGetCasesByContactId() {
-        Contact con = getTestContact();
+    static void testGetCasesByOwnerId() {
+        String userId = getTestUserId();
 
         Test.startTest();
-        List<Case> results = ITHelpdeskAgentService.getCasesByContactId(con.Id);
+        List<Case> results = ITHelpdeskAgentService.getCasesByOwnerId(userId);
         Test.stopTest();
 
         System.assertEquals(5, results.size(), 'Should return all 5 cases');
     }
 
     @isTest
-    static void testGetCasesByContactInvocable() {
-        Contact con = getTestContact();
+    static void testGetCasesByOwnerInvocable() {
+        String userId = getTestUserId();
 
         ITHelpdesk_GetCasesByContact.Input inp = new ITHelpdesk_GetCasesByContact.Input();
-        inp.contactId = con.Id;
+        inp.userId = userId;
 
         Test.startTest();
         List<ITHelpdesk_GetCasesByContact.Output> results = ITHelpdesk_GetCasesByContact.execute(
@@ -175,11 +157,11 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testSearchCases_ByKeyword() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         Test.startTest();
         List<Case> results = ITHelpdeskAgentService.searchCases(
-            con.Id, 'VPN', null, null, null, null
+            userId, 'VPN', null, null, null, null
         );
         Test.stopTest();
 
@@ -188,11 +170,11 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testSearchCases_ByStatus() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         Test.startTest();
         List<Case> results = ITHelpdeskAgentService.searchCases(
-            con.Id, null, 'Closed', null, null, null
+            userId, null, 'Closed', null, null, null
         );
         Test.stopTest();
 
@@ -201,11 +183,11 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testSearchCases_ByPriority() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         Test.startTest();
         List<Case> results = ITHelpdeskAgentService.searchCases(
-            con.Id, null, null, 'Critical', null, null
+            userId, null, null, 'Critical', null, null
         );
         Test.stopTest();
 
@@ -214,11 +196,11 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testSearchCases_NoResults() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         Test.startTest();
         List<Case> results = ITHelpdeskAgentService.searchCases(
-            con.Id, 'nonexistentkeyword123', null, null, null, null
+            userId, 'nonexistentkeyword123', null, null, null, null
         );
         Test.stopTest();
 
@@ -227,10 +209,10 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testSearchCasesInvocable() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         ITHelpdesk_SearchCases.Input inp = new ITHelpdesk_SearchCases.Input();
-        inp.contactId = con.Id;
+        inp.userId = userId;
         inp.priorityFilter = 'High';
 
         Test.startTest();
@@ -249,10 +231,10 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testGetOverdueCases_NoneOverdue() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         Test.startTest();
-        List<Case> results = ITHelpdeskAgentService.getOverdueCases(con.Id, 7);
+        List<Case> results = ITHelpdeskAgentService.getOverdueCases(userId, 7);
         Test.stopTest();
 
         // Freshly created cases won't be overdue
@@ -261,10 +243,10 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testGetOverdueCases_DefaultDays() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         Test.startTest();
-        List<Case> results = ITHelpdeskAgentService.getOverdueCases(con.Id, null);
+        List<Case> results = ITHelpdeskAgentService.getOverdueCases(userId, null);
         Test.stopTest();
 
         System.assertNotEquals(null, results);
@@ -272,10 +254,10 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testGetOverdueCasesInvocable() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         ITHelpdesk_GetOverdueCases.Input inp = new ITHelpdesk_GetOverdueCases.Input();
-        inp.contactId = con.Id;
+        inp.userId = userId;
         inp.daysOpen = 7;
 
         Test.startTest();
@@ -294,11 +276,11 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testCreateCase_Success() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         Test.startTest();
         Case result = ITHelpdeskAgentService.createCase(
-            con.Id, 'Printer not working', 'Printer on 3rd floor is offline',
+            userId, 'Printer not working', 'Printer on 3rd floor is offline',
             'Medium', 'Hardware', 'Messaging'
         );
         Test.stopTest();
@@ -311,11 +293,11 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testCreateCase_DefaultPriority() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         Test.startTest();
         Case result = ITHelpdeskAgentService.createCase(
-            con.Id, 'Monitor issue', 'Monitor goes black randomly',
+            userId, 'Monitor issue', 'Monitor goes black randomly',
             null, null, null
         );
         Test.stopTest();
@@ -326,10 +308,10 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testCreateCaseInvocable() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         ITHelpdesk_CreateCase.Input inp = new ITHelpdesk_CreateCase.Input();
-        inp.contactId = con.Id;
+        inp.userId = userId;
         inp.subject = 'Keyboard broken';
         inp.caseDescription = 'Space bar does not work';
         inp.priority = 'High';
@@ -569,11 +551,11 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testGetCaseSummary() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         Test.startTest();
         ITHelpdeskAgentService.CaseSummaryData data =
-            ITHelpdeskAgentService.getCaseSummary(con.Id);
+            ITHelpdeskAgentService.getCaseSummary(userId);
         Test.stopTest();
 
         System.assertEquals(5, data.totalCases);
@@ -587,10 +569,10 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testGetCaseSummaryInvocable() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         ITHelpdesk_GetCaseSummary.Input inp = new ITHelpdesk_GetCaseSummary.Input();
-        inp.contactId = con.Id;
+        inp.userId = userId;
 
         Test.startTest();
         List<ITHelpdesk_GetCaseSummary.Output> results = ITHelpdesk_GetCaseSummary.execute(
@@ -608,10 +590,10 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testGetUrgentCases() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         Test.startTest();
-        List<Case> results = ITHelpdeskAgentService.getUrgentCases(con.Id);
+        List<Case> results = ITHelpdeskAgentService.getUrgentCases(userId);
         Test.stopTest();
 
         // Should find Critical and High priority open cases
@@ -620,10 +602,10 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testGetUrgentCasesInvocable() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
 
         ITHelpdesk_GetUrgentCases.Input inp = new ITHelpdesk_GetUrgentCases.Input();
-        inp.contactId = con.Id;
+        inp.userId = userId;
 
         Test.startTest();
         List<ITHelpdesk_GetUrgentCases.Output> results = ITHelpdesk_GetUrgentCases.execute(
@@ -664,10 +646,10 @@ private class ITHelpdeskAgentServiceTest {
     @isTest
     static void testReassignCase_ByOwnerId() {
         Case vpnCase = getTestCase('VPN not connecting');
-        User currentUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+        String currentUserId = UserInfo.getUserId();
 
         Test.startTest();
-        Case result = ITHelpdeskAgentService.reassignCase(vpnCase.Id, currentUser.Id, null);
+        Case result = ITHelpdeskAgentService.reassignCase(vpnCase.Id, currentUserId, null);
         Test.stopTest();
 
         System.assertNotEquals(null, result);
@@ -749,51 +731,52 @@ private class ITHelpdeskAgentServiceTest {
 
 
     // ═══════════════════════════════════════════════════════════════
-    // 14. getContactByEmail
+    // 14. getUserByEmail
     // ═══════════════════════════════════════════════════════════════
 
     @isTest
-    static void testGetContactByEmail_Found() {
+    static void testGetUserByEmail_Found() {
+        String currentUserEmail = UserInfo.getUserEmail();
+
         Test.startTest();
-        Contact result = ITHelpdeskAgentService.getContactByEmail('testuser@ithelpdesk.test');
+        User result = ITHelpdeskAgentService.getUserByEmail(currentUserEmail);
         Test.stopTest();
 
-        System.assertNotEquals(null, result, 'Contact should be found');
-        System.assertEquals('Test', result.FirstName);
-        System.assertEquals('User', result.LastName);
+        System.assertNotEquals(null, result, 'User should be found');
+        System.assertEquals(UserInfo.getUserId(), result.Id);
     }
 
     @isTest
-    static void testGetContactByEmail_NotFound() {
+    static void testGetUserByEmail_NotFound() {
         Test.startTest();
-        Contact result = ITHelpdeskAgentService.getContactByEmail('nonexistent@nowhere.test');
+        User result = ITHelpdeskAgentService.getUserByEmail('nonexistent@nowhere.test');
         Test.stopTest();
 
-        System.assertEquals(null, result, 'Contact should not be found');
+        System.assertEquals(null, result, 'User should not be found');
     }
 
     @isTest
-    static void testGetContactByEmail_BlankEmail() {
+    static void testGetUserByEmail_BlankEmail() {
         Test.startTest();
-        Contact result = ITHelpdeskAgentService.getContactByEmail('');
+        User result = ITHelpdeskAgentService.getUserByEmail('');
         Test.stopTest();
 
         System.assertEquals(null, result, 'Should return null for blank email');
     }
 
     @isTest
-    static void testGetContactByEmail_NullEmail() {
+    static void testGetUserByEmail_NullEmail() {
         Test.startTest();
-        Contact result = ITHelpdeskAgentService.getContactByEmail(null);
+        User result = ITHelpdeskAgentService.getUserByEmail(null);
         Test.stopTest();
 
         System.assertEquals(null, result, 'Should return null for null email');
     }
 
     @isTest
-    static void testGetContactByEmailInvocable_ByEmail_Found() {
+    static void testGetUserByEmailInvocable_Found() {
         ITHelpdesk_GetContactByEmail.Input inp = new ITHelpdesk_GetContactByEmail.Input();
-        inp.email = 'testuser@ithelpdesk.test';
+        inp.email = UserInfo.getUserEmail();
 
         Test.startTest();
         List<ITHelpdesk_GetContactByEmail.Output> results = ITHelpdesk_GetContactByEmail.execute(
@@ -802,12 +785,12 @@ private class ITHelpdeskAgentServiceTest {
         Test.stopTest();
 
         System.assertEquals(true, results[0].isFound);
-        System.assertNotEquals(null, results[0].contactId);
-        System.assertEquals('Test User', results[0].contactName);
+        System.assertNotEquals(null, results[0].userId);
+        System.assertNotEquals(null, results[0].userName);
     }
 
     @isTest
-    static void testGetContactByEmailInvocable_ByEmail_NotFound() {
+    static void testGetUserByEmailInvocable_NotFound() {
         ITHelpdesk_GetContactByEmail.Input inp = new ITHelpdesk_GetContactByEmail.Input();
         inp.email = 'nobody@nowhere.test';
 
@@ -818,29 +801,11 @@ private class ITHelpdeskAgentServiceTest {
         Test.stopTest();
 
         System.assertEquals(false, results[0].isFound);
-        System.assertEquals(null, results[0].contactId);
+        System.assertEquals(null, results[0].userId);
     }
 
     @isTest
-    static void testGetContactByEmailInvocable_ByContactId_Passthrough() {
-        Contact con = getTestContact();
-
-        ITHelpdesk_GetContactByEmail.Input inp = new ITHelpdesk_GetContactByEmail.Input();
-        inp.sessionContactId = con.Id;
-
-        Test.startTest();
-        List<ITHelpdesk_GetContactByEmail.Output> results = ITHelpdesk_GetContactByEmail.execute(
-            new List<ITHelpdesk_GetContactByEmail.Input>{ inp }
-        );
-        Test.stopTest();
-
-        System.assertEquals(true, results[0].isFound);
-        System.assertEquals(con.Id, results[0].contactId);
-        System.assertEquals('Test User', results[0].contactName);
-    }
-
-    @isTest
-    static void testGetContactByEmailInvocable_NeitherProvided() {
+    static void testGetUserByEmailInvocable_NeitherProvided() {
         ITHelpdesk_GetContactByEmail.Input inp = new ITHelpdesk_GetContactByEmail.Input();
 
         Test.startTest();
@@ -870,13 +835,13 @@ private class ITHelpdeskAgentServiceTest {
 
     @isTest
     static void testSearchCases_WithDateRange() {
-        Contact con = getTestContact();
+        String userId = getTestUserId();
         String today = String.valueOf(Date.today());
         String yesterday = String.valueOf(Date.today().addDays(-1));
 
         Test.startTest();
         List<Case> results = ITHelpdeskAgentService.searchCases(
-            con.Id, null, null, null, yesterday, today
+            userId, null, null, null, yesterday, today
         );
         Test.stopTest();
 
