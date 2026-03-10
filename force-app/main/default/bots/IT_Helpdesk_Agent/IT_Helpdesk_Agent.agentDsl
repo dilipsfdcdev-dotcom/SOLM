@@ -167,6 +167,15 @@ topic case_inquiry_search:
             caseRecord: object
                description: "The case record found."
                complex_data_type_name: "lightning__recordInfoType"
+            caseId: string
+               description: "The Salesforce record Id of the case."
+               filter_from_agent: True
+            caseNumber: string
+               description: "The case number."
+            caseStatus: string
+               description: "The current status of the case."
+            caseDetails: string
+               description: "Pre-formatted case details including Case Number, Subject, Status, Priority, Type, Origin, Created Date, and Owner."
             isFound: boolean
                description: "Whether a matching case was found."
             message: string
@@ -238,22 +247,22 @@ topic case_inquiry_search:
       instructions: |
          The user's resolved UserId is {!@variables.resolvedUserId}. Use this for all case lookups.
          Help the user find and view their cases. You have these capabilities:
-         1. RETRIEVE A SPECIFIC CASE — Ask for the case number, then use {!@actions.get_case}.
+         1. RETRIEVE A SPECIFIC CASE — Ask for the case number, then use {!@actions.get_case}. Display the caseDetails output directly to the user.
          2. LIST ALL CASES — Use {!@actions.get_cases_by_owner} to show all cases with open/closed counts.
          3. SEARCH AND FILTER — Use {!@actions.search_cases} with keywords, status, priority, or date range.
          4. FIND OVERDUE CASES — Use {!@actions.get_overdue_cases} to find cases open longer than N days (default 7).
          5. QUICK SUMMARY — When user says "my cases", use {!@actions.get_cases_by_owner} and show count by status.
-         Display case details with: Case Number, Subject, Status, Priority, Type, Created Date, Owner.
+         When get_case returns, use the caseDetails output to display formatted case information.
          If no cases found, say so clearly and offer to create a new one.
 
       actions:
          get_case: @actions.get_case
-            description: "Retrieve a specific case by case number for the authenticated user."
+            description: "Retrieve a specific case by case number for the authenticated user. Use caseDetails output to display formatted case information."
             with userId=@variables.resolvedUserId
             with caseNumber=...
-            set @variables.caseId = @outputs.caseRecord.Id
-            set @variables.caseNumber = @outputs.caseRecord.CaseNumber
-            set @variables.caseStatus = @outputs.caseRecord.Status
+            set @variables.caseId = @outputs.caseId
+            set @variables.caseNumber = @outputs.caseNumber
+            set @variables.caseStatus = @outputs.caseStatus
          get_cases_by_owner: @actions.get_cases_by_owner
             description: "Retrieve all cases owned by the authenticated user."
             with userId=@variables.resolvedUserId
@@ -350,6 +359,15 @@ topic case_updates:
             caseRecord: object
                description: "The case record."
                complex_data_type_name: "lightning__recordInfoType"
+            caseId: string
+               description: "The Salesforce record Id of the case."
+               filter_from_agent: True
+            caseNumber: string
+               description: "The case number."
+            caseStatus: string
+               description: "The current status of the case."
+            caseDetails: string
+               description: "Pre-formatted case details."
             isFound: boolean
                description: "Whether found."
             message: string
@@ -424,12 +442,12 @@ topic case_updates:
 
       actions:
          get_case: @actions.get_case
-            description: "Retrieve a case by case number for the authenticated user."
+            description: "Retrieve a case by case number for the authenticated user. Use caseDetails output to display formatted case information."
             with userId=@variables.resolvedUserId
             with caseNumber=...
-            set @variables.caseId = @outputs.caseRecord.Id
-            set @variables.caseNumber = @outputs.caseRecord.CaseNumber
-            set @variables.caseStatus = @outputs.caseRecord.Status
+            set @variables.caseId = @outputs.caseId
+            set @variables.caseNumber = @outputs.caseNumber
+            set @variables.caseStatus = @outputs.caseStatus
          update_case: @actions.update_case
             description: "Update one or more fields on an existing case."
             with caseId=@variables.caseId
@@ -459,6 +477,15 @@ topic case_closure:
             caseRecord: object
                description: "The case record."
                complex_data_type_name: "lightning__recordInfoType"
+            caseId: string
+               description: "The Salesforce record Id of the case."
+               filter_from_agent: True
+            caseNumber: string
+               description: "The case number."
+            caseStatus: string
+               description: "The current status of the case."
+            caseDetails: string
+               description: "Pre-formatted case details."
             isFound: boolean
                description: "Whether found."
             message: string
@@ -504,12 +531,12 @@ topic case_closure:
 
       actions:
          get_case: @actions.get_case
-            description: "Retrieve a case by case number to verify it exists before closure."
+            description: "Retrieve a case by case number to verify it exists before closure. Use caseDetails output to display case information and check caseStatus before closing."
             with userId=@variables.resolvedUserId
             with caseNumber=...
-            set @variables.caseId = @outputs.caseRecord.Id
-            set @variables.caseNumber = @outputs.caseRecord.CaseNumber
-            set @variables.caseStatus = @outputs.caseRecord.Status
+            set @variables.caseId = @outputs.caseId
+            set @variables.caseNumber = @outputs.caseNumber
+            set @variables.caseStatus = @outputs.caseStatus
          close_case: @actions.close_case
             description: "Close a case with resolution summary and optional root cause and notes."
             with caseId=@variables.caseId
@@ -533,6 +560,15 @@ topic case_reassignment:
             caseRecord: object
                description: "The case record."
                complex_data_type_name: "lightning__recordInfoType"
+            caseId: string
+               description: "The Salesforce record Id of the case."
+               filter_from_agent: True
+            caseNumber: string
+               description: "The case number."
+            caseStatus: string
+               description: "The current status of the case."
+            caseDetails: string
+               description: "Pre-formatted case details."
             isFound: boolean
                description: "Whether found."
             message: string
@@ -572,11 +608,11 @@ topic case_reassignment:
 
       actions:
          get_case: @actions.get_case
-            description: "Retrieve a case by case number to show current details and owner."
+            description: "Retrieve a case by case number to show current details and owner. Use caseDetails output to display case information."
             with userId=@variables.resolvedUserId
             with caseNumber=...
-            set @variables.caseId = @outputs.caseRecord.Id
-            set @variables.caseNumber = @outputs.caseRecord.CaseNumber
+            set @variables.caseId = @outputs.caseId
+            set @variables.caseNumber = @outputs.caseNumber
          reassign_case: @actions.reassign_case
             description: "Reassign a case to a different user or queue."
             with caseId=@variables.caseId
@@ -599,6 +635,15 @@ topic case_history:
             caseRecord: object
                description: "The case record."
                complex_data_type_name: "lightning__recordInfoType"
+            caseId: string
+               description: "The Salesforce record Id of the case."
+               filter_from_agent: True
+            caseNumber: string
+               description: "The case number."
+            caseStatus: string
+               description: "The current status of the case."
+            caseDetails: string
+               description: "Pre-formatted case details."
             isFound: boolean
                description: "Whether found."
             message: string
@@ -637,11 +682,11 @@ topic case_history:
 
       actions:
          get_case: @actions.get_case
-            description: "Retrieve a case by case number to verify it exists before viewing history."
+            description: "Retrieve a case by case number to verify it exists before viewing history. Use caseDetails output to display case information."
             with userId=@variables.resolvedUserId
             with caseNumber=...
-            set @variables.caseId = @outputs.caseRecord.Id
-            set @variables.caseNumber = @outputs.caseRecord.CaseNumber
+            set @variables.caseId = @outputs.caseId
+            set @variables.caseNumber = @outputs.caseNumber
          get_case_history: @actions.get_case_history
             description: "Retrieve comments and field-change history for a case."
             with caseId=@variables.caseId

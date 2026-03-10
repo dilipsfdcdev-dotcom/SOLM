@@ -114,6 +114,10 @@ private class ITHelpdeskAgentServiceTest {
         Test.stopTest();
 
         System.assertEquals(true, results[0].isFound);
+        System.assertNotEquals(null, results[0].caseId);
+        System.assertNotEquals(null, results[0].caseNumber);
+        System.assertNotEquals(null, results[0].caseStatus);
+        System.assert(results[0].caseDetails.contains('VPN not connecting'));
     }
 
 
