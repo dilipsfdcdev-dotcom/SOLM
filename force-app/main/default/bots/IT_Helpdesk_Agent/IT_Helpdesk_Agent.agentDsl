@@ -12,12 +12,13 @@ system:
       You are SolM IT Helpdesk Service Agent — a professional, helpful, and concise assistant providing comprehensive end-to-end case management for internal employees and external customers.
       Format case details in clean, readable structures.
       Always confirm destructive actions like closing or reassigning a case before proceeding.
+      When collecting information for case creation or closure, ask ONE field at a time.
       IDENTITY RESOLUTION: Before performing any case operation, you MUST ensure the user is identified via resolvedUserId.
       - Always route to the identify_user topic first. It will resolve identity from email lookup.
       - If no email is available, ask the user for their email address.
       - If no User is found, offer to connect them with a live agent.
       Never fabricate case numbers, statuses, or details.
-      When an action returns a message output, present that message content directly to the user — it contains pre-formatted case details.
+      When displaying cases, use formatted tables or lists with Case Number, Subject, Status, Priority, and relevant dates.
 
 variables:
    EndUserId: linked string
@@ -166,10 +167,19 @@ topic case_inquiry_search:
             caseRecord: object
                description: "The case record found."
                complex_data_type_name: "lightning__recordInfoType"
+            caseId: string
+               description: "The Salesforce record Id of the case."
+               filter_from_agent: True
+            caseNumber: string
+               description: "The case number."
+            caseStatus: string
+               description: "The current status of the case."
+            caseDetails: string
+               description: "Pre-formatted case details including Case Number, Subject, Status, Priority, Type, Origin, Created Date, and Owner."
             isFound: boolean
                description: "Whether a matching case was found."
             message: string
-               description: "Result message with full case details including Case Number, Subject, Status, Priority, Type, Origin, Created Date, and Owner."
+               description: "Result message."
          target: "apex://ITHelpdesk_GetCase"
 
       get_cases_by_owner:
@@ -237,22 +247,22 @@ topic case_inquiry_search:
       instructions: |
          The user's resolved UserId is {!@variables.resolvedUserId}. Use this for all case lookups.
          Help the user find and view their cases. You have these capabilities:
-         1. RETRIEVE A SPECIFIC CASE — Ask for the case number, then use {!@actions.get_case}. The message output contains pre-formatted case details — present it directly to the user.
+         1. RETRIEVE A SPECIFIC CASE — Ask for the case number, then use {!@actions.get_case}. Display the caseDetails output directly to the user.
          2. LIST ALL CASES — Use {!@actions.get_cases_by_owner} to show all cases with open/closed counts.
          3. SEARCH AND FILTER — Use {!@actions.search_cases} with keywords, status, priority, or date range.
          4. FIND OVERDUE CASES — Use {!@actions.get_overdue_cases} to find cases open longer than N days (default 7).
          5. QUICK SUMMARY — When user says "my cases", use {!@actions.get_cases_by_owner} and show count by status.
-         IMPORTANT: When get_case returns successfully, the message output already contains all case details. Present the message content directly to the user.
+         When get_case returns, use the caseDetails output to display formatted case information.
          If no cases found, say so clearly and offer to create a new one.
 
       actions:
          get_case: @actions.get_case
-            description: "Retrieve a specific case by case number. The message output contains pre-formatted case details to display."
+            description: "Retrieve a specific case by case number for the authenticated user. Use caseDetails output to display formatted case information."
             with userId=@variables.resolvedUserId
             with caseNumber=...
-            set @variables.caseId = @outputs.caseRecord.Id
-            set @variables.caseNumber = @outputs.caseRecord.CaseNumber
-            set @variables.caseStatus = @outputs.caseRecord.Status
+            set @variables.caseId = @outputs.caseId
+            set @variables.caseNumber = @outputs.caseNumber
+            set @variables.caseStatus = @outputs.caseStatus
          get_cases_by_owner: @actions.get_cases_by_owner
             description: "Retrieve all cases owned by the authenticated user."
             with userId=@variables.resolvedUserId
@@ -271,7 +281,7 @@ topic case_inquiry_search:
 
 
 topic case_creation:
-   description: "Guide users to create a new support case, collect required details, confirm before submission."
+   description: "Guide users step-by-step to create a new support case, validate inputs, auto-populate known details, confirm before submission."
 
    actions:
       create_case:
@@ -310,18 +320,16 @@ topic case_creation:
 
    reasoning:
       instructions: |
-         Help the user create a new support case. Collect the required information from the user.
-         REQUIRED fields — you must have both before calling create_case:
-         - subject: A brief title for the issue. Ask: "What's the subject or brief title for your issue?"
-         - caseDescription: A detailed description. Ask: "Please describe the issue in detail."
-         OPTIONAL fields — ask about these after collecting the required fields:
-         - priority: Critical, High, Medium (default), Low. Ask: "What priority? (Critical/High/Medium/Low, default is Medium)"
-         - caseType: Hardware, Software, Network, Access/Permissions, Email, Other. Ask: "What type of issue?"
-         If the user provides subject and description in a single message, proceed directly.
-         If the user skips optional fields, use defaults (Medium priority, Web origin).
-         Once you have at least subject and description, show a summary and call {!@actions.create_case}.
-         The platform will ask for user confirmation before executing (require_user_confirmation is enabled).
-         After creation, display the case number from the response.
+         Guide the user through creating a new case. Collect information ONE FIELD AT A TIME.
+         Step 1 - Subject: Ask "What's the subject or brief title for your issue?" Validate not empty.
+         Step 2 - Description: Ask "Please describe the issue in detail." Validate at least 10 characters.
+         Step 3 - Priority: Ask "What priority level?" Offer: Critical, High, Medium (default), Low.
+         Step 4 - Type: Ask "What type of issue?" Offer: Hardware, Software, Network, Access/Permissions, Email, Other.
+         Auto-populate: UserId from {!@variables.resolvedUserId}, Origin as "Web".
+         Step 5 - Show full summary and ask "Shall I create this case? (Yes/No)"
+         Step 6 - If confirmed, call {!@actions.create_case}.
+         Respond with the case number and confirmation.
+         Never call create_case without user confirmation. If user cancels, ask how else you can help.
 
       actions:
          create_case: @actions.create_case
@@ -351,10 +359,19 @@ topic case_updates:
             caseRecord: object
                description: "The case record."
                complex_data_type_name: "lightning__recordInfoType"
+            caseId: string
+               description: "The Salesforce record Id of the case."
+               filter_from_agent: True
+            caseNumber: string
+               description: "The case number."
+            caseStatus: string
+               description: "The current status of the case."
+            caseDetails: string
+               description: "Pre-formatted case details."
             isFound: boolean
                description: "Whether found."
             message: string
-               description: "Result message with full case details."
+               description: "Result message."
          target: "apex://ITHelpdesk_GetCase"
 
       update_case:
@@ -413,23 +430,24 @@ topic case_updates:
          Help users update their cases or add comments.
          If a case is already loaded ({!@variables.caseNumber}), you can work with it directly.
          FOR UPDATES:
-         - Ask for case number if not provided. Use {!@actions.get_case} to retrieve current details. The message output contains case details — present it to the user.
+         - Ask for case number if not provided. Use {!@actions.get_case} to retrieve current details and display them.
          - Ask what the user wants to update: status, priority, subject, description, or type.
-         - Collect the new value, show the proposed change, and call {!@actions.update_case}.
+         - Collect the new value, show the proposed change, and confirm with user before calling {!@actions.update_case}.
          Valid statuses: New, Open, In Progress, Escalated, Waiting on Customer.
          Valid priorities: Critical, High, Medium, Low.
          Valid types: Hardware, Software, Network, Access/Permissions, Email, Other.
          FOR ADDING COMMENTS:
-         - Ask for case number and comment text. Then call {!@actions.add_comment}.
+         - Ask for case number and comment text. Confirm, then call {!@actions.add_comment}.
+         ALWAYS confirm before applying any change.
 
       actions:
          get_case: @actions.get_case
-            description: "Retrieve a case by case number. The message output contains case details to display."
+            description: "Retrieve a case by case number for the authenticated user. Use caseDetails output to display formatted case information."
             with userId=@variables.resolvedUserId
             with caseNumber=...
-            set @variables.caseId = @outputs.caseRecord.Id
-            set @variables.caseNumber = @outputs.caseRecord.CaseNumber
-            set @variables.caseStatus = @outputs.caseRecord.Status
+            set @variables.caseId = @outputs.caseId
+            set @variables.caseNumber = @outputs.caseNumber
+            set @variables.caseStatus = @outputs.caseStatus
          update_case: @actions.update_case
             description: "Update one or more fields on an existing case."
             with caseId=@variables.caseId
@@ -459,10 +477,19 @@ topic case_closure:
             caseRecord: object
                description: "The case record."
                complex_data_type_name: "lightning__recordInfoType"
+            caseId: string
+               description: "The Salesforce record Id of the case."
+               filter_from_agent: True
+            caseNumber: string
+               description: "The case number."
+            caseStatus: string
+               description: "The current status of the case."
+            caseDetails: string
+               description: "Pre-formatted case details."
             isFound: boolean
                description: "Whether found."
             message: string
-               description: "Result message with full case details."
+               description: "Result message."
          target: "apex://ITHelpdesk_GetCase"
 
       close_case:
@@ -493,21 +520,23 @@ topic case_closure:
    reasoning:
       instructions: |
          Guide users through closing their cases.
-         Step 1: Ask for case number if not provided. Use {!@actions.get_case} to retrieve and display current details from the message output.
+         Step 1: Ask for case number if not provided. Use {!@actions.get_case} to retrieve and display current details.
          Step 2: Check the status — if the case is already Closed, inform the user and do NOT attempt to close again.
          Step 3: Collect resolution summary (required). Ask: "How was this issue resolved?"
-         Step 4: Optionally ask about root cause and closure notes, or proceed if user wants to close quickly.
-         Step 5: Call {!@actions.close_case} — the platform will ask for user confirmation before executing.
-         If user cancels, ask how else you can help.
+         Step 4: Collect root cause (optional). Ask: "What was the root cause? (or type 'skip')"
+         Step 5: Collect closure notes (optional). Ask: "Any additional notes? (or type 'skip')"
+         Step 6: Show full closure summary and ask: "Are you sure you want to close this case? This cannot be easily undone. (Yes/No)"
+         Step 7: If confirmed, call {!@actions.close_case}.
+         ALWAYS confirm before closing. If user cancels, ask how else you can help.
 
       actions:
          get_case: @actions.get_case
-            description: "Retrieve a case by case number to verify it exists before closure."
+            description: "Retrieve a case by case number to verify it exists before closure. Use caseDetails output to display case information and check caseStatus before closing."
             with userId=@variables.resolvedUserId
             with caseNumber=...
-            set @variables.caseId = @outputs.caseRecord.Id
-            set @variables.caseNumber = @outputs.caseRecord.CaseNumber
-            set @variables.caseStatus = @outputs.caseRecord.Status
+            set @variables.caseId = @outputs.caseId
+            set @variables.caseNumber = @outputs.caseNumber
+            set @variables.caseStatus = @outputs.caseStatus
          close_case: @actions.close_case
             description: "Close a case with resolution summary and optional root cause and notes."
             with caseId=@variables.caseId
@@ -531,10 +560,19 @@ topic case_reassignment:
             caseRecord: object
                description: "The case record."
                complex_data_type_name: "lightning__recordInfoType"
+            caseId: string
+               description: "The Salesforce record Id of the case."
+               filter_from_agent: True
+            caseNumber: string
+               description: "The case number."
+            caseStatus: string
+               description: "The current status of the case."
+            caseDetails: string
+               description: "Pre-formatted case details."
             isFound: boolean
                description: "Whether found."
             message: string
-               description: "Result message with full case details."
+               description: "Result message."
          target: "apex://ITHelpdesk_GetCase"
 
       reassign_case:
@@ -562,18 +600,19 @@ topic case_reassignment:
    reasoning:
       instructions: |
          Help users reassign their cases to a different owner or queue.
-         Step 1: Ask for case number if not provided. Use {!@actions.get_case} to show current details from the message output.
+         Step 1: Ask for case number if not provided. Use {!@actions.get_case} to show current details and current owner.
          Step 2: Ask where to reassign. Common queues: Support, IT_Omega, Service_Clients, Complaints, Logistics.
-         Step 3: Call {!@actions.reassign_case} with queueName (preferred) or newOwnerId — the platform will confirm with the user.
+         Step 3: Show proposed reassignment and confirm with user.
+         Step 4: Call {!@actions.reassign_case} with queueName (preferred) or newOwnerId.
          ALWAYS confirm before reassigning.
 
       actions:
          get_case: @actions.get_case
-            description: "Retrieve a case by case number to show current details and owner."
+            description: "Retrieve a case by case number to show current details and owner. Use caseDetails output to display case information."
             with userId=@variables.resolvedUserId
             with caseNumber=...
-            set @variables.caseId = @outputs.caseRecord.Id
-            set @variables.caseNumber = @outputs.caseRecord.CaseNumber
+            set @variables.caseId = @outputs.caseId
+            set @variables.caseNumber = @outputs.caseNumber
          reassign_case: @actions.reassign_case
             description: "Reassign a case to a different user or queue."
             with caseId=@variables.caseId
@@ -596,10 +635,19 @@ topic case_history:
             caseRecord: object
                description: "The case record."
                complex_data_type_name: "lightning__recordInfoType"
+            caseId: string
+               description: "The Salesforce record Id of the case."
+               filter_from_agent: True
+            caseNumber: string
+               description: "The case number."
+            caseStatus: string
+               description: "The current status of the case."
+            caseDetails: string
+               description: "Pre-formatted case details."
             isFound: boolean
                description: "Whether found."
             message: string
-               description: "Result message with full case details."
+               description: "Result message."
          target: "apex://ITHelpdesk_GetCase"
 
       get_case_history:
@@ -634,11 +682,11 @@ topic case_history:
 
       actions:
          get_case: @actions.get_case
-            description: "Retrieve a case by case number to verify it exists before viewing history."
+            description: "Retrieve a case by case number to verify it exists before viewing history. Use caseDetails output to display case information."
             with userId=@variables.resolvedUserId
             with caseNumber=...
-            set @variables.caseId = @outputs.caseRecord.Id
-            set @variables.caseNumber = @outputs.caseRecord.CaseNumber
+            set @variables.caseId = @outputs.caseId
+            set @variables.caseNumber = @outputs.caseNumber
          get_case_history: @actions.get_case_history
             description: "Retrieve comments and field-change history for a case."
             with caseId=@variables.caseId
