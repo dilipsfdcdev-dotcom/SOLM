@@ -1,25 +1,21 @@
 /**
- * Invocable wrapper: Resolve Contact Identity
- * If contactId is already provided (from messaging session), verifies and passes it through.
- * Otherwise, looks up the Contact by email address.
- * Delegates to ITHelpdeskAgentService.getContactByEmail
+ * Invocable wrapper: Resolve User Identity
+ * Looks up a User record by email address.
+ * Delegates to ITHelpdeskAgentService.getUserByEmail
  */
 public with sharing class ITHelpdesk_GetContactByEmail {
 
     public class Input {
-        @InvocableVariable(label='Session Contact Id' required=false)
-        public String sessionContactId;
-
         @InvocableVariable(label='Email Address' required=false)
         public String email;
     }
 
     public class Output {
-        @InvocableVariable(label='Contact Id')
-        public String contactId;
+        @InvocableVariable(label='User Id')
+        public String userId;
 
-        @InvocableVariable(label='Contact Name')
-        public String contactName;
+        @InvocableVariable(label='User Name')
+        public String userName;
 
         @InvocableVariable(label='Is Found')
         public Boolean isFound;
@@ -28,46 +24,28 @@ public with sharing class ITHelpdesk_GetContactByEmail {
         public String message;
     }
 
-    @InvocableMethod(label='IT Helpdesk - Resolve Contact Identity'
-                     description='Resolves user identity: verifies existing ContactId or looks up Contact by email.'
+    @InvocableMethod(label='IT Helpdesk - Resolve User Identity'
+                     description='Looks up a User record by email address and returns the UserId and name.'
                      category='IT Helpdesk')
     public static List<Output> execute(List<Input> inputs) {
         List<Output> outputs = new List<Output>();
         for (Input inp : inputs) {
             Output out = new Output();
 
-            // If contactId is already provided, verify and pass through
-            if (String.isNotBlank(inp.sessionContactId)) {
-                List<Contact> contacts = [
-                    SELECT Id, Name FROM Contact WHERE Id = :inp.sessionContactId LIMIT 1
-                ];
-                if (!contacts.isEmpty()) {
-                    out.contactId = contacts[0].Id;
-                    out.contactName = contacts[0].Name;
+            if (String.isNotBlank(inp.email)) {
+                User u = ITHelpdeskAgentService.getUserByEmail(inp.email);
+                if (u != null) {
+                    out.userId = u.Id;
+                    out.userName = u.Name;
                     out.isFound = true;
-                    out.message = 'Contact verified: ' + contacts[0].Name;
+                    out.message = 'User found: ' + u.Name;
                 } else {
                     out.isFound = false;
-                    out.message = 'No contact found with Id: ' + inp.sessionContactId;
+                    out.message = 'No active user found with email: ' + inp.email;
                 }
-            }
-            // Otherwise, look up by email
-            else if (String.isNotBlank(inp.email)) {
-                Contact c = ITHelpdeskAgentService.getContactByEmail(inp.email);
-                if (c != null) {
-                    out.contactId = c.Id;
-                    out.contactName = c.Name;
-                    out.isFound = true;
-                    out.message = 'Contact found: ' + c.Name;
-                } else {
-                    out.isFound = false;
-                    out.message = 'No contact found with email: ' + inp.email;
-                }
-            }
-            // Neither provided
-            else {
+            } else {
                 out.isFound = false;
-                out.message = 'No contactId or email provided.';
+                out.message = 'No email provided.';
             }
 
             outputs.add(out);

@@ -5,8 +5,8 @@
 public with sharing class ITHelpdesk_CreateCase {
 
     public class Input {
-        @InvocableVariable(label='Contact Id' required=true)
-        public String contactId;
+        @InvocableVariable(label='User Id' required=true)
+        public String userId;
 
         @InvocableVariable(label='Subject' required=true)
         public String subject;
@@ -42,7 +42,7 @@ public with sharing class ITHelpdesk_CreateCase {
     }
 
     @InvocableMethod(label='IT Helpdesk - Create Case'
-                     description='Creates a new support case and assigns it to the Support queue.'
+                     description='Creates a new support case owned by the user.'
                      category='IT Helpdesk')
     public static List<Output> execute(List<Input> inputs) {
         List<Output> outputs = new List<Output>();
@@ -50,14 +50,14 @@ public with sharing class ITHelpdesk_CreateCase {
             Output out = new Output();
             try {
                 Case created = ITHelpdeskAgentService.createCase(
-                    inp.contactId, inp.subject, inp.caseDescription,
+                    inp.userId, inp.subject, inp.caseDescription,
                     inp.priority, inp.caseType, inp.origin
                 );
                 out.caseRecord = created;
                 out.caseNumber = created.CaseNumber;
                 out.caseId     = created.Id;
                 out.isSuccess  = true;
-                out.message    = 'Case ' + created.CaseNumber + ' has been created successfully and assigned to the Support queue.';
+                out.message    = 'Case ' + created.CaseNumber + ' has been created successfully.';
             } catch (Exception e) {
                 out.isSuccess = false;
                 out.message   = 'Failed to create case: ' + e.getMessage();

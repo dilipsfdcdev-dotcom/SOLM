@@ -5,8 +5,8 @@
 public with sharing class ITHelpdesk_GetUrgentCases {
 
     public class Input {
-        @InvocableVariable(label='Contact Id' required=true)
-        public String contactId;
+        @InvocableVariable(label='User Id' required=true)
+        public String userId;
     }
 
     public class Output {
@@ -27,7 +27,7 @@ public with sharing class ITHelpdesk_GetUrgentCases {
         List<Output> outputs = new List<Output>();
         for (Input inp : inputs) {
             Output out = new Output();
-            out.urgentCaseList = ITHelpdeskAgentService.getUrgentCases(inp.contactId);
+            out.urgentCaseList = ITHelpdeskAgentService.getUrgentCases(inp.userId);
             out.urgentCount = out.urgentCaseList.size();
             out.message = out.urgentCount > 0
                 ? out.urgentCount + ' urgent case(s) require attention.'

@@ -1,12 +1,12 @@
 /**
- * Invocable wrapper: Get Cases By Contact Id
- * Delegates to ITHelpdeskAgentService.getCasesByContactId
+ * Invocable wrapper: Get Cases By Owner Id
+ * Delegates to ITHelpdeskAgentService.getCasesByOwnerId
  */
 public with sharing class ITHelpdesk_GetCasesByContact {
 
     public class Input {
-        @InvocableVariable(label='Contact Id' required=true)
-        public String contactId;
+        @InvocableVariable(label='User Id' required=true)
+        public String userId;
     }
 
     public class Output {
@@ -26,14 +26,14 @@ public with sharing class ITHelpdesk_GetCasesByContact {
         public String message;
     }
 
-    @InvocableMethod(label='IT Helpdesk - Get Cases By Contact'
-                     description='Returns all cases linked to a contact with counts.'
+    @InvocableMethod(label='IT Helpdesk - Get Cases By Owner'
+                     description='Returns all cases owned by a user with counts.'
                      category='IT Helpdesk')
     public static List<Output> execute(List<Input> inputs) {
         List<Output> outputs = new List<Output>();
         for (Input inp : inputs) {
             Output out = new Output();
-            out.caseList = ITHelpdeskAgentService.getCasesByContactId(inp.contactId);
+            out.caseList = ITHelpdeskAgentService.getCasesByOwnerId(inp.userId);
             out.totalCount = out.caseList.size();
             Integer open = 0;
             Integer closed = 0;
