@@ -2,7 +2,7 @@
  * Invocable wrapper: Add Case Comment
  * Delegates to ITHelpdeskAgentService.addCaseComment
  */
-public with sharing class ITHelpdesk_AddComment {
+public without sharing class ITHelpdesk_AddComment {
 
     public class Input {
         @InvocableVariable(label='Case Id' required=true)

@@ -2,7 +2,7 @@
  * Invocable wrapper: Find Similar Cases
  * Delegates to ITHelpdeskAgentService.findSimilarCases
  */
-public with sharing class ITHelpdesk_FindSimilarCases {
+public without sharing class ITHelpdesk_FindSimilarCases {
 
     public class Input {
         @InvocableVariable(label='Keyword')

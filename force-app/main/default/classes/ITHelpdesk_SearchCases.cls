@@ -2,11 +2,11 @@
  * Invocable wrapper: Search Cases
  * Delegates to ITHelpdeskAgentService.searchCases
  */
-public with sharing class ITHelpdesk_SearchCases {
+public without sharing class ITHelpdesk_SearchCases {
 
     public class Input {
-        @InvocableVariable(label='Contact Id' required=true)
-        public String contactId;
+        @InvocableVariable(label='User Id' required=true)
+        public String userId;
 
         @InvocableVariable(label='Keyword')
         public String keyword;
@@ -43,7 +43,7 @@ public with sharing class ITHelpdesk_SearchCases {
         for (Input inp : inputs) {
             Output out = new Output();
             out.caseList = ITHelpdeskAgentService.searchCases(
-                inp.contactId, inp.keyword, inp.statusFilter,
+                inp.userId, inp.keyword, inp.statusFilter,
                 inp.priorityFilter, inp.dateFrom, inp.dateTo
             );
             out.resultCount = out.caseList.size();

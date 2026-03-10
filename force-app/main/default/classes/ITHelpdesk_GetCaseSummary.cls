@@ -2,11 +2,11 @@
  * Invocable wrapper: Get Case Summary
  * Delegates to ITHelpdeskAgentService.getCaseSummary
  */
-public with sharing class ITHelpdesk_GetCaseSummary {
+public without sharing class ITHelpdesk_GetCaseSummary {
 
     public class Input {
-        @InvocableVariable(label='Contact Id' required=true)
-        public String contactId;
+        @InvocableVariable(label='User Id' required=true)
+        public String userId;
     }
 
     public class Output {
@@ -54,7 +54,7 @@ public with sharing class ITHelpdesk_GetCaseSummary {
         List<Output> outputs = new List<Output>();
         for (Input inp : inputs) {
             ITHelpdeskAgentService.CaseSummaryData data =
-                ITHelpdeskAgentService.getCaseSummary(inp.contactId);
+                ITHelpdeskAgentService.getCaseSummary(inp.userId);
 
             Output out = new Output();
             out.totalCases       = data.totalCases;

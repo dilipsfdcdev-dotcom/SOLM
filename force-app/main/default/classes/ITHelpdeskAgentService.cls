@@ -10,8 +10,8 @@
  *   2. Create a thin invocable wrapper class (see ITHelpdesk_GetCase as example)
  *
  * Methods:
- *   getCaseByCaseNumber   – Retrieve a single case by CaseNumber + ContactId
- *   getCasesByContactId   – List all cases for a contact
+ *   getCaseByCaseNumber   – Retrieve a single case by CaseNumber + OwnerId
+ *   getCasesByOwnerId     – List all cases for a user (by OwnerId)
  *   searchCases           – Search/filter by keyword, status, priority, date range
  *   getOverdueCases       – Cases open longer than N days
  *   createCase            – Create a new case, assign to Support queue
@@ -23,9 +23,9 @@
  *   getUrgentCases        – Critical/High priority open cases
  *   reassignCase          – Reassign a case to a different owner or queue
  *   getCaseHistory        – Retrieve comments and field-change history
- *   getContactByEmail     – Look up a Contact by email address
+ *   getUserByEmail        – Look up a User by email address
  */
-public with sharing class ITHelpdeskAgentService {
+public without sharing class ITHelpdeskAgentService {
 
     // ─── Constants ───────────────────────────────────────────────
     public static final String SUPPORT_QUEUE_NAME = 'Support';
@@ -48,14 +48,14 @@ public with sharing class ITHelpdeskAgentService {
     //  1. GET CASE BY CASE NUMBER
     // ═══════════════════════════════════════════════════════════════
 
-    public static Case getCaseByCaseNumber(String contactId, String caseNumber) {
+    public static Case getCaseByCaseNumber(String userId, String caseNumber) {
         List<Case> cases = [
             SELECT Id, CaseNumber, Subject, Status, Priority, Type, Origin,
                    Description, CreatedDate, LastModifiedDate, ClosedDate,
-                   Owner.Name, Contact.Name, ContactId, AccountId
+                   Owner.Name, AccountId
             FROM Case
             WHERE CaseNumber = :caseNumber
-              AND ContactId  = :contactId
+              AND OwnerId    = :userId
             LIMIT 1
         ];
         return cases.isEmpty() ? null : cases[0];
@@ -63,15 +63,15 @@ public with sharing class ITHelpdeskAgentService {
 
 
     // ═══════════════════════════════════════════════════════════════
-    //  2. GET CASES BY CONTACT ID
+    //  2. GET CASES BY OWNER ID
     // ═══════════════════════════════════════════════════════════════
 
-    public static List<Case> getCasesByContactId(String contactId) {
+    public static List<Case> getCasesByOwnerId(String userId) {
         return [
             SELECT Id, CaseNumber, Subject, Status, Priority, Type, Origin,
                    CreatedDate, LastModifiedDate, Owner.Name
             FROM Case
-            WHERE ContactId = :contactId
+            WHERE OwnerId = :userId
             ORDER BY CreatedDate DESC
             LIMIT 200
         ];
@@ -82,12 +82,12 @@ public with sharing class ITHelpdeskAgentService {
     //  3. SEARCH CASES
     // ═══════════════════════════════════════════════════════════════
 
-    public static List<Case> searchCases(String contactId, String keyword,
+    public static List<Case> searchCases(String userId, String keyword,
                                          String statusFilter, String priorityFilter,
                                          String dateFrom, String dateTo) {
         String query = 'SELECT Id, CaseNumber, Subject, Status, Priority, Type, '
                      + 'CreatedDate, LastModifiedDate, Owner.Name '
-                     + 'FROM Case WHERE ContactId = :contactId';
+                     + 'FROM Case WHERE OwnerId = :userId';
 
         if (String.isNotBlank(statusFilter)) {
             query += ' AND Status = :statusFilter';
@@ -115,14 +115,14 @@ public with sharing class ITHelpdeskAgentService {
     //  4. GET OVERDUE CASES
     // ═══════════════════════════════════════════════════════════════
 
-    public static List<Case> getOverdueCases(String contactId, Integer daysOpen) {
+    public static List<Case> getOverdueCases(String userId, Integer daysOpen) {
         Integer days = (daysOpen != null && daysOpen > 0) ? daysOpen : 7;
         DateTime cutoff = DateTime.now().addDays(-days);
         return [
             SELECT Id, CaseNumber, Subject, Status, Priority, Type,
                    CreatedDate, LastModifiedDate, Owner.Name
             FROM Case
-            WHERE ContactId  = :contactId
+            WHERE OwnerId   = :userId
               AND Status IN :OPEN_STATUSES
               AND CreatedDate < :cutoff
             ORDER BY CreatedDate ASC
@@ -135,12 +135,10 @@ public with sharing class ITHelpdeskAgentService {
     //  5. CREATE CASE
     // ═══════════════════════════════════════════════════════════════
 
-    public static Case createCase(String contactId, String subject, String description,
+    public static Case createCase(String userId, String subject, String description,
                                   String priority, String caseType, String origin) {
-        Id supportQueueId = getSupportQueueId();
-
         Case newCase = new Case();
-        newCase.ContactId   = contactId;
+        newCase.OwnerId     = userId;
         newCase.Subject     = subject;
         newCase.Description = description;
         newCase.Priority    = String.isNotBlank(priority) ? priority : 'Medium';
@@ -148,15 +146,11 @@ public with sharing class ITHelpdeskAgentService {
         newCase.Origin      = String.isNotBlank(origin)   ? origin   : 'Web';
         newCase.Status      = 'New';
 
-        if (supportQueueId != null) {
-            newCase.OwnerId = supportQueueId;
-        }
-
         insert newCase;
 
         return [
             SELECT Id, CaseNumber, Subject, Status, Priority, Type, Origin,
-                   CreatedDate, Owner.Name, ContactId
+                   CreatedDate, Owner.Name
             FROM Case
             WHERE Id = :newCase.Id
             LIMIT 1
@@ -296,11 +290,11 @@ public with sharing class ITHelpdeskAgentService {
         public List<Case> recentOpenCases = new List<Case>();
     }
 
-    public static CaseSummaryData getCaseSummary(String contactId) {
+    public static CaseSummaryData getCaseSummary(String userId) {
         List<Case> allCases = [
             SELECT Id, CaseNumber, Subject, Status, Priority, Type, CreatedDate
             FROM Case
-            WHERE ContactId = :contactId
+            WHERE OwnerId = :userId
             ORDER BY CreatedDate DESC
         ];
 
@@ -331,12 +325,12 @@ public with sharing class ITHelpdeskAgentService {
     // 11. GET URGENT CASES
     // ═══════════════════════════════════════════════════════════════
 
-    public static List<Case> getUrgentCases(String contactId) {
+    public static List<Case> getUrgentCases(String userId) {
         return [
             SELECT Id, CaseNumber, Subject, Status, Priority, Type,
                    CreatedDate, LastModifiedDate, Owner.Name
             FROM Case
-            WHERE ContactId = :contactId
+            WHERE OwnerId = :userId
               AND Status IN :OPEN_STATUSES
               AND Priority IN ('Critical', 'High')
             ORDER BY Priority ASC, CreatedDate ASC
@@ -420,20 +414,20 @@ public with sharing class ITHelpdeskAgentService {
 
 
     // ═══════════════════════════════════════════════════════════════
-    // 14. GET CONTACT BY EMAIL
+    // 14. GET USER BY EMAIL
     // ═══════════════════════════════════════════════════════════════
 
-    public static Contact getContactByEmail(String email) {
+    public static User getUserByEmail(String email) {
         if (String.isBlank(email)) {
             return null;
         }
-        List<Contact> contacts = [
-            SELECT Id, FirstName, LastName, Name, Email, AccountId
-            FROM Contact
-            WHERE Email = :email
+        List<User> users = [
+            SELECT Id, FirstName, LastName, Name, Email, IsActive
+            FROM User
+            WHERE Email = :email AND IsActive = true
             LIMIT 1
         ];
-        return contacts.isEmpty() ? null : contacts[0];
+        return users.isEmpty() ? null : users[0];
     }
 
 

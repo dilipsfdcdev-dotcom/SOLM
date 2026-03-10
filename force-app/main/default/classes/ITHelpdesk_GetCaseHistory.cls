@@ -2,7 +2,7 @@
  * Invocable wrapper: Get Case History
  * Delegates to ITHelpdeskAgentService.getCaseHistory
  */
-public with sharing class ITHelpdesk_GetCaseHistory {
+public without sharing class ITHelpdesk_GetCaseHistory {
 
     public class Input {
         @InvocableVariable(label='Case Id' required=true)
