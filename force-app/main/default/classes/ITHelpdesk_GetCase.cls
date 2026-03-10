@@ -16,18 +16,6 @@ public with sharing class ITHelpdesk_GetCase {
         @InvocableVariable(label='Case Record')
         public Case caseRecord;
 
-        @InvocableVariable(label='Case Id')
-        public String caseId;
-
-        @InvocableVariable(label='Case Number')
-        public String caseNumber;
-
-        @InvocableVariable(label='Case Status')
-        public String caseStatus;
-
-        @InvocableVariable(label='Case Details')
-        public String caseDetails;
-
         @InvocableVariable(label='Is Found')
         public Boolean isFound;
 
@@ -45,10 +33,9 @@ public with sharing class ITHelpdesk_GetCase {
             Case c = ITHelpdeskAgentService.getCaseByCaseNumber(inp.userId, inp.caseNumber);
             if (c != null) {
                 out.caseRecord = c;
-                out.caseId = c.Id;
-                out.caseNumber = c.CaseNumber;
-                out.caseStatus = c.Status;
-                out.caseDetails = 'Case Number: ' + c.CaseNumber
+                out.isFound = true;
+                out.message = 'Case ' + c.CaseNumber + ' found.'
+                    + '\nCase Number: ' + c.CaseNumber
                     + '\nSubject: ' + c.Subject
                     + '\nStatus: ' + c.Status
                     + '\nPriority: ' + c.Priority
@@ -56,8 +43,6 @@ public with sharing class ITHelpdesk_GetCase {
                     + '\nOrigin: ' + c.Origin
                     + '\nCreated: ' + c.CreatedDate.format()
                     + '\nOwner: ' + c.Owner.Name;
-                out.isFound = true;
-                out.message = 'Case ' + c.CaseNumber + ' found.';
             } else {
                 out.isFound = false;
                 out.message = 'No case found with number ' + inp.caseNumber + ' for your account.';
