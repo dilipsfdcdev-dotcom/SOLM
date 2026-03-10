@@ -25,7 +25,7 @@
  *   getCaseHistory        – Retrieve comments and field-change history
  *   getUserByEmail        – Look up a User by email address
  */
-public with sharing class ITHelpdeskAgentService {
+public without sharing class ITHelpdeskAgentService {
 
     // ─── Constants ───────────────────────────────────────────────
     public static final String SUPPORT_QUEUE_NAME = 'Support';

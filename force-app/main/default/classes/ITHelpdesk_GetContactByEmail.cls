@@ -3,7 +3,7 @@
  * Looks up a User record by email address.
  * Delegates to ITHelpdeskAgentService.getUserByEmail
  */
-public with sharing class ITHelpdesk_GetContactByEmail {
+public without sharing class ITHelpdesk_GetContactByEmail {
 
     public class Input {
         @InvocableVariable(label='Email Address' required=false)

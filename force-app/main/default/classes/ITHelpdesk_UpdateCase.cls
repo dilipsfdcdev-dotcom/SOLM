@@ -2,7 +2,7 @@
  * Invocable wrapper: Update Case
  * Delegates to ITHelpdeskAgentService.updateCase
  */
-public with sharing class ITHelpdesk_UpdateCase {
+public without sharing class ITHelpdesk_UpdateCase {
 
     public class Input {
         @InvocableVariable(label='Case Id' required=true)

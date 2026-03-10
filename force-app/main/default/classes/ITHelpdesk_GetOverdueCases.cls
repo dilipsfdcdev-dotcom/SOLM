@@ -2,7 +2,7 @@
  * Invocable wrapper: Get Overdue Cases
  * Delegates to ITHelpdeskAgentService.getOverdueCases
  */
-public with sharing class ITHelpdesk_GetOverdueCases {
+public without sharing class ITHelpdesk_GetOverdueCases {
 
     public class Input {
         @InvocableVariable(label='User Id' required=true)

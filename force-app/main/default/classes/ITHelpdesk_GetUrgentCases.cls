@@ -2,7 +2,7 @@
  * Invocable wrapper: Get Urgent Cases
  * Delegates to ITHelpdeskAgentService.getUrgentCases
  */
-public with sharing class ITHelpdesk_GetUrgentCases {
+public without sharing class ITHelpdesk_GetUrgentCases {
 
     public class Input {
         @InvocableVariable(label='User Id' required=true)

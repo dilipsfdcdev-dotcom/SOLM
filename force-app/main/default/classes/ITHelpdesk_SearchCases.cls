@@ -2,7 +2,7 @@
  * Invocable wrapper: Search Cases
  * Delegates to ITHelpdeskAgentService.searchCases
  */
-public with sharing class ITHelpdesk_SearchCases {
+public without sharing class ITHelpdesk_SearchCases {
 
     public class Input {
         @InvocableVariable(label='User Id' required=true)

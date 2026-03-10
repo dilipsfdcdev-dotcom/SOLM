@@ -2,7 +2,7 @@
  * Invocable wrapper: Create Case
  * Delegates to ITHelpdeskAgentService.createCase
  */
-public with sharing class ITHelpdesk_CreateCase {
+public without sharing class ITHelpdesk_CreateCase {
 
     public class Input {
         @InvocableVariable(label='User Id' required=true)

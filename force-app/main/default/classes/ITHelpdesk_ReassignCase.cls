@@ -2,7 +2,7 @@
  * Invocable wrapper: Reassign Case
  * Delegates to ITHelpdeskAgentService.reassignCase
  */
-public with sharing class ITHelpdesk_ReassignCase {
+public without sharing class ITHelpdesk_ReassignCase {
 
     public class Input {
         @InvocableVariable(label='Case Id' required=true)

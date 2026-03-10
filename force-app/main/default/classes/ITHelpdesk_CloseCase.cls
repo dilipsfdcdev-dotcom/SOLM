@@ -2,7 +2,7 @@
  * Invocable wrapper: Close Case
  * Delegates to ITHelpdeskAgentService.closeCase
  */
-public with sharing class ITHelpdesk_CloseCase {
+public without sharing class ITHelpdesk_CloseCase {
 
     public class Input {
         @InvocableVariable(label='Case Id' required=true)

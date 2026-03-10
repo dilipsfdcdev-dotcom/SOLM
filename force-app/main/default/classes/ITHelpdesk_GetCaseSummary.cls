@@ -2,7 +2,7 @@
  * Invocable wrapper: Get Case Summary
  * Delegates to ITHelpdeskAgentService.getCaseSummary
  */
-public with sharing class ITHelpdesk_GetCaseSummary {
+public without sharing class ITHelpdesk_GetCaseSummary {
 
     public class Input {
         @InvocableVariable(label='User Id' required=true)

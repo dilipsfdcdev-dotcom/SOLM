@@ -2,7 +2,7 @@
  * Invocable wrapper: Get Cases By Owner Id
  * Delegates to ITHelpdeskAgentService.getCasesByOwnerId
  */
-public with sharing class ITHelpdesk_GetCasesByContact {
+public without sharing class ITHelpdesk_GetCasesByContact {
 
     public class Input {
         @InvocableVariable(label='User Id' required=true)
