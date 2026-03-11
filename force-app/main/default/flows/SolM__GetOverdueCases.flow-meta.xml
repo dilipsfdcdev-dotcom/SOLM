@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <description>Returns cases open longer than a specified number of days. Used by Agentforce IT Helpdesk Agent for overdue case detection.</description>
+    <label>SolM Get Overdue Cases</label>
+    <processType>AutoLaunchedFlow</processType>
+    <status>Active</status>
+
+    <variables>
+        <n>contactId</n>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <n>daysOpen</n>
+        <dataType>Number</dataType>
+        <scale>0</scale>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value><numberValue>7</numberValue></value>
+    </variables>
+    <variables>
+        <n>overdueCaseList</n>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <n>cutoffDate</n>
+        <dataType>DateTime</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <n>daysAsNegative</n>
+        <dataType>Number</dataType>
+        <scale>0</scale>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector><targetReference>Negate_Days</targetReference></connector>
+    </start>
+
+    <!-- Calculate cutoff date = TODAY minus daysOpen -->
+    <assignments>
+        <n>Negate_Days</n>
+        <label>Negate Days for Subtraction</label>
+        <locationX>200</locationX>
+        <locationY>150</locationY>
+        <assignmentItems>
+            <assignToReference>daysAsNegative</assignToReference>
+            <operator>Subtract</operator>
+            <value><numberValue>0</numberValue></value>
+        </assignmentItems>
+        <connector><targetReference>Calculate_Cutoff</targetReference></connector>
+    </assignments>
+
+    <assignments>
+        <n>Calculate_Cutoff</n>
+        <label>Calculate Cutoff Date</label>
+        <locationX>400</locationX>
+        <locationY>150</locationY>
+        <assignmentItems>
+            <assignToReference>cutoffDate</assignToReference>
+            <operator>Add</operator>
+            <value><elementReference>$Flow.CurrentDateTime</elementReference></value>
+        </assignmentItems>
+        <!-- Note: Use a formula resource in production to compute NOW() - daysOpen*86400 seconds -->
+        <connector><targetReference>Get_Overdue_Cases</targetReference></connector>
+    </assignments>
+
+    <!-- RECORD LOOKUP: Open cases older than cutoff using formula -->
+    <!-- Formula Resource: cutoffDateFormula = NOW() - (daysOpen / 1) — add in Flow Builder -->
+    <recordLookups>
+        <n>Get_Overdue_Cases</n>
+        <label>Get Overdue Open Cases</label>
+        <locationX>600</locationX>
+        <locationY>150</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value><elementReference>contactId</elementReference></value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value><stringValue>Closed</stringValue></value>
+        </filters>
+        <filters>
+            <!-- CreatedDate less than cutoff = open for longer than N days -->
+            <!-- In Flow Builder, reference a Formula resource: {!cutoffDateFormula} = NOW() - daysOpen -->
+            <field>CreatedDate</field>
+            <operator>LessThan</operator>
+            <value><elementReference>cutoffDate</elementReference></value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Case</object>
+        <outputReference>overdueCaseList</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Subject</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>Priority</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <queriedFields>OwnerId</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Asc</sortOrder>
+        <limit>50</limit>
+    </recordLookups>
+</Flow>

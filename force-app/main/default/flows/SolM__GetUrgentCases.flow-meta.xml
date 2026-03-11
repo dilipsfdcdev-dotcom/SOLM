@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <description>Returns open Critical and High priority cases plus cases approaching or past SLA (open 3+ days). Used by Agentforce IT Helpdesk Agent.</description>
+    <label>SolM Get Urgent Cases</label>
+    <processType>AutoLaunchedFlow</processType>
+    <status>Active</status>
+
+    <variables>
+        <n>contactId</n>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <n>urgentCaseList</n>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <n>criticalCases</n>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <n>highCases</n>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+    <variables>
+        <n>urgentCount</n>
+        <dataType>Number</dataType>
+        <scale>0</scale>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value><numberValue>0</numberValue></value>
+    </variables>
+
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector><targetReference>Get_Critical_Cases</targetReference></connector>
+    </start>
+
+    <recordLookups>
+        <n>Get_Critical_Cases</n>
+        <label>Get Critical Open Cases</label>
+        <locationX>200</locationX>
+        <locationY>150</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector><targetReference>Get_High_Cases</targetReference></connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value><elementReference>contactId</elementReference></value>
+        </filters>
+        <filters>
+            <field>Priority</field>
+            <operator>EqualTo</operator>
+            <value><stringValue>Critical</stringValue></value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value><stringValue>Closed</stringValue></value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Case</object>
+        <outputReference>criticalCases</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Subject</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>Priority</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <queriedFields>OwnerId</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Asc</sortOrder>
+        <limit>25</limit>
+    </recordLookups>
+
+    <recordLookups>
+        <n>Get_High_Cases</n>
+        <label>Get High Priority Open Cases</label>
+        <locationX>400</locationX>
+        <locationY>150</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector><targetReference>Combine_Urgent_Lists</targetReference></connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value><elementReference>contactId</elementReference></value>
+        </filters>
+        <filters>
+            <field>Priority</field>
+            <operator>EqualTo</operator>
+            <value><stringValue>High</stringValue></value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value><stringValue>Closed</stringValue></value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Case</object>
+        <outputReference>highCases</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Subject</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>Priority</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
+        <queriedFields>OwnerId</queriedFields>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Asc</sortOrder>
+        <limit>25</limit>
+    </recordLookups>
+
+    <!-- Merge collections: add criticalCases to urgentCaseList, then highCases -->
+    <loops>
+        <n>Combine_Urgent_Lists</n>
+        <label>Add Critical Cases to Urgent List</label>
+        <locationX>600</locationX>
+        <locationY>150</locationY>
+        <collectionReference>criticalCases</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector><targetReference>Add_Critical_To_List</targetReference></nextValueConnector>
+        <noMoreValuesConnector><targetReference>Loop_High_Cases</targetReference></noMoreValuesConnector>
+    </loops>
+    <assignments>
+        <n>Add_Critical_To_List</n>
+        <label>Add Critical Case to Output</label>
+        <locationX>800</locationX>
+        <locationY>150</locationY>
+        <assignmentItems>
+            <assignToReference>urgentCaseList</assignToReference>
+            <operator>Add</operator>
+            <value><elementReference>Combine_Urgent_Lists</elementReference></value>
+        </assignmentItems>
+        <connector><targetReference>Combine_Urgent_Lists</targetReference></connector>
+    </assignments>
+    <loops>
+        <n>Loop_High_Cases</n>
+        <label>Add High Cases to Urgent List</label>
+        <locationX>600</locationX>
+        <locationY>350</locationY>
+        <collectionReference>highCases</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector><targetReference>Add_High_To_List</targetReference></nextValueConnector>
+        <noMoreValuesConnector><targetReference>Set_Urgent_Count</targetReference></noMoreValuesConnector>
+    </loops>
+    <assignments>
+        <n>Add_High_To_List</n>
+        <label>Add High Case to Output</label>
+        <locationX>800</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>urgentCaseList</assignToReference>
+            <operator>Add</operator>
+            <value><elementReference>Loop_High_Cases</elementReference></value>
+        </assignmentItems>
+        <connector><targetReference>Loop_High_Cases</targetReference></connector>
+    </assignments>
+
+    <assignments>
+        <n>Set_Urgent_Count</n>
+        <label>Set Urgent Count</label>
+        <locationX>1000</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>urgentCount</assignToReference>
+            <operator>AssignCount</operator>
+            <value><elementReference>urgentCaseList</elementReference></value>
+        </assignmentItems>
+    </assignments>
+</Flow>
