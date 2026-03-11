@@ -1,0 +1,46 @@
+Title: How to Troubleshoot Microsoft Teams Issues
+Category: Software
+Tags: Teams, Microsoft Teams, audio, video, screen sharing, chat, loading
+
+Problem:
+Microsoft Teams is not loading, or you are experiencing audio, video, or screen sharing problems during calls and meetings.
+
+Symptoms:
+- Teams app stuck on loading screen or showing a blank white window
+- No audio or microphone not working during calls
+- Camera not turning on or showing a black screen
+- Screen sharing not available or recipients cannot see your shared screen
+
+Steps to Resolve:
+
+Step 1: Clear the Teams cache.
+- Close Microsoft Teams completely (right-click the Teams icon in the system tray and select "Quit")
+- On Windows: navigate to %appdata%\Microsoft\Teams and delete all files and folders inside
+- On Mac: navigate to ~/Library/Application Support/Microsoft/Teams and delete all files and folders
+- Reopen Teams and sign in again
+
+Step 2: Update Microsoft Teams.
+- Open Teams and click your profile picture in the top-right corner
+- Select "Check for updates"
+- Allow the update to download and install, then restart Teams
+- Keeping Teams updated resolves many known issues
+
+Step 3: Check audio and video settings.
+- In Teams, click the three dots (...) next to your profile picture and select "Settings"
+- Go to "Devices" and verify the correct microphone, speaker, and camera are selected
+- Click "Make a test call" to verify audio is working
+- Ensure your browser or OS has granted Teams permission to access the microphone and camera
+
+Step 4: Test in a web browser.
+- Open a browser and go to https://teams.microsoft.com
+- Sign in with your corporate credentials
+- Join a test meeting to see if the issue persists in the browser version
+- If the browser version works, the desktop app may need reinstallation
+
+Step 5: Reinstall Microsoft Teams.
+- Uninstall Teams from Settings > Apps (Windows) or Applications folder (Mac)
+- Download the latest version from the Self-Service Portal or https://teams.microsoft.com/downloads
+- Install and sign in with your corporate credentials
+- Contact IT Helpdesk if issues continue after reinstallation
+
+Expected Resolution Time: Within 30 minutes for self-service troubleshooting.

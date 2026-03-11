@@ -1,0 +1,38 @@
+Title: How to Set Up Multi-Factor Authentication (MFA)
+Category: Access/Permissions
+Tags: MFA, multi-factor, authentication, authenticator, two-factor, 2FA
+
+Problem:
+You need to set up multi-factor authentication for your corporate account to comply with security requirements.
+
+Symptoms:
+- Prompt to enroll in MFA when logging into company systems
+- "MFA registration required" message during login
+- New employee onboarding requires MFA setup
+
+Steps to Resolve:
+
+Step 1: Download an authenticator app on your mobile device.
+- Install Microsoft Authenticator or Google Authenticator from the App Store or Google Play
+- Ensure your phone has a screen lock enabled (PIN, fingerprint, or face recognition)
+- Keep the app updated to the latest version
+
+Step 2: Register your device with the corporate identity portal.
+- Log in to the company identity portal (https://identity.company.com)
+- Navigate to Security Settings > Multi-Factor Authentication
+- Select "Add a device" or "Set up MFA"
+- Choose "Authenticator app" as your MFA method
+
+Step 3: Scan the QR code.
+- The portal will display a QR code on screen
+- Open your authenticator app and tap the "+" or "Add account" button
+- Select "Scan QR code" and point your camera at the screen
+- The account will be added to your authenticator app automatically
+
+Step 4: Verify and save your backup codes.
+- Enter the 6-digit code from your authenticator app to confirm setup
+- The portal will provide a set of one-time backup codes
+- Save these codes in a secure location (printed or in a password manager)
+- Each backup code can only be used once in case you lose access to your device
+
+Expected Resolution Time: 15 minutes for self-service setup.

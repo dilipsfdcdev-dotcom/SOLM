@@ -1,0 +1,44 @@
+Title: How to Set Up a Network Printer or Fix Printing Issues
+Category: Hardware
+Tags: printer, printing, network printer, print queue, drivers, setup
+
+Problem:
+You need to set up a network printer on your computer, or your printer is not printing correctly.
+
+Symptoms:
+- Cannot find or add a network printer
+- Print jobs stuck in the queue and not printing
+- "Printer offline" message when trying to print
+- Printed pages are blank, garbled, or incomplete
+
+Steps to Resolve:
+
+Step 1: Find the printer name and location.
+- Check the label on the physical printer for its network name (e.g., PRN-FLOOR3-EAST)
+- Refer to the office floor map on the intranet for printer locations
+- Ask a colleague nearby for the printer name if you are in a new office
+
+Step 2: Add the printer via system settings.
+- On Windows: go to Settings > Devices > Printers & Scanners > Add a printer
+- On Mac: go to System Preferences > Printers & Scanners > click the "+" button
+- Search for the printer by name or browse available network printers
+- Select the correct printer and click "Add"
+
+Step 3: Install printer drivers if prompted.
+- The correct driver should install automatically from the print server
+- If prompted to choose a driver, select the manufacturer and model matching the printer label
+- If the driver is not found, download it from the Self-Service Portal under "Printer Drivers"
+- Restart your computer after installing new drivers
+
+Step 4: Send a test print.
+- Open any document and select File > Print
+- Choose the newly added printer from the printer list
+- Click "Print" and verify the output at the physical printer
+
+Step 5: Clear a stuck print queue.
+- On Windows: go to Settings > Devices > Printers & Scanners, select the printer, and click "Open queue"
+- Cancel all pending print jobs
+- Restart the Print Spooler service: open Services (services.msc), find "Print Spooler," right-click, and select "Restart"
+- Try printing again after the queue is cleared
+
+Expected Resolution Time: Within 30 minutes for self-service setup.

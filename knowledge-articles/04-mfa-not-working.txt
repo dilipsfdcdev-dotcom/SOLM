@@ -1,0 +1,41 @@
+Title: How to Fix Multi-Factor Authentication (MFA) Issues
+Category: Access/Permissions
+Tags: MFA, authentication, codes not working, not receiving codes, 2FA, login issues
+
+Problem:
+Your MFA codes are not being accepted or you are not receiving authentication codes on your device.
+
+Symptoms:
+- "Invalid code" error when entering the MFA code
+- MFA code expires before you can enter it
+- Push notification not received on your phone
+- Authenticator app shows no codes for your corporate account
+
+Steps to Resolve:
+
+Step 1: Check the time sync on your phone.
+- MFA codes are time-based and require an accurate clock
+- On iPhone: go to Settings > General > Date & Time and enable "Set Automatically"
+- On Android: go to Settings > System > Date & Time and enable "Automatic date & time"
+- After correcting the time, try entering a fresh code immediately
+
+Step 2: Use a backup code.
+- Locate the backup codes you saved during MFA setup
+- Enter a backup code instead of the authenticator code at the login prompt
+- Each backup code can only be used once
+- If you have no remaining backup codes, proceed to Step 3
+
+Step 3: Re-register your device.
+- Log in to the company identity portal using a backup code or trusted device
+- Navigate to Security Settings > Multi-Factor Authentication
+- Remove the old device registration
+- Set up MFA again by following the standard enrollment process (see article 03-mfa-setup)
+- Scan the new QR code with your authenticator app
+
+Step 4: Contact IT if you cannot resolve the issue.
+- If you cannot log in at all, contact IT Helpdesk by phone or in person
+- Be prepared to verify your identity with your employee ID and a photo ID
+- IT can temporarily disable MFA to allow you to re-enroll
+- A temporary access window of 30 minutes will be provided to complete setup
+
+Expected Resolution Time: Within 1 hour during business hours.

@@ -1,0 +1,48 @@
+Title: How to Troubleshoot VPN Connection Issues
+Category: Network/Connectivity
+Tags: VPN, connection, disconnecting, slow VPN, remote access
+
+Problem:
+You are unable to connect to the corporate VPN, the VPN keeps disconnecting, or the VPN connection is unusually slow.
+
+Symptoms:
+- VPN client shows "Connection failed" or "Unable to reach server"
+- VPN connects briefly then disconnects
+- Extremely slow network speeds while connected to VPN
+- "Authentication failed" error when entering VPN credentials
+
+Steps to Resolve:
+
+Step 1: Check your internet connection.
+- Open a web browser and navigate to a public website (e.g., google.com)
+- If the internet is not working, troubleshoot your local network first
+- Try switching between WiFi and a wired connection
+
+Step 2: Confirm you are using a company-approved laptop.
+- VPN access is restricted to company-managed devices
+- Personal devices may be blocked by security policies
+- Check with IT if you are unsure whether your device is enrolled
+
+Step 3: Restart the VPN client.
+- Close the VPN application completely (check the system tray)
+- Wait 10 seconds, then reopen the VPN client
+- Attempt to connect again using your corporate credentials
+
+Step 4: Clear the VPN cache.
+- Open the VPN client settings
+- Look for an option to clear cache or reset the connection profile
+- On Windows: navigate to C:\ProgramData\VPNClient and delete temporary files
+- On Mac: go to ~/Library/Application Support/VPNClient and remove cache files
+
+Step 5: Check your firewall settings.
+- Ensure your local firewall is not blocking the VPN application
+- Temporarily disable third-party antivirus or firewall software to test
+- Re-enable security software after testing
+
+Step 6: Reinstall the VPN client.
+- Uninstall the current VPN client from your computer
+- Download the latest version from the company self-service portal
+- Install and configure using your corporate credentials
+- If the issue persists, contact IT Helpdesk with error details
+
+Expected Resolution Time: Within 1 hour during business hours.

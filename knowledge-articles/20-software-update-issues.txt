@@ -1,0 +1,50 @@
+Title: How to Fix Windows Updates or Application Updates That Are Failing
+Category: Software
+Tags: Windows Update, updates, failing, stuck, application update, patch, restart
+
+Problem:
+Windows updates are failing to install, or application updates are stuck and not completing.
+
+Symptoms:
+- Windows Update shows "Install failed" or error codes (e.g., 0x80070002, 0x800f0922)
+- Update downloads but gets stuck at a percentage during installation
+- Computer repeatedly prompts to restart for updates but the update never completes
+- Application update notification persists but the update fails to apply
+
+Steps to Resolve:
+
+Step 1: Restart your computer.
+- Many update failures are resolved by a simple restart
+- Save all open work and perform a full restart (Start > Power > Restart)
+- After restart, go to Settings > Update & Security > Windows Update and check for updates again
+- If the update installs successfully after restart, no further action is needed
+
+Step 2: Check your internet connection.
+- Ensure you have a stable internet connection before downloading updates
+- If on VPN, try disconnecting from VPN for Windows Updates (some VPN configurations limit bandwidth)
+- Connect to a wired network if possible for more reliable downloads
+
+Step 3: Run the Windows Update troubleshooter.
+- On Windows: go to Settings > Update & Security > Troubleshoot > Additional troubleshooters
+- Select "Windows Update" and click "Run the troubleshooter"
+- Follow the on-screen prompts and apply any recommended fixes
+- Restart your computer and attempt the update again
+
+Step 4: Clear the update cache.
+- Open Command Prompt as Administrator (right-click Start > Command Prompt (Admin))
+- Run the following commands to stop the update service and clear the cache:
+  - net stop wuauserv
+  - net stop bits
+  - Delete contents of C:\Windows\SoftwareDistribution\Download
+  - net start wuauserv
+  - net start bits
+- Go to Windows Update and try downloading the update again
+
+Step 5: Manually download and install the update.
+- Note the KB number of the failed update from Windows Update history
+- Go to the Microsoft Update Catalog (https://catalog.update.microsoft.com)
+- Search for the KB number and download the correct version for your system
+- Run the downloaded file to install the update manually
+- Contact IT Helpdesk if the update continues to fail after manual installation
+
+Expected Resolution Time: Within 1 hour for self-service; up to 4 hours with IT assistance.
