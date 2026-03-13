@@ -1,0 +1,39 @@
+Title: How to Handle Phishing Emails and Security Alerts
+Category: Security
+Tags: phishing, security, suspicious email, malware, security warning, compromised account
+
+Problem:
+You received a suspicious or phishing email, noticed unusual activity on your account, or received a security warning on your device.
+
+Symptoms:
+- Email from an unknown sender asking you to click a link or open an attachment
+- Email that appears to be from a colleague but has an unusual request or tone
+- Security warning about unauthorized login attempts on your account
+- Pop-up alerts warning about malware or virus infections
+
+Steps to Resolve:
+
+Step 1: Do not click any links or open attachments.
+- If the email looks suspicious, do not click any links, download attachments, or reply
+- Do not forward the email to others except the security team
+- If you already clicked a link, disconnect from the network immediately and proceed to Step 3
+
+Step 2: Report the phishing email.
+- In Outlook, select the suspicious email and click the "Report Phishing" button in the toolbar
+- If the button is not available, forward the email as an attachment to security@company.com
+- Include a brief note describing why you believe the email is suspicious
+- Delete the email from your inbox after reporting
+
+Step 3: Change your password if you suspect your account is compromised.
+- If you clicked a suspicious link or entered credentials on a fake website, change your password immediately
+- Go to the company identity portal and reset your password
+- Also reset the password on any other accounts where you use the same credentials
+- Enable MFA if it is not already active on your account
+
+Step 4: Contact the security team.
+- Call the IT Security Hotline or submit a security incident via the IT Helpdesk portal
+- Provide details: what you clicked, what information you entered, and when it happened
+- The security team will investigate and take protective actions on your account
+- Follow any additional instructions provided by the security team
+
+Expected Resolution Time: Immediate response from the security team during business hours; full investigation within 24 hours.

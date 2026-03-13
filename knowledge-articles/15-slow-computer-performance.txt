@@ -1,0 +1,53 @@
+Title: How to Fix a Slow or Freezing Computer
+Category: Hardware
+Tags: slow, performance, freezing, high CPU, disk space, computer, lag
+
+Problem:
+Your computer is running unusually slow, freezing, or experiencing high CPU usage that affects your ability to work.
+
+Symptoms:
+- Applications take a long time to open or respond
+- Mouse cursor freezes or lags during normal use
+- Task Manager shows high CPU, memory, or disk usage
+- Computer fan runs loudly and constantly
+- System becomes unresponsive and requires a forced restart
+
+Steps to Resolve:
+
+Step 1: Restart your computer.
+- Save all open work and close all applications
+- Perform a full restart (not just sleep or hibernate)
+- Use Start > Power > Restart on Windows or Apple menu > Restart on Mac
+- A restart clears temporary files and resets system processes
+
+Step 2: Close unnecessary applications.
+- Open Task Manager (Ctrl+Shift+Esc on Windows) or Activity Monitor (on Mac)
+- Review the list of running processes sorted by CPU or memory usage
+- Close applications you are not actively using
+- End any background processes that are consuming excessive resources
+
+Step 3: Check available disk space.
+- On Windows: open File Explorer, right-click the C: drive, and select "Properties"
+- On Mac: click the Apple menu > About This Mac > Storage
+- Your system needs at least 10-15% free disk space to run efficiently
+- If the drive is nearly full, proceed to Step 4
+
+Step 4: Run disk cleanup.
+- On Windows: search for "Disk Cleanup" in the Start menu, select the C: drive, and check items to delete
+- Include temporary files, recycle bin, and system cache files
+- On Mac: go to Apple menu > About This Mac > Storage > Manage and review recommendations
+- Move large files to OneDrive or the company network drive
+
+Step 5: Check for system updates.
+- On Windows: go to Settings > Update & Security > Windows Update and install any pending updates
+- On Mac: go to System Preferences > Software Update
+- Restart your computer after updates are installed
+- Outdated systems may have known performance issues that updates resolve
+
+Step 6: Scan for malware.
+- Open your company antivirus software (e.g., Windows Defender, CrowdStrike)
+- Run a full system scan
+- Allow the scan to complete and follow any recommended actions to remove threats
+- Contact IT Helpdesk if malware is detected or performance does not improve
+
+Expected Resolution Time: Within 30 minutes for self-service; up to 2 hours with IT assistance.

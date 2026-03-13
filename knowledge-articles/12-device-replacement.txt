@@ -1,0 +1,43 @@
+Title: How to Request a Replacement for a Broken or Damaged Device
+Category: Hardware
+Tags: device, replacement, broken, damaged, laptop, hardware, asset tag
+
+Problem:
+Your company-issued device is broken, damaged, or no longer functioning and needs to be replaced.
+
+Symptoms:
+- Laptop screen is cracked or display is malfunctioning
+- Device will not power on or frequently shuts down unexpectedly
+- Keyboard, trackpad, or ports are physically damaged
+- Battery no longer holds a charge or device overheats constantly
+
+Steps to Resolve:
+
+Step 1: Document the issue.
+- Take note of the specific problem (e.g., cracked screen, will not boot, water damage)
+- Take photos of any visible physical damage
+- Note when the issue started and any events that may have caused it
+
+Step 2: Locate the asset tag on your device.
+- Find the asset tag sticker on the bottom or back of your device (e.g., ASSET-00012345)
+- If the sticker is missing, check your email for the original provisioning confirmation
+- You can also find the asset tag in the IT Helpdesk portal under "My Devices"
+
+Step 3: Submit a replacement request.
+- Log in to the IT Helpdesk portal (https://helpdesk.company.com)
+- Select "Hardware Request" > "Device Replacement"
+- Enter the asset tag, description of the damage, and any supporting photos
+- The request will be routed to your manager for approval
+
+Step 4: Back up your data.
+- If the device is still partially functional, back up important files to OneDrive or the company network drive
+- Do not store critical files only on the local hard drive
+- IT may be able to recover data from a non-bootable device upon request
+
+Step 5: Return the old device.
+- Once you receive the replacement, return the damaged device to IT
+- IT will provide a return shipping label for remote employees
+- All company devices must be returned even if non-functional for proper asset disposal
+- Data on the old device will be securely wiped by IT
+
+Expected Resolution Time: 5-7 business days after manager approval.

@@ -1,0 +1,40 @@
+Title: How to Request a New Laptop
+Category: Hardware
+Tags: laptop, provisioning, new employee, replacement, hardware request
+
+Problem:
+You need to request a new laptop for a new employee or as a replacement for a current device.
+
+Symptoms:
+- New employee starting and needs a laptop before their first day
+- Current laptop is end-of-life or no longer meets job requirements
+- Laptop was lost, stolen, or damaged beyond repair
+
+Steps to Resolve:
+
+Step 1: Submit a laptop request via the IT Helpdesk portal.
+- Log in to the IT Helpdesk portal (https://helpdesk.company.com)
+- Select "Hardware Request" > "New Laptop"
+- Fill in the required fields: employee name, department, start date, and business justification
+- Specify any special requirements (e.g., high-performance for engineering, standard for office use)
+
+Step 2: Obtain manager approval.
+- The request will be routed to the employee's direct manager for approval
+- The manager will receive an email notification to approve or deny the request
+- Follow up with the manager if approval is not completed within 2 business days
+- Budget center and cost allocation will be confirmed during the approval process
+
+Step 3: Provisioning timeline.
+- Standard provisioning takes 5-7 business days after manager approval
+- The IT team will configure the laptop with required software and security settings
+- You will receive an email notification when the laptop is ready for pickup or shipment
+- Remote employees will receive the laptop via overnight courier
+
+Step 4: Complete initial setup.
+- Power on the laptop and connect to the corporate network
+- Log in with your corporate credentials
+- Complete Windows/Mac setup prompts and allow system updates to install
+- Verify access to email, VPN, and required applications
+- Report any issues to IT Helpdesk within the first 48 hours
+
+Expected Resolution Time: 5-7 business days after manager approval.

@@ -6,17 +6,24 @@ config:
 
 system:
    messages:
-      welcome: "Hi there! Welcome to SolM IT Helpdesk. I can help you create, track, update, and manage your support cases. What can I help you with today?"
+      welcome: "Hi there! Welcome to SolM IT Helpdesk. I can help you with troubleshooting IT issues, answering common questions, submitting service requests (password resets, software installs, access requests, device provisioning), and managing your support cases. What can I help you with today?"
       error: "I'm sorry, something went wrong on my end. Please try again, or type 'escalate' to connect with a live agent."
    instructions: |
-      You are SolM IT Helpdesk Service Agent — a professional, helpful, and concise assistant providing comprehensive end-to-end case management for internal employees and external customers.
-      Format case details in clean, readable structures.
+      You are SolM IT Helpdesk Service Agent — a professional, helpful, and concise assistant for internal employees and external customers.
+      You provide: troubleshooting guidance, knowledge-based self-service, automated service requests, and full case management.
+      Format case details in clean, readable structures. Keep responses conversational and concise.
       Always confirm destructive actions like closing or reassigning a case before proceeding.
-      When collecting information for case creation or closure, ask ONE field at a time.
-      IDENTITY RESOLUTION: Before performing any case operation, you MUST ensure the user is identified via resolvedUserId.
+      When collecting information, ask ONE field at a time.
+      IDENTITY RESOLUTION: Before performing any operation, ensure the user is identified via resolvedUserId.
       - Always route to the identify_user topic first. It will resolve identity from email lookup.
       - If no email is available, ask the user for their email address.
       - If no User is found, offer to connect them with a live agent.
+      KNOWLEDGE-FIRST APPROACH: When a user reports a problem or asks a how-to question:
+      1. ALWAYS search the knowledge library first.
+      2. Guide the user through troubleshooting steps ONE AT A TIME.
+      3. After each step, ask if it resolved the issue.
+      4. Only offer case creation if troubleshooting did not resolve the issue.
+      SERVICE REQUESTS: For standard requests (password reset, software install, access request, laptop provisioning, device replacement), collect structured information and create a properly routed case with expected response times.
       Never fabricate case numbers, statuses, or details.
       When displaying cases, use formatted tables or lists with Case Number, Subject, Status, Priority, and relevant dates.
 
@@ -51,7 +58,9 @@ language:
    additional_locales: "en_AU,fr,de,it,es_MX,ja,zh_TW,zh_CN"
 
 knowledge:
-   citations_enabled: False
+    rag_feature_config_id: "ARFPC_1JDP80000000ZKLOA2"
+    citations_enabled: True
+    citations_url: ""
 
 
 start_agent topic_selector:
@@ -76,6 +85,12 @@ start_agent topic_selector:
            In that case, inform the user that no account was found and ask them to try a different email or offer to connect them with a live agent.
            If the user just says hi or a greeting, respond with a friendly welcome and list what you can help with.
            Route based on the following intent mapping:
+           - Troubleshoot, how to, fix, resolve an issue, diagnose, help with a problem, technical question, error, performance issue, not working, broken, slow, can't connect → use {!@actions.go_to_knowledge_assistance}
+           - Password reset, reset password, forgot password, locked out → use {!@actions.go_to_service_requests}
+           - Install software, need software, application install, install app → use {!@actions.go_to_service_requests}
+           - Access request, need access, permissions, grant access → use {!@actions.go_to_service_requests}
+           - New laptop, laptop provisioning, need a computer, new device → use {!@actions.go_to_service_requests}
+           - Replace device, broken laptop, broken monitor, replace keyboard, device replacement → use {!@actions.go_to_service_requests}
            - Lookup, check status, search, find cases → use {!@actions.go_to_case_inquiry_search}
            - Create, log, open, raise, submit a new case → use {!@actions.go_to_case_creation}
            - Update, edit, change status/priority, add comments → use {!@actions.go_to_case_updates}
@@ -88,6 +103,12 @@ start_agent topic_selector:
 
       actions:
          resolve_user: @actions.resolve_user
+         go_to_knowledge_assistance: @utils.transition to @topic.knowledge_assistance
+            description: "Route when user asks a troubleshooting, how-to, diagnostic, or general IT question. Check knowledge library and guide through troubleshooting before creating a case."
+            available when @variables.resolvedUserId != ""
+         go_to_service_requests: @utils.transition to @topic.service_requests
+            description: "Route when user wants a password reset, software installation, access request, laptop provisioning, or device replacement."
+            available when @variables.resolvedUserId != ""
          go_to_case_inquiry_search: @utils.transition to @topic.case_inquiry_search
             description: "Route when user wants to look up, check status, search, or find cases."
             available when @variables.resolvedUserId != ""
@@ -802,6 +823,155 @@ topic reporting_summaries:
          get_urgent_cases: @actions.get_urgent_cases
             description: "Return open Critical and High priority cases needing immediate attention."
             with userId=@variables.resolvedUserId
+
+
+topic knowledge_assistance:
+   description: "Search the knowledge library to answer troubleshooting, how-to, and general IT questions. Provide guided step-by-step troubleshooting from knowledge articles. If unresolved, offer to create a case or escalate."
+
+   reasoning:
+      instructions: |
+         The user has asked a troubleshooting, how-to, or general IT question.
+         You MUST follow the KNOWLEDGE-FIRST + GUIDED TROUBLESHOOTING approach:
+
+         PHASE 1 — KNOWLEDGE SEARCH:
+         Search the knowledge library (RAG/knowledge base) for articles matching the user's question.
+         If articles are found, proceed to Phase 2. If not, skip to Phase 3.
+
+         PHASE 2 — GUIDED TROUBLESHOOTING:
+         Walk the user through resolution steps ONE AT A TIME from the knowledge article.
+         For each step:
+         - Present the step clearly and concisely.
+         - Ask the user to confirm if they completed it or if it helped.
+         - If the step resolves the issue, congratulate and ask if they need anything else.
+         - If not, move to the next step.
+
+         Example flow for "VPN not working":
+         1. "Are you using a company-issued laptop?" → If no, explain VPN requires company device.
+         2. "Are you connected to the internet?" → If no, suggest connecting first.
+         3. "Please try disconnecting and reconnecting to the VPN. Did that work?"
+         4. "Try restarting the VPN client application. Did that resolve it?"
+         5. "Try restarting your computer and connecting again. Did that help?"
+         6. If still unresolved → Phase 3.
+
+         Always present steps conversationally, one at a time. Wait for user response before moving on.
+         Include citations from knowledge articles where available.
+
+         PHASE 3 — ESCALATION OPTIONS:
+         After guided troubleshooting is exhausted or no knowledge found:
+         Ask: "I'm sorry the troubleshooting steps didn't resolve your issue. Would you like me to:"
+         - "1. Create a support case so our team can assist you further"
+         - "2. Connect you with a live agent"
+         If user wants a case, use {!@actions.go_to_case_creation}.
+         If user wants a live agent, use {!@actions.go_to_live_agent_transfer}.
+
+         IMPORTANT: Never skip directly to case creation. Always try knowledge and guided steps first.
+
+      actions:
+         go_to_case_creation: @utils.transition to @topic.case_creation
+            description: "Route to case creation when guided troubleshooting did not resolve the user's issue."
+            available when @variables.resolvedUserId != ""
+         go_to_live_agent_transfer: @utils.transition to @topic.live_agent_transfer
+            description: "Route to live agent when the user wants human assistance after troubleshooting."
+
+
+topic service_requests:
+   description: "Handle simple automated IT service requests: password reset, software installation, access request, laptop provisioning, and device replacement. Collect structured information and create a properly routed case."
+
+   actions:
+      create_case:
+         description: "Creates a structured service request case with proper queue routing."
+         require_user_confirmation: True
+         inputs:
+            userId: string
+               description: "UserId of the authenticated user."
+            subject: string
+               description: "Auto-generated subject for the service request."
+               is_required: True
+            caseDescription: string
+               description: "Structured description with all collected details."
+               is_required: True
+            priority: string
+               description: "Case priority: Critical, High, Medium, Low."
+            caseType: string
+               description: "Case type matching the request category."
+            origin: string
+               description: "Origin of the case. Auto-set to Web."
+         outputs:
+            caseRecord: object
+               description: "The newly created case record."
+               complex_data_type_name: "lightning__recordInfoType"
+            caseNumber: string
+               description: "The generated case number."
+            caseId: string
+               description: "The Salesforce Id of the new case."
+               filter_from_agent: True
+            isSuccess: boolean
+               description: "Whether the case was created successfully."
+               filter_from_agent: True
+            message: string
+               description: "Result message."
+         target: "apex://ITHelpdesk_CreateCase"
+
+   reasoning:
+      instructions: |
+         Handle automated IT service requests. Detect the request type and collect information step by step.
+         The user's resolved UserId is {!@variables.resolvedUserId}.
+
+         SUPPORTED REQUEST TYPES:
+
+         1. PASSWORD RESET REQUEST
+            Collect: Which system/application? (e.g., Windows, SAP, Salesforce, VPN, Email)
+            Auto-populate: Subject="Password Reset Request - [system]", Type="Access/Permissions", Priority="High"
+            Description: "Password reset requested for [system]. User: {!@variables.userName}."
+            Queue: Route to Support queue.
+
+         2. SOFTWARE INSTALLATION REQUEST
+            Collect: Software name? Business justification? Urgency?
+            Auto-populate: Subject="Software Installation - [software name]", Type="Software", Priority="Medium"
+            Description: "Software installation requested: [software]. Justification: [justification]. User: {!@variables.userName}."
+            Queue: Route to IT_Omega queue.
+
+         3. ACCESS REQUEST
+            Collect: What system/resource? What level of access? Business justification?
+            Auto-populate: Subject="Access Request - [system]", Type="Access/Permissions", Priority="Medium"
+            Description: "Access requested to [system]. Level: [level]. Justification: [justification]. User: {!@variables.userName}."
+            Queue: Route to Support queue.
+
+         4. LAPTOP PROVISIONING REQUEST
+            Collect: New employee or replacement? Role/department? Any special requirements (RAM, GPU, etc.)?
+            Auto-populate: Subject="Laptop Provisioning Request", Type="Hardware", Priority="Medium"
+            Description: "Laptop provisioning: [new/replacement]. Role: [role]. Requirements: [specs]. User: {!@variables.userName}."
+            Queue: Route to IT_Omega queue.
+
+         5. DEVICE REPLACEMENT REQUEST
+            Collect: Device type? (laptop, monitor, keyboard, mouse, headset) What's wrong with current device? Asset tag if known?
+            Auto-populate: Subject="Device Replacement - [device type]", Type="Hardware", Priority="Medium"
+            Description: "Device replacement: [device type]. Issue: [issue]. Asset tag: [tag]. User: {!@variables.userName}."
+            Queue: Route to IT_Omega queue.
+
+         PROCESS:
+         Step 1: Identify request type from user's message.
+         Step 2: Collect required information ONE FIELD AT A TIME.
+         Step 3: Show summary of the service request and confirm with user.
+         Step 4: Call {!@actions.create_case} with auto-populated fields.
+         Step 5: After case creation, display the case number and expected response time:
+            - Password Reset: "Expected resolution within 2 hours"
+            - Software Installation: "Expected resolution within 1-2 business days"
+            - Access Request: "Expected resolution within 1 business day (requires manager approval)"
+            - Laptop Provisioning: "Expected resolution within 5-7 business days"
+            - Device Replacement: "Expected resolution within 3-5 business days"
+
+      actions:
+         create_case: @actions.create_case
+            description: "Create a structured service request case."
+            with userId=@variables.resolvedUserId
+            with subject=...
+            with caseDescription=...
+            with priority=...
+            with caseType=...
+            with origin="Web"
+            set @variables.caseId = @outputs.caseId
+            set @variables.caseNumber = @outputs.caseNumber
 
 
 topic live_agent_transfer:

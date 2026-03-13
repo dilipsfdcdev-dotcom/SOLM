@@ -1,0 +1,45 @@
+Title: How to Set Up Corporate Email on a Mobile Device
+Category: Software
+Tags: mobile, email, Exchange, phone, MDM, mobile device management, sync, iOS, Android
+
+Problem:
+You need to set up corporate email on your personal or company-issued mobile device to access email, calendar, and contacts on the go.
+
+Symptoms:
+- No corporate email configured on your phone or tablet
+- Need to access work email and calendar from a mobile device
+- New phone and need to reconfigure corporate email
+- Email was working on the mobile device but stopped syncing
+
+Steps to Resolve:
+
+Step 1: Open the mail app on your device.
+- On iPhone/iPad: open the Settings app and navigate to Mail > Accounts > Add Account
+- On Android: open the Gmail app or the built-in Email app and go to Settings > Add Account
+- Alternatively, download and install the Microsoft Outlook app from the App Store or Google Play (recommended)
+
+Step 2: Add an Exchange account.
+- Select "Microsoft Exchange" or "Exchange ActiveSync" as the account type
+- If using the Outlook app, select "Add Account" and enter your corporate email address
+- The app may automatically detect your organization's settings
+
+Step 3: Enter your email and server details.
+- Enter your full corporate email address (e.g., firstname.lastname@company.com)
+- Enter your corporate password
+- If prompted for server details, use: mail.company.com
+- Set the domain to your corporate domain if required (e.g., CORP)
+
+Step 4: Accept the MDM (Mobile Device Management) policy.
+- You will be prompted to accept the company's MDM policy on your device
+- This policy may enforce a screen lock, remote wipe capability, and encryption
+- Review the policy details and tap "Accept" or "Agree"
+- Personal devices must meet minimum security requirements before enrollment
+
+Step 5: Verify sync is working.
+- After setup, wait a few minutes for the initial sync to complete
+- Verify that your inbox, calendar, and contacts are appearing on the device
+- Send a test email from your phone to confirm outgoing mail works
+- If sync fails, remove the account and repeat the setup process
+- Contact IT Helpdesk if the issue persists after re-adding the account
+
+Expected Resolution Time: 15 minutes for self-service setup.

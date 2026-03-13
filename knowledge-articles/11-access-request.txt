@@ -1,0 +1,39 @@
+Title: How to Request Access to Systems, Shared Drives, or Applications
+Category: Access/Permissions
+Tags: access, permissions, shared drive, application access, system access, authorization
+
+Problem:
+You need access to a corporate system, shared drive, or application that you currently do not have permissions for.
+
+Symptoms:
+- "Access denied" or "You do not have permission" error when opening a file or application
+- Unable to see a shared drive or folder that your team uses
+- New role or project requires access to additional systems
+- Recently joined employee missing standard access
+
+Steps to Resolve:
+
+Step 1: Identify the system or resource you need access to.
+- Note the exact name of the application, shared drive, or system (e.g., Salesforce, \\fileserver\marketing, SAP)
+- Determine the level of access needed (read-only, edit, admin)
+- Check with your team lead or manager to confirm you need this access
+
+Step 2: Submit an access request form.
+- Log in to the IT Helpdesk portal (https://helpdesk.company.com)
+- Select "Access Request" from the service catalog
+- Fill in the resource name, access level, and business justification
+- Specify whether the access is temporary or permanent
+
+Step 3: Manager approval.
+- Your direct manager will receive an email to approve the request
+- Some systems also require approval from the resource owner or data steward
+- Follow up with your manager if approval is not completed within 2 business days
+- Requests without sufficient business justification may be denied
+
+Step 4: Wait for provisioning and verify access.
+- Standard access requests are provisioned within 1-3 business days after approval
+- You will receive an email confirmation when access has been granted
+- Log out and log back in to ensure the new permissions take effect
+- Contact IT Helpdesk if access is not working after confirmation
+
+Expected Resolution Time: 1-3 business days after manager approval.

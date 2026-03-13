@@ -1,0 +1,44 @@
+Title: How to Map a Network Drive or Fix Shared Folder Access Issues
+Category: Network/Connectivity
+Tags: network drive, shared folder, map drive, access denied, file server, drive mapping
+
+Problem:
+You need to map a network drive to access shared folders, or you are unable to access a previously mapped network drive.
+
+Symptoms:
+- Shared drive or folder not appearing in File Explorer
+- "Access denied" or "Network path not found" error when accessing a mapped drive
+- Red "X" icon on a previously mapped network drive
+- Need to connect to a new shared folder for a project or team
+
+Steps to Resolve:
+
+Step 1: Open File Explorer.
+- Press Windows key + E to open File Explorer
+- Verify you are connected to the corporate network (on-site or via VPN)
+- Network drives are only accessible when connected to the company network
+
+Step 2: Map the network drive.
+- In File Explorer, click "This PC" in the left panel
+- Click "Map network drive" in the toolbar (or right-click "This PC" and select "Map network drive")
+- Choose an available drive letter (e.g., Z:, S:, or T:)
+- Check "Reconnect at sign-in" to keep the drive mapped after restarts
+
+Step 3: Enter the network path.
+- In the Folder field, enter the network path provided by your team or IT (e.g., \\fileserver\department\teamfolder)
+- If you do not know the path, ask your manager or check the team documentation on the intranet
+- Click "Finish" to connect
+
+Step 4: Enter your credentials if prompted.
+- Enter your corporate username in the format DOMAIN\username or username@company.com
+- Enter your corporate password
+- Check "Remember my credentials" to avoid re-entering them each time
+
+Step 5: Troubleshoot access denied errors.
+- Verify you have permission to access the shared folder (check with the folder owner or your manager)
+- Submit an access request via the IT Helpdesk portal if you need new permissions
+- Try disconnecting and remapping the drive if it was previously working
+- Restart your computer and try again if the drive shows a red "X" icon
+- Contact IT Helpdesk if the issue persists
+
+Expected Resolution Time: Within 15 minutes for self-service; 1-3 business days if access permissions are needed.

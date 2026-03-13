@@ -1,0 +1,46 @@
+Title: How to Connect via Remote Desktop (RDP) or VDI
+Category: Network/Connectivity
+Tags: remote desktop, RDP, VDI, virtual desktop, remote access, connection, work from home
+
+Problem:
+You need to connect to a remote desktop or virtual desktop infrastructure (VDI) to access your work environment from a remote location.
+
+Symptoms:
+- Need to access a work computer or virtual desktop from home or while traveling
+- "Remote Desktop can't connect to the remote computer" error message
+- VDI client not launching or showing a black screen
+- Connection drops or is extremely slow during remote sessions
+
+Steps to Resolve:
+
+Step 1: Connect to the corporate VPN first.
+- Remote desktop access requires an active VPN connection to the corporate network
+- Open your VPN client and connect using your corporate credentials
+- Verify the VPN connection is active before proceeding
+- See article 02-vpn-connection-issues if you have trouble connecting to VPN
+
+Step 2: Open the Remote Desktop application.
+- On Windows: search for "Remote Desktop Connection" in the Start menu or run mstsc.exe
+- On Mac: download and open "Microsoft Remote Desktop" from the App Store
+- For VDI: open the company VDI client (e.g., Citrix Workspace, VMware Horizon) from your applications
+
+Step 3: Enter the remote computer name.
+- In the Remote Desktop app, enter the computer name or IP address provided by IT (e.g., WORKSTATION-12345 or vdi.company.com)
+- For VDI, select your assigned virtual desktop from the available desktops list
+- Click "Connect" to initiate the session
+- If you do not know the computer name, check your IT provisioning email or contact IT Helpdesk
+
+Step 4: Authenticate with your credentials.
+- Enter your corporate username in the format DOMAIN\username or username@company.com
+- Enter your corporate password
+- Complete MFA verification if prompted
+- Accept any certificate warnings for the corporate remote desktop gateway
+
+Step 5: Troubleshoot connection issues.
+- If the connection fails, verify your VPN is still connected
+- Check that the remote computer is powered on and not in sleep mode
+- Try restarting the Remote Desktop or VDI client application
+- Reduce display quality settings if the connection is slow (Options > Display > Colors: select "High Color 16-bit")
+- Contact IT Helpdesk if you are unable to connect after following these steps
+
+Expected Resolution Time: Within 15 minutes for self-service; within 1 hour with IT assistance.

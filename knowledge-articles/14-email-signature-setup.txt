@@ -1,0 +1,41 @@
+Title: How to Set Up or Update Your Corporate Email Signature
+Category: Software
+Tags: email signature, Outlook, signature template, corporate branding, contact information
+
+Problem:
+You need to create or update your email signature in Outlook to match the corporate standard format.
+
+Symptoms:
+- No email signature is configured and outgoing emails appear unprofessional
+- Email signature is outdated with old title, phone number, or department
+- New employee needs to set up a corporate email signature for the first time
+- Signature formatting looks different from the company template
+
+Steps to Resolve:
+
+Step 1: Open Outlook signature settings.
+- In Outlook desktop: go to File > Options > Mail > Signatures
+- In Outlook on the web: go to Settings (gear icon) > View all Outlook settings > Mail > Compose and reply
+- You will see options to create or edit email signatures
+
+Step 2: Navigate to the signatures section.
+- Click "New" to create a new signature or select an existing one to edit
+- Give your signature a descriptive name (e.g., "Corporate Standard")
+- Set this signature as the default for new messages and replies/forwards
+
+Step 3: Use the company template.
+- Find the approved email signature template on the company intranet under "Brand Resources"
+- Copy the template and paste it into the signature editor
+- The template includes the standard layout, fonts, and company logo
+
+Step 4: Add your personal details.
+- Replace the placeholder text with your information:
+  - Full name
+  - Job title
+  - Department
+  - Phone number (direct line and mobile if applicable)
+  - Email address
+- Do not modify the template layout, colors, or logo
+- Click "Save" when finished and send a test email to yourself to verify the formatting
+
+Expected Resolution Time: 10 minutes for self-service setup.

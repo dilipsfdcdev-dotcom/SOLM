@@ -1,0 +1,45 @@
+Title: How to Fix External Monitor or Display Issues
+Category: Hardware
+Tags: monitor, display, external monitor, dual monitor, resolution, HDMI, DisplayPort, screen
+
+Problem:
+Your external monitor is not being detected, the display resolution is incorrect, or you need help setting up a dual monitor configuration.
+
+Symptoms:
+- External monitor shows "No signal" or remains black when connected
+- Display resolution is too low, too high, or text appears blurry
+- Second monitor is detected but shows a duplicate instead of an extended display
+- Laptop screen goes blank when external monitor is connected
+
+Steps to Resolve:
+
+Step 1: Check cables and connections.
+- Ensure the video cable (HDMI, DisplayPort, USB-C, or VGA) is securely connected at both ends
+- Try a different cable to rule out a faulty cable
+- If using a docking station or adapter, confirm it is properly connected and powered
+- Verify the monitor is powered on and set to the correct input source
+
+Step 2: Detect the display in system settings.
+- On Windows: right-click the desktop > Display settings > click "Detect"
+- On Mac: go to System Preferences > Displays > hold the Option key and click "Detect Displays"
+- If the monitor appears, proceed to configure it in the next steps
+- If it does not appear, try disconnecting and reconnecting the cable
+
+Step 3: Update display drivers.
+- On Windows: open Device Manager > Display adapters, right-click your graphics adapter, and select "Update driver"
+- Select "Search automatically for drivers" and allow Windows to find and install updates
+- Restart your computer after the driver update completes
+- Check the laptop manufacturer website for the latest graphics driver if Windows does not find one
+
+Step 4: Adjust the resolution.
+- On Windows: go to Settings > System > Display, select the external monitor, and choose the recommended resolution
+- On Mac: go to System Preferences > Displays and select "Default for display" or choose a specific resolution
+- If text appears blurry, ensure the resolution matches the monitor's native resolution (check the monitor manual)
+
+Step 5: Configure display arrangement.
+- On Windows: in Display settings, select how you want the displays arranged — "Extend these displays" for dual monitor or "Duplicate these displays" for mirroring
+- Drag and drop the monitor icons to match the physical arrangement on your desk
+- On Mac: in Displays preferences, go to the "Arrangement" tab and drag the displays into position
+- Click "Apply" and verify both screens are working as expected
+
+Expected Resolution Time: Within 30 minutes for self-service troubleshooting.

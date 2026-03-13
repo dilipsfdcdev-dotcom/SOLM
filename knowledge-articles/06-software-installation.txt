@@ -1,0 +1,39 @@
+Title: How to Request and Install Approved Software
+Category: Software
+Tags: software, installation, request, approved software, self-service, applications
+
+Problem:
+You need to install software on your corporate device and want to know the approved process for requesting and installing it.
+
+Symptoms:
+- Need a specific application for your work that is not currently installed
+- "Administrator privileges required" error when trying to install software
+- Unsure which software is approved for use on company devices
+
+Steps to Resolve:
+
+Step 1: Check the software catalog.
+- Open the Company Self-Service Portal from your Start menu or Applications folder
+- Browse the list of pre-approved software available for immediate installation
+- Use the search function to find the specific application you need
+- If the software is listed, proceed to Step 3
+
+Step 2: Submit a software request for unlisted applications.
+- If the software is not in the catalog, submit a request via the IT Helpdesk portal
+- Select "Software Request" and provide the software name, version, and business justification
+- Include a link to the vendor website and any licensing information
+- The request will go through a security review and manager approval process (3-5 business days)
+
+Step 3: Manager approval.
+- All software requests require manager approval for licensing and budget purposes
+- Pre-approved catalog software may have automatic approval for standard roles
+- Non-standard requests will require additional justification and security review
+- You will be notified via email once the request is approved or denied
+
+Step 4: Install the software.
+- For self-service portal software: click "Install" next to the application in the portal and follow the prompts
+- For IT-assisted installation: IT will schedule a remote session or push the software to your device
+- Do not download software from external websites without IT approval
+- After installation, verify the application works correctly and report any issues
+
+Expected Resolution Time: Immediate for catalog software; 3-5 business days for new requests.

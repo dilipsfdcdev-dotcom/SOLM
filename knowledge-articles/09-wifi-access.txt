@@ -1,0 +1,41 @@
+Title: How to Connect to Corporate or Guest WiFi
+Category: Network/Connectivity
+Tags: WiFi, wireless, corporate network, guest WiFi, connection dropping, network
+
+Problem:
+You need to connect to the corporate or guest WiFi network, or your WiFi connection keeps dropping.
+
+Symptoms:
+- Cannot find the corporate WiFi network in available networks
+- "Unable to connect" error when selecting the WiFi network
+- WiFi connects but drops frequently or has no internet access
+- Guest or visitor needs temporary WiFi access
+
+Steps to Resolve:
+
+Step 1: Select the correct network.
+- Corporate employees: connect to "CORP-SECURE" (requires corporate credentials)
+- Guests and visitors: connect to "CORP-GUEST" (requires a guest access code from reception)
+- Do not connect to unknown or unsecured networks on company premises
+
+Step 2: Enter your credentials.
+- For CORP-SECURE: enter your corporate username (email) and password when prompted
+- For CORP-GUEST: enter the temporary access code provided by your host or reception
+- Accept the certificate prompt if one appears during connection
+
+Step 3: Forget and rejoin the network if you cannot connect.
+- On Windows: go to Settings > Network & Internet > WiFi > Manage known networks, find the network, and click "Forget"
+- On Mac: go to System Preferences > Network > WiFi > Advanced, select the network, and click the minus button
+- Reconnect to the network and enter your credentials again
+
+Step 4: Check airplane mode and WiFi toggle.
+- Ensure airplane mode is turned off
+- Verify the WiFi toggle is turned on in your system settings
+- On laptops, check for a physical WiFi switch or function key (e.g., Fn+F2)
+
+Step 5: Update network drivers.
+- On Windows: open Device Manager > Network adapters, right-click your WiFi adapter, and select "Update driver"
+- Restart your computer after updating the driver
+- If the issue persists, contact IT Helpdesk for further troubleshooting
+
+Expected Resolution Time: Within 15 minutes for self-service; within 1 hour with IT assistance.

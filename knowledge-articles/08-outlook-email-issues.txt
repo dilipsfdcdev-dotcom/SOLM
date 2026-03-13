@@ -1,0 +1,45 @@
+Title: How to Troubleshoot Outlook Email Issues
+Category: Software
+Tags: Outlook, email, not sending, not receiving, sync, out-of-office, mail
+
+Problem:
+Outlook is not sending or receiving emails, is experiencing sync issues, or you need help configuring out-of-office replies.
+
+Symptoms:
+- Emails stuck in the Outbox and not sending
+- Not receiving new emails or inbox not updating
+- "Disconnected" or "Trying to connect" status in the Outlook footer
+- Calendar or contacts not syncing across devices
+
+Steps to Resolve:
+
+Step 1: Check your internet connection.
+- Confirm you can access websites in your browser
+- If on VPN, verify the VPN connection is active and stable
+- Look at the Outlook status bar at the bottom — it should say "Connected to: Microsoft Exchange"
+
+Step 2: Restart Outlook.
+- Close Outlook completely (check the system tray to ensure it is fully closed)
+- Wait 10 seconds, then reopen Outlook
+- Check if emails begin sending and receiving normally
+
+Step 3: Repair your Outlook profile.
+- Go to File > Account Settings > Account Settings
+- Select your email account and click "Repair"
+- Follow the prompts to let Outlook reconfigure your connection
+- Restart Outlook after the repair completes
+
+Step 4: Clear the Outlook cache.
+- Close Outlook completely
+- On Windows: navigate to %localappdata%\Microsoft\Outlook\RoamCache
+- Delete all files in the RoamCache folder
+- Reopen Outlook and allow it to rebuild the cache (this may take several minutes)
+
+Step 5: Reconfigure your account if the issue persists.
+- Go to File > Account Settings > Account Settings
+- Remove the existing email account
+- Add the account again using your corporate email address
+- Outlook will auto-detect Exchange settings and reconfigure
+- Contact IT Helpdesk if auto-configuration fails
+
+Expected Resolution Time: Within 1 hour during business hours.
