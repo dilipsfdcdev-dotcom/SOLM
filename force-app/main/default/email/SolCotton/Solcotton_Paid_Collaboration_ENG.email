@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <style type="text/css">
+    body { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0 !important; padding:20px; background:#EFEFEF; font-family:Arial, Helvetica, sans-serif; }
+    table td { border-collapse:collapse; }
+    img { display:block; border:none; outline:none; }
+    a { text-decoration:none; }
+    @media only screen and (max-width:480px){
+      .container{ width:100% !important; }
+      img{ max-width:100% !important; height:auto !important; }
+      body{ font-size:16px !important; line-height:150% !important; padding:0 !important; }
+      .content{ text-align:left !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div style="font-size:0; line-height:0;">
+    <custom name="opencounter" type="tracking"><custom name="usermatch" type="tracking" />
+  </div>
+
+  <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr><td align="center">
+
+      <table role="presentation" width="600" border="0" cellspacing="0" cellpadding="0" class="container" style="background:#FFFFFF;">
+
+        <!-- LOGO -->
+        <tr>
+          <td align="center" style="padding:16px 10px 0;">
+            <img src="https://solmillenium2.my.salesforce-sites.com/resource/SolcottonHeading0" width="160" alt="SolCotton">
+          </td>
+        </tr>
+
+        <!-- MESSAGE -->
+        <tr>
+          <td style="padding:20px; text-align:center; font-size:14px; line-height:150%; color:#181818;">
+            Hi {!Lead.FirstName},<br><br>
+            Thank you so much for reaching out and for your interest in collaborating with SolCotton. We'd be delighted to explore a paid partnership with you, your aesthetic and values align beautifully with our brand.<br><br>
+            To help us tailor the collaboration, could you please share:<br>
+            - Your latest audience and engagement statistics<br>
+            - Your preferred content formats (story, reel, post, video, etc.)<br>
+            - Your rate card or media kit<br>
+            - Your upcoming availability for posting<br><br>
+            Once we have this information, we'll get back to you quickly with a tailored proposal.<br><br>
+            Looking forward to working together.<br><br>
+            With softness and care,<br><br>
+            The SolCotton team
+          </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+          <td style="padding:24px 24px 24px;">
+
+            <!-- FOOTER IMAGE -->
+            <div style="text-align:center; padding-bottom:16px;">
+              <img src="https://solmillenium2.my.salesforce-sites.com/resource/Solcottonfooter" width="600" alt="SolCotton">
+            </div>
+
+            <!-- TAGLINE + WEBSITE -->
+            <div style="text-align:center; font-size:14px; padding-bottom:18px;">
+              <span style="font-size:13px; color:#000; font-style:italic;">
+                Guided by purpose & inspired by simplicity
+              </span>
+              <br>
+              <a href="https://solcotton.com/" target="_blank"
+                style="color:#0066CC; text-decoration:underline; font-size:14px;">
+                www.solcotton.com
+              </a>
+            </div>
+            <br>
+            <!-- FOLLOW US INLINE -->
+            <div style="text-align:center; font-size:13px; color:#000; padding-bottom:10px;">
+
+              <span style="vertical-align:middle;">Follow us:&nbsp;&nbsp;</span>
+
+              <a href="https://www.instagram.com/solcotton.fr/" target="_blank" style="display:inline-block;">
+                <img src="https://solmillenium2.my.salesforce-sites.com/resource/instalogo" width="22" height="22" alt="Instagram" style="vertical-align:middle;">
+              </a>&nbsp;&nbsp;
+
+              <a href="https://www.facebook.com/profile.php?id=61575728411505" target="_blank" style="display:inline-block;">
+                <img src="https://solmillenium2.my.salesforce-sites.com/resource/fblogo" width="22" height="22" alt="Facebook" style="vertical-align:middle;">
+              </a>&nbsp;&nbsp;
+
+              <a href="https://www.tiktok.com/@solcottonfrance" target="_blank" style="display:inline-block;">
+                <img src="https://solmillenium2.my.salesforce-sites.com/resource/tiktoklogo" width="22" height="22" alt="TikTok" style="vertical-align:middle;">
+              </a>
+
+            </div>
+
+
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+
+    <tr><td><custom type="footer" /></td></tr>
+  </table>
+</body>
+</html>
