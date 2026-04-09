@@ -7,14 +7,14 @@
     <status>Active</status>
 
     <variables>
-        <n>contactId</n>
+        <name>contactId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>urgentCaseList</n>
+        <name>urgentCaseList</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -22,7 +22,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>criticalCases</n>
+        <name>criticalCases</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -30,7 +30,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>highCases</n>
+        <name>highCases</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -38,7 +38,7 @@
         <objectType>Case</objectType>
     </variables>
     <variables>
-        <n>urgentCount</n>
+        <name>urgentCount</name>
         <dataType>Number</dataType>
         <scale>0</scale>
         <isCollection>false</isCollection>
@@ -53,8 +53,65 @@
         <connector><targetReference>Get_Critical_Cases</targetReference></connector>
     </start>
 
+    <assignments>
+        <name>Add_Critical_To_List</name>
+        <label>Add Critical Case to Output</label>
+        <locationX>800</locationX>
+        <locationY>150</locationY>
+        <assignmentItems>
+            <assignToReference>urgentCaseList</assignToReference>
+            <operator>Add</operator>
+            <value><elementReference>Combine_Urgent_Lists</elementReference></value>
+        </assignmentItems>
+        <connector><targetReference>Combine_Urgent_Lists</targetReference></connector>
+    </assignments>
+    <assignments>
+        <name>Add_High_To_List</name>
+        <label>Add High Case to Output</label>
+        <locationX>800</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>urgentCaseList</assignToReference>
+            <operator>Add</operator>
+            <value><elementReference>Loop_High_Cases</elementReference></value>
+        </assignmentItems>
+        <connector><targetReference>Loop_High_Cases</targetReference></connector>
+    </assignments>
+    <assignments>
+        <name>Set_Urgent_Count</name>
+        <label>Set Urgent Count</label>
+        <locationX>1000</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>urgentCount</assignToReference>
+            <operator>AssignCount</operator>
+            <value><elementReference>urgentCaseList</elementReference></value>
+        </assignmentItems>
+    </assignments>
+
+    <loops>
+        <name>Combine_Urgent_Lists</name>
+        <label>Add Critical Cases to Urgent List</label>
+        <locationX>600</locationX>
+        <locationY>150</locationY>
+        <collectionReference>criticalCases</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector><targetReference>Add_Critical_To_List</targetReference></nextValueConnector>
+        <noMoreValuesConnector><targetReference>Loop_High_Cases</targetReference></noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Loop_High_Cases</name>
+        <label>Add High Cases to Urgent List</label>
+        <locationX>600</locationX>
+        <locationY>350</locationY>
+        <collectionReference>highCases</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector><targetReference>Add_High_To_List</targetReference></nextValueConnector>
+        <noMoreValuesConnector><targetReference>Set_Urgent_Count</targetReference></noMoreValuesConnector>
+    </loops>
+
     <recordLookups>
-        <n>Get_Critical_Cases</n>
+        <name>Get_Critical_Cases</name>
         <label>Get Critical Open Cases</label>
         <locationX>200</locationX>
         <locationY>150</locationY>
@@ -91,9 +148,8 @@
         <sortOrder>Asc</sortOrder>
         <limit>25</limit>
     </recordLookups>
-
     <recordLookups>
-        <n>Get_High_Cases</n>
+        <name>Get_High_Cases</name>
         <label>Get High Priority Open Cases</label>
         <locationX>400</locationX>
         <locationY>150</locationY>
@@ -130,62 +186,4 @@
         <sortOrder>Asc</sortOrder>
         <limit>25</limit>
     </recordLookups>
-
-    <!-- Merge collections: add criticalCases to urgentCaseList, then highCases -->
-    <loops>
-        <n>Combine_Urgent_Lists</n>
-        <label>Add Critical Cases to Urgent List</label>
-        <locationX>600</locationX>
-        <locationY>150</locationY>
-        <collectionReference>criticalCases</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector><targetReference>Add_Critical_To_List</targetReference></nextValueConnector>
-        <noMoreValuesConnector><targetReference>Loop_High_Cases</targetReference></noMoreValuesConnector>
-    </loops>
-    <assignments>
-        <n>Add_Critical_To_List</n>
-        <label>Add Critical Case to Output</label>
-        <locationX>800</locationX>
-        <locationY>150</locationY>
-        <assignmentItems>
-            <assignToReference>urgentCaseList</assignToReference>
-            <operator>Add</operator>
-            <value><elementReference>Combine_Urgent_Lists</elementReference></value>
-        </assignmentItems>
-        <connector><targetReference>Combine_Urgent_Lists</targetReference></connector>
-    </assignments>
-    <loops>
-        <n>Loop_High_Cases</n>
-        <label>Add High Cases to Urgent List</label>
-        <locationX>600</locationX>
-        <locationY>350</locationY>
-        <collectionReference>highCases</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector><targetReference>Add_High_To_List</targetReference></nextValueConnector>
-        <noMoreValuesConnector><targetReference>Set_Urgent_Count</targetReference></noMoreValuesConnector>
-    </loops>
-    <assignments>
-        <n>Add_High_To_List</n>
-        <label>Add High Case to Output</label>
-        <locationX>800</locationX>
-        <locationY>350</locationY>
-        <assignmentItems>
-            <assignToReference>urgentCaseList</assignToReference>
-            <operator>Add</operator>
-            <value><elementReference>Loop_High_Cases</elementReference></value>
-        </assignmentItems>
-        <connector><targetReference>Loop_High_Cases</targetReference></connector>
-    </assignments>
-
-    <assignments>
-        <n>Set_Urgent_Count</n>
-        <label>Set Urgent Count</label>
-        <locationX>1000</locationX>
-        <locationY>350</locationY>
-        <assignmentItems>
-            <assignToReference>urgentCount</assignToReference>
-            <operator>AssignCount</operator>
-            <value><elementReference>urgentCaseList</elementReference></value>
-        </assignmentItems>
-    </assignments>
 </Flow>

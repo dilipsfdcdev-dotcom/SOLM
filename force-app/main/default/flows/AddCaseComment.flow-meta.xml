@@ -7,21 +7,21 @@
     <status>Active</status>
 
     <variables>
-        <n>caseId</n>
+        <name>caseId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>commentBody</n>
+        <name>commentBody</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <n>isPublic</n>
+        <name>isPublic</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
@@ -29,14 +29,14 @@
         <value><booleanValue>true</booleanValue></value>
     </variables>
     <variables>
-        <n>commentId</n>
+        <name>commentId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>true</isOutput>
     </variables>
     <variables>
-        <n>isSuccess</n>
+        <name>isSuccess</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -44,14 +44,14 @@
         <value><booleanValue>false</booleanValue></value>
     </variables>
     <variables>
-        <n>errorMessage</n>
+        <name>errorMessage</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>true</isOutput>
     </variables>
     <variables>
-        <n>newComment</n>
+        <name>newComment</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -65,15 +65,76 @@
         <connector><targetReference>Validate_Inputs</targetReference></connector>
     </start>
 
+    <assignments>
+        <name>Assign_Comment_Fields</name>
+        <label>Assign Comment Fields</label>
+        <locationX>400</locationX>
+        <locationY>150</locationY>
+        <assignmentItems>
+            <assignToReference>newComment.ParentId</assignToReference>
+            <operator>Assign</operator>
+            <value><elementReference>caseId</elementReference></value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newComment.CommentBody</assignToReference>
+            <operator>Assign</operator>
+            <value><elementReference>commentBody</elementReference></value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>newComment.IsPublished</assignToReference>
+            <operator>Assign</operator>
+            <value><elementReference>isPublic</elementReference></value>
+        </assignmentItems>
+        <connector><targetReference>Create_Comment</targetReference></connector>
+    </assignments>
+    <assignments>
+        <name>Set_Success</name>
+        <label>Set Success</label>
+        <locationX>800</locationX>
+        <locationY>150</locationY>
+        <assignmentItems>
+            <assignToReference>commentId</assignToReference>
+            <operator>Assign</operator>
+            <value><elementReference>Create_Comment</elementReference></value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>isSuccess</assignToReference>
+            <operator>Assign</operator>
+            <value><booleanValue>true</booleanValue></value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Validation_Error</name>
+        <label>Set Validation Error</label>
+        <locationX>200</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>errorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value><stringValue>Case ID and comment body are required to add a comment.</stringValue></value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Create_Error</name>
+        <label>Set Create Error</label>
+        <locationX>600</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>errorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value><elementReference>$Flow.FaultMessage</elementReference></value>
+        </assignmentItems>
+    </assignments>
+
     <decisions>
-        <n>Validate_Inputs</n>
+        <name>Validate_Inputs</name>
         <label>Validate Inputs</label>
         <locationX>200</locationX>
         <locationY>150</locationY>
         <defaultConnectorLabel>Missing Required Fields</defaultConnectorLabel>
         <defaultConnector><targetReference>Set_Validation_Error</targetReference></defaultConnector>
         <rules>
-            <n>Inputs_Valid</n>
+            <name>Inputs_Valid</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>caseId</leftValueReference>
@@ -95,77 +156,13 @@
         </rules>
     </decisions>
 
-    <assignments>
-        <n>Assign_Comment_Fields</n>
-        <label>Assign Comment Fields</label>
-        <locationX>400</locationX>
-        <locationY>150</locationY>
-        <assignmentItems>
-            <assignToReference>newComment.ParentId</assignToReference>
-            <operator>Assign</operator>
-            <value><elementReference>caseId</elementReference></value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>newComment.CommentBody</assignToReference>
-            <operator>Assign</operator>
-            <value><elementReference>commentBody</elementReference></value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>newComment.IsPublished</assignToReference>
-            <operator>Assign</operator>
-            <value><elementReference>isPublic</elementReference></value>
-        </assignmentItems>
-        <connector><targetReference>Create_Comment</targetReference></connector>
-    </assignments>
-
     <recordCreates>
-        <n>Create_Comment</n>
+        <name>Create_Comment</name>
         <label>Create Case Comment</label>
         <locationX>600</locationX>
         <locationY>150</locationY>
         <connector><targetReference>Set_Success</targetReference></connector>
         <faultConnector><targetReference>Set_Create_Error</targetReference></faultConnector>
         <inputReference>newComment</inputReference>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
-
-    <assignments>
-        <n>Set_Success</n>
-        <label>Set Success</label>
-        <locationX>800</locationX>
-        <locationY>150</locationY>
-        <assignmentItems>
-            <assignToReference>commentId</assignToReference>
-            <operator>Assign</operator>
-            <value><elementReference>Create_Comment</elementReference></value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>isSuccess</assignToReference>
-            <operator>Assign</operator>
-            <value><booleanValue>true</booleanValue></value>
-        </assignmentItems>
-    </assignments>
-
-    <assignments>
-        <n>Set_Validation_Error</n>
-        <label>Set Validation Error</label>
-        <locationX>200</locationX>
-        <locationY>350</locationY>
-        <assignmentItems>
-            <assignToReference>errorMessage</assignToReference>
-            <operator>Assign</operator>
-            <value><stringValue>Case ID and comment body are required to add a comment.</stringValue></value>
-        </assignmentItems>
-    </assignments>
-    <assignments>
-        <n>Set_Create_Error</n>
-        <label>Set Create Error</label>
-        <locationX>600</locationX>
-        <locationY>350</locationY>
-        <assignmentItems>
-            <assignToReference>errorMessage</assignToReference>
-            <operator>Assign</operator>
-            <value><elementReference>$Flow.FaultMessage</elementReference></value>
-        </assignmentItems>
-    </assignments>
 </Flow>

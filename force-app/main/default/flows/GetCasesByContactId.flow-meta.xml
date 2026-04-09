@@ -6,17 +6,13 @@
     <processType>AutoLaunchedFlow</processType>
     <status>Active</status>
 
-    <!-- INPUT VARIABLES -->
     <variables>
         <name>contactId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
-        <description>ContactId of the authenticated user from the messaging session.</description>
     </variables>
-
-    <!-- OUTPUT VARIABLES -->
     <variables>
         <name>caseList</name>
         <dataType>SObject</dataType>
@@ -24,7 +20,6 @@
         <isInput>false</isInput>
         <isOutput>true</isOutput>
         <objectType>Case</objectType>
-        <description>List of case records belonging to the contact.</description>
     </variables>
     <variables>
         <name>totalCount</name>
@@ -33,7 +28,6 @@
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>true</isOutput>
-        <description>Total number of cases found.</description>
     </variables>
     <variables>
         <name>errorMessage</name>
@@ -41,10 +35,8 @@
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>true</isOutput>
-        <description>Error message if something goes wrong.</description>
     </variables>
 
-    <!-- START -->
     <start>
         <locationX>50</locationX>
         <locationY>50</locationY>
@@ -53,7 +45,29 @@
         </connector>
     </start>
 
-    <!-- DECISION: Validate ContactId -->
+    <assignments>
+        <name>Count_Cases</name>
+        <label>Count Cases</label>
+        <locationX>600</locationX>
+        <locationY>150</locationY>
+        <assignmentItems>
+            <assignToReference>totalCount</assignToReference>
+            <operator>AssignCount</operator>
+            <value><elementReference>caseList</elementReference></value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Error_Missing_ContactId</name>
+        <label>Set Error - Missing ContactId</label>
+        <locationX>200</locationX>
+        <locationY>300</locationY>
+        <assignmentItems>
+            <assignToReference>errorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value><stringValue>ContactId is required to retrieve cases.</stringValue></value>
+        </assignmentItems>
+    </assignments>
+
     <decisions>
         <name>Validate_ContactId</name>
         <label>Validate ContactId</label>
@@ -83,7 +97,6 @@
         </rules>
     </decisions>
 
-    <!-- RECORD LOOKUP: Get Cases -->
     <recordLookups>
         <name>Get_Cases_By_Contact</name>
         <label>Get Cases By Contact</label>
@@ -116,59 +129,4 @@
         <sortOrder>Desc</sortOrder>
         <limit>50</limit>
     </recordLookups>
-
-    <!-- ASSIGNMENT: Count Cases -->
-    <assignments>
-        <name>Count_Cases</name>
-        <label>Count Cases</label>
-        <locationX>600</locationX>
-        <locationY>150</locationY>
-        <assignmentItems>
-            <assignToReference>totalCount</assignToReference>
-            <operator>AssignCount</operator>
-            <value><elementReference>caseList</elementReference></value>
-        </assignmentItems>
-        <connector>
-            <targetReference>End_Success</targetReference>
-        </connector>
-    </assignments>
-
-    <!-- ASSIGNMENT: Set Error -->
-    <assignments>
-        <name>Set_Error_Missing_ContactId</name>
-        <label>Set Error - Missing ContactId</label>
-        <locationX>200</locationX>
-        <locationY>300</locationY>
-        <assignmentItems>
-            <assignToReference>errorMessage</assignToReference>
-            <operator>Assign</operator>
-            <value><stringValue>ContactId is required to retrieve cases.</stringValue></value>
-        </assignmentItems>
-        <connector>
-            <targetReference>End_Error</targetReference>
-        </connector>
-    </assignments>
-
-    <screens>
-        <name>End_Success</name>
-        <label>End Success</label>
-        <locationX>800</locationX>
-        <locationY>150</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <showFooter>false</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>End_Error</name>
-        <label>End Error</label>
-        <locationX>200</locationX>
-        <locationY>450</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <showFooter>false</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
 </Flow>
